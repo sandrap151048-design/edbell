@@ -11,8 +11,11 @@ const MAX_REQUESTS = 100; // 100 requests per minute
 export function middleware(request: NextRequest) {
   const response = NextResponse.next();
 
-  // Get client IP
-  const ip = request.ip || request.headers.get('x-forwarded-for') || 'unknown';
+  // Get client IP (Vercel-compatible)
+  const ip = 
+    request.headers.get('x-real-ip') ||
+    request.headers.get('x-forwarded-for')?.split(',')[0] ||
+    'unknown';
   
   // Rate limiting
   const now = Date.now();
