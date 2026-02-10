@@ -3,7 +3,7 @@
 ## ⚠️ IMMEDIATE ACTIONS REQUIRED
 
 ### 1. Change MongoDB Password (CRITICAL!)
-Current password `edbell123` is **WEAK** and **EXPOSED**!
+Your MongoDB password needs to be changed immediately!
 
 **Steps**:
 1. Go to [MongoDB Atlas](https://cloud.mongodb.com/)

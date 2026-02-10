@@ -68,7 +68,7 @@ const nextConfig: NextConfig = {
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "font-src 'self' https://fonts.gstatic.com",
               "img-src 'self' data: https: blob:",
-              "connect-src 'self' https://cluster0.8rw8g2z.mongodb.net",
+              "connect-src 'self' https://*.mongodb.net",
               "frame-ancestors 'none'",
             ].join('; '),
           },
