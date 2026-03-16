@@ -177,7 +177,7 @@ const Header = () => {
                     }}
                   />
                 </Link>
-                <button onClick={() => setIsMenuOpen(false)} className="p-3 bg-[var(--surface)] rounded-2xl text-[var(--text-heading)]">
+                <button onClick={() => setIsMenuOpen(false)} className="p-3 bg-white/5 hover:bg-white/10 rounded-2xl text-white transition-colors">
                   <X className="h-6 w-6" />
                 </button>
               </div>
@@ -188,7 +188,7 @@ const Header = () => {
                     key={item.name}
                     href={item.href}
                     onClick={() => setIsMenuOpen(false)}
-                    className="text-2xl font-black text-[#1F2937] hover:text-[#2563EB] transition-colors tracking-tighter uppercase"
+                    className="text-2xl font-black text-white hover:text-[#2563EB] transition-colors tracking-tighter uppercase"
                   >
                     {item.name}
                   </Link>
