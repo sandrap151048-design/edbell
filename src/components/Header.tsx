@@ -73,12 +73,22 @@ const Header = () => {
       <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
         <div className="flex justify-between items-center">
           {/* Logo Cluster */}
-          <Link href="/" className="flex items-center space-x-3 group relative z-10 transition-all hover:scale-105">
-            <div className="absolute -inset-4 bg-blue-600/20 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <div className="w-10 h-10 lg:w-14 lg:h-14 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-600/30 transform group-hover:rotate-12 transition-transform">
-              <Sparkles className="h-6 w-6 lg:h-8 lg:w-8 text-white animate-pulse" />
+          <Link href="/" className="flex items-center group relative z-10 transition-all hover:scale-105">
+            <div className="absolute -inset-4 bg-blue-600/10 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <div className="relative h-10 w-10 lg:h-14 lg:w-14 flex items-center justify-center">
+              <img 
+                src="/edbell-logo.png" 
+                alt="EDBELL" 
+                className="h-full w-auto object-contain brightness-110 contrast-110 drop-shadow-[0_0_15px_rgba(37,99,235,0.3)]"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                  const nextLevel = e.currentTarget.parentElement?.nextElementSibling;
+                  if (nextLevel) (nextLevel as HTMLElement).style.display = 'flex';
+                }}
+              />
             </div>
-            <div className="flex flex-col">
+            {/* Fallback text - only shown if image fails */}
+            <div className="hidden flex-col ml-3">
               <span className={`text-xl lg:text-3xl font-black tracking-tighter leading-none transition-colors ${isScrolled ? 'text-gray-900' : 'text-white'} group-hover:text-blue-600`}>EDBELL</span>
               <span className="text-[8px] lg:text-[10px] font-black text-blue-500 tracking-[0.3em] uppercase opacity-80">Solutions</span>
             </div>

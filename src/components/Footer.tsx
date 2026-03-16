@@ -58,10 +58,23 @@ const Footer = () => {
 
           {/* Brand Engine - Left Aligned */}
           <div className="lg:col-span-5 space-y-8 lg:space-y-10 text-center md:text-left">
-            <Link href="/" className="inline-block">
-              <div className="flex items-center space-x-3 mb-6 justify-center md:justify-start">
-                <Sparkles className="h-8 w-8 text-[var(--primary)] animate-pulse" />
-                <span className="text-3xl font-black text-[var(--text-heading)] tracking-[0.2em]">EDBELL</span>
+            <Link href="/" className="inline-block hover:scale-105 transition-transform duration-300">
+              <div className="flex items-center mb-6 justify-center md:justify-start">
+                <img 
+                  src="/edbell-logo.png" 
+                  alt="EDBELL" 
+                  className="h-12 md:h-16 w-auto object-contain brightness-110 drop-shadow-[0_0_20px_rgba(59,130,246,0.2)]"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    const nextLevel = e.currentTarget.nextElementSibling;
+                    if (nextLevel) (nextLevel as HTMLElement).style.display = 'flex';
+                  }}
+                />
+                {/* Fallback - hidden by default */}
+                <div className="hidden items-center space-x-3">
+                  <Sparkles className="h-8 w-8 text-[var(--primary)] animate-pulse" />
+                  <span className="text-3xl font-black text-[var(--text-heading)] tracking-[0.2em]">EDBELL</span>
+                </div>
               </div>
             </Link>
             <p className="text-lg lg:text-xl text-[var(--text-primary)] font-light leading-relaxed max-w-md mx-auto md:mx-0">

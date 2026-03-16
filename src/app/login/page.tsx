@@ -58,9 +58,21 @@ export default function Login() {
 
       <div className="relative z-10 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center mb-8">
-          <Link href="/" className="flex items-center space-x-3 group">
-            <div className="w-12 h-12 bg-white/[0.03] border border-white/[0.1] rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
-              <ShieldCheck className="h-7 w-7 text-blue-500" />
+          <Link href="/" className="flex items-center space-x-4 group">
+            <div className="relative w-12 h-12 flex items-center justify-center transition-all duration-300 group-hover:scale-110">
+              <img 
+                src="/edbell-logo.png" 
+                alt="EDBELL" 
+                className="w-full h-full object-contain brightness-110 drop-shadow-[0_0_15px_rgba(37,99,235,0.3)]"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                  const fb = e.currentTarget.nextElementSibling;
+                  if (fb) (fb as HTMLElement).style.display = 'block';
+                }}
+              />
+              <div className="hidden bg-white/[0.03] border border-white/[0.1] rounded-2xl p-2.5">
+                <ShieldCheck className="h-7 w-7 text-blue-500" />
+              </div>
             </div>
             <div>
               <h1 className="text-xl sm:text-2xl font-bold text-slate-100 tracking-tight leading-none mb-1">EDBELL</h1>
