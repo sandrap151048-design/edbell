@@ -66,7 +66,7 @@ const Header = () => {
   ];
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 border-b bg-white border-gray-100 ${isScrolled ? 'py-1.5 lg:py-2 shadow-md' : 'py-3 lg:py-4 shadow-sm'}`}>
+    <header className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 border-b bg-white border-gray-100 ${isScrolled ? 'py-2 lg:py-3 shadow-md' : 'py-4 lg:py-6 shadow-sm'}`}>
       <div className="max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
         <div className="flex justify-between items-center">
           {/* Logo Cluster */}
@@ -76,7 +76,7 @@ const Header = () => {
             <img 
               src="/edbell-logo.png" 
               alt="EdBell Edusolutions" 
-              className="h-12 lg:h-14 w-auto object-contain drop-shadow-[0_2px_12px_rgba(37,99,235,0.3)] group-hover:scale-105 transition-transform duration-300"
+              className="h-14 lg:h-20 w-auto object-contain drop-shadow-[0_2px_12px_rgba(37,99,235,0.3)] group-hover:scale-105 transition-transform duration-300"
               onError={(e) => {
                 e.currentTarget.style.display = 'none';
                 const fallback = document.getElementById('logo-fallback-header');
@@ -91,15 +91,15 @@ const Header = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-0.5">
+          <nav className="hidden lg:flex items-center space-x-2 xl:space-x-6">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="relative px-2 xl:px-4 py-2 text-[9px] xl:text-[10px] font-black text-gray-800 hover:text-blue-700 transition-all tracking-[0.1em] xl:tracking-[0.2em] group flex items-center"
+                className="relative px-2 xl:px-3 py-2 text-[9px] xl:text-[10px] font-black text-gray-800 hover:text-blue-700 transition-all tracking-[0.1em] xl:tracking-[0.2em] group flex items-center"
               >
                 <span className="relative z-10">{item.name}</span>
-                <span className="absolute bottom-0 left-2 xl:left-4 right-2 xl:left-4 h-0.5 bg-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-full"></span>
+                <span className="absolute bottom-0 left-2 xl:left-3 right-2 xl:right-3 h-0.5 bg-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-full"></span>
               </Link>
             ))}
           </nav>
@@ -164,7 +164,7 @@ const Header = () => {
                   <img 
                     src="/edbell-logo.png" 
                     alt="EdBell Edusolutions" 
-                    className="h-14 w-auto object-contain"
+                    className="h-16 w-auto object-contain"
                     onError={(e) => {
                       e.currentTarget.style.display = 'none';
                     }}
