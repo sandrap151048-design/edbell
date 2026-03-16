@@ -68,7 +68,7 @@ const Header = () => {
   ];
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 bg-white border-b border-gray-200 ${isScrolled ? 'py-2 lg:py-3 shadow-md' : 'py-4 lg:py-6 shadow-sm'}`}>
+    <header className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 bg-white border-b border-gray-200 ${isScrolled ? 'py-1 lg:py-1.5 shadow-md' : 'py-2 lg:py-3 shadow-sm'}`}>
       <div className="max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
         <div className="flex justify-between items-center">
           {/* Logo Cluster */}
@@ -76,7 +76,7 @@ const Header = () => {
             <img 
               src="/edbell-logo.png" 
               alt="EdBell Edusolutions" 
-              className="h-20 lg:h-32 w-auto object-contain drop-shadow-[0_4px_15px_rgba(37,99,235,0.25)] group-hover:scale-105 transition-transform duration-300"
+              className="h-16 lg:h-24 w-auto object-contain drop-shadow-[0_4px_15px_rgba(37,99,235,0.25)] group-hover:scale-105 transition-transform duration-300"
               onError={(e) => {
                 e.currentTarget.style.display = 'none';
                 const fallback = document.getElementById('logo-fallback-header');
@@ -98,7 +98,7 @@ const Header = () => {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`relative px-2 xl:px-3 py-2 text-[9px] xl:text-[10px] font-black tracking-[0.1em] xl:tracking-[0.2em] transition-all group flex items-center ${
+                  className={`relative px-2 xl:px-3 py-2 text-xs xl:text-sm font-black tracking-[0.05em] xl:tracking-[0.1em] transition-all group flex items-center ${
                     isActive ? 'text-[#2563EB]' : 'text-[#1F2937] hover:text-[#1D4ED8]'
                   }`}
                 >
@@ -134,7 +134,7 @@ const Header = () => {
               <div className="hidden sm:flex items-center space-x-2 sm:space-x-4">
                 <Link
                   href="/login"
-                  className="px-3 sm:px-6 py-2 text-[10px] sm:text-[11px] font-black tracking-widest text-[#1F2937] hover:text-[#2563EB] transition-colors flex items-center outline-none"
+                  className="px-3 sm:px-6 py-2 text-xs sm:text-sm font-black tracking-widest text-[#1F2937] hover:text-[#2563EB] transition-colors flex items-center outline-none"
                 >
                   LOGIN
                 </Link>
@@ -171,7 +171,7 @@ const Header = () => {
                   <img 
                     src="/edbell-logo.png" 
                     alt="EdBell Edusolutions" 
-                    className="h-28 w-auto object-contain"
+                    className="h-24 w-auto object-contain"
                     onError={(e) => {
                       e.currentTarget.style.display = 'none';
                     }}
