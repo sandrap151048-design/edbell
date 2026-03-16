@@ -68,7 +68,7 @@ const Header = () => {
   ];
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 bg-white border-b border-gray-200 ${isScrolled ? 'py-1 lg:py-1.5 shadow-sm' : 'py-2 lg:py-3'}`}>
+    <header className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 bg-white border-b border-gray-200 ${isScrolled ? 'py-2 lg:py-3 shadow-md' : 'py-4 lg:py-6 shadow-sm'}`}>
       <div className="max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
         <div className="flex justify-between items-center">
           {/* Logo Cluster */}
@@ -76,7 +76,7 @@ const Header = () => {
             <img 
               src="/edbell-logo.png" 
               alt="EdBell Edusolutions" 
-              className="h-16 lg:h-24 w-auto object-contain drop-shadow-[0_4px_15px_rgba(37,99,235,0.25)] group-hover:scale-105 transition-transform duration-300"
+              className="h-20 lg:h-32 w-auto object-contain drop-shadow-[0_4px_15px_rgba(37,99,235,0.25)] group-hover:scale-105 transition-transform duration-300"
               onError={(e) => {
                 e.currentTarget.style.display = 'none';
                 const fallback = document.getElementById('logo-fallback-header');
@@ -171,7 +171,7 @@ const Header = () => {
                   <img 
                     src="/edbell-logo.png" 
                     alt="EdBell Edusolutions" 
-                    className="h-24 w-auto object-contain"
+                    className="h-28 w-auto object-contain"
                     onError={(e) => {
                       e.currentTarget.style.display = 'none';
                     }}
