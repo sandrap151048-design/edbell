@@ -33,7 +33,8 @@ import {
   XCircle,
   Award,
   Tag,
-  CheckCircle
+  CheckCircle,
+  RefreshCw
 } from 'lucide-react';
 
 interface Contact {
