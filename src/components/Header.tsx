@@ -74,9 +74,9 @@ const Header = () => {
           {/* Logo Cluster */}
           <Link href="/" className="flex items-center group relative z-10 transition-all">
             <img 
-              src="/edbell-logo.png" 
+              src="/edbell-logo.svg" 
               alt="EdBell Edusolutions" 
-              className="h-16 lg:h-24 w-auto object-contain drop-shadow-[0_4px_15px_rgba(37,99,235,0.25)] group-hover:scale-105 transition-transform duration-300"
+              className="h-16 lg:h-24 w-auto object-contain drop-shadow-[0_4px_15px_rgba(255,255,255,0.1)] group-hover:scale-105 transition-transform duration-300"
               onError={(e) => {
                 e.currentTarget.style.display = 'none';
                 const fallback = document.getElementById('logo-fallback-header');
@@ -169,7 +169,7 @@ const Header = () => {
               <div className="flex justify-between items-center">
                 <Link href="/" onClick={() => setIsMenuOpen(false)} className="flex items-center">
                   <img 
-                    src="/edbell-logo.png" 
+                    src="/edbell-logo.svg" 
                     alt="EdBell Edusolutions" 
                     className="h-24 w-auto object-contain"
                     onError={(e) => {

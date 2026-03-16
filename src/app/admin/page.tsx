@@ -65,6 +65,19 @@ interface Course {
   updatedAt?: string;
 }
 
+interface CourseApplication {
+  _id: string;
+  name: string;
+  email: string;
+  phone: string;
+  password?: string;
+  courseId: string;
+  courseName: string;
+  type: 'apply' | 'enquiry';
+  status: 'new' | 'contacted' | 'admitted' | 'rejected';
+  createdAt: string;
+}
+
 interface University {
   _id?: string;
   name: string;
@@ -129,6 +142,7 @@ export default function AdminDashboard() {
   const [universities, setUniversities] = useState<University[]>([]);
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
+  const [courseApplications, setCourseApplications] = useState<CourseApplication[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedStatus, setSelectedStatus] = useState('all');
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
@@ -249,6 +263,7 @@ export default function AdminDashboard() {
 
   const navigationItems = [
     { id: 'contacts', name: 'Contact Management', icon: <MessageCircle className="h-5 w-5" />, description: 'Manage inquiries and messages' },
+    { id: 'applications', name: 'Course Applications', icon: <GraduationCap className="h-5 w-5" />, description: 'Track course applies & enquiries' },
     { id: 'subscribers', name: 'Newsletter Subscribers', icon: <Mail className="h-5 w-5" />, description: 'Manage newsletter subscriptions' },
     { id: 'hero-images', name: 'Hero Images', icon: <Award className="h-5 w-5" />, description: 'Manage hero section images' },
     { id: 'blogs', name: 'Blog Management', icon: <FileText className="h-5 w-5" />, description: 'Create and manage blog posts' },
@@ -282,6 +297,8 @@ export default function AdminDashboard() {
           fetchBlogs();
         } else if (activeSection === 'gallery') {
           fetchGalleryImages();
+        } else if (activeSection === 'applications') {
+          fetchCourseApplications();
         } else if (activeSection === 'analytics') {
           fetchAnalyticsData();
           fetchContacts(); // Also fetch contacts for the analytics
@@ -343,6 +360,21 @@ export default function AdminDashboard() {
       }
     } catch (error) {
       console.error('Error fetching contacts:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchCourseApplications = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch('/api/courses/apply');
+      const data = await response.json();
+      if (data.success) {
+        setCourseApplications(data.applications);
+      }
+    } catch (error) {
+      console.error('Error fetching course applications:', error);
     } finally {
       setLoading(false);
     }
@@ -1466,6 +1498,271 @@ export default function AdminDashboard() {
               <p className="text-gray-600">Select a contact to view details</p>
             </div>
           )}
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderApplicationsSection = () => (
+    <div className="space-y-8">
+      {/* Header Stats */}
+      <div className="bg-[#050B14] rounded-lg shadow-2xl border border-white/5">
+        <div className="p-6 border-b border-white/5 bg-gradient-to-r from-blue-900/10 to-indigo-900/10">
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-2xl font-bold text-white">Course Applications</h2>
+              <p className="text-slate-400 mt-1">Manage student enrollment requests and course enquiries</p>
+            </div>
+            <div className="flex items-center space-x-4">
+              <button
+                onClick={fetchCourseApplications}
+                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center space-x-2 transition-all"
+              >
+                <RefreshCw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
+                <span>Refresh</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div className="p-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="bg-white/[0.03] p-6 rounded-2xl border border-white/5">
+              <div className="flex items-center space-x-4">
+                <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center">
+                  <GraduationCap className="h-6 w-6 text-blue-400" />
+                </div>
+                <div>
+                  <p className="text-xs font-black text-slate-500 uppercase tracking-widest">Total Submissions</p>
+                  <h3 className="text-2xl font-black text-white">{courseApplications.length}</h3>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white/[0.03] p-6 rounded-2xl border border-white/5">
+              <div className="flex items-center space-x-4">
+                <div className="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center">
+                  <CheckCircle className="h-6 w-6 text-green-400" />
+                </div>
+                <div>
+                  <p className="text-xs font-black text-slate-500 uppercase tracking-widest">New Applications</p>
+                  <h3 className="text-2xl font-black text-white">
+                    {courseApplications.filter(a => a.type === 'apply').length}
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div className="bg-white/[0.03] p-6 rounded-2xl border border-white/5">
+              <div className="flex items-center space-x-4">
+                <div className="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center">
+                  <MessageCircle className="h-6 w-6 text-purple-400" />
+                </div>
+                <div>
+                  <p className="text-xs font-black text-slate-500 uppercase tracking-widest">Enquiries</p>
+                  <h3 className="text-2xl font-black text-white">
+                    {courseApplications.filter(a => a.type === 'enquiry').length}
+                  </h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
+        {/* List View */}
+        <div className="xl:col-span-2">
+           <div className="bg-[#050B14] rounded-lg shadow-2xl border border-white/5 overflow-hidden">
+             <div className="overflow-x-auto">
+               <table className="w-full text-left border-collapse">
+                 <thead>
+                   <tr className="bg-white/[0.02] border-b border-white/5">
+                     <th className="p-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">Student</th>
+                     <th className="p-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">Course</th>
+                     <th className="p-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">Type</th>
+                     <th className="p-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">Status</th>
+                     <th className="p-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">Date</th>
+                   </tr>
+                 </thead>
+                 <tbody className="divide-y divide-white/5">
+                   {courseApplications.length === 0 ? (
+                     <tr>
+                       <td colSpan={5} className="p-12 text-center text-slate-500 font-medium italic">
+                         No applications or enquiries found.
+                       </td>
+                     </tr>
+                   ) : (
+                     courseApplications.map((app) => (
+                       <tr 
+                         key={app._id} 
+                         onClick={() => setSelectedContact(app as any)} // Reusing selectedContact for state simplicity
+                         className="group hover:bg-white/[0.02] cursor-pointer transition-colors"
+                       >
+                         <td className="p-4">
+                           <div className="flex items-center space-x-3">
+                             <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center text-[10px] font-black text-white">
+                               {app.name.charAt(0)}
+                             </div>
+                             <div>
+                               <p className="text-sm font-bold text-white group-hover:text-blue-400 transition-colors">{app.name}</p>
+                               <p className="text-[10px] text-slate-500 font-medium">{app.email}</p>
+                             </div>
+                           </div>
+                         </td>
+                         <td className="p-4">
+                           <p className="text-xs font-bold text-slate-300 line-clamp-1">{app.courseName}</p>
+                         </td>
+                         <td className="p-4">
+                           <span className={`px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-widest border ${
+                             app.type === 'apply' ? 'bg-blue-500/10 text-blue-400 border-blue-500/20' : 'bg-purple-500/10 text-purple-400 border-purple-500/20'
+                           }`}>
+                             {app.type}
+                           </span>
+                         </td>
+                         <td className="p-4">
+                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tight">{app.status}</span>
+                         </td>
+                         <td className="p-4">
+                            <p className="text-[10px] font-bold text-slate-500">{new Date(app.createdAt).toLocaleDateString()}</p>
+                         </td>
+                       </tr>
+                     ))
+                   )}
+                 </tbody>
+               </table>
+             </div>
+           </div>
+        </div>
+
+        {/* Sidebar Info */}
+        <div className="xl:col-span-1">
+           {selectedContact && (selectedContact as any).courseId ? (
+             <div className="bg-[#050B14] rounded-lg shadow-2xl border border-blue-500/20 p-6 animate-fade-in sticky top-24">
+                <div className="flex items-center justify-between mb-6">
+                  <h3 className="text-lg font-black text-white uppercase tracking-tight">Applicant Details</h3>
+                  <button onClick={() => setSelectedContact(null)} className="text-slate-500 hover:text-white">
+                    <X className="h-5 w-5" />
+                  </button>
+                </div>
+                
+                <div className="space-y-6">
+                   <div className="bg-white/[0.02] border border-white/5 rounded-2xl p-4">
+                      <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Applying For</p>
+                      <p className="text-sm font-black text-blue-400">{(selectedContact as any).courseName}</p>
+                   </div>
+
+                   <div className="grid grid-cols-1 gap-4">
+                      <div>
+                        <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Full Name</p>
+                        <p className="text-sm font-bold text-white">{selectedContact.name}</p>
+                      </div>
+                      <div>
+                        <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Email</p>
+                        <p className="text-sm font-bold text-white">{selectedContact.email}</p>
+                      </div>
+                      <div>
+                        <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Phone</p>
+                        <p className="text-sm font-bold text-white">{selectedContact.phone || 'N/A'}</p>
+                      </div>
+                      {(selectedContact as any).password && (
+                        <div>
+                          <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Chosen Password</p>
+                          <div className="p-2 bg-yellow-500/10 border border-yellow-500/20 rounded-lg">
+                            <code className="text-xs font-bold text-yellow-400 tracking-widest">{(selectedContact as any).password}</code>
+                          </div>
+                        </div>
+                      )}
+                   </div>
+
+                   <div className="pt-6 border-t border-white/5 space-y-3">
+                       <div className="flex gap-2">
+                           <a href={`mailto:${selectedContact.email}`} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-black uppercase text-[10px] tracking-widest py-3 rounded-xl flex items-center justify-center space-x-2 transition-all">
+                              <Mail className="h-3 w-3" />
+                              <span>Email</span>
+                           </a>
+                           {selectedContact.phone && (
+                             <a href={`tel:${selectedContact.phone}`} className="flex-1 bg-green-600 hover:bg-green-700 text-white font-black uppercase text-[10px] tracking-widest py-3 rounded-xl flex items-center justify-center space-x-2 transition-all">
+                                <Phone className="h-3 w-3" />
+                                <span>Call</span>
+                             </a>
+                           )}
+                       </div>
+                       
+                       {selectedContact.phone && (
+                         <button 
+                           onClick={() => {
+                             const cleanPhone = selectedContact.phone?.replace(/[^\d+]/g, '');
+                             const message = `Hello ${selectedContact.name}, this is EDBELL EDUSOLUTIONS regarding your ${(selectedContact as any).type} for ${(selectedContact as any).courseName}. We would like to discuss this further with you.`;
+                             window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`, '_blank');
+                           }}
+                           className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black uppercase text-[10px] tracking-widest py-3 rounded-xl flex items-center justify-center space-x-2 transition-all"
+                         >
+                           <MessageCircle className="h-3 w-3" />
+                           <span>WhatsApp</span>
+                         </button>
+                       )}
+
+                       <div className="pt-4 border-t border-white/5">
+                          <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">Update Status</p>
+                          <select 
+                            value={selectedContact.status}
+                            onChange={async (e) => {
+                              const newStatus = e.target.value;
+                              try {
+                                const response = await fetch(`/api/courses/apply/${selectedContact._id}`, {
+                                  method: 'PATCH',
+                                  headers: { 'Content-Type': 'application/json' },
+                                  body: JSON.stringify({ status: newStatus })
+                                });
+                                if (response.ok) {
+                                  setSelectedContact({ ...selectedContact, status: newStatus });
+                                  setCourseApplications(courseApplications.map(a => 
+                                    a._id === selectedContact._id ? { ...a, status: newStatus } : a
+                                  ));
+                                  alert('✅ Status updated successfully');
+                                }
+                              } catch (err) {
+                                console.error('Error updating status:', err);
+                              }
+                            }}
+                            className="w-full bg-white/[0.05] border border-white/10 rounded-xl px-4 py-2 text-xs font-bold text-white focus:ring-2 focus:ring-blue-500 outline-none"
+                          >
+                            <option value="new">New</option>
+                            <option value="contacted">Contacted</option>
+                            <option value="admitted">Admitted</option>
+                            <option value="rejected">Rejected</option>
+                          </select>
+                       </div>
+
+                       <button 
+                         onClick={async () => {
+                           if (!confirm('Are you sure you want to delete this application?')) return;
+                           try {
+                             const response = await fetch(`/api/courses/apply/${selectedContact._id}`, {
+                               method: 'DELETE'
+                             });
+                             if (response.ok) {
+                               setCourseApplications(courseApplications.filter(a => a._id !== selectedContact._id));
+                               setSelectedContact(null);
+                               alert('✅ Deleted successfully');
+                             }
+                           } catch (err) {
+                             console.error('Error deleting application:', err);
+                           }
+                         }}
+                         className="w-full bg-red-600/10 hover:bg-red-600 text-red-500 hover:text-white font-black uppercase text-[10px] tracking-widest py-3 rounded-xl flex items-center justify-center space-x-2 transition-all mt-4"
+                       >
+                         <Trash2 className="h-3 w-3" />
+                         <span>Delete Application</span>
+                       </button>
+                   </div>
+                </div>
+             </div>
+           ) : (
+             <div className="bg-[#050B14] rounded-lg shadow-2xl border border-white/5 p-12 text-center">
+                <GraduationCap className="h-12 w-12 text-slate-800 mx-auto mb-4" />
+                <p className="text-sm font-medium text-slate-500 italic">Select an application to view details.</p>
+             </div>
+           )}
         </div>
       </div>
     </div>
@@ -5017,6 +5314,7 @@ export default function AdminDashboard() {
           {/* Content Area */}
           <div className="flex-1 p-6 overflow-auto">
             {activeSection === 'contacts' && renderContactsSection()}
+            {activeSection === 'applications' && renderApplicationsSection()}
             {activeSection === 'subscribers' && renderSubscribersSection()}
             {activeSection === 'hero-images' && renderHeroImagesSection()}
             {activeSection === 'blogs' && renderBlogsSection()}

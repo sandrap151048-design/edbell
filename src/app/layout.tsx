@@ -123,16 +123,16 @@ export default function RootLayout({
         <meta name="msapplication-tap-highlight" content="no" />
         <meta name="HandheldFriendly" content="true" />
         <meta name="MobileOptimized" content="width" />
-        <link rel="icon" type="image/png" href="/edbell-logo.png" />
-        <link rel="apple-touch-icon" href="/edbell-logo.png" />
+        <link rel="icon" type="image/svg+xml" href="/edbell-logo.svg" />
+        <link rel="apple-touch-icon" href="/edbell-logo.svg" />
         <link rel="manifest" href="/manifest.json" />
       </head>
       <body className={inter.className}>
         <div className="fixed inset-0 z-[-1] pointer-events-none bg-[#030712]">
-          <img
-            src="/campus-modern.jpg"
-            alt="Global Background"
-            className="w-full h-full object-cover opacity-[0.05] mix-blend-screen"
+              <img 
+                src="/edbell-logo.svg" 
+                alt="EdBell Edusolutions" 
+                className="h-20 lg:h-28 w-auto object-contain mx-auto md:mx-0 opacity-20"
           />
         </div>
         <ConditionalLayout>

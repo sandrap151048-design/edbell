@@ -58,6 +58,16 @@ const Footer = () => {
 
           {/* Brand Engine - Left Aligned */}
           <div className="lg:col-span-4 space-y-8 lg:space-y-10 text-center md:text-left">
+            <Link href="/" className="inline-block">
+              <img 
+                src="/edbell-logo.svg" 
+                alt="EdBell Edusolutions" 
+                className="h-20 lg:h-28 w-auto object-contain mx-auto md:mx-0"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                }}
+              />
+            </Link>
             <p className="text-lg lg:text-xl text-[var(--text-primary)] font-light leading-relaxed max-w-md mx-auto md:mx-0">
               Engineering the future of education with high-performance digital infrastructure and global institutional partnerships.
             </p>

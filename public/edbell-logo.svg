@@ -1,0 +1,24 @@
+<svg width="600" height="600" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Semi-circle boundary -->
+  <path d="M50 250 A250 250 0 0 1 550 250" fill="none" stroke="white" stroke-width="8" stroke-linecap="round"/>
+  
+  <!-- Graduation Cap (Mortarboard) -->
+  <path d="M120 180 L300 120 L480 180 L300 240 Z" fill="white"/>
+  <!-- Cap Bottom/Side -->
+  <path d="M200 220 L200 280 L300 320 L400 280 L400 220" fill="white"/>
+  
+  <!-- Tassel -->
+  <path d="M160 210 L160 300" stroke="white" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="160" cy="305" r="8" fill="white"/>
+  <rect x="152" y="315" width="16" height="25" fill="white" rx="2"/>
+
+  <!-- Open Book Shape -->
+  <path d="M80 320 Q300 260 520 320 L520 360 Q300 300 80 360 Z" fill="white"/>
+  
+  <!-- Fountain Pen Nib with Cutout -->
+  <path d="M300 260 L270 340 L300 380 L330 340 Z M302 260 L302 345 L298 345 L298 260 Z M300 351 A4 4 0 1 0 300 359 A4 4 0 1 0 300 351" fill-rule="evenodd" fill="white"/>
+
+  <!-- Logo Text -->
+  <text x="300" y="500" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="110" text-anchor="middle" fill="white">EdBell</text>
+  <text x="300" y="560" font-family="Arial, Helvetica, sans-serif" font-weight="400" font-size="34" text-anchor="middle" fill="white" letter-spacing="18">edusolutions</text>
+</svg>

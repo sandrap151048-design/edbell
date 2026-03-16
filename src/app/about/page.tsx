@@ -64,7 +64,7 @@ export default function About() {
           <div className="flex flex-col items-center text-center">
             <div className={`space-y-5 sm:space-y-6 text-center ${mounted ? 'animate-fade-in-up' : 'opacity-0'}`}>
               <div className="inline-flex items-center space-x-3 bg-[var(--surface)]/40 border border-[var(--border)] rounded-full px-4 py-1.5 backdrop-blur-3xl mx-auto">
-                <img src="/edbell-logo.png" alt="" className="h-4 w-4 sm:h-5 sm:w-5 object-contain" />
+                <img src="/edbell-logo.svg" alt="" className="h-4 w-4 sm:h-5 sm:w-5 object-contain" />
                 <span className="text-[8px] sm:text-[9px] font-black text-[var(--primary)] uppercase tracking-[0.4em]">The Architects of Future Learning</span>
               </div>
 

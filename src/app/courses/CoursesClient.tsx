@@ -17,6 +17,109 @@ interface Course {
   description: string;
 }
 
+const fallbackCourses: Course[] = [
+  {
+    id: 'bachelor-of-arts',
+    name: 'Bachelor of Arts (BA)',
+    url: '/courses/bachelor-of-arts',
+    category: 'Undergraduate',
+    duration: '3 Years',
+    fees: '₹24,000/year',
+    eligibility: '12th Pass',
+    description: 'Comprehensive liberal arts program with humanities and social sciences.'
+  },
+  {
+    id: 'bachelor-of-commerce',
+    name: 'Bachelor of Commerce (B.Com)',
+    url: '/courses/bachelor-of-commerce',
+    category: 'Undergraduate',
+    duration: '3 Years',
+    fees: '₹18,000/year',
+    eligibility: '12th Pass',
+    description: 'Business-focused program covering accounting, finance, and economics.'
+  },
+  {
+    id: 'bba',
+    name: 'Bachelor of Business Administration (BBA)',
+    url: '/courses/bba',
+    category: 'Undergraduate',
+    duration: '3 Years',
+    fees: '₹25,000/year',
+    eligibility: '12th Pass',
+    description: 'Management and leadership program for future business professionals.'
+  },
+  {
+    id: 'bca',
+    name: 'Bachelor of Computer Applications (BCA)',
+    url: '/courses/bca',
+    category: 'Undergraduate',
+    duration: '3 Years',
+    fees: '₹22,000/year',
+    eligibility: '12th Pass',
+    description: 'Technical program focusing on software development and IT applications.'
+  },
+  {
+    id: 'mba',
+    name: 'Master of Business Administration (MBA)',
+    url: '/courses/mba',
+    category: 'Postgraduate',
+    duration: '2 Years',
+    fees: '₹45,000/year',
+    eligibility: 'Graduate Degree',
+    description: 'Elite management program for leadership roles in various industries.'
+  },
+  {
+    id: 'mca',
+    name: 'Master of Computer Applications (MCA)',
+    url: '/courses/mca',
+    category: 'Postgraduate',
+    duration: '2 Years',
+    fees: '₹35,000/year',
+    eligibility: 'BCA / B.Sc CS',
+    description: 'Advanced technical degree for software architects and IT leaders.'
+  },
+  {
+    id: 'master-of-arts',
+    name: 'Master of Arts (MA)',
+    url: '/courses/master-of-arts',
+    category: 'Postgraduate',
+    duration: '2 Years',
+    fees: '₹20,000/year',
+    eligibility: 'Bachelor\'s Degree',
+    description: 'Advanced academic specialization in humanities and social sciences.'
+  },
+  {
+    id: 'master-of-commerce',
+    name: 'Master of Commerce (M.Com)',
+    url: '/courses/master-of-commerce',
+    category: 'Postgraduate',
+    duration: '2 Years',
+    fees: '₹22,000/year',
+    eligibility: 'B.Com / BBA',
+    description: 'Postgraduate program for advanced business and financial studies.'
+  },
+  {
+    id: 'digital-marketing',
+    name: 'Digital Marketing Certification',
+    url: '/courses/digital-marketing',
+    category: 'Specialized',
+    duration: '6 Months',
+    fees: '₹15,000',
+    eligibility: '12th Pass / Graduate',
+    description: 'Practical certification covering SEO, SMM, and Performance Marketing.'
+  },
+  {
+    id: 'data-science',
+    name: 'Data Science & Analytics',
+    url: '/courses/data-science',
+    category: 'Specialized',
+    duration: '6 Months',
+    fees: '₹20,000',
+    eligibility: 'Maths / Tech Background',
+    description: 'Professional program in data analysis, SQL, and machine learning.'
+  }
+];
+
 export default function CoursesClient() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [courses, setCourses] = useState<Course[]>([]);
@@ -39,8 +142,16 @@ export default function CoursesClient() {
         const data = await response.json();
         clearTimeout(timeoutId);
 
-        if (data.success && data.courses && data.courses.length > 0) {
-          setCourses(data.courses);
+        if (data.success && data.courses) {
+          const apiCourses = data.courses;
+          const mergedCourses = [...apiCourses];
+          
+          fallbackCourses.forEach(fb => {
+            const exists = apiCourses.some((c: any) => c.id === fb.id || c.url === fb.url);
+            if (!exists) mergedCourses.push(fb);
+          });
+
+          setCourses(mergedCourses);
           setLoading(false);
           return;
         }
@@ -48,99 +159,6 @@ export default function CoursesClient() {
         console.warn('Live sync failed or timed out, activating fallback protocol.', err);
       }
 
-      // Fallback data if live sync is unavailable
-      const fallbackCourses: Course[] = [
-        {
-          id: '1',
-          name: 'Bachelor of Arts (BA)',
-          url: '/courses/bachelor-of-arts',
-          category: 'Undergraduate',
-          duration: '3 Years',
-          fees: '₹15,000/year',
-          eligibility: '12th Pass from any stream',
-          description: 'Comprehensive liberal arts program with literature, history, and political science specializations.'
-        },
-        {
-          id: '2',
-          name: 'Bachelor of Commerce (B.Com)',
-          url: '/courses/bachelor-of-commerce',
-          category: 'Undergraduate',
-          duration: '3 Years',
-          fees: '₹18,000/year',
-          eligibility: '12th Pass with Commerce/Science/Arts',
-          description: 'Business-focused program covering accounting, finance, economics, and business management.'
-        },
-        {
-          id: '3',
-          name: 'Master of Business Administration (MBA)',
-          url: '/courses/master-of-business-administration',
-          category: 'Postgraduate',
-          duration: '2 Years',
-          fees: '₹40,000/year',
-          eligibility: 'Graduate Degree with 50% marks',
-          description: 'Comprehensive management program for business leadership covering strategy, finance, marketing, operations.'
-        },
-        {
-          id: '4',
-          name: 'Bachelor of Science (B.Sc)',
-          url: '/courses/bsc',
-          category: 'Undergraduate',
-          duration: '3 Years',
-          fees: '₹20,000/year',
-          eligibility: '12th Pass (Science)',
-          description: 'Science-focused undergraduate program with specializations in Physics, Chemistry, Biology, and Mathematics.'
-        },
-        {
-          id: '5',
-          name: 'Bachelor of Computer Applications (BCA)',
-          url: '/courses/bca',
-          category: 'Undergraduate',
-          duration: '3 Years',
-          fees: '₹25,000/year',
-          eligibility: '12th Pass',
-          description: 'Computer applications program focusing on programming, software development, and IT skills.'
-        },
-        {
-          id: '6',
-          name: 'Master of Computer Applications (MCA)',
-          url: '/courses/mca',
-          category: 'Postgraduate',
-          duration: '2 Years',
-          fees: '₹35,000/year',
-          eligibility: 'Bachelor\'s degree in any stream',
-          description: 'Advanced computer applications program with focus on software engineering and IT management.'
-        },
-        {
-          id: '7',
-          name: 'Digital Marketing Certification',
-          url: '/courses/digital-marketing',
-          category: 'Specialized',
-          duration: '6 Months',
-          fees: '₹12,000',
-          eligibility: '12th Pass or Graduate',
-          description: 'Comprehensive digital marketing program covering SEO, social media marketing, Google Ads, content marketing.'
-        },
-        {
-          id: '8',
-          name: 'Data Science & Analytics',
-          url: '/courses/data-science',
-          category: 'Specialized',
-          duration: '6 Months',
-          fees: '₹15,000',
-          eligibility: 'Bachelor\'s degree in any stream',
-          description: 'Professional certification in data science, machine learning, and business analytics.'
-        },
-        {
-          id: '9',
-          name: 'Master of Arts (MA)',
-          url: '/courses/ma',
-          category: 'Postgraduate',
-          duration: '2 Years',
-          fees: '₹22,000/year',
-          eligibility: 'Bachelor\'s degree',
-          description: 'Advanced program in humanities with specializations in English, History, Political Science, and Sociology.'
-        }
-      ];
       setCourses(fallbackCourses);
     } catch (error) {
       console.error('Critical failure in fetchCourses:', error);

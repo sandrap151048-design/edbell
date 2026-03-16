@@ -16,6 +16,7 @@ import {
   TrendingUp,
   DollarSign
 } from 'lucide-react';
+import CourseEnrollmentSection from '@/components/CourseEnrollmentSection';
 
 // Course data (in production, this would come from a database)
 const courses = {
@@ -26,49 +27,28 @@ const courses = {
     category: "undergraduate",
     duration: "3 Years",
     mode: "Online",
-    eligibility: "10+2 from recognized board",
-    description: "Comprehensive liberal arts program covering literature, history, political science, and more. This program is designed to provide students with a broad understanding of humanities and social sciences.",
-    detailedDescription: "The Bachelor of Arts (BA) program is a comprehensive undergraduate degree that offers students a well-rounded education in the liberal arts. This program covers various disciplines including literature, history, political science, economics, psychology, and sociology. Students will develop critical thinking skills, analytical abilities, and effective communication skills that are highly valued in today's job market.",
-    features: ["UGC-DEB Approved", "NAAC A++ University", "Flexible Schedule", "Home Exams", "Digital Library Access", "24/7 Student Support"],
-    fee: "₹15,000 - ₹25,000 per year",
-    totalFee: "₹45,000 - ₹75,000",
+    eligibility: "12th Pass from recognized board",
+    description: "Comprehensive liberal arts program with specializations in humanities and social sciences.",
+    detailedDescription: "The Bachelor of Arts (BA) program is designed to provide students with a broad understanding of humanities and social sciences, developing critical thinking and analytical abilities.",
+    features: ["UGC Approved", "NAAC A++ University", "Flexible Learning", "Home Exams", "Digital Library Access"],
+    fee: "₹24,000 per year",
+    totalFee: "₹72,000",
     specializations: [
-      { name: "English Literature", description: "Study of literary works, poetry, and prose" },
-      { name: "History", description: "Ancient, medieval, and modern history studies" },
-      { name: "Political Science", description: "Government systems, political theory, and public policy" },
-      { name: "Economics", description: "Micro and macroeconomics, economic theory" },
-      { name: "Psychology", description: "Human behavior, cognitive processes, and mental health" },
-      { name: "Sociology", description: "Social structures, cultural studies, and society analysis" }
+      { name: "English Literature", description: "Study of literary works and poetry" },
+      { name: "History", description: "Ancient, medieval, and modern history" },
+      { name: "Political Science", description: "Government systems and political theory" }
     ],
     careerOptions: [
-      { title: "Civil Services", salary: "₹56,100 - ₹2,50,000/month", description: "IAS, IPS, IFS and other government positions" },
-      { title: "Teaching", salary: "₹25,000 - ₹80,000/month", description: "School and college teaching positions" },
-      { title: "Journalism", salary: "₹20,000 - ₹1,00,000/month", description: "Print, digital, and broadcast media" },
-      { title: "Content Writing", salary: "₹15,000 - ₹60,000/month", description: "Digital content, copywriting, technical writing" },
-      { title: "Research", salary: "₹30,000 - ₹1,20,000/month", description: "Academic and market research positions" }
+      { title: "Civil Services", salary: "₹56,100 - ₹2,50,000/month", description: "IAS, IPS, and other government roles" },
+      { title: "Journalism", salary: "₹20,000 - ₹1,00,000/month", description: "Media and broadcast positions" }
     ],
     curriculum: [
-      {
-        year: "First Year",
-        subjects: ["English Literature", "General History", "Political Science", "Economics", "Environmental Studies"]
-      },
-      {
-        year: "Second Year", 
-        subjects: ["Advanced Literature", "Indian History", "Public Administration", "Statistics", "Computer Applications"]
-      },
-      {
-        year: "Third Year",
-        subjects: ["Specialization Subjects", "Research Methodology", "Project Work", "Internship", "Electives"]
-      }
+      { year: "Year 1", subjects: ["English", "History", "Political Science", "Environmental Studies"] },
+      { year: "Year 2", subjects: ["Advanced Literature", "Public Administration", "Economics"] },
+      { year: "Year 3", subjects: ["Specialization Subjects", "Project Work", "Electives"] }
     ],
-    admissionProcess: [
-      "Online Application Submission",
-      "Document Verification",
-      "Merit-based Selection",
-      "Fee Payment",
-      "Course Registration"
-    ],
-    universities: ["IGNOU", "LPU", "Amity University", "Manipal University"],
+    admissionProcess: ["Online Application", "Document Verification", "Fee Payment"],
+    universities: ["IGNOU", "LPU", "Amity University"],
     rating: 4.5,
     studentsEnrolled: 2500,
     placementRate: "85%"
@@ -80,51 +60,201 @@ const courses = {
     category: "undergraduate",
     duration: "3 Years",
     mode: "Online",
-    eligibility: "10+2 with Commerce/Science/Arts",
-    description: "Business-focused program covering accounting, finance, economics, and business management.",
-    detailedDescription: "The Bachelor of Commerce (B.Com) is a comprehensive undergraduate program that provides students with a strong foundation in business, accounting, finance, and economics. This program is designed to prepare students for careers in the corporate world, banking, finance, and entrepreneurship.",
-    features: ["Industry-Relevant Curriculum", "Practical Learning", "Career Support", "Placement Assistance", "Industry Mentorship", "Internship Opportunities"],
-    fee: "₹18,000 - ₹30,000 per year",
-    totalFee: "₹54,000 - ₹90,000",
+    eligibility: "12th Pass (Commerce Preferred)",
+    description: "Business-focused program covering accounting, finance, and economics.",
+    detailedDescription: "B.Com provides a strong foundation in business and accounting, preparing students for careers in finance and corporate sectors.",
+    features: ["UGC Approved", "Industry-Relevant Curriculum", "Placement Support"],
+    fee: "₹18,000 - ₹28,000 per year",
+    totalFee: "₹54,000 - ₹84,000",
     specializations: [
-      { name: "Accounting & Finance", description: "Financial accounting, cost accounting, and financial management" },
-      { name: "Banking", description: "Banking operations, credit management, and financial services" },
-      { name: "Taxation", description: "Direct and indirect taxation, tax planning" },
-      { name: "Business Management", description: "Operations, marketing, and strategic management" },
-      { name: "E-Commerce", description: "Digital business, online marketing, and e-business" }
+      { name: "Accounting", description: "Financial and cost accounting" },
+      { name: "Finance", description: "Banking and financial management" }
     ],
     careerOptions: [
-      { title: "Chartered Accountant", salary: "₹40,000 - ₹2,00,000/month", description: "Financial auditing, taxation, and advisory services" },
-      { title: "Banking Professional", salary: "₹25,000 - ₹1,50,000/month", description: "Banking operations, credit analysis, relationship management" },
-      { title: "Finance Manager", salary: "₹35,000 - ₹1,80,000/month", description: "Financial planning, budgeting, and investment management" },
-      { title: "Tax Consultant", salary: "₹20,000 - ₹1,00,000/month", description: "Tax planning, compliance, and advisory services" },
-      { title: "Business Analyst", salary: "₹30,000 - ₹1,20,000/month", description: "Business process analysis and improvement" }
+      { title: "Accountant", salary: "₹25,000 - ₹60,000/month", description: "Corporate accounting and tax" }
     ],
-    curriculum: [
-      {
-        year: "First Year",
-        subjects: ["Financial Accounting", "Business Economics", "Business Mathematics", "Business Communication", "Computer Applications"]
-      },
-      {
-        year: "Second Year",
-        subjects: ["Cost Accounting", "Corporate Accounting", "Business Law", "Marketing Management", "Human Resource Management"]
-      },
-      {
-        year: "Third Year",
-        subjects: ["Advanced Accounting", "Financial Management", "Taxation", "Auditing", "Project Work"]
-      }
-    ],
-    admissionProcess: [
-      "Online Application",
-      "Eligibility Verification",
-      "Merit List Publication",
-      "Counseling Process",
-      "Admission Confirmation"
-    ],
-    universities: ["IGNOU", "LPU", "Chandigarh University", "Jain University"],
+    curriculum: [{ year: "Full Program", subjects: ["Financial Accounting", "Audit", "Tax", "Business Law"] }],
+    admissionProcess: ["Online Submission", "Verification"],
+    universities: ["IGNOU", "CU", "LPU"],
+    rating: 4.4,
+    studentsEnrolled: 3000,
+    placementRate: "88%"
+  },
+  'bba': {
+    id: 'bba',
+    title: "Bachelor of Business Administration (BBA)",
+    shortTitle: "BBA",
+    category: "undergraduate",
+    duration: "3 Years",
+    mode: "Online",
+    eligibility: "12th Pass",
+    description: "Management and leadership program for future business professionals.",
+    detailedDescription: "BBA focuses on developing leadership skills, management techniques, and business acumen.",
+    features: ["UGC Approved", "Leadership Training", "Industry Projects"],
+    fee: "₹25,000 - ₹40,000 per year",
+    totalFee: "₹75,000 - ₹1,20,000",
+    specializations: [{ name: "HR Management", description: "Human resources and talent management" }],
+    careerOptions: [{ title: "Business Analyst", salary: "₹30,000 - ₹70,000/month", description: "Process improvement" }],
+    curriculum: [{ year: "Full Program", subjects: ["Marketing", "HR", "Operations", "Finance"] }],
+    admissionProcess: ["Online Form", "Counseling"],
+    universities: ["Amity", "Manipal", "LPU"],
     rating: 4.6,
-    studentsEnrolled: 3200,
+    studentsEnrolled: 2800,
+    placementRate: "92%"
+  },
+  'bca': {
+    id: 'bca',
+    title: "Bachelor of Computer Applications (BCA)",
+    shortTitle: "BCA",
+    category: "undergraduate",
+    duration: "3 Years",
+    mode: "Online",
+    eligibility: "12th Pass (Maths Preferred)",
+    description: "Technical program focusing on software development and computer applications.",
+    detailedDescription: "BCA prepares students for the IT industry with focus on programming, databases, and networking.",
+    features: ["UGC Approved", "Technical Labs", "IT Placement Assist"],
+    fee: "₹22,000 - ₹35,000 per year",
+    totalFee: "₹66,000 - ₹1,05,000",
+    specializations: [{ name: "Software Development", description: "Web and app development" }],
+    careerOptions: [{ title: "Software Engineer", salary: "₹35,000 - ₹1,00,000/month", description: "Dev positions" }],
+    curriculum: [{ year: "Full Program", subjects: ["C++", "Java", "Python", "DBMS", "Networking"] }],
+    admissionProcess: ["Online Application", "Tech Interview"],
+    universities: ["Jain", "Manipal", "Chandigarh University"],
+    rating: 4.7,
+    studentsEnrolled: 2200,
+    placementRate: "95%"
+  },
+  'master-of-arts': {
+    id: 'master-of-arts',
+    title: "Master of Arts (MA)",
+    shortTitle: "MA",
+    category: "postgraduate",
+    duration: "2 Years",
+    mode: "Online",
+    eligibility: "Bachelor's Degree in relevant field",
+    description: "Advanced program for in-depth study of humanities and social sciences.",
+    detailedDescription: "MA offers academic specialization in languages, social work, or history for higher research and teaching roles.",
+    features: ["UGC Approved", "Academic Excellence", "Higher Research Path"],
+    fee: "₹20,000 - ₹30,000 per year",
+    totalFee: "₹40,000 - ₹60,000",
+    specializations: [{ name: "English", description: "Advanced literary studies" }],
+    careerOptions: [{ title: "Professor", salary: "₹45,000 - ₹1,20,000/month", description: "Higher education roles" }],
+    curriculum: [{ year: "Full Program", subjects: ["Research Methodology", "Theories", "Dissertation"] }],
+    admissionProcess: ["Graduation Check", "Enrollment"],
+    universities: ["IGNOU", "DU SOL", "Amity"],
+    rating: 4.5,
+    studentsEnrolled: 1800,
+    placementRate: "82%"
+  },
+  'master-of-commerce': {
+    id: 'master-of-commerce',
+    title: "Master of Commerce (M.Com)",
+    shortTitle: "M.Com",
+    category: "postgraduate",
+    duration: "2 Years",
+    mode: "Online",
+    eligibility: "B.Com / BBA Graduate",
+    description: "Postgraduate program for advanced business and financial studies.",
+    detailedDescription: "M.Com focuses on advanced accounting, corporate finance, and economic analysis.",
+    features: ["UGC Approved", "Corporate Readiness", "Advanced Finance"],
+    fee: "₹22,000 - ₹32,000 per year",
+    totalFee: "₹44,000 - ₹64,000",
+    specializations: [{ name: "Corporate Finance", description: "Advanced financial strategy" }],
+    careerOptions: [{ title: "Financial Consultant", salary: "₹50,000 - ₹1,50,000/month", description: "Financial advisory" }],
+    curriculum: [{ year: "Full Program", subjects: ["Managerial Accounting", "Eco Analysis", "Stats"] }],
+    admissionProcess: ["Direct Admission", "Document Verification"],
+    universities: ["IGNOU", "LPU", "Manipal"],
+    rating: 4.4,
+    studentsEnrolled: 1500,
+    placementRate: "85%"
+  },
+  'mba': {
+    id: 'mba',
+    title: "Master of Business Administration (MBA)",
+    shortTitle: "MBA",
+    category: "postgraduate",
+    duration: "2 Years",
+    mode: "Online",
+    eligibility: "Any Graduate with 50% marks",
+    description: "Elite management program for leadership roles in various industries.",
+    detailedDescription: "Online MBA provides the flexibility to study while working, focusing on strategy, marketing, and leadership.",
+    features: ["UGC & AICTE Approved", "Global Recognition", "Career Transformation"],
+    fee: "₹45,000 - ₹85,000 per year",
+    totalFee: "₹90,000 - ₹1,70,000",
+    specializations: [{ name: "Marketing", description: "Digital and traditional marketing strategy" }],
+    careerOptions: [{ title: "Marketing Manager", salary: "₹60,000 - ₹3,00,000/month", description: "Brand management" }],
+    curriculum: [{ year: "Full Program", subjects: ["Strategic Mgmt", "Global Business", "Ethics"] }],
+    admissionProcess: ["Entrance Exam / Merit", "Interview"],
+    universities: ["Amity", "Jain", "Manipal", "NMIMS"],
+    rating: 4.8,
+    studentsEnrolled: 4500,
+    placementRate: "98%"
+  },
+  'mca': {
+    id: 'mca',
+    title: "Master of Computer Applications (MCA)",
+    shortTitle: "MCA",
+    category: "postgraduate",
+    duration: "2 Years",
+    mode: "Online",
+    eligibility: "BCA / B.Sc CS Graduate",
+    description: "Advanced technical degree for software architects and IT leaders.",
+    detailedDescription: "MCA offers deep specialization in cloud computing, cybersecurity, or data science.",
+    features: ["UGC Approved", "Tech Specializations", "Top MNC Hiring"],
+    fee: "₹35,000 - ₹55,000 per year",
+    totalFee: "₹70,000 - ₹1,10,000",
+    specializations: [{ name: "Cloud Computing", description: "AWS/Azure infrastructure" }],
+    careerOptions: [{ title: "Solution Architect", salary: "₹80,000 - ₹4,00,000/month", description: "Design systems" }],
+    curriculum: [{ year: "Full Program", subjects: ["Cloud Compute", "AI/ML", "Big Data"] }],
+    admissionProcess: ["Technical Screening", "Enrollment"],
+    universities: ["Amity", "Manipal", "Chandigarh University"],
+    rating: 4.7,
+    studentsEnrolled: 2000,
+    placementRate: "96%"
+  },
+  'digital-marketing': {
+    id: 'digital-marketing',
+    title: "Digital Marketing Certification",
+    shortTitle: "DMC",
+    category: "specialized",
+    duration: "6 Months",
+    mode: "Online",
+    eligibility: "12th Pass / Graduate",
+    description: "Practical certification covering SEO, SMM, and Google Ads.",
+    detailedDescription: "A fast-track program to master the digital landscape and start a career in marketing.",
+    features: ["Skill-Based", "Project Portfolio", "Job Assistance"],
+    fee: "₹15,000 - ₹25,000",
+    totalFee: "₹15,000 - ₹25,000",
+    specializations: [{ name: "Performance Marketing", description: "Paid ads and ROI focus" }],
+    careerOptions: [{ title: "SEO Specialist", salary: "₹20,000 - ₹50,000/month", description: "Search optimization" }],
+    curriculum: [{ year: "6 Months", subjects: ["SEO", "AdWords", "Content", "Analytics"] }],
+    admissionProcess: ["Direct Enrollment"],
+    universities: ["Edbell Edusolutions"],
+    rating: 4.6,
+    studentsEnrolled: 1200,
     placementRate: "90%"
+  },
+  'data-science': {
+    id: 'data-science',
+    title: "Data Science & Analytics",
+    shortTitle: "DSA",
+    category: "specialized",
+    duration: "6 Months",
+    mode: "Online",
+    eligibility: "Maths / Tech Background",
+    description: "Professional program in data analysis and machine learning.",
+    detailedDescription: "Learn to interpret complex data and build predictive models for business decisions.",
+    features: ["Data Projects", "Advanced Analytics", "High Demand Skills"],
+    fee: "₹20,000 - ₹35,000",
+    totalFee: "₹20,000 - ₹35,000",
+    specializations: [{ name: "Machine Learning", description: "Predictive modeling and AI" }],
+    careerOptions: [{ title: "Data Analyst", salary: "₹30,000 - ₹80,000/month", description: "Data interpretation" }],
+    curriculum: [{ year: "6 Months", subjects: ["Python", "SQL", "Tableau", "Stats"] }],
+    admissionProcess: ["Logic Test", "Enrollment"],
+    universities: ["Edbell Edusolutions"],
+    rating: 4.8,
+    studentsEnrolled: 1000,
+    placementRate: "94%"
   }
 };
 
@@ -208,15 +338,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
                 </div>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-3">
-                <a href="tel:+919876543210" className="bg-yellow-500 hover:bg-yellow-600 text-blue-900 font-semibold py-2 px-4 rounded-lg transition-colors duration-200 text-sm">
-                  Enroll Now
-                </a>
-                <button className="bg-white/20 hover:bg-white/30 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center text-sm">
-                  <Download className="mr-2 h-4 w-4" />
-                  Download Brochure
-                </button>
-              </div>
+              <CourseEnrollmentSection courseId={course.id} courseName={course.title} />
             </div>
 
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20">
@@ -254,7 +376,12 @@ export default async function CoursePage({ params }: CoursePageProps) {
               {/* About Course */}
               <div className="mb-6">
                 <h2 className="text-xl font-bold text-gray-900 mb-3">About This Course</h2>
-                <p className="text-sm text-gray-700 mb-3">{course.detailedDescription}</p>
+                <p className="text-sm text-gray-700 mb-6">{course.detailedDescription}</p>
+                
+                <div className="mb-8 p-6 bg-blue-50/50 border border-blue-100 rounded-2xl">
+                  <p className="text-sm font-bold text-blue-900 mb-4 tracking-tight uppercase">Ready to start your journey?</p>
+                  <CourseEnrollmentSection courseId={course.id} courseName={course.title} />
+                </div>
                 
                 <div className="bg-blue-50 p-3 rounded-lg">
                   <h3 className="text-base font-semibold text-gray-900 mb-2">Eligibility Criteria</h3>
