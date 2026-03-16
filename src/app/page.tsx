@@ -219,7 +219,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className={`relative hidden lg:block ${mounted ? 'animate-fade-in-right' : 'opacity-0'}`}>
+          <div className={`relative ${mounted ? 'animate-fade-in-right' : 'opacity-0'}`}>
             <div className="absolute -inset-8 bg-blue-600/10 rounded-full blur-[100px]"></div>
             <div className="relative bg-[var(--surface)]/80 backdrop-blur-3xl border border-[var(--border)] rounded-[40px] p-3 overflow-hidden shadow-2xl max-w-lg ml-auto">
               <img src="/hero-arif.jpg" alt="Adv.Arif Wafy" className="w-full h-[400px] xl:h-[480px] xxl:h-[550px] object-cover rounded-[36px] filter contrast-110" />

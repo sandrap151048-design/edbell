@@ -189,7 +189,7 @@ const Header = () => {
                     key={item.name}
                     href={item.href}
                     onClick={() => setIsMenuOpen(false)}
-                    className="text-4xl font-black text-[var(--text-heading)] hover:text-[var(--primary)] transition-colors tracking-tighter uppercase"
+                    className="text-2xl font-black text-[var(--text-heading)] hover:text-[var(--primary)] transition-colors tracking-tighter uppercase"
                   >
                     {item.name}
                   </Link>
