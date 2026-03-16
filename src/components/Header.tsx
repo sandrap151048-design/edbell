@@ -134,13 +134,13 @@ const Header = () => {
               <div className="hidden sm:flex items-center space-x-2 sm:space-x-4">
                 <Link
                   href="/login"
-                  className="px-3 sm:px-6 py-2 text-[10px] sm:text-[11px] font-black tracking-widest text-gray-700 hover:text-blue-700 transition-colors flex items-center outline-none"
+                  className="px-3 sm:px-6 py-2 text-[10px] sm:text-[11px] font-black tracking-widest text-[#1F2937] hover:text-[#2563EB] transition-colors flex items-center outline-none"
                 >
                   LOGIN
                 </Link>
                 <Link
                   href="/contact"
-                  className="group relative px-4 sm:px-8 py-2.5 sm:py-3 bg-blue-700 rounded-xl text-white text-[10px] sm:text-[11px] font-black tracking-widest hover:bg-blue-800 hover:shadow-lg transition-all transform hover:-translate-y-0.5 overflow-hidden flex items-center outline-none"
+                  className="group relative px-4 sm:px-8 py-2.5 sm:py-3 bg-[#2563EB] rounded-xl text-white text-[10px] sm:text-[11px] font-black tracking-widest hover:bg-[#1D4ED8] hover:shadow-lg transition-all transform hover:-translate-y-0.5 overflow-hidden flex items-center outline-none"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
                   <span className="relative flex items-center">
@@ -188,7 +188,7 @@ const Header = () => {
                     key={item.name}
                     href={item.href}
                     onClick={() => setIsMenuOpen(false)}
-                    className="text-2xl font-black text-[var(--text-heading)] hover:text-[var(--primary)] transition-colors tracking-tighter uppercase"
+                    className="text-2xl font-black text-[#1F2937] hover:text-[#2563EB] transition-colors tracking-tighter uppercase"
                   >
                     {item.name}
                   </Link>
@@ -233,7 +233,7 @@ const Header = () => {
                     <Link
                       href="/contact"
                       onClick={() => setIsMenuOpen(false)}
-                      className="w-full flex items-center justify-center py-4 bg-blue-600 rounded-2xl text-white font-black uppercase tracking-widest text-[10px]"
+                      className="w-full flex items-center justify-center py-4 bg-[#2563EB] rounded-2xl text-white font-black uppercase tracking-widest text-[10px] hover:bg-[#1D4ED8] transition-colors"
                     >
                       GET STARTED
                     </Link>
