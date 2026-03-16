@@ -68,7 +68,7 @@ const Header = () => {
   ];
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 bg-white border-b border-gray-200 ${isScrolled ? 'py-1 lg:py-1.5 shadow-md' : 'py-2 lg:py-3 shadow-sm'}`}>
+    <header className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 border-b border-white/10 ${isScrolled ? 'bg-[#0A192F]/95 backdrop-blur-2xl py-1 lg:py-1.5 shadow-2xl shadow-blue-900/20' : 'bg-gradient-to-b from-white/10 via-white/5 to-transparent backdrop-blur-sm py-2 lg:py-3'}`}>
       <div className="max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
         <div className="flex justify-between items-center">
           {/* Logo Cluster */}
@@ -85,8 +85,8 @@ const Header = () => {
             />
             {/* Fallback text - only shown if image fails */}
             <div id="logo-fallback-header" className="hidden items-center space-x-2 ml-1">
-              <span className="text-2xl lg:text-3xl font-black tracking-tighter leading-none transition-colors text-gray-900 group-hover:text-blue-600">EdBell</span>
-              <span className="text-[9px] lg:text-[10px] font-black text-blue-600 tracking-[0.25em] uppercase opacity-80">edusolutions</span>
+              <span className="text-2xl lg:text-3xl font-black tracking-tighter leading-none transition-colors text-white group-hover:text-blue-400">EdBell</span>
+              <span className="text-[9px] lg:text-[10px] font-black text-blue-400 tracking-[0.25em] uppercase opacity-80">edusolutions</span>
             </div>
           </Link>
 
@@ -99,7 +99,7 @@ const Header = () => {
                   key={item.name}
                   href={item.href}
                   className={`relative px-2 xl:px-3 py-2 text-xs xl:text-sm font-black tracking-[0.05em] xl:tracking-[0.1em] transition-all group flex items-center ${
-                    isActive ? 'text-[#2563EB]' : 'text-[#1F2937] hover:text-[#1D4ED8]'
+                    isActive ? 'text-blue-400' : 'text-white/90 hover:text-blue-400'
                   }`}
                 >
                   <span className="relative z-10">{item.name}</span>
@@ -134,7 +134,7 @@ const Header = () => {
               <div className="hidden sm:flex items-center space-x-2 sm:space-x-4">
                 <Link
                   href="/login"
-                  className="px-3 sm:px-6 py-2 text-xs sm:text-sm font-black tracking-widest text-[#1F2937] hover:text-[#2563EB] transition-colors flex items-center outline-none"
+                  className="px-3 sm:px-6 py-2 text-xs sm:text-sm font-black tracking-widest text-white/90 hover:text-blue-400 transition-colors flex items-center outline-none"
                 >
                   LOGIN
                 </Link>
@@ -153,7 +153,7 @@ const Header = () => {
             {/* Mobile Interface Toggle */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden p-2.5 sm:p-3 bg-gray-50 border border-gray-100 rounded-2xl text-gray-900 hover:bg-gray-100 transition-all outline-none"
+              className="lg:hidden p-2.5 sm:p-3 bg-white/5 border border-white/10 rounded-2xl text-white hover:bg-white/10 transition-all outline-none"
             >
               {isMenuOpen ? <X className="h-5 w-5 sm:h-6 sm:w-6 stroke-[2.5]" /> : <Menu className="h-5 w-5 sm:h-6 sm:w-6 stroke-[2.5]" />}
             </button>
