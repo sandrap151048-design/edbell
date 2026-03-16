@@ -150,16 +150,16 @@ export default function Gallery() {
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-          <div className={`lg:col-span-6 space-y-6 sm:space-y-8 ${mounted ? 'animate-fade-in-up' : 'opacity-0'}`}>
+          <div className={`lg:col-span-6 space-y-6 sm:space-y-8 ${mounted ? 'animate-fade-in' : 'opacity-0'}`}>
             <div className="inline-flex items-center space-x-2 text-[9px] sm:text-[10px] font-black text-[var(--primary)] uppercase tracking-[0.4em]">
               <Camera className="h-3.5 w-3.5" />
               <span>Visual Core Intelligence</span>
             </div>
-            <h1 className={`text-2xl sm:text-3xl lg:text-4xl font-black text-[var(--text-heading)] leading-[0.85] tracking-tighter uppercase not-italic font-serif ${mounted ? 'animate-fade-in-up animation-delay-100' : 'opacity-0'}`}>
+            <h1 className={`text-2xl sm:text-3xl lg:text-4xl font-black text-[var(--text-heading)] leading-[0.85] tracking-tighter uppercase not-italic font-serif ${mounted ? 'animate-fade-in' : 'opacity-0'}`}>
               Optical <br />
               <span className="text-transparent bg-gradient-to-r from-[var(--primary)] via-[var(--accent)] to-[var(--highlight)] bg-clip-text">Repository</span>
             </h1>
-            <p className={`text-sm sm:text-base text-[var(--text-primary)] font-light leading-relaxed max-w-lg ${mounted ? 'animate-fade-in-up animation-delay-200' : 'opacity-0'}`}>
+            <p className={`text-sm sm:text-base text-[var(--text-primary)] font-light leading-relaxed max-w-lg ${mounted ? 'animate-fade-in' : 'opacity-0'}`}>
               Visualizing the high-resolution trajectory of institutional growth and student deployment benchmarks across our global network.
             </p>
           </div>
@@ -183,8 +183,8 @@ export default function Gallery() {
         </div>
       </section>
 
-      {/* Dynamic Category Filter */}
-      <section className="sticky top-0 z-[100] py-4 sm:py-6 bg-[var(--bg-secondary)]/60 backdrop-blur-3xl border-b border-[var(--border)]">
+      {/* Category Filter */}
+      <section className="relative z-30 py-4 sm:py-6 bg-[var(--bg-secondary)] border-b border-[var(--border)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 flex flex-wrap gap-2 sm:gap-3 justify-center">
           {categories.map((c) => (
             <button
@@ -210,7 +210,7 @@ export default function Gallery() {
               <div
                 key={img.id}
                 onClick={() => setSelectedImage(img)}
-                className="group relative h-64 sm:h-80 lg:h-96 rounded-2xl sm:rounded-3xl overflow-hidden bg-[var(--bg-primary)] border border-[var(--border)] cursor-pointer hover:border-[var(--primary)]/50 transition-all duration-700 hover:-translate-y-2 shadow-xl"
+                className="group relative h-64 sm:h-80 lg:h-96 rounded-2xl sm:rounded-3xl overflow-hidden bg-[var(--bg-primary)] border border-[var(--border)] cursor-pointer hover:border-[var(--primary)]/50 transition-all duration-700 shadow-xl"
                 style={{ animationDelay: `${i * 100}ms` }}
               >
                 <div className="absolute top-4 sm:top-6 left-4 sm:left-6 z-20 bg-[var(--primary)] px-3 py-1.5 rounded-lg text-[8px] sm:text-[9px] font-black text-white uppercase tracking-widest shadow-xl">
@@ -226,7 +226,7 @@ export default function Gallery() {
                 <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-primary)] via-transparent to-transparent opacity-90"></div>
                 <div className="absolute inset-0 bg-[var(--primary)]/5 opacity-0 group-hover:opacity-20 transition-opacity"></div>
 
-                <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6 space-y-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-700">
+                <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6 space-y-2 transition-transform duration-700">
                   <span className="text-[8px] sm:text-[9px] font-black text-[var(--primary)] uppercase tracking-[0.2em]">{img.category} // {img.location}</span>
                   <h3 className="text-lg sm:text-xl font-black text-[var(--text-heading)] uppercase tracking-tighter leading-none">{img.title}</h3>
                   <p className="text-xs font-light text-[var(--text-primary)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100 leading-relaxed">
