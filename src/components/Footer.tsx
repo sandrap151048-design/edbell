@@ -53,30 +53,11 @@ const Footer = () => {
       {/* Background Decorative Element */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[300px] bg-[var(--primary)]/5 blur-[120px] rounded-full"></div>
 
-      <div className="relative z-10 max-w-[1600px] mx-auto px-6 lg:px-12">
+      <div className="relative z-10 max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-16 lg:gap-20 mb-20 lg:mb-24 items-start">
 
           {/* Brand Engine - Left Aligned */}
-          <div className="lg:col-span-5 space-y-8 lg:space-y-10 text-center md:text-left">
-            <Link href="/" className="inline-block hover:scale-105 transition-transform duration-300">
-              <div className="flex items-center mb-6 justify-center md:justify-start">
-                <img 
-                  src="/edbell-logo.png" 
-                  alt="EDBELL" 
-                  className="h-16 md:h-24 w-auto object-contain brightness-110 drop-shadow-[0_0_20px_rgba(59,130,246,0.2)] scale-110"
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                    const nextLevel = e.currentTarget.nextElementSibling;
-                    if (nextLevel) (nextLevel as HTMLElement).style.display = 'flex';
-                  }}
-                />
-                {/* Fallback - hidden by default */}
-                <div className="hidden items-center space-x-3">
-                  <Sparkles className="h-8 w-8 text-[var(--primary)] animate-pulse" />
-                  <span className="text-3xl font-black text-[var(--text-heading)] tracking-[0.2em]">EDBELL</span>
-                </div>
-              </div>
-            </Link>
+          <div className="lg:col-span-4 space-y-8 lg:space-y-10 text-center md:text-left">
             <p className="text-lg lg:text-xl text-[var(--text-primary)] font-light leading-relaxed max-w-md mx-auto md:mx-0">
               Engineering the future of education with high-performance digital infrastructure and global institutional partnerships.
             </p>
@@ -104,8 +85,8 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Navigation Matrix - Centered on tablet, left on mobile */}
-          <div className="lg:col-span-3 grid grid-cols-2 gap-8 lg:gap-12 text-center md:text-left">
+          {/* Navigation Matrix */}
+          <div className="lg:col-span-4 grid grid-cols-2 gap-8 lg:gap-12 text-center md:text-left">
             <div className="space-y-6 lg:space-y-8">
               <h4 className="text-[10px] font-black text-[var(--primary)] uppercase tracking-[0.4em]">Matrix</h4>
               <ul className="space-y-4">
@@ -128,7 +109,7 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Communications Hub - Right Aligned on large screens */}
+          {/* Communications Hub */}
           <div className="lg:col-span-4 space-y-8 lg:space-y-10">
             <div className="bg-[var(--surface)] border border-[var(--border)] rounded-[30px] lg:rounded-[40px] p-8 lg:p-10 shadow-xl">
               <h4 className="text-[10px] font-black text-[var(--primary)] uppercase tracking-[0.4em] mb-6 text-center">Protocol Subscription</h4>

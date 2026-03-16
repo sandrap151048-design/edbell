@@ -91,7 +91,7 @@ export default function About() {
       {/* The Core Protocol - Values */}
       <section className="py-16 sm:py-20 lg:py-24 bg-[var(--bg-secondary)] relative">
         <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[var(--border)] to-transparent"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
+        <div className="max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
           <div className="space-y-8 lg:space-y-10">
             <div className="space-y-3 text-center lg:text-left">
               <span className="text-[9px] sm:text-[10px] font-black text-[var(--primary)] uppercase tracking-[0.4em]">Mission Parameters</span>
@@ -117,27 +117,28 @@ export default function About() {
             </div>
           </div>
 
-          <div className="relative mt-10 lg:mt-0">
-            <div className="absolute inset-0 bg-blue-600/10 blur-[120px] rounded-full"></div>
-            <div className="relative grid grid-cols-2 gap-3 sm:gap-4 lg:gap-6">
-              <div className="space-y-3 sm:space-y-4 lg:space-y-6">
-                <div className="h-44 sm:h-52 lg:h-60 bg-[var(--surface)] border border-[var(--border)] rounded-2xl sm:rounded-3xl overflow-hidden group shadow-lg">
-                  <img src="/about-team.jpg" className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-1000" />
-                </div>
-                <div className="h-32 sm:h-40 lg:h-48 bg-[var(--primary)] rounded-2xl sm:rounded-3xl p-4 sm:p-6 flex flex-col justify-end shadow-xl">
-                  <h5 className="text-2xl sm:text-3xl font-black text-white leading-none tracking-tighter uppercase">98.5%</h5>
-                  <p className="text-[8px] sm:text-[9px] font-black text-blue-100 uppercase tracking-widest mt-1">Completion_Rate</p>
-                </div>
+          <div className="relative mt-10 lg:mt-0 flex justify-center">
+            <div className="absolute inset-0 bg-blue-600/10 blur-[120px] rounded-full pointer-events-none"></div>
+            <div className="relative w-full max-w-sm lg:max-w-md">
+              {/* Decorative corner accents */}
+              <div className="absolute -top-3 -left-3 w-10 h-10 border-t-2 border-l-2 border-[var(--primary)] rounded-tl-xl z-10"></div>
+              <div className="absolute -top-3 -right-3 w-10 h-10 border-t-2 border-r-2 border-[var(--primary)] rounded-tr-xl z-10"></div>
+              <div className="absolute -bottom-3 -left-3 w-10 h-10 border-b-2 border-l-2 border-[var(--primary)] rounded-bl-xl z-10"></div>
+              <div className="absolute -bottom-3 -right-3 w-10 h-10 border-b-2 border-r-2 border-[var(--primary)] rounded-br-xl z-10"></div>
+
+              {/* Photo */}
+              <div className="rounded-3xl overflow-hidden border border-[var(--border)] shadow-2xl shadow-blue-900/30">
+                <img
+                  src="/about-director.jpg"
+                  alt="Director - EdBell Edusolutions"
+                  className="w-full h-auto object-cover"
+                />
               </div>
-              <div className="space-y-3 sm:space-y-4 lg:space-y-6 pt-8 sm:pt-10 lg:pt-14">
-                <div className="h-32 sm:h-40 lg:h-48 bg-[var(--bg-primary)] border border-[var(--border)] rounded-2xl sm:rounded-3xl p-4 sm:p-6 flex flex-col justify-center items-center text-center shadow-lg">
-                  <Users className="h-6 w-6 sm:h-7 sm:w-7 text-[var(--primary)] mb-2" />
-                  <p className="text-lg sm:text-xl font-black text-[var(--text-heading)] leading-none">5K+</p>
-                  <p className="text-[8px] sm:text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest mt-1">Students_Enrolled</p>
-                </div>
-                <div className="h-44 sm:h-52 lg:h-60 bg-[var(--surface)] border border-[var(--border)] rounded-2xl sm:rounded-3xl overflow-hidden group shadow-lg">
-                  <img src="/about-campus.jpg" className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-1000" />
-                </div>
+
+              {/* Name Badge */}
+              <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 bg-[var(--bg-primary)] border border-[var(--border)] rounded-2xl px-6 py-3 shadow-xl backdrop-blur-xl whitespace-nowrap">
+                <p className="text-xs font-black text-[var(--text-heading)] uppercase tracking-widest text-center">Adv. Arif Wafy</p>
+                <p className="text-[9px] font-bold text-[var(--primary)] uppercase tracking-[0.2em] text-center mt-0.5">Founder & Director</p>
               </div>
             </div>
           </div>

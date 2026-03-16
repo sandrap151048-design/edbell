@@ -82,9 +82,9 @@ export default function Universities() {
             rating: 4.8
           },
           {
-            name: 'Lovely Professional University (LPU)',
-            url: '/universities/lpu',
-            description: 'Modern infrastructure and industry partnerships with comprehensive programs across engineering, management, and liberal arts.',
+            name: 'LPU (Placement & Industry Hub)',
+            url: '/universities/lpu-placement',
+            description: 'Modern infrastructure and industry partnerships with comprehensive programs across engineering, management, and liberal arts. A hub for placement and industry connections.',
             accreditation: 'NAAC A++',
             established: '2005',
             location: 'Punjab, India',
@@ -96,9 +96,9 @@ export default function Universities() {
             rating: 4.7
           },
           {
-            name: 'Amity University',
-            url: '/universities/amity-university',
-            description: 'Technology-enabled learning with comprehensive online programs and industry-relevant curriculum.',
+            name: 'Amity University (Online Excellence)',
+            url: '/universities/amity-university-online',
+            description: 'Technology-enabled learning with comprehensive online programs and industry-relevant curriculum. Renowned for online excellence.',
             accreditation: 'NAAC A+',
             established: '2005',
             location: 'Noida, India',
@@ -110,9 +110,9 @@ export default function Universities() {
             rating: 4.6
           },
           {
-            name: 'Delhi University',
-            url: '/universities/delhi-university',
-            description: 'Premier institution with 100+ years of excellence in higher education and research.',
+            name: 'Delhi University (Academic Heritage)',
+            url: '/universities/delhi-university-heritage',
+            description: 'Premier institution with 100+ years of excellence in higher education and research. Academic heritage you can trust.',
             accreditation: 'NAAC A++',
             established: '1922',
             location: 'Delhi, India',
@@ -124,8 +124,8 @@ export default function Universities() {
             rating: 4.9
           },
           {
-            name: 'Manipal Academy of Higher Education',
-            url: '/universities/manipal',
+            name: 'Manipal (Research & Innovation)',
+            url: '/universities/manipal-research',
             description: 'Comprehensive university with strong focus on research, innovation, and global education standards.',
             accreditation: 'NAAC A++',
             established: '1953',
@@ -138,9 +138,9 @@ export default function Universities() {
             rating: 4.8
           },
           {
-            name: 'Symbiosis International University',
-            url: '/universities/symbiosis',
-            description: 'Specialized university known for excellence in management, law, and liberal arts education.',
+            name: 'Symbiosis (Management Specialists)',
+            url: '/universities/symbiosis-management',
+            description: 'Specialized university known for excellence in management, law, and liberal arts education. Management specialists.',
             accreditation: 'NAAC A+',
             established: '1971',
             location: 'Pune, India',
@@ -150,6 +150,20 @@ export default function Universities() {
             coursesOffered: 180,
             specialization: ['Management', 'Law', 'Liberal Arts'],
             rating: 4.7
+          },
+          {
+            name: 'Excellence Institute (Future-Ready Tech)',
+            url: '/universities/excellence-institute-tech',
+            description: 'A research-driven educational node focused on future technologies and management excellence.',
+            accreditation: 'NAAC A++',
+            established: '2000',
+            location: 'Knowledge City, India',
+            website: 'https://www.excellence.edu',
+            ranking: '#1 Research Institute',
+            studentsCount: '5K+',
+            coursesOffered: 45,
+            specialization: ['Future-Ready Tech', 'Global Faculty', 'Research'],
+            rating: 4.9
           }
         ];
         setUniversities(fallbackUniversities);
@@ -174,9 +188,9 @@ export default function Universities() {
           rating: 4.8
         },
         {
-          name: 'Lovely Professional University (LPU)',
-          url: '/universities/lpu',
-          description: 'Modern infrastructure and industry partnerships with comprehensive programs across engineering, management, and liberal arts.',
+          name: 'LPU (Placement & Industry Hub)',
+          url: '/universities/lpu-placement',
+          description: 'Modern infrastructure and industry partnerships with comprehensive programs across engineering, management, and liberal arts. A hub for placement and industry connections.',
           accreditation: 'NAAC A++',
           established: '2005',
           location: 'Punjab, India',
@@ -188,9 +202,9 @@ export default function Universities() {
           rating: 4.7
         },
         {
-          name: 'Amity University',
-          url: '/universities/amity-university',
-          description: 'Technology-enabled learning with comprehensive online programs and industry-relevant curriculum.',
+          name: 'Amity University (Online Excellence)',
+          url: '/universities/amity-university-online',
+          description: 'Technology-enabled learning with comprehensive online programs and industry-relevant curriculum. Renowned for online excellence.',
           accreditation: 'NAAC A+',
           established: '2005',
           location: 'Noida, India',
@@ -202,9 +216,9 @@ export default function Universities() {
           rating: 4.6
         },
         {
-          name: 'Delhi University',
-          url: '/universities/delhi-university',
-          description: 'Premier institution with 100+ years of excellence in higher education and research.',
+          name: 'Delhi University (Academic Heritage)',
+          url: '/universities/delhi-university-heritage',
+          description: 'Premier institution with 100+ years of excellence in higher education and research. Academic heritage you can trust.',
           accreditation: 'NAAC A++',
           established: '1922',
           location: 'Delhi, India',
@@ -216,8 +230,8 @@ export default function Universities() {
           rating: 4.9
         },
         {
-          name: 'Manipal Academy of Higher Education',
-          url: '/universities/manipal',
+          name: 'Manipal (Research & Innovation)',
+          url: '/universities/manipal-research',
           description: 'Comprehensive university with strong focus on research, innovation, and global education standards.',
           accreditation: 'NAAC A++',
           established: '1953',
@@ -230,9 +244,9 @@ export default function Universities() {
           rating: 4.8
         },
         {
-          name: 'Symbiosis International University',
-          url: '/universities/symbiosis',
-          description: 'Specialized university known for excellence in management, law, and liberal arts education.',
+          name: 'Symbiosis (Management Specialists)',
+          url: '/universities/symbiosis-management',
+          description: 'Specialized university known for excellence in management, law, and liberal arts education. Management specialists.',
           accreditation: 'NAAC A+',
           established: '1971',
           location: 'Pune, India',
@@ -242,6 +256,20 @@ export default function Universities() {
           coursesOffered: 180,
           specialization: ['Management', 'Law', 'Liberal Arts'],
           rating: 4.7
+        },
+        {
+          name: 'Excellence Institute (Future-Ready Tech)',
+          url: '/universities/excellence-institute-tech',
+          description: 'A research-driven educational node focused on future technologies and management excellence.',
+          accreditation: 'NAAC A++',
+          established: '2000',
+          location: 'Knowledge City, India',
+          website: 'https://www.excellence.edu',
+          ranking: '#1 Research Institute',
+          studentsCount: '5K+',
+          coursesOffered: 45,
+          specialization: ['Future-Ready Tech', 'Global Faculty', 'Research'],
+          rating: 4.9
         }
       ];
       setUniversities(fallbackUniversities);
@@ -312,7 +340,7 @@ export default function Universities() {
         <div className="absolute inset-x-0 top-0 h-96 bg-gradient-to-b from-[var(--primary)]/10 to-transparent blur-3xl opacity-50 z-10" />
         <div className="absolute top-1/4 -right-24 w-96 h-96 bg-[var(--primary)]/10 rounded-full blur-[120px] animate-pulse z-10" />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 z-20 w-full pt-6 sm:pt-8">
+        <div className="relative max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-12 z-20 w-full pt-6 sm:pt-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
             {/* Left Content */}
             <div className={`text-center lg:text-left space-y-5 sm:space-y-6 ${mounted ? 'animate-fade-in-up' : 'opacity-0'}`}>
@@ -385,7 +413,7 @@ export default function Universities() {
                       </div>
                       <span className="text-[10px] bg-[var(--accent)]/20 text-[var(--accent)] border border-[var(--accent)]/20 px-2 py-0.5 rounded-full uppercase font-black tracking-widest">Tech Leader</span>
                     </div>
-                    <h3 className="text-lg font-bold text-[var(--text-heading)] mb-2 group-hover:text-[var(--accent)] transition-colors">LPU</h3>
+                    <h3 className="text-lg font-bold text-[var(--text-heading)] mb-2 group-hover:text-[var(--accent)] transition-colors">LPU (Placement)</h3>
                     <p className="text-[var(--text-muted)] text-xs font-light leading-relaxed">Innovative industry-linked programs for modern careers.</p>
                   </div>
                 </div>
@@ -399,7 +427,7 @@ export default function Universities() {
                       </div>
                       <span className="text-[10px] bg-[var(--primary)]/20 text-[var(--primary)] border border-[var(--primary)]/20 px-2 py-0.5 rounded-full uppercase font-black tracking-widest">Premier</span>
                     </div>
-                    <h3 className="text-lg font-bold text-[var(--text-heading)] mb-2 group-hover:text-[var(--primary)] transition-colors">Amity</h3>
+                    <h3 className="text-lg font-bold text-[var(--text-heading)] mb-2 group-hover:text-[var(--primary)] transition-colors">Amity (Online)</h3>
                     <p className="text-[var(--text-muted)] text-xs font-light leading-relaxed">World-class digital learning ecosystem and excellence.</p>
                   </div>
 
@@ -411,7 +439,7 @@ export default function Universities() {
                       </div>
                       <span className="text-[10px] bg-[var(--surface)] text-[var(--text-muted)] border border-[var(--border)] px-2 py-0.5 rounded-full uppercase font-black tracking-widest">Historic</span>
                     </div>
-                    <h3 className="text-lg font-bold text-[var(--text-heading)] mb-2 group-hover:text-[var(--primary)] transition-colors">Delhi Univ</h3>
+                    <h3 className="text-lg font-bold text-[var(--text-heading)] mb-2 group-hover:text-[var(--primary)] transition-colors">Delhi Univ (Heritage)</h3>
                     <p className="text-[var(--text-muted)] text-xs font-light leading-relaxed">Centuries of academic excellence and heritage research.</p>
                   </div>
                 </div>
@@ -436,7 +464,7 @@ export default function Universities() {
 
       {/* Search and Filters */}
       <section className="py-10 sm:py-12 bg-[var(--bg-secondary)] border-y border-[var(--border)]" id="universities">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+        <div className="max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-12">
           <div className="text-center mb-8 sm:mb-10">
             <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[var(--text-heading)] mb-3 tracking-tight uppercase">Find Your Future University</h2>
             <p className="text-sm sm:text-base text-[var(--text-primary)] max-w-xl mx-auto font-light leading-relaxed">
@@ -484,7 +512,7 @@ export default function Universities() {
 
       {/* Grid Section */}
       <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-12 bg-[var(--bg-primary)]">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-[1700px] mx-auto">
           {filteredUniversities.length === 0 ? (
             <div className="text-center py-24">
               <div className="w-20 h-20 bg-[var(--surface)] border border-[var(--border)] rounded-2xl flex items-center justify-center mx-auto mb-6 text-[var(--text-muted)]">
@@ -539,9 +567,17 @@ export default function Universities() {
                       </div>
                     </div>
 
-                    <p className="text-[var(--text-primary)] text-xs sm:text-sm font-light leading-relaxed mb-4 sm:mb-6 flex-grow line-clamp-3 group-hover:line-clamp-none transition-all duration-500">
+                    <p className="text-[var(--text-primary)] text-xs sm:text-sm font-light leading-relaxed mb-4 flex-grow line-clamp-2 group-hover:line-clamp-none transition-all duration-500">
                       {university.description}
                     </p>
+
+                    <div className="flex flex-wrap gap-1.5 mb-4">
+                      {university.specialization?.slice(0, 3).map((spec, i) => (
+                        <span key={i} className="text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded bg-[var(--surface-alt)]/60 text-[var(--text-muted)] border border-[var(--border)]">
+                          {spec}
+                        </span>
+                      ))}
+                    </div>
 
                     <div className="grid grid-cols-2 gap-2 sm:gap-3 mb-4 sm:mb-6">
                       <div className="bg-[var(--surface-alt)]/40 rounded-xl p-2.5 sm:p-3 border border-[var(--border)]">
@@ -554,8 +590,21 @@ export default function Universities() {
                       </div>
                     </div>
 
+                    <div className="flex flex-col gap-2 mb-6 text-[10px] font-medium text-[var(--text-primary)]">
+                       <div className="flex items-center space-x-2">
+                         <div className="w-1.5 h-1.5 rounded-full bg-[var(--primary)]"></div>
+                         <span className="text-[var(--text-muted)] font-bold uppercase tracking-wider">Type:</span>
+                         <span className="text-[var(--text-heading)]">{university.ranking?.includes('Private') ? 'Private' : 'Central/Deemed'}</span>
+                       </div>
+                       <div className="flex items-center space-x-2">
+                         <div className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]"></div>
+                         <span className="text-[var(--text-muted)] font-bold uppercase tracking-wider">Status:</span>
+                         <span className="text-[var(--text-heading)]">UGC & DEB Approved</span>
+                       </div>
+                    </div>
+
                     <div className="flex items-center gap-3">
-                      <Link href={`/universities/${getUniversitySlug(university.name)}`} className="flex-1">
+                      <Link href={university.url || `/universities/${getUniversitySlug(university.name)}`} className="flex-1">
                         <button className="w-full bg-[var(--primary)] hover:bg-[var(--primary)]/90 text-white font-black py-2.5 sm:py-3 rounded-lg sm:rounded-xl transition-all shadow-lg hover:shadow-blue-500/20 text-[10px] sm:text-xs uppercase tracking-widest">
                           View Program
                         </button>

@@ -38,9 +38,9 @@ const universities = {
     type: "Central University",
     feeStructure: { UG: "₹7k - ₹15k/yr", PG: "₹9k - ₹20k/yr" }
   },
-  'lpu': {
-    id: 'lpu',
-    name: "Lovely Professional University",
+  'lpu-placement': {
+    id: 'lpu-placement',
+    name: "LPU (Placement & Industry Hub)",
     shortName: "LPU",
     location: "Phagwara, Punjab",
     state: "Punjab",
@@ -49,11 +49,96 @@ const universities = {
     ugcApproved: true,
     programs: ["B.Tech", "MBA", "BBA", "MCA", "BCA"],
     highlights: ["Industry Partnerships", "High Placements", "Modern Tech Infrastructure", "International Hub"],
-    description: "A premier private university known for industry-aligned curriculum and high-octane career results.",
+    description: "Modern infrastructure and industry partnerships with comprehensive programs across engineering, management, and liberal arts. A hub for placement and industry connections.",
     ranking: "Top 100 NIRF",
     totalStudents: "30,000+",
     type: "Private University",
     feeStructure: { UG: "₹80k - ₹1.5L/yr", PG: "₹90k - ₹1.8L/yr" }
+  },
+  'amity-university-online': {
+    id: 'amity-university-online',
+    name: "Amity University (Online Excellence)",
+    shortName: "Amity",
+    location: "Noida",
+    state: "Uttar Pradesh",
+    established: "2005",
+    accreditation: "NAAC A+",
+    ugcApproved: true,
+    programs: ["MBA", "BBA", "MCA", "BCA", "B.Tech", "M.Tech"],
+    highlights: ["Global Campuses", "Industry Integration", "Modern E-Learning", "Rich Alumni Base"],
+    description: "Technology-enabled learning with comprehensive online programs and industry-relevant curriculum. Renowned for online excellence.",
+    ranking: "#3 Online Education",
+    totalStudents: "25,000+",
+    type: "Private University",
+    feeStructure: { UG: "₹60k - ₹1.2L/yr", PG: "₹70k - ₹1.5L/yr" }
+  },
+  'delhi-university-heritage': {
+    id: 'delhi-university-heritage',
+    name: "Delhi University (Academic Heritage)",
+    shortName: "DU",
+    location: "Delhi",
+    state: "Delhi",
+    established: "1922",
+    accreditation: "NAAC A++",
+    ugcApproved: true,
+    programs: ["BA", "B.SC", "B.COM", "MA", "M.SC", "M.COM"],
+    highlights: ["Heritage Institution", "Top Faculty", "Extensive Research", "Central University Status"],
+    description: "Premier institution with 100+ years of excellence in higher education and research. Academic heritage you can trust.",
+    ranking: "#1 Central University",
+    totalStudents: "130,000+",
+    type: "Central University",
+    feeStructure: { UG: "₹10k - ₹25k/yr", PG: "₹15k - ₹35k/yr" }
+  },
+  'manipal-research': {
+    id: 'manipal-research',
+    name: "Manipal (Research & Innovation)",
+    shortName: "MAHE",
+    location: "Manipal",
+    state: "Karnataka",
+    established: "1953",
+    accreditation: "NAAC A++",
+    ugcApproved: true,
+    programs: ["B.Tech", "MBA", "MBBS", "BDS", "B.Arch"],
+    highlights: ["World-Class Campus", "Global Rankings", "Research Excellence", "Industry Connect"],
+    description: "Comprehensive university with strong focus on research, innovation, and global education standards.",
+    ranking: "#4 Private University",
+    totalStudents: "35,000+",
+    type: "Deemed University",
+    feeStructure: { UG: "₹1L - ₹3L/yr", PG: "₹1.5L - ₹4L/yr" }
+  },
+  'symbiosis-management': {
+    id: 'symbiosis-management',
+    name: "Symbiosis (Management Specialists)",
+    shortName: "SIU",
+    location: "Pune",
+    state: "Maharashtra",
+    established: "1971",
+    accreditation: "NAAC A+",
+    ugcApproved: true,
+    programs: ["MBA", "Law", "Liberal Arts", "Media & Comm", "Computer Studies"],
+    highlights: ["Specialized Management", "Interdisciplinary Approach", "International Hub", "Strong Placements"],
+    description: "Specialized university known for excellence in management, law, and liberal arts education. Management specialists.",
+    ranking: "#5 Private University",
+    totalStudents: "20,000+",
+    type: "Deemed University",
+    feeStructure: { UG: "₹90k - ₹2L/yr", PG: "₹1.2L - ₹2.5L/yr" }
+  },
+  'excellence-institute-tech': {
+    id: 'excellence-institute-tech',
+    name: "Excellence Institute (Future-Ready Tech)",
+    shortName: "Excellence",
+    location: "Knowledge City",
+    state: "India",
+    established: "2000",
+    accreditation: "NAAC A++",
+    ugcApproved: true,
+    programs: ["Tech", "Management", "Research"],
+    highlights: ["Future-Ready Tech", "Global Faculty", "Research Focus"],
+    description: "A research-driven educational node focused on future technologies and management excellence.",
+    ranking: "#1 Research Institute",
+    totalStudents: "5,000+",
+    type: "Research Institute",
+    feeStructure: { UG: "₹50k - ₹1L/yr", PG: "₹70k - ₹1.2L/yr" }
   }
 };
 
@@ -126,9 +211,10 @@ export default async function UniversityPage({ params }: UniversityPageProps) {
                   </div>
                 ))}
               </div>
-              <div className="pt-8 border-t border-[var(--border)] flex gap-4">
-                <button className="flex-1 py-4 bg-[var(--primary)] rounded-2xl text-white text-xs font-black uppercase tracking-widest hover:shadow-[0_0_30px_rgba(37,99,235,0.4)] transition-all">Initialize Enrollment</button>
-                <button className="px-6 py-4 bg-[var(--surface)] border border-[var(--border)] rounded-2xl text-[var(--text-primary)] hover:bg-[var(--surface-alt)] transition-all"><Globe className="h-5 w-5" /></button>
+              <div className="pt-8 border-t border-[var(--border)]">
+                <Link href="/contact" className="block w-full py-4 bg-[var(--primary)] rounded-2xl text-white text-xs font-black uppercase tracking-widest hover:shadow-[0_0_30px_rgba(37,99,235,0.4)] hover:bg-[var(--primary)]/90 transition-all text-center">
+                  Initialize Enrollment
+                </Link>
               </div>
             </div>
           </div>

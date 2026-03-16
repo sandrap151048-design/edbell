@@ -91,7 +91,7 @@ export default function Services() {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(59,130,246,0.1),transparent_50%)]"></div>
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto flex flex-col items-center text-center space-y-6 sm:space-y-8">
+        <div className="relative z-10 max-w-[1700px] mx-auto flex flex-col items-center text-center space-y-6 sm:space-y-8">
           <div className={`space-y-5 sm:space-y-6 ${mounted ? 'animate-fade-in-up' : 'opacity-0'}`}>
             <div className="inline-flex items-center space-x-2 text-[9px] sm:text-[10px] font-black text-[var(--primary)] uppercase tracking-[0.4em]">
               <Cpu className="h-3.5 w-3.5 animate-pulse" />
@@ -193,7 +193,7 @@ export default function Services() {
 
       {/* Auxiliary Support */}
       <section className="py-16 sm:py-20 lg:py-24 bg-[var(--bg-secondary)]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 space-y-12 sm:space-y-16">
+        <div className="max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-12 space-y-12 sm:space-y-16">
           <div className="flex flex-col lg:flex-row items-end justify-between gap-6">
             <div className="space-y-2">
               <p className="text-[9px] sm:text-[10px] font-black text-[var(--primary)] uppercase tracking-[0.3em]">Integrated Nodes</p>

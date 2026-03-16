@@ -183,7 +183,7 @@ export default function Home() {
         <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-blue-600/10 rounded-full blur-[150px] animate-pulse"></div>
         <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-indigo-600/10 rounded-full blur-[150px] animate-pulse delay-1000"></div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 w-full grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+        <div className="relative z-10 max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-12 w-full grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div className="space-y-6 sm:space-y-8">
             <div className={`inline-flex items-center bg-white/[0.03] border border-white/[0.1] rounded-2xl px-4 py-2 backdrop-blur-2xl ${mounted ? 'animate-fade-in-up' : 'opacity-0'}`}>
               <img src="/edbell-logo.png" alt="" className="h-5 w-5 sm:h-6 sm:w-6 mr-2 object-contain" />
@@ -221,8 +221,8 @@ export default function Home() {
 
           <div className={`relative hidden lg:block ${mounted ? 'animate-fade-in-right' : 'opacity-0'}`}>
             <div className="absolute -inset-8 bg-blue-600/10 rounded-full blur-[100px]"></div>
-            <div className="relative bg-[var(--surface)]/80 backdrop-blur-3xl border border-[var(--border)] rounded-[40px] p-3 overflow-hidden shadow-2xl">
-              <img src="/hero-arif.jpg" alt="Adv.Arif Wafy" className="w-full h-[420px] xl:h-[500px] object-cover rounded-[36px] filter contrast-110" />
+            <div className="relative bg-[var(--surface)]/80 backdrop-blur-3xl border border-[var(--border)] rounded-[40px] p-3 overflow-hidden shadow-2xl max-w-lg ml-auto">
+              <img src="/hero-arif.jpg" alt="Adv.Arif Wafy" className="w-full h-[400px] xl:h-[480px] xxl:h-[550px] object-cover rounded-[36px] filter contrast-110" />
               <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-primary)] via-transparent to-transparent"></div>
 
               <div className="absolute bottom-8 left-8 right-8 z-20">
@@ -239,7 +239,7 @@ export default function Home() {
 
       {/* CORE CAPABILITIES */}
       <section className="py-16 sm:py-20 lg:py-24 bg-[var(--bg-secondary)]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+        <div className="max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-12">
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-end mb-12 lg:mb-16">
             <div className="flex-1">
               <h2 className="text-[10px] sm:text-xs font-black text-[var(--primary)] uppercase tracking-[0.4em] mb-3">Operational Logic</h2>
@@ -268,7 +268,7 @@ export default function Home() {
       <section className="py-16 sm:py-20 lg:py-24 relative">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[400px] bg-blue-600/[0.02] blur-[150px] rounded-full"></div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+        <div className="relative z-10 max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-12">
           <div className="text-center max-w-3xl mx-auto mb-12 lg:mb-16">
             <h2 className="text-[10px] sm:text-xs font-black text-[var(--primary)] uppercase tracking-[0.4em] mb-3">Curriculum Layers</h2>
             <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-[var(--text-heading)] tracking-tighter uppercase leading-none">Strategic <br /> Degree Programs</h3>
@@ -315,7 +315,7 @@ export default function Home() {
 
       {/* VALIDATION NODES - MILESTONES */}
       <section className="py-16 sm:py-20 lg:py-24 bg-[var(--bg-secondary)]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+        <div className="max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-12">
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-center justify-between mb-12 lg:mb-16">
             <div className="max-w-xl text-center lg:text-left">
               <h2 className="text-[10px] sm:text-xs font-black text-[var(--primary)] uppercase tracking-[0.4em] mb-3">Network Integrity</h2>
