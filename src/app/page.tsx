@@ -186,7 +186,7 @@ export default function Home() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 w-full grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div className="space-y-6 sm:space-y-8">
             <div className={`inline-flex items-center bg-white/[0.03] border border-white/[0.1] rounded-2xl px-4 py-2 backdrop-blur-2xl ${mounted ? 'animate-fade-in-up' : 'opacity-0'}`}>
-              <Sparkles className="h-4 w-4 text-blue-400 mr-2 animate-pulse" />
+              <img src="/edbell-logo.png" alt="" className="h-5 w-5 sm:h-6 sm:w-6 mr-2 object-contain" />
               <span className="text-[9px] sm:text-[10px] font-black text-blue-400 uppercase tracking-[0.25em]">Excellence Re-engineered</span>
             </div>
 

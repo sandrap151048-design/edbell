@@ -123,7 +123,8 @@ export default function RootLayout({
         <meta name="msapplication-tap-highlight" content="no" />
         <meta name="HandheldFriendly" content="true" />
         <meta name="MobileOptimized" content="width" />
-        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" href="/edbell-logo.png" />
+        <link rel="apple-touch-icon" href="/edbell-logo.png" />
         <link rel="manifest" href="/manifest.json" />
       </head>
       <body className={inter.className}>

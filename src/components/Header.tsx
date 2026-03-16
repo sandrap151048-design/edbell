@@ -73,9 +73,10 @@ const Header = () => {
       <div className="max-w-[1600px] mx-auto px-6 lg:px-12">
         <div className="flex justify-between items-center">
           {/* Logo Cluster */}
+          {/* Logo Cluster */}
           <Link href="/" className="flex items-center group relative z-10 transition-all hover:scale-105">
             <div className="absolute -inset-4 bg-blue-600/10 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <div className="relative h-10 w-10 lg:h-14 lg:w-14 flex items-center justify-center">
+            <div className="relative h-12 w-12 lg:h-16 lg:w-16 flex items-center justify-center">
               <img 
                 src="/edbell-logo.png" 
                 alt="EDBELL" 
