@@ -76,11 +76,11 @@ const Header = () => {
           {/* Logo Cluster */}
           <Link href="/" className="flex items-center group relative z-10 transition-all hover:scale-105">
             <div className="absolute -inset-4 bg-blue-600/10 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <div className="relative h-12 w-12 lg:h-16 lg:w-16 flex items-center justify-center">
+            <div className="relative h-14 w-14 lg:h-20 lg:w-20 flex items-center justify-center">
               <img 
                 src="/edbell-logo.png" 
                 alt="EDBELL" 
-                className="h-full w-auto object-contain brightness-110 contrast-110 drop-shadow-[0_0_15px_rgba(37,99,235,0.3)]"
+                className="h-full w-auto object-contain brightness-110 contrast-110 drop-shadow-[0_0_15px_rgba(37,99,235,0.3)] scale-125"
                 onError={(e) => {
                   e.currentTarget.style.display = 'none';
                   const nextLevel = e.currentTarget.parentElement?.nextElementSibling;

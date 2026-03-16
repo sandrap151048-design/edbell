@@ -63,7 +63,7 @@ const Footer = () => {
                 <img 
                   src="/edbell-logo.png" 
                   alt="EDBELL" 
-                  className="h-12 md:h-16 w-auto object-contain brightness-110 drop-shadow-[0_0_20px_rgba(59,130,246,0.2)]"
+                  className="h-16 md:h-24 w-auto object-contain brightness-110 drop-shadow-[0_0_20px_rgba(59,130,246,0.2)] scale-110"
                   onError={(e) => {
                     e.currentTarget.style.display = 'none';
                     const nextLevel = e.currentTarget.nextElementSibling;
