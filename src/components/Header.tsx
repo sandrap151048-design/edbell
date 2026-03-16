@@ -66,10 +66,9 @@ const Header = () => {
   ];
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 pt-4 px-4 pointer-events-none`}>
-      <div className={`max-w-[1600px] mx-auto bg-white border border-gray-100 transition-all duration-300 pointer-events-auto ${isScrolled ? 'py-2 lg:py-3 shadow-xl' : 'py-6 lg:py-8 shadow-lg'}`}>
-        <div className="px-6 sm:px-10 lg:px-14 flex justify-between items-center">
-          {/* Logo Cluster */}
+    <header className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 bg-white border-b border-gray-100 ${isScrolled ? 'py-1.5 lg:py-2 shadow-md' : 'py-3 lg:py-4 shadow-sm'}`}>
+      <div className="max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
+        <div className="flex justify-between items-center group">
           {/* Logo Cluster */}
           <Link href="/" className="flex items-center group relative z-10 transition-all hover:scale-105">
             <div className="absolute -inset-4 bg-blue-600/10 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
