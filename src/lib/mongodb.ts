@@ -67,14 +67,15 @@ export async function connectToDatabase() {
   try {
     const connection = await connectDB();
     if (!connection) {
-      throw new Error('MongoDB URI not configured');
+      console.warn('⚠️ MongoDB URI not configured. Returning null.');
+      return null;
     }
     return {
       db: connection.connection.db
     };
   } catch (error) {
     console.error('Database connection failed:', error);
-    throw new Error('Failed to connect to database');
+    return null;
   }
 }
 

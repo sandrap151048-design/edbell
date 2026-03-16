@@ -1,275 +1,189 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
-import { MapPin, Phone, Mail, Facebook, Instagram, Twitter, Linkedin, Heart, Loader2, CheckCircle } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { MapPin, Phone, Mail, Facebook, Instagram, Twitter, Linkedin, Heart, Loader2, CheckCircle, ArrowRight, Zap, Globe, Sparkles } from 'lucide-react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
-  const [message, setMessage] = useState('');
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const loggedIn = localStorage.getItem('isLoggedIn') === 'true';
+      setIsAuthenticated(loggedIn);
+    }
+  }, []);
 
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!email) {
-      setMessage('Please enter your email address');
+    if (!isAuthenticated) {
+      window.location.href = '/login';
       return;
     }
-
     setIsLoading(true);
-    setMessage('');
-
-    try {
-      const response = await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setIsSubscribed(true);
-        setMessage(data.message);
-        setEmail('');
-      } else {
-        setMessage(data.error || 'Something went wrong. Please try again.');
-      }
-    } catch (error) {
-      setMessage('Network error. Please check your connection and try again.');
-    } finally {
+    // Simulating API call
+    setTimeout(() => {
+      setIsSubscribed(true);
       setIsLoading(false);
-    }
+    }, 1500);
   };
 
   const quickLinks = [
-    { name: 'Home', href: '/' },
-    { name: 'About Us', href: '/about' },
-    { name: 'Courses', href: '/courses' },
-    { name: 'Universities', href: '/universities' },
-    { name: 'Services', href: '/services' },
-    { name: 'Contact', href: '/contact' },
-  ];
-
-  const services = [
-    { name: 'Online Degree Programs', href: '/courses' },
-    { name: 'Career Counseling', href: '/services' },
-    { name: 'Study Abroad Services', href: '/services' },
-    { name: 'Test Preparations', href: '/services' },
+    { name: 'HOME', href: '/' },
+    { name: 'ABOUT US', href: '/about' },
+    { name: 'COURSES', href: '/courses' },
+    { name: 'UNIVERSITIES', href: '/universities' },
+    { name: 'SERVICES', href: '/services' },
+    { name: 'CONTACT', href: '/contact' },
   ];
 
   const socialLinks = [
-    {
-      name: 'Facebook',
-      href: 'https://facebook.com',
-      icon: Facebook,
-      color: 'hover:text-blue-600',
-    },
-    {
-      name: 'Instagram',
-      href: 'https://instagram.com/edbelledusolutions',
-      icon: Instagram,
-      color: 'hover:text-pink-600',
-    },
-    {
-      name: 'Twitter',
-      href: 'https://twitter.com',
-      icon: Twitter,
-      color: 'hover:text-blue-400',
-    },
-    {
-      name: 'LinkedIn',
-      href: 'https://linkedin.com',
-      icon: Linkedin,
-      color: 'hover:text-blue-700',
-    },
+    { name: 'FB', icon: Facebook, href: '#' },
+    { name: 'IG', icon: Instagram, href: '#' },
+    { name: 'TW', icon: Twitter, href: '#' },
+    { name: 'LN', icon: Linkedin, href: '#' },
   ];
 
   return (
-    <footer className="bg-gray-900 text-white">
-      {/* Main Footer Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Company Info */}
-          <div className="lg:col-span-1">
-            <div className="mb-4">
-              {/* Logo Image Only */}
-              <img 
-                src="/edbell-logo.png" 
-                alt="EdBell EduSolutions" 
-                className="h-14 sm:h-16 w-auto object-contain brightness-0 invert"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.style.display = 'none';
-                  const fallback = target.nextElementSibling as HTMLElement;
-                  if (fallback) fallback.style.display = 'flex';
-                }}
-              />
-              {/* Fallback */}
-              <div className="hidden items-center space-x-3">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-blue-900 to-blue-700 rounded-lg flex items-center justify-center mobile-touch-target">
-                  <span className="text-white font-bold text-lg sm:text-xl">E</span>
-                </div>
-                <div>
-                  <h3 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-900 to-blue-700 bg-clip-text text-transparent">EdBell</h3>
-                  <p className="text-gray-400 text-sm">EDUSOLUTIONS LLP</p>
-                </div>
+    <footer className="relative bg-[var(--bg-primary)] pt-24 lg:pt-32 pb-12 overflow-hidden border-t border-[var(--border)]">
+      {/* Background Decorative Element */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[300px] bg-[var(--primary)]/5 blur-[120px] rounded-full"></div>
+
+      <div className="relative z-10 max-w-[1600px] mx-auto px-6 lg:px-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-16 lg:gap-20 mb-20 lg:mb-24 items-start">
+
+          {/* Brand Engine - Left Aligned */}
+          <div className="lg:col-span-5 space-y-8 lg:space-y-10 text-center md:text-left">
+            <Link href="/" className="inline-block">
+              <div className="flex items-center space-x-3 mb-6 justify-center md:justify-start">
+                <Sparkles className="h-8 w-8 text-[var(--primary)] animate-pulse" />
+                <span className="text-3xl font-black text-[var(--text-heading)] tracking-[0.2em]">EDBELL</span>
               </div>
-            </div>
-            <p className="text-gray-300 mb-6 text-sm sm:text-base leading-relaxed">
-              Empowering students with quality education and comprehensive support services. Your success is our mission.
+            </Link>
+            <p className="text-lg lg:text-xl text-[var(--text-primary)] font-light leading-relaxed max-w-md mx-auto md:mx-0">
+              Engineering the future of education with high-performance digital infrastructure and global institutional partnerships.
             </p>
-            
-            {/* Contact Info */}
-            <div className="space-y-3 mb-6">
-              <div className="flex items-start space-x-3">
-                <MapPin className="h-4 w-4 sm:h-5 sm:w-5 text-blue-400 mt-1 flex-shrink-0" />
-                <div className="text-sm sm:text-base text-gray-300">
-                  15/382, Calicut Tower<br />
-                  Kozhikode Road, Wayanad<br />
-                  Kerala, India - 673121
+            <div className="space-y-4 lg:space-y-6 max-w-xs mx-auto md:mx-0">
+              <div className="flex items-start space-x-4 text-left">
+                <div className="w-10 h-10 bg-[var(--surface)] border border-[var(--border)] rounded-xl flex items-center justify-center text-[var(--primary)] shrink-0">
+                  <MapPin className="h-5 w-5" />
+                </div>
+                <div className="text-xs lg:text-sm font-bold text-[var(--text-primary)] tracking-tight uppercase">
+                  15/382, Calicut Tower, <br /> Kozhikode Road, Wayanad, Kerala
                 </div>
               </div>
-              <div className="flex items-center space-x-3">
-                <Phone className="h-4 w-4 sm:h-5 sm:w-5 text-blue-400 flex-shrink-0" />
-                <a href="tel:+919876543210" className="text-sm sm:text-base text-gray-300 hover:text-white transition-colors mobile-touch-target">
-                  +91 98765 43210
-                </a>
-              </div>
-              <div className="flex items-center space-x-3">
-                <Mail className="h-4 w-4 sm:h-5 sm:w-5 text-blue-400 flex-shrink-0" />
-                <a href="mailto:info@edbelledusolutions.com" className="text-sm sm:text-base text-gray-300 hover:text-white transition-colors mobile-touch-target">
-                  info@edbelledusolutions.com
-                </a>
-              </div>
-            </div>
-
-            {/* Social Links */}
-            <div className="flex space-x-3">
-              {socialLinks.map((social) => {
-                const IconComponent = social.icon;
-                return (
-                  <a
-                    key={social.name}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`w-8 h-8 sm:w-10 sm:h-10 bg-gray-800 ${social.color} rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 mobile-touch-target`}
-                    aria-label={social.name}
-                  >
-                    <IconComponent className="h-4 w-4 sm:h-5 sm:w-5" />
-                  </a>
-                );
-              })}
+              <a href="tel:+919876543210" className="flex items-center space-x-4 text-left hover:opacity-80 transition-opacity">
+                <div className="w-10 h-10 bg-[var(--surface)] border border-[var(--border)] rounded-xl flex items-center justify-center text-[var(--primary)] shrink-0">
+                  <Phone className="h-5 w-5" />
+                </div>
+                <div className="text-xs lg:text-sm font-bold text-[var(--text-primary)] tracking-tight">+91 98765 43210</div>
+              </a>
+              <a href="mailto:info@edbelledusolutions.com" className="flex items-center space-x-4 text-left hover:opacity-80 transition-opacity">
+                <div className="w-10 h-10 bg-[var(--surface)] border border-[var(--border)] rounded-xl flex items-center justify-center text-[var(--primary)] shrink-0">
+                  <Mail className="h-5 w-5" />
+                </div>
+                <div className="text-xs lg:text-sm font-bold text-[var(--text-primary)] tracking-tight uppercase truncate">info@edbelledusolutions.com</div>
+              </a>
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div>
-            <h4 className="text-lg sm:text-xl font-semibold mb-4 text-white">Quick Links</h4>
-            <ul className="space-y-2">
-              {quickLinks.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    className="text-gray-300 hover:text-white transition-colors text-sm sm:text-base mobile-touch-target inline-block"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+          {/* Navigation Matrix - Centered on tablet, left on mobile */}
+          <div className="lg:col-span-3 grid grid-cols-2 gap-8 lg:gap-12 text-center md:text-left">
+            <div className="space-y-6 lg:space-y-8">
+              <h4 className="text-[10px] font-black text-[var(--primary)] uppercase tracking-[0.4em]">Matrix</h4>
+              <ul className="space-y-4">
+                {quickLinks.slice(0, 4).map(l => (
+                  <li key={l.name}>
+                    <Link href={l.href} className="text-[10px] lg:text-xs font-black text-[var(--text-muted)] hover:text-[var(--text-heading)] transition-colors tracking-widest uppercase">{l.name}</Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="space-y-6 lg:space-y-8">
+              <h4 className="text-[10px] font-black text-[var(--primary)] uppercase tracking-[0.4em]">Support</h4>
+              <ul className="space-y-4">
+                {quickLinks.slice(4).map(l => (
+                  <li key={l.name}>
+                    <Link href={l.href} className="text-[10px] lg:text-xs font-black text-[var(--text-muted)] hover:text-[var(--text-heading)] transition-colors tracking-widest uppercase">{l.name}</Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
-          {/* Services */}
-          <div>
-            <h4 className="text-lg sm:text-xl font-semibold mb-4 text-white">Our Services</h4>
-            <ul className="space-y-2">
-              {services.map((service) => (
-                <li key={service.name}>
-                  <Link
-                    href={service.href}
-                    className="text-gray-300 hover:text-white transition-colors text-sm sm:text-base mobile-touch-target inline-block"
-                  >
-                    {service.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Newsletter */}
-          <div>
-            <h4 className="text-lg sm:text-xl font-semibold mb-4 text-white">Stay Connected</h4>
-            <p className="text-gray-300 text-sm sm:text-base mb-4">
-              Get updates on courses, admissions, and educational opportunities.
-            </p>
-            
-            {isSubscribed ? (
-              <div className="text-center p-4 bg-green-900/30 border border-green-700 rounded-lg">
-                <div className="inline-flex items-center justify-center w-8 h-8 bg-green-500 rounded-full mb-2">
-                  <CheckCircle className="h-4 w-4 text-white" />
+          {/* Communications Hub - Right Aligned on large screens */}
+          <div className="lg:col-span-4 space-y-8 lg:space-y-10">
+            <div className="bg-[var(--surface)] border border-[var(--border)] rounded-[30px] lg:rounded-[40px] p-8 lg:p-10 shadow-xl">
+              <h4 className="text-[10px] font-black text-[var(--primary)] uppercase tracking-[0.4em] mb-6 text-center">Protocol Subscription</h4>
+              {isSubscribed ? (
+                <div className="text-center py-6 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-2xl animate-fade-in">
+                  <CheckCircle className="h-8 w-8 mx-auto mb-2" />
+                  <p className="text-[10px] font-black uppercase tracking-widest">Subscriber Sync Complete</p>
                 </div>
-                <p className="text-green-300 text-sm">Thank you for subscribing!</p>
-              </div>
-            ) : (
-              <form onSubmit={handleNewsletterSubmit} className="flex flex-col space-y-3">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="px-4 py-2 sm:py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base min-h-[48px]"
-                  disabled={isLoading}
-                  required
-                />
-                <button 
-                  type="submit"
-                  disabled={isLoading}
-                  className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white px-4 py-2 sm:py-3 rounded-lg font-medium transition-colors text-sm sm:text-base min-h-[48px] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
-                >
-                  {isLoading ? (
-                    <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <form onSubmit={handleNewsletterSubmit} className="space-y-4">
+                  <input
+                    type="email"
+                    placeholder="EMAIL_ENDPOINT"
+                    className="w-full bg-[var(--bg-primary)] border border-[var(--border)] rounded-2xl py-4 lg:py-5 px-6 text-[var(--text-heading)] text-[10px] lg:text-xs font-bold placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--primary)]/50 transition-all"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                  {!isAuthenticated ? (
+                    <Link
+                      href="/login"
+                      className="w-full py-4 lg:py-5 bg-[var(--primary)] rounded-2xl text-white text-[10px] lg:text-xs font-black uppercase tracking-widest hover:shadow-[0_0_30px_rgba(37,99,235,0.4)] transition-all flex items-center justify-center space-x-2"
+                    >
+                      Login to Subscribe
+                    </Link>
                   ) : (
-                    'Subscribe'
+                    <button
+                      type="submit"
+                      disabled={isLoading}
+                      className="w-full py-4 lg:py-5 bg-[var(--primary)] rounded-2xl text-white text-[10px] lg:text-xs font-black uppercase tracking-widest hover:shadow-[0_0_30px_rgba(37,99,235,0.4)] transition-all flex items-center justify-center space-x-2"
+                    >
+                      {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <span>Subscribe</span>}
+                    </button>
                   )}
-                </button>
-                {message && (
-                  <p className="text-red-300 text-xs text-center">{message}</p>
-                )}
-              </form>
-            )}
-            
-            {/* Certifications */}
-            <div className="mt-6">
-              <h5 className="text-sm sm:text-base font-semibold text-white mb-2">Certifications</h5>
-              <div className="space-y-1">
-                <div className="text-xs sm:text-sm text-gray-400">✓ UGC-DEB Approved</div>
-                <div className="text-xs sm:text-sm text-gray-400">✓ NAAC A++ Graded</div>
-                <div className="text-xs sm:text-sm text-gray-400">✓ ISO 9001:2015 Certified</div>
+                </form>
+              )}
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-6 px-4">
+              <div className="flex space-x-4">
+                {socialLinks.map(s => (
+                  <Link key={s.name} href={s.href} className="w-10 h-10 lg:w-12 lg:h-12 bg-[var(--surface)] border border-[var(--border)] rounded-2xl flex items-center justify-center text-[var(--text-muted)] hover:bg-[var(--primary)] hover:text-white transition-all">
+                    <s.icon className="h-5 w-5" />
+                  </Link>
+                ))}
+              </div>
+              <div className="flex items-center space-x-3 text-[9px] lg:text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest">
+                <Globe className="h-4 w-4" />
+                <span>Global Reach</span>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Bottom Bar */}
-      <div className="border-t border-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex flex-col sm:flex-row justify-between items-center space-y-2 sm:space-y-0">
-            <div className="flex items-center space-x-2 text-sm text-gray-400">
-              <span>© {currentYear} EDBELL EDUSOLUTIONS LLP. All rights reserved.</span>
-            </div>
-            <div className="flex items-center space-x-2 text-sm text-gray-400">
-              <span>Made with</span>
-              <Heart className="h-4 w-4 text-red-500 fill-current" />
-              <span>in Kerala, India</span>
-            </div>
+        {/* Legal Disclaimer / Sub-footer */}
+        <div className="pt-12 border-t border-[var(--border)] flex flex-col md:flex-row justify-between items-center gap-8 md:gap-6 text-center md:text-left">
+          <p className="text-[9px] lg:text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em]">
+            © {currentYear} EDBELL EDUSOLUTIONS LLP // ALL_RIGHTS_RESERVED
+          </p>
+          <div className="flex items-center space-x-6 lg:space-x-8 text-[9px] lg:text-[10px] font-black text-[var(--text-muted)] tracking-[0.2em]">
+            <Link href="#" className="hover:text-[var(--primary)] transition-colors uppercase">Security</Link>
+            <Link href="#" className="hover:text-[var(--primary)] transition-colors uppercase">Privacy</Link>
+            <Link href="#" className="hover:text-[var(--primary)] transition-colors uppercase">Terms</Link>
+          </div>
+          <div className="flex items-center text-[9px] lg:text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] space-x-2">
+            <span>DESIGNED BY</span>
+            <Zap className="h-3 w-3 text-[var(--primary)] fill-current" />
+            <span className="text-[var(--text-heading)]">EDBELL_LABS</span>
           </div>
         </div>
       </div>

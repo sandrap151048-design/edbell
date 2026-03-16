@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   description: 'Leading provider of UGC-approved online degree programs, career counseling, study abroad services, and test preparations in Kerala, India. Get BA, B.Com, BBA, MA, M.Com, MBA degrees from top NAAC A++ universities like IGNOU, LPU, Amity University.',
   keywords: [
     'online education',
-    'degree programs', 
+    'degree programs',
     'career counseling',
     'study abroad',
     'Kerala',
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     'NAAC A++',
     'BA',
     'B.Com',
-    'BBA', 
+    'BBA',
     'MA',
     'M.Com',
     'MBA',
@@ -113,7 +113,7 @@ export default function RootLayout({
     <html lang="en" data-scroll-behavior="smooth">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover" />
-        <meta name="theme-color" content="#1e40af" />
+        <meta name="theme-color" content="#0066CC" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -127,6 +127,13 @@ export default function RootLayout({
         <link rel="manifest" href="/manifest.json" />
       </head>
       <body className={inter.className}>
+        <div className="fixed inset-0 z-[-1] pointer-events-none bg-[#030712]">
+          <img
+            src="/campus-modern.jpg"
+            alt="Global Background"
+            className="w-full h-full object-cover opacity-[0.05] mix-blend-screen"
+          />
+        </div>
         <ConditionalLayout>
           {children}
         </ConditionalLayout>

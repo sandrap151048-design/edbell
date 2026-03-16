@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Eye, EyeOff, Lock, Mail, User, AlertCircle } from 'lucide-react';
+import { Eye, EyeOff, Lock, Mail, User, AlertCircle, ArrowRight, ShieldCheck } from 'lucide-react';
 
 export default function Login() {
   const router = useRouter();
@@ -32,15 +32,11 @@ export default function Login() {
     try {
       // Simulate API call - replace with actual authentication
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
+
       // For demo purposes, accept any email/password combination
-      // In production, implement proper authentication
       if (formData.email && formData.password) {
-        // Store login state (in production, use proper session management)
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem('userEmail', formData.email);
-        
-        // Redirect to admin dashboard
         router.push('/admin');
       } else {
         setError('Please enter both email and password');
@@ -53,162 +49,171 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="flex justify-center">
-          <div className="flex items-center space-x-2">
-            <User className="h-10 w-10 text-blue-600" />
-            <div>
-              <h1 className="text-2xl font-bold text-blue-600">EDBELL</h1>
-              <p className="text-sm text-gray-600">EDUSOLUTIONS LLP</p>
-            </div>
-          </div>
-        </div>
-        <h2 className="mt-6 text-center text-3xl font-bold text-gray-900">
-          Welcome to EDBELL
-        </h2>
-        <p className="mt-2 text-center text-sm text-gray-600">
-          Admin login or explore our educational services
-        </p>
+    <div className="min-h-screen bg-[#030712] flex flex-col justify-center relative overflow-hidden py-12 px-4 sm:px-6 lg:px-8">
+      {/* Background Elements */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-600/10 rounded-full blur-[120px] animate-pulse"></div>
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-indigo-600/10 rounded-full blur-[120px] animate-pulse delay-1000"></div>
       </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow-lg sm:rounded-lg sm:px-10 border border-gray-200">
+      <div className="relative z-10 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="flex justify-center mb-8">
+          <Link href="/" className="flex items-center space-x-3 group">
+            <div className="w-12 h-12 bg-white/[0.03] border border-white/[0.1] rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+              <ShieldCheck className="h-7 w-7 text-blue-500" />
+            </div>
+            <div>
+              <h1 className="text-2xl font-bold text-slate-100 tracking-tight leading-none mb-1">EDBELL</h1>
+              <p className="text-[10px] text-slate-500 font-bold tracking-[0.2em] uppercase">Edusolutions LLP</p>
+            </div>
+          </Link>
+        </div>
+
+        <div className="text-center space-y-2 mb-8">
+          <h2 className="text-3xl font-bold text-slate-100 tracking-tight">
+            Admin Access
+          </h2>
+          <p className="text-slate-400 font-light">
+            Sign in to manage your educational ecosystem
+          </p>
+        </div>
+      </div>
+
+      <div className="relative z-10 mt-2 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="bg-white/[0.02] backdrop-blur-xl border border-white/[0.05] py-8 px-6 shadow-2xl sm:rounded-3xl sm:px-10">
           <form className="space-y-6" onSubmit={handleSubmit}>
             {error && (
-              <div className="bg-red-50 border border-red-200 rounded-md p-4">
+              <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4 animate-shake">
                 <div className="flex">
-                  <AlertCircle className="h-5 w-5 text-red-400" />
+                  <AlertCircle className="h-5 w-5 text-red-500" />
                   <div className="ml-3">
-                    <p className="text-sm text-red-800">{error}</p>
+                    <p className="text-sm text-red-400">{error}</p>
                   </div>
                 </div>
               </div>
             )}
 
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+            <div className="space-y-1">
+              <label htmlFor="email" className="block text-sm font-medium text-slate-300 ml-1">
                 Email Address
               </label>
-              <div className="mt-1 relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Mail className="h-5 w-5 text-gray-400" />
+              <div className="relative group">
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl blur opacity-0 group-focus-within:opacity-20 transition-all duration-300"></div>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <Mail className="h-5 w-5 text-slate-500 group-focus-within:text-blue-500 transition-colors" />
+                  </div>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    required
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className="block w-full pl-12 pr-4 py-3.5 bg-[#030712]/50 border border-white/[0.05] rounded-xl text-slate-100 placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-blue-500/50 transition-all text-sm"
+                    placeholder="name@company.com"
+                  />
                 </div>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  placeholder="Enter your email"
-                />
               </div>
             </div>
 
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+            <div className="space-y-1">
+              <label htmlFor="password" className="block text-sm font-medium text-slate-300 ml-1">
                 Password
               </label>
-              <div className="mt-1 relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock className="h-5 w-5 text-gray-400" />
-                </div>
-                <input
-                  id="password"
-                  name="password"
-                  type={showPassword ? 'text' : 'password'}
-                  autoComplete="current-password"
-                  required
-                  value={formData.password}
-                  onChange={handleInputChange}
-                  className="appearance-none block w-full pl-10 pr-10 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  placeholder="Enter your password"
-                />
-                <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="text-gray-400 hover:text-gray-600 focus:outline-none"
-                  >
-                    {showPassword ? (
-                      <EyeOff className="h-5 w-5" />
-                    ) : (
-                      <Eye className="h-5 w-5" />
-                    )}
-                  </button>
+              <div className="relative group">
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl blur opacity-0 group-focus-within:opacity-20 transition-all duration-300"></div>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <Lock className="h-5 w-5 text-slate-500 group-focus-within:text-blue-500 transition-colors" />
+                  </div>
+                  <input
+                    id="password"
+                    name="password"
+                    type={showPassword ? 'text' : 'password'}
+                    required
+                    value={formData.password}
+                    onChange={handleInputChange}
+                    className="block w-full pl-12 pr-12 py-3.5 bg-[#030712]/50 border border-white/[0.05] rounded-xl text-slate-100 placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-blue-500/50 transition-all text-sm"
+                    placeholder="••••••••"
+                  />
+                  <div className="absolute inset-y-0 right-0 pr-4 flex items-center">
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="text-slate-500 hover:text-slate-300 transition-colors"
+                    >
+                      {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between ml-1 text-xs">
               <div className="flex items-center">
                 <input
                   id="remember-me"
                   name="remember-me"
                   type="checkbox"
-                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                  className="h-4 w-4 bg-[#030712] border-white/[0.1] text-blue-600 focus:ring-blue-500/50 rounded"
                 />
-                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
-                  Remember me
+                <label htmlFor="remember-me" className="ml-2 block text-slate-400">
+                  Remember session
                 </label>
               </div>
 
-              <div className="text-sm">
-                <a href="#" className="font-medium text-blue-600 hover:text-blue-500">
-                  Forgot your password?
-                </a>
+              <a href="#" className="font-medium text-blue-500 hover:text-blue-400 transition-colors">
+                Forgot password?
+              </a>
+            </div>
+
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="group relative w-full flex justify-center py-4 px-4 bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold rounded-xl shadow-[0_0_20px_rgba(37,99,235,0.2)] hover:shadow-[0_0_30px_rgba(37,99,235,0.3)] transition-all duration-300 transform hover:-translate-y-0.5"
+            >
+              {isLoading ? (
+                <div className="flex items-center">
+                  <div className="animate-spin rounded-full h-4 w-4 border-2 border-white/20 border-t-white mr-2"></div>
+                  Verifying...
+                </div>
+              ) : (
+                <div className="flex items-center">
+                  <span>Sign In</span>
+                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                </div>
+              )}
+            </button>
+
+            <div className="relative my-8">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-white/[0.05]"></div>
+              </div>
+              <div className="relative flex justify-center text-xs uppercase tracking-widest font-bold">
+                <span className="bg-[#0b101d] px-4 text-slate-500">Need access?</span>
               </div>
             </div>
 
-            <div>
-              <button
-                type="submit"
-                disabled={isLoading}
-                className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${
-                  isLoading
-                    ? 'bg-gray-400 cursor-not-allowed'
-                    : 'bg-blue-600 hover:bg-blue-700'
-                }`}
-              >
-                {isLoading ? (
-                  <div className="flex items-center">
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                    Signing in...
-                  </div>
-                ) : (
-                  'Sign in'
-                )}
-              </button>
-            </div>
-
-            {/* Signup Button */}
-            <div className="pt-4 border-t border-gray-200">
-              <p className="text-center text-sm text-gray-600 mb-3">
-                Don't have an account?
-              </p>
-              <Link
-                href="/signup"
-                className="group relative w-full flex justify-center py-3 px-4 border-2 border-blue-600 text-sm font-semibold rounded-md text-blue-600 bg-white hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 transform hover:scale-105"
-              >
-                <User className="h-5 w-5 mr-2" />
-                Sign Up Now
-              </Link>
-              <p className="text-center text-xs text-gray-500 mt-2">
-                Create an account to access all features
-              </p>
-            </div>
+            <Link
+              href="/signup"
+              className="w-full flex justify-center items-center py-4 px-4 bg-white/[0.03] border border-white/[0.1] text-sm font-bold rounded-xl text-slate-100 hover:bg-white/[0.08] transition-all duration-300 transform hover:-translate-y-0.5"
+            >
+              <User className="h-4 w-4 mr-2" />
+              Create Partner Account
+            </Link>
           </form>
 
-          <div className="mt-6">
-            <div className="text-center">
-              <Link href="/" className="text-sm text-blue-600 hover:text-blue-500 font-medium">
-                ← Back to Home
-              </Link>
-            </div>
-          </div>
+          <p className="mt-8 text-center text-xs text-slate-500 font-light">
+            Secured by enterprise-grade 256-bit encryption
+          </p>
+        </div>
+
+        <div className="mt-8 text-center">
+          <Link href="/" className="text-sm text-slate-500 hover:text-blue-400 font-medium transition-colors flex items-center justify-center group">
+            <ArrowRight className="h-4 w-4 mr-2 rotate-180 transform group-hover:-translate-x-1 transition-transform" />
+            Back to Home
+          </Link>
         </div>
       </div>
     </div>

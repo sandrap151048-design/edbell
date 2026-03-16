@@ -3,15 +3,16 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { 
-  Mail, 
-  Phone, 
-  User, 
-  Calendar, 
-  MessageCircle, 
-  Filter, 
-  Eye, 
-  LogOut, 
+import {
+  Mail,
+  Phone,
+  MapPin,
+  User,
+  Calendar,
+  MessageCircle,
+  Filter,
+  Eye,
+  LogOut,
   Shield,
   Home,
   Info,
@@ -137,7 +138,7 @@ export default function AdminDashboard() {
   const [userEmail, setUserEmail] = useState('');
   const [activeSection, setActiveSection] = useState('contacts');
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  
+
   // CRUD states
   const [showCourseModal, setShowCourseModal] = useState(false);
   const [showUniversityModal, setShowUniversityModal] = useState(false);
@@ -204,7 +205,7 @@ export default function AdminDashboard() {
   });
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isSeeding, setIsSeeding] = useState(false);
-  
+
   // Hero image upload states
   const [heroImageFile, setHeroImageFile] = useState<File | null>(null);
   const [heroImagePreview, setHeroImagePreview] = useState<string>('');
@@ -219,19 +220,19 @@ export default function AdminDashboard() {
   const [campusImagePreview, setCampusImagePreview] = useState<string>('');
   const [uploadingCampus, setUploadingCampus] = useState(false);
   const [campusUploadMessage, setCampusUploadMessage] = useState('');
-  
+
   // Services hero image states
   const [servicesImageFile, setServicesImageFile] = useState<File | null>(null);
   const [servicesImagePreview, setServicesImagePreview] = useState<string>('');
   const [uploadingServices, setUploadingServices] = useState(false);
   const [servicesUploadMessage, setServicesUploadMessage] = useState('');
-  
+
   // Gallery hero image states
   const [galleryHeroFile, setGalleryHeroFile] = useState<File | null>(null);
   const [galleryHeroPreview, setGalleryHeroPreview] = useState<string>('');
   const [uploadingGalleryHero, setUploadingGalleryHero] = useState(false);
   const [galleryHeroUploadMessage, setGalleryHeroUploadMessage] = useState('');
-  
+
   // Analytics state
   const [analyticsData, setAnalyticsData] = useState({
     totalVisitors: 0,
@@ -264,7 +265,7 @@ export default function AdminDashboard() {
     if (typeof window !== 'undefined') {
       const loggedIn = localStorage.getItem('isLoggedIn');
       const email = localStorage.getItem('userEmail');
-      
+
       if (loggedIn === 'true' && email) {
         setIsAuthenticated(true);
         setUserEmail(email);
@@ -285,7 +286,7 @@ export default function AdminDashboard() {
           fetchAnalyticsData();
           fetchContacts(); // Also fetch contacts for the analytics
         }
-        
+
         // Always fetch analytics data for the dashboard
         if (activeSection !== 'analytics') {
           fetchAnalyticsData();
@@ -326,14 +327,14 @@ export default function AdminDashboard() {
         limit: '10',
         status: selectedStatus
       });
-      
+
       const response = await fetch(`/api/contact?${params}`);
       const data = await response.json();
-      
+
       if (response.ok) {
         setContacts(data.contacts);
         setTotalPages(data.pagination.pages);
-        
+
         // Update analytics data with real contact count
         setAnalyticsData(prev => ({
           ...prev,
@@ -355,26 +356,26 @@ export default function AdminDashboard() {
       if (subscriptionsResponse.ok) {
         const subscriptionsData = await subscriptionsResponse.json();
         setSubscriptions(subscriptionsData.subscriptions || []);
-        
+
         setAnalyticsData(prev => ({
           ...prev,
           newsletterSubscribers: subscriptionsData.pagination?.total || subscriptionsData.subscriptions?.length || 0,
           subscriberGrowth: '+5% growth' // You can calculate this based on date comparison
         }));
       }
-      
+
       // Fetch page views analytics
       const analyticsResponse = await fetch('/api/analytics');
       if (analyticsResponse.ok) {
         const analyticsDataResponse = await analyticsResponse.json();
         setPopularPages(analyticsDataResponse.popularPages || []);
         setPageViewsData(analyticsDataResponse);
-        
+
         // Calculate course page views from analytics
-        const courseViews = analyticsDataResponse.popularPages?.find((page: any) => 
+        const courseViews = analyticsDataResponse.popularPages?.find((page: any) =>
           page.path === '/courses' || page.page.toLowerCase().includes('course')
         )?.views || 0;
-        
+
         setAnalyticsData(prev => ({
           ...prev,
           totalVisitors: analyticsDataResponse.totalViews || 0,
@@ -383,10 +384,10 @@ export default function AdminDashboard() {
           courseViewsGrowth: '+8% from last week'
         }));
       }
-      
+
     } catch (error) {
       console.error('Error fetching analytics data:', error);
-      
+
       // Fallback to basic data if analytics fails
       setAnalyticsData(prev => ({
         ...prev,
@@ -456,12 +457,12 @@ export default function AdminDashboard() {
         body: JSON.stringify(courseForm)
       });
       const data = await response.json();
-      
+
       if (data.success) {
         setCourses([...courses, data.course]);
         setShowCourseModal(false);
         resetCourseForm();
-        alert(`✅ Course created successfully! ${data.pageCreated ? 'Page file also created.' : ''}\n\n🔄 The course is now visible on:\n• Home page (Popular Courses section)\n• Courses page\n• Course detail page: ${data.course.url}`);
+        alert('✅ Course created successfully!');
       } else {
         alert(`❌ Error creating course: ${data.error}`);
       }
@@ -493,13 +494,13 @@ export default function AdminDashboard() {
         body: JSON.stringify({ ...courseForm, _id: editingCourse?._id })
       });
       const data = await response.json();
-      
+
       if (data.success && editingCourse) {
         setCourses(courses.map(c => c._id === editingCourse._id ? { ...courseForm, _id: editingCourse._id } : c));
         setShowCourseModal(false);
         setEditingCourse(null);
         resetCourseForm();
-        alert(`✅ Course updated successfully! ${data.pageUpdated ? 'Page file also updated.' : ''}\n\n🔄 Changes are now visible on:\n• Home page\n• Courses page\n• Course detail page: ${courseForm.url}`);
+        alert('✅ Course updated successfully!');
       } else {
         alert(`❌ Error updating course: ${data.error}`);
       }
@@ -511,7 +512,7 @@ export default function AdminDashboard() {
 
   const deleteCourse = async (id: string) => {
     if (!confirm('Are you sure you want to delete this course? This will also delete the page file.')) return;
-    
+
     try {
       const response = await fetch(`/api/courses?id=${id}`, {
         method: 'DELETE'
@@ -519,7 +520,7 @@ export default function AdminDashboard() {
       const data = await response.json();
       if (data.success) {
         setCourses(courses.filter(c => c._id !== id));
-        alert(`Course deleted successfully! ${data.pageDeleted ? 'Page file also deleted.' : ''}`);
+        alert('✅ Course deleted successfully!');
       }
     } catch (error) {
       console.error('Error deleting course:', error);
@@ -580,12 +581,12 @@ export default function AdminDashboard() {
         body: JSON.stringify(universityForm)
       });
       const data = await response.json();
-      
+
       if (data.success) {
         setUniversities([...universities, data.university]);
         setShowUniversityModal(false);
         resetUniversityForm();
-        alert(`✅ University created successfully! ${data.pageCreated ? 'Page file also created.' : ''}\n\n🔄 The university is now visible on:\n• Universities page\n• University detail page: ${universityForm.url}`);
+        alert('✅ University created successfully!');
       } else {
         alert(`❌ Error creating university: ${data.error}`);
       }
@@ -621,13 +622,13 @@ export default function AdminDashboard() {
         body: JSON.stringify({ ...universityForm, _id: editingUniversity?._id })
       });
       const data = await response.json();
-      
+
       if (data.success && editingUniversity) {
         setUniversities(universities.map(u => u._id === editingUniversity._id ? { ...universityForm, _id: editingUniversity._id } : u));
         setShowUniversityModal(false);
         setEditingUniversity(null);
         resetUniversityForm();
-        alert(`✅ University updated successfully! ${data.pageUpdated ? 'Page file also updated.' : ''}\n\n🔄 Changes are now visible on:\n• Universities page\n• University detail page: ${universityForm.url}`);
+        alert('✅ University updated successfully!');
       } else {
         alert(`❌ Error updating university: ${data.error}`);
       }
@@ -639,7 +640,7 @@ export default function AdminDashboard() {
 
   const deleteUniversity = async (id: string) => {
     if (!confirm('Are you sure you want to delete this university? This will also delete the page file.')) return;
-    
+
     try {
       const response = await fetch(`/api/universities?id=${id}`, {
         method: 'DELETE'
@@ -647,7 +648,7 @@ export default function AdminDashboard() {
       const data = await response.json();
       if (data.success) {
         setUniversities(universities.filter(u => u._id !== id));
-        alert(`University deleted successfully! ${data.pageDeleted ? 'Page file also deleted.' : ''}`);
+        alert('✅ University deleted successfully!');
       }
     } catch (error) {
       console.error('Error deleting university:', error);
@@ -719,12 +720,12 @@ export default function AdminDashboard() {
         body: JSON.stringify(blogForm)
       });
       const data = await response.json();
-      
+
       if (data.success) {
         setBlogs([...blogs, data.blog]);
         setShowBlogModal(false);
         resetBlogForm();
-        alert(`✅ Blog post created successfully!\n\n🔄 The blog post is now ${blogForm.published ? 'published and visible' : 'saved as draft'} on the blog page.`);
+        alert('✅ Blog post created successfully!');
       } else {
         alert(`❌ Error creating blog: ${data.error}`);
       }
@@ -764,13 +765,13 @@ export default function AdminDashboard() {
         body: JSON.stringify({ ...blogForm, _id: editingBlog?._id })
       });
       const data = await response.json();
-      
+
       if (data.success && editingBlog) {
         setBlogs(blogs.map(b => b._id === editingBlog._id ? { ...blogForm, _id: editingBlog._id } : b));
         setShowBlogModal(false);
         setEditingBlog(null);
         resetBlogForm();
-        alert(`✅ Blog post updated successfully!\n\n🔄 Changes are now ${blogForm.published ? 'published and visible' : 'saved as draft'} on the blog page.`);
+        alert('✅ Blog post updated successfully!');
       } else {
         alert(`❌ Error updating blog: ${data.error}`);
       }
@@ -782,7 +783,7 @@ export default function AdminDashboard() {
 
   const deleteBlog = async (id: string) => {
     if (!confirm('Are you sure you want to delete this blog post? This action cannot be undone.')) return;
-    
+
     try {
       const response = await fetch(`/api/blogs?id=${id}`, {
         method: 'DELETE'
@@ -875,13 +876,13 @@ export default function AdminDashboard() {
         body: formData
       });
       const data = await response.json();
-      
+
       if (data.success) {
         setGalleryImages([...galleryImages, data.image]);
         setShowGalleryModal(false);
         resetGalleryForm();
         setSelectedFile(null);
-        alert(`✅ Image uploaded successfully!\n\n🔄 The image is now ${galleryForm.published ? 'published and visible' : 'saved as draft'} in the gallery.`);
+        alert('✅ Image uploaded successfully!');
       } else {
         alert(`❌ Error uploading image: ${data.error}`);
       }
@@ -908,13 +909,13 @@ export default function AdminDashboard() {
         body: JSON.stringify({ ...galleryForm, _id: editingGalleryImage?._id })
       });
       const data = await response.json();
-      
+
       if (data.success && editingGalleryImage) {
         setGalleryImages(galleryImages.map(img => img._id === editingGalleryImage._id ? { ...galleryForm, _id: editingGalleryImage._id } : img));
         setShowGalleryModal(false);
         setEditingGalleryImage(null);
         resetGalleryForm();
-        alert(`✅ Image updated successfully!\n\n🔄 Changes are now ${galleryForm.published ? 'published and visible' : 'saved as draft'} in the gallery.`);
+        alert('✅ Image updated successfully!');
       } else {
         alert(`❌ Error updating image: ${data.error}`);
       }
@@ -998,14 +999,14 @@ export default function AdminDashboard() {
 
   const seedSampleData = async () => {
     if (!confirm('This will add sample courses and universities. Continue?')) return;
-    
+
     setIsSeeding(true);
     try {
       const response = await fetch('/api/seed', {
         method: 'POST'
       });
       const data = await response.json();
-      
+
       if (data.success) {
         alert(`Sample data added successfully! Added ${data.data.courses} courses and ${data.data.universities} universities.`);
         // Refresh the data
@@ -1024,7 +1025,7 @@ export default function AdminDashboard() {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-[#030712] flex items-center justify-center">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
       </div>
     );
@@ -1032,13 +1033,54 @@ export default function AdminDashboard() {
 
   const renderContactsSection = () => (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      {/* Company Contact Information */}
+      <div className="lg:col-span-3 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg shadow-2xl border border-blue-400/20 p-8 mb-8">
+        <h2 className="text-2xl font-bold text-white mb-6">Company Contact Information</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
+            <div className="flex items-center space-x-3 mb-3">
+              <MapPin className="h-6 w-6 text-blue-200" />
+              <h3 className="text-lg font-semibold text-white">Address</h3>
+            </div>
+            <p className="text-blue-100 text-sm leading-relaxed">
+              15/382, Calicut Tower<br />
+              Kozhikode Road<br />
+              Wayanad, Kerala<br />
+              India
+            </p>
+          </div>
+          
+          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
+            <div className="flex items-center space-x-3 mb-3">
+              <Phone className="h-6 w-6 text-blue-200" />
+              <h3 className="text-lg font-semibold text-white">Phone</h3>
+            </div>
+            <p className="text-blue-100 text-sm font-mono">
+              +91 98765 43210
+            </p>
+            <p className="text-blue-200 text-xs mt-2">Direct Logic Support</p>
+          </div>
+          
+          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
+            <div className="flex items-center space-x-3 mb-3">
+              <Mail className="h-6 w-6 text-blue-200" />
+              <h3 className="text-lg font-semibold text-white">Email</h3>
+            </div>
+            <p className="text-blue-100 text-sm break-all">
+              info@edbelledusolutions.com
+            </p>
+            <p className="text-blue-200 text-xs mt-2">Secure Document Sync</p>
+          </div>
+        </div>
+      </div>
+
       {/* Contacts List */}
       <div className="lg:col-span-2">
-        <div className="bg-white rounded-lg shadow-sm border">
-          <div className="p-6 border-b">
+        <div className="bg-[#050B14] rounded-lg shadow-2xl border border-white/5">
+          <div className="p-6 border-b border-white/5">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h2 className="text-lg font-semibold text-gray-900">Contact Submissions</h2>
+                <h2 className="text-lg font-semibold text-white">Contact Submissions</h2>
                 <div className="flex items-center space-x-4 mt-2">
                   <div className="flex items-center space-x-2">
                     <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
@@ -1068,11 +1110,10 @@ export default function AdminDashboard() {
                     }
                   }}
                   disabled={loading}
-                  className={`flex items-center space-x-2 px-3 py-1 rounded-md text-sm transition-colors ${
-                    loading 
-                      ? 'bg-gray-400 cursor-not-allowed text-white' 
-                      : 'bg-blue-600 hover:bg-blue-700 text-white'
-                  }`}
+                  className={`flex items-center space-x-2 px-3 py-1 rounded-md text-sm transition-colors ${loading
+                    ? 'bg-gray-400 cursor-not-allowed text-white'
+                    : 'bg-blue-600 hover:bg-blue-700 text-white'
+                    }`}
                 >
                   <BarChart3 className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
                   <span>{loading ? 'Refreshing...' : 'Refresh'}</span>
@@ -1095,24 +1136,23 @@ export default function AdminDashboard() {
             </div>
           </div>
 
-          <div className="divide-y divide-gray-200">
+          <div className="divide-y divide-white/5">
             {loading ? (
               <div className="p-8 text-center">
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-                <p className="mt-2 text-gray-600">Loading contacts...</p>
+                <p className="mt-2 text-slate-400">Loading contacts...</p>
               </div>
             ) : contacts.length === 0 ? (
               <div className="p-8 text-center">
-                <MessageCircle className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-600">No contact submissions found</p>
+                <MessageCircle className="h-12 w-12 text-slate-700 mx-auto mb-4" />
+                <p className="text-slate-400">No contact submissions found</p>
               </div>
             ) : (
               contacts.map((contact) => (
                 <div
                   key={contact._id}
-                  className={`p-4 hover:bg-gray-50 cursor-pointer transition-colors ${
-                    selectedContact?._id === contact._id ? 'bg-blue-50 border-l-4 border-blue-500' : ''
-                  }`}
+                  className={`p-4 hover:bg-white/[0.02] cursor-pointer transition-colors ${selectedContact?._id === contact._id ? 'bg-blue-600/10 border-l-4 border-blue-500' : ''
+                    }`}
                   onClick={() => setSelectedContact(contact)}
                 >
                   <div className="flex items-start justify-between">
@@ -1176,11 +1216,11 @@ export default function AdminDashboard() {
 
       {/* Contact Details */}
       <div className="lg:col-span-1">
-        <div className="bg-white rounded-lg shadow-sm border">
+        <div className="bg-[#050B14] rounded-lg shadow-2xl border border-white/5">
           {selectedContact ? (
             <div className="p-6">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-lg font-semibold text-gray-900">Contact Details</h3>
+                <h3 className="text-lg font-semibold text-white">Contact Details</h3>
                 <span className={`px-3 py-1 text-sm font-semibold rounded-full ${getStatusColor(selectedContact.status)}`}>
                   {selectedContact.status.replace('-', ' ')}
                 </span>
@@ -1203,7 +1243,7 @@ export default function AdminDashboard() {
                       {selectedContact.email}
                     </a>
                   </div>
-                {/* Newsletter Subscription Status */}
+                  {/* Newsletter Subscription Status */}
                   <div className="mt-2 ml-6">
                     {subscriptions.find(sub => sub.email === selectedContact.email) ? (
                       <div className="bg-green-50 border border-green-200 rounded-lg p-3 mt-2">
@@ -1291,11 +1331,11 @@ export default function AdminDashboard() {
                 </div>
 
                 <div className="pt-4 space-y-2">
-                  <button 
+                  <button
                     onClick={() => {
                       const subject = `Re: ${selectedContact.subject}`;
                       const body = `Dear ${selectedContact.name},\n\nThank you for contacting EDBELL EDUSOLUTIONS LLP regarding "${selectedContact.subject}".\n\n${selectedContact.serviceInterest ? `We understand you are interested in our ${selectedContact.serviceInterest} services. ` : ''}We have received your inquiry and would be happy to assist you.\n\nOriginal Message:\n"${selectedContact.message}"\n\nWe will provide you with detailed information and guidance. Please feel free to reach out if you have any additional questions.\n\nBest regards,\nEDBELL EDUSOLUTIONS LLP Team\nPhone: +91 98765 43210\nEmail: info@edbelledusolutions.com`;
-                      
+
                       const mailtoLink = `mailto:${selectedContact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
                       window.open(mailtoLink, '_blank');
                     }}
@@ -1304,8 +1344,8 @@ export default function AdminDashboard() {
                     <Mail className="h-4 w-4" />
                     <span>Reply via Email</span>
                   </button>
-                  
-                  <button 
+
+                  <button
                     onClick={() => {
                       // Clean phone number for calling
                       const cleanPhone = selectedContact.phone.replace(/[^\d+]/g, '');
@@ -1317,8 +1357,8 @@ export default function AdminDashboard() {
                     <Phone className="h-4 w-4" />
                     <span>Call Contact</span>
                   </button>
-                  
-                  <button 
+
+                  <button
                     onClick={() => {
                       // WhatsApp message
                       const cleanPhone = selectedContact.phone.replace(/[^\d+]/g, '');
@@ -1331,7 +1371,7 @@ export default function AdminDashboard() {
                     <MessageCircle className="h-4 w-4" />
                     <span>WhatsApp Contact</span>
                   </button>
-                  
+
                   <div className="pt-2 border-t">
                     <label className="block text-sm font-medium text-gray-700 mb-2">Update Status</label>
                     <select
@@ -1347,11 +1387,11 @@ export default function AdminDashboard() {
                             },
                             body: JSON.stringify({ status: newStatus }),
                           });
-                          
+
                           if (response.ok) {
                             // Update local state
                             setSelectedContact({ ...selectedContact, status: newStatus });
-                            setContacts(contacts.map(c => 
+                            setContacts(contacts.map(c =>
                               c._id === selectedContact._id ? { ...c, status: newStatus } : c
                             ));
                             alert(`✅ Contact status updated to "${newStatus.replace('-', ' ')}"`);
@@ -1370,7 +1410,7 @@ export default function AdminDashboard() {
                       <option value="resolved">Resolved</option>
                     </select>
                   </div>
-                  
+
                   <div className="pt-2">
                     <label className="block text-sm font-medium text-gray-700 mb-2">Quick Actions</label>
                     <div className="grid grid-cols-2 gap-2">
@@ -1435,7 +1475,7 @@ export default function AdminDashboard() {
     <div className="space-y-8">
       {/* Newsletter Subscribers Header */}
       <div className="bg-white rounded-lg shadow-sm border">
-        <div className="p-6 border-b bg-gradient-to-r from-blue-50 to-blue-100">
+        <div className="p-6 border-b border-white/5 bg-gradient-to-r from-blue-900/20 to-indigo-900/20">
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-2xl font-bold text-gray-900">Newsletter Subscribers</h2>
@@ -1457,11 +1497,10 @@ export default function AdminDashboard() {
                   }
                 }}
                 disabled={loading}
-                className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
-                  loading 
-                    ? 'bg-gray-400 cursor-not-allowed text-white' 
-                    : 'bg-blue-600 hover:bg-blue-700 text-white'
-                }`}
+                className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${loading
+                  ? 'bg-gray-400 cursor-not-allowed text-white'
+                  : 'bg-blue-600 hover:bg-blue-700 text-white'
+                  }`}
               >
                 <BarChart3 className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
                 <span>{loading ? 'Refreshing...' : 'Refresh Data'}</span>
@@ -1479,7 +1518,7 @@ export default function AdminDashboard() {
             </div>
           </div>
         </div>
-        
+
         <div className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <div className="text-center p-6 bg-blue-50 rounded-lg">
@@ -1526,10 +1565,10 @@ export default function AdminDashboard() {
       </div>
 
       {/* Subscribers List */}
-      <div className="bg-white rounded-lg shadow-sm border">
-        <div className="p-6 border-b">
-          <h3 className="text-lg font-semibold text-gray-900">Subscriber Details</h3>
-          <p className="text-gray-600">Complete list of newsletter subscribers with contact history</p>
+      <div className="bg-[#050B14] rounded-lg shadow-2xl border border-white/5">
+        <div className="p-6 border-b border-white/5">
+          <h3 className="text-lg font-semibold text-white">Subscriber Details</h3>
+          <p className="text-slate-400">Complete list of newsletter subscribers with contact history</p>
         </div>
         <div className="p-6">
           {subscriptions.length === 0 ? (
@@ -1550,18 +1589,18 @@ export default function AdminDashboard() {
             </div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
+              <table className="min-w-full divide-y divide-white/5">
+                <thead className="bg-[#030712]">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Subscriber</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Subscribed Date</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact History</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Subscriber</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Email</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Subscribed Date</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Status</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Contact History</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+                <tbody className="bg-[#050B14] divide-y divide-white/5">
                   {subscriptions.map((subscription, index) => {
                     const hasContactHistory = contacts.some(contact => contact.email === subscription.email);
                     const contactRecord = contacts.find(contact => contact.email === subscription.email);
@@ -1602,9 +1641,8 @@ export default function AdminDashboard() {
                           })}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                            subscription.isActive !== false ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-                          }`}>
+                          <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${subscription.isActive !== false ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                            }`}>
                             {subscription.isActive !== false ? 'Active' : 'Inactive'}
                           </span>
                         </td>
@@ -1659,12 +1697,12 @@ export default function AdminDashboard() {
   const renderBlogsSection = () => (
     <div className="space-y-8">
       {/* Blog Management Header */}
-      <div className="bg-white rounded-lg shadow-sm border">
-        <div className="p-6 border-b bg-gradient-to-r from-purple-50 to-purple-100">
+      <div className="bg-[#050B14] rounded-lg shadow-2xl border border-white/5">
+        <div className="p-6 border-b border-white/5 bg-gradient-to-r from-purple-900/10 to-pink-900/10">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-2xl font-bold text-gray-900">Blog Management</h2>
-              <p className="text-gray-600 mt-1">Create and manage blog posts for your website</p>
+              <h2 className="text-2xl font-bold text-white">Blog Management</h2>
+              <p className="text-slate-400 mt-1">Create and manage blog posts for your website</p>
             </div>
             <div className="flex items-center space-x-4">
               <button
@@ -1681,7 +1719,7 @@ export default function AdminDashboard() {
             </div>
           </div>
         </div>
-        
+
         <div className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <div className="text-center p-6 bg-green-50 rounded-lg">
@@ -1781,11 +1819,10 @@ export default function AdminDashboard() {
                         </span>
                       </td>
                       <td className="px-6 py-4">
-                        <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                          blog.published 
-                            ? 'bg-green-100 text-green-800' 
-                            : 'bg-yellow-100 text-yellow-800'
-                        }`}>
+                        <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${blog.published
+                          ? 'bg-green-100 text-green-800'
+                          : 'bg-yellow-100 text-yellow-800'
+                          }`}>
                           {blog.published ? 'Published' : 'Draft'}
                         </span>
                       </td>
@@ -1834,7 +1871,7 @@ export default function AdminDashboard() {
     <div className="space-y-8">
       {/* Gallery Management Header */}
       <div className="bg-white rounded-lg shadow-sm border">
-        <div className="p-6 border-b bg-gradient-to-r from-purple-50 to-pink-100">
+        <div className="p-6 border-b border-white/5 bg-gradient-to-r from-purple-900/20 to-pink-900/20">
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-2xl font-bold text-gray-900">Gallery Management</h2>
@@ -1902,13 +1939,12 @@ export default function AdminDashboard() {
                   </div>
                   <div className="p-4">
                     <div className="flex items-center justify-between mb-2">
-                      <span className={`text-xs font-medium px-2 py-1 rounded-full ${
-                        image.category === 'events' ? 'bg-blue-100 text-blue-800' :
+                      <span className={`text-xs font-medium px-2 py-1 rounded-full ${image.category === 'events' ? 'bg-blue-100 text-blue-800' :
                         image.category === 'campus' ? 'bg-green-100 text-green-800' :
-                        image.category === 'graduation' ? 'bg-purple-100 text-purple-800' :
-                        image.category === 'activities' ? 'bg-orange-100 text-orange-800' :
-                        'bg-yellow-100 text-yellow-800'
-                      }`}>
+                          image.category === 'graduation' ? 'bg-purple-100 text-purple-800' :
+                            image.category === 'activities' ? 'bg-orange-100 text-orange-800' :
+                              'bg-yellow-100 text-yellow-800'
+                        }`}>
                         {image.category}
                       </span>
                       <div className="flex items-center space-x-1">
@@ -1971,7 +2007,7 @@ export default function AdminDashboard() {
             </div>
           </div>
         </div>
-        
+
         <div className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="text-center p-6 bg-blue-50 rounded-lg">
@@ -2090,8 +2126,8 @@ export default function AdminDashboard() {
   const renderAddCourseSection = () => (
     <div className="space-y-8">
       {/* Course Management Header */}
-      <div className="bg-white rounded-lg shadow-sm border">
-        <div className="p-6 border-b bg-gradient-to-r from-purple-50 to-purple-100">
+      <div className="bg-[#050B14] rounded-lg shadow-2xl border border-white/5">
+        <div className="p-6 border-b border-white/5 bg-gradient-to-r from-purple-900/10 to-indigo-900/10">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <div className="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center">
@@ -2164,11 +2200,10 @@ export default function AdminDashboard() {
                         </div>
                       </td>
                       <td className="px-6 py-4">
-                        <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full whitespace-nowrap ${
-                          course.category === 'Undergraduate' ? 'bg-blue-100 text-blue-800' :
+                        <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full whitespace-nowrap ${course.category === 'Undergraduate' ? 'bg-blue-100 text-blue-800' :
                           course.category === 'Postgraduate' ? 'bg-green-100 text-green-800' :
-                          'bg-yellow-100 text-yellow-800'
-                        }`}>
+                            'bg-yellow-100 text-yellow-800'
+                          }`}>
                           {course.category}
                         </span>
                       </td>
@@ -2220,7 +2255,7 @@ export default function AdminDashboard() {
     <div className="space-y-8">
       {/* University Management Header */}
       <div className="bg-white rounded-lg shadow-sm border">
-        <div className="p-6 border-b bg-gradient-to-r from-green-50 to-green-100">
+        <div className="p-6 border-b border-white/5 bg-gradient-to-r from-green-900/20 to-emerald-900/20">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <div className="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center">
@@ -2293,11 +2328,10 @@ export default function AdminDashboard() {
                         </div>
                       </td>
                       <td className="px-6 py-4">
-                        <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full whitespace-nowrap ${
-                          university.accreditation === 'NAAC A++' ? 'bg-green-100 text-green-800' :
+                        <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full whitespace-nowrap ${university.accreditation === 'NAAC A++' ? 'bg-green-100 text-green-800' :
                           university.accreditation === 'NAAC A+' ? 'bg-blue-100 text-blue-800' :
-                          'bg-yellow-100 text-yellow-800'
-                        }`}>
+                            'bg-yellow-100 text-yellow-800'
+                          }`}>
                           {university.accreditation}
                         </span>
                       </td>
@@ -2348,8 +2382,8 @@ export default function AdminDashboard() {
   const renderSEOSection = () => (
     <div className="space-y-6">
       {/* SEO Overview */}
-      <div className="bg-white rounded-lg shadow-sm border p-6">
-        <div className="flex items-center space-x-3 mb-6">
+      <div className="bg-[#050B14] rounded-2xl shadow-2xl border border-white/5 p-6">
+        <div className="flex items-center space-x-3 mb-6 p-4 rounded-xl bg-gradient-to-r from-blue-900/20 to-indigo-900/20 border-b border-white/5">
           <Globe className="h-6 w-6 text-blue-600" />
           <h2 className="text-2xl font-bold text-gray-900">SEO Optimization</h2>
         </div>
@@ -2390,7 +2424,7 @@ export default function AdminDashboard() {
         {/* Page-wise SEO Settings */}
         <div className="space-y-4">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Page SEO Settings</h3>
-          
+
           {/* Home Page */}
           <div className="border rounded-lg p-4 hover:border-blue-300 transition-colors">
             <div className="flex items-center justify-between mb-3">
@@ -2578,8 +2612,8 @@ export default function AdminDashboard() {
 
         {/* Quick Actions */}
         <div className="mt-6 flex flex-wrap gap-3">
-          <a 
-            href="/sitemap.xml" 
+          <a
+            href="/sitemap.xml"
             target="_blank"
             rel="noopener noreferrer"
             className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center space-x-2"
@@ -2587,8 +2621,8 @@ export default function AdminDashboard() {
             <Globe className="h-4 w-4" />
             <span>View Sitemap</span>
           </a>
-          <a 
-            href="/robots.txt" 
+          <a
+            href="/robots.txt"
             target="_blank"
             rel="noopener noreferrer"
             className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors flex items-center space-x-2"
@@ -2596,7 +2630,7 @@ export default function AdminDashboard() {
             <FileText className="h-4 w-4" />
             <span>View Robots.txt</span>
           </a>
-          <button 
+          <button
             onClick={() => setActiveSection('analytics')}
             className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center space-x-2"
           >
@@ -2714,8 +2748,8 @@ export default function AdminDashboard() {
                   </div>
                   <div className="flex items-center space-x-3">
                     <div className="w-24 bg-gray-200 rounded-full h-2">
-                      <div 
-                        className="bg-blue-600 h-2 rounded-full transition-all duration-500" 
+                      <div
+                        className="bg-blue-600 h-2 rounded-full transition-all duration-500"
                         style={{ width: `${item.percentage}%` }}
                       ></div>
                     </div>
@@ -2725,7 +2759,7 @@ export default function AdminDashboard() {
                   </div>
                 </div>
               ))}
-              
+
               {pageViewsData.totalViews > 0 && (
                 <div className="mt-6 pt-4 border-t border-gray-200">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
@@ -2828,9 +2862,8 @@ export default function AdminDashboard() {
                           })}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                            subscription.isActive !== false ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-                          }`}>
+                          <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${subscription.isActive !== false ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                            }`}>
                             {subscription.isActive !== false ? 'Active' : 'Inactive'}
                           </span>
                         </td>
@@ -2877,12 +2910,11 @@ export default function AdminDashboard() {
               { action: 'New specialized course added', time: '3 days ago', type: 'add' }
             ].map((activity, index) => (
               <div key={index} className="flex items-center space-x-4 p-3 bg-gray-50 rounded-lg">
-                <div className={`w-3 h-3 rounded-full ${
-                  activity.type === 'contact' ? 'bg-green-500' :
+                <div className={`w-3 h-3 rounded-full ${activity.type === 'contact' ? 'bg-green-500' :
                   activity.type === 'update' ? 'bg-blue-500' :
-                  activity.type === 'add' ? 'bg-purple-500' :
-                  'bg-yellow-500'
-                }`}></div>
+                    activity.type === 'add' ? 'bg-purple-500' :
+                      'bg-yellow-500'
+                  }`}></div>
                 <div className="flex-1">
                   <p className="text-gray-900">{activity.action}</p>
                   <p className="text-sm text-gray-500">{activity.time}</p>
@@ -3171,9 +3203,9 @@ export default function AdminDashboard() {
             <div>
               <h4 className="font-semibold text-gray-900 mb-3">Current Image</h4>
               <div className="bg-gray-50 p-4 rounded-lg">
-                <img 
-                  src="/hero-professional.jpg" 
-                  alt="Current Home Hero" 
+                <img
+                  src="/hero-professional.jpg"
+                  alt="Current Home Hero"
                   className="w-full h-64 object-cover rounded-lg border-2 border-gray-200"
                   onError={(e) => {
                     e.currentTarget.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23ddd" width="400" height="300"/%3E%3Ctext fill="%23999" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3ENo Image%3C/text%3E%3C/svg%3E';
@@ -3201,9 +3233,9 @@ export default function AdminDashboard() {
                 {heroImagePreview && (
                   <div className="bg-gray-50 p-4 rounded-lg">
                     <p className="text-sm font-medium text-gray-700 mb-2">Preview:</p>
-                    <img 
-                      src={heroImagePreview} 
-                      alt="Preview" 
+                    <img
+                      src={heroImagePreview}
+                      alt="Preview"
                       className="w-full h-48 object-cover rounded-lg border-2 border-blue-300"
                     />
                   </div>
@@ -3212,21 +3244,19 @@ export default function AdminDashboard() {
                 <button
                   onClick={handleHeroImageUpload}
                   disabled={!heroImageFile || uploadingHero}
-                  className={`w-full py-3 px-4 rounded-lg font-semibold text-white transition-colors ${
-                    !heroImageFile || uploadingHero
-                      ? 'bg-gray-400 cursor-not-allowed'
-                      : 'bg-blue-600 hover:bg-blue-700'
-                  }`}
+                  className={`w-full py-3 px-4 rounded-lg font-semibold text-white transition-colors ${!heroImageFile || uploadingHero
+                    ? 'bg-gray-400 cursor-not-allowed'
+                    : 'bg-blue-600 hover:bg-blue-700'
+                    }`}
                 >
                   {uploadingHero ? 'Uploading...' : 'Upload Home Hero Image'}
                 </button>
 
                 {uploadMessage && (
-                  <div className={`p-3 rounded-lg text-sm ${
-                    uploadMessage.includes('✓') 
-                      ? 'bg-green-100 text-green-800' 
-                      : 'bg-red-100 text-red-800'
-                  }`}>
+                  <div className={`p-3 rounded-lg text-sm ${uploadMessage.includes('✓')
+                    ? 'bg-green-100 text-green-800'
+                    : 'bg-red-100 text-red-800'
+                    }`}>
                     {uploadMessage}
                   </div>
                 )}
@@ -3253,9 +3283,9 @@ export default function AdminDashboard() {
             <div>
               <h4 className="font-semibold text-gray-900 mb-3">Current Image</h4>
               <div className="bg-gray-50 p-4 rounded-lg">
-                <img 
-                  src="/about-professional.jpg" 
-                  alt="Current About Hero" 
+                <img
+                  src="/about-professional.jpg"
+                  alt="Current About Hero"
                   className="w-full h-64 object-cover rounded-lg border-2 border-gray-200"
                   onError={(e) => {
                     e.currentTarget.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23ddd" width="400" height="300"/%3E%3Ctext fill="%23999" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3ENo Image%3C/text%3E%3C/svg%3E';
@@ -3283,9 +3313,9 @@ export default function AdminDashboard() {
                 {aboutHeroPreview && (
                   <div className="bg-gray-50 p-4 rounded-lg">
                     <p className="text-sm font-medium text-gray-700 mb-2">Preview:</p>
-                    <img 
-                      src={aboutHeroPreview} 
-                      alt="Preview" 
+                    <img
+                      src={aboutHeroPreview}
+                      alt="Preview"
                       className="w-full h-48 object-cover rounded-lg border-2 border-indigo-300"
                     />
                   </div>
@@ -3294,21 +3324,19 @@ export default function AdminDashboard() {
                 <button
                   onClick={handleAboutHeroUpload}
                   disabled={!aboutHeroFile || uploadingAbout}
-                  className={`w-full py-3 px-4 rounded-lg font-semibold text-white transition-colors ${
-                    !aboutHeroFile || uploadingAbout
-                      ? 'bg-gray-400 cursor-not-allowed'
-                      : 'bg-indigo-600 hover:bg-indigo-700'
-                  }`}
+                  className={`w-full py-3 px-4 rounded-lg font-semibold text-white transition-colors ${!aboutHeroFile || uploadingAbout
+                    ? 'bg-gray-400 cursor-not-allowed'
+                    : 'bg-indigo-600 hover:bg-indigo-700'
+                    }`}
                 >
                   {uploadingAbout ? 'Uploading...' : 'Upload About Hero Image'}
                 </button>
 
                 {aboutUploadMessage && (
-                  <div className={`p-3 rounded-lg text-sm ${
-                    aboutUploadMessage.includes('✓') 
-                      ? 'bg-green-100 text-green-800' 
-                      : 'bg-red-100 text-red-800'
-                  }`}>
+                  <div className={`p-3 rounded-lg text-sm ${aboutUploadMessage.includes('✓')
+                    ? 'bg-green-100 text-green-800'
+                    : 'bg-red-100 text-red-800'
+                    }`}>
                     {aboutUploadMessage}
                   </div>
                 )}
@@ -3335,9 +3363,9 @@ export default function AdminDashboard() {
             <div>
               <h4 className="font-semibold text-gray-900 mb-3">Current Image</h4>
               <div className="bg-gray-50 p-4 rounded-lg">
-                <img 
-                  src="/campus-modern.jpg" 
-                  alt="Current Campus" 
+                <img
+                  src="/campus-modern.jpg"
+                  alt="Current Campus"
                   className="w-full h-64 object-cover rounded-lg border-2 border-gray-200"
                   onError={(e) => {
                     e.currentTarget.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23ddd" width="400" height="300"/%3E%3Ctext fill="%23999" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3ENo Image%3C/text%3E%3C/svg%3E';
@@ -3365,9 +3393,9 @@ export default function AdminDashboard() {
                 {campusImagePreview && (
                   <div className="bg-gray-50 p-4 rounded-lg">
                     <p className="text-sm font-medium text-gray-700 mb-2">Preview:</p>
-                    <img 
-                      src={campusImagePreview} 
-                      alt="Preview" 
+                    <img
+                      src={campusImagePreview}
+                      alt="Preview"
                       className="w-full h-48 object-cover rounded-lg border-2 border-green-300"
                     />
                   </div>
@@ -3376,21 +3404,19 @@ export default function AdminDashboard() {
                 <button
                   onClick={handleCampusImageUpload}
                   disabled={!campusImageFile || uploadingCampus}
-                  className={`w-full py-3 px-4 rounded-lg font-semibold text-white transition-colors ${
-                    !campusImageFile || uploadingCampus
-                      ? 'bg-gray-400 cursor-not-allowed'
-                      : 'bg-green-600 hover:bg-green-700'
-                  }`}
+                  className={`w-full py-3 px-4 rounded-lg font-semibold text-white transition-colors ${!campusImageFile || uploadingCampus
+                    ? 'bg-gray-400 cursor-not-allowed'
+                    : 'bg-green-600 hover:bg-green-700'
+                    }`}
                 >
                   {uploadingCampus ? 'Uploading...' : 'Upload Campus Image'}
                 </button>
 
                 {campusUploadMessage && (
-                  <div className={`p-3 rounded-lg text-sm ${
-                    campusUploadMessage.includes('✓') 
-                      ? 'bg-green-100 text-green-800' 
-                      : 'bg-red-100 text-red-800'
-                  }`}>
+                  <div className={`p-3 rounded-lg text-sm ${campusUploadMessage.includes('✓')
+                    ? 'bg-green-100 text-green-800'
+                    : 'bg-red-100 text-red-800'
+                    }`}>
                     {campusUploadMessage}
                   </div>
                 )}
@@ -3417,9 +3443,9 @@ export default function AdminDashboard() {
             <div>
               <h4 className="font-semibold text-gray-900 mb-3">Current Image</h4>
               <div className="bg-gray-50 p-4 rounded-lg">
-                <img 
-                  src="/about-team.jpg" 
-                  alt="Current Services Hero" 
+                <img
+                  src="/about-team.jpg"
+                  alt="Current Services Hero"
                   className="w-full h-64 object-cover rounded-lg border-2 border-gray-200"
                   onError={(e) => {
                     e.currentTarget.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23ddd" width="400" height="300"/%3E%3Ctext fill="%23999" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3ENo Image%3C/text%3E%3C/svg%3E';
@@ -3447,9 +3473,9 @@ export default function AdminDashboard() {
                 {servicesImagePreview && (
                   <div className="bg-gray-50 p-4 rounded-lg">
                     <p className="text-sm font-medium text-gray-700 mb-2">Preview:</p>
-                    <img 
-                      src={servicesImagePreview} 
-                      alt="Preview" 
+                    <img
+                      src={servicesImagePreview}
+                      alt="Preview"
                       className="w-full h-48 object-cover rounded-lg border-2 border-orange-300"
                     />
                   </div>
@@ -3458,21 +3484,19 @@ export default function AdminDashboard() {
                 <button
                   onClick={handleServicesImageUpload}
                   disabled={!servicesImageFile || uploadingServices}
-                  className={`w-full py-3 px-4 rounded-lg font-semibold text-white transition-colors ${
-                    !servicesImageFile || uploadingServices
-                      ? 'bg-gray-400 cursor-not-allowed'
-                      : 'bg-orange-600 hover:bg-orange-700'
-                  }`}
+                  className={`w-full py-3 px-4 rounded-lg font-semibold text-white transition-colors ${!servicesImageFile || uploadingServices
+                    ? 'bg-gray-400 cursor-not-allowed'
+                    : 'bg-orange-600 hover:bg-orange-700'
+                    }`}
                 >
                   {uploadingServices ? 'Uploading...' : 'Upload Services Hero Image'}
                 </button>
 
                 {servicesUploadMessage && (
-                  <div className={`p-3 rounded-lg text-sm ${
-                    servicesUploadMessage.includes('✓') 
-                      ? 'bg-green-100 text-green-800' 
-                      : 'bg-red-100 text-red-800'
-                  }`}>
+                  <div className={`p-3 rounded-lg text-sm ${servicesUploadMessage.includes('✓')
+                    ? 'bg-green-100 text-green-800'
+                    : 'bg-red-100 text-red-800'
+                    }`}>
                     {servicesUploadMessage}
                   </div>
                 )}
@@ -3499,9 +3523,9 @@ export default function AdminDashboard() {
             <div>
               <h4 className="font-semibold text-gray-900 mb-3">Current Image</h4>
               <div className="bg-gray-50 p-4 rounded-lg">
-                <img 
-                  src="/about-campus.jpg" 
-                  alt="Current Gallery Hero" 
+                <img
+                  src="/about-campus.jpg"
+                  alt="Current Gallery Hero"
                   className="w-full h-64 object-cover rounded-lg border-2 border-gray-200"
                   onError={(e) => {
                     e.currentTarget.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23ddd" width="400" height="300"/%3E%3Ctext fill="%23999" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3ENo Image%3C/text%3E%3C/svg%3E';
@@ -3529,9 +3553,9 @@ export default function AdminDashboard() {
                 {galleryHeroPreview && (
                   <div className="bg-gray-50 p-4 rounded-lg">
                     <p className="text-sm font-medium text-gray-700 mb-2">Preview:</p>
-                    <img 
-                      src={galleryHeroPreview} 
-                      alt="Preview" 
+                    <img
+                      src={galleryHeroPreview}
+                      alt="Preview"
                       className="w-full h-48 object-cover rounded-lg border-2 border-pink-300"
                     />
                   </div>
@@ -3540,21 +3564,19 @@ export default function AdminDashboard() {
                 <button
                   onClick={handleGalleryHeroUpload}
                   disabled={!galleryHeroFile || uploadingGalleryHero}
-                  className={`w-full py-3 px-4 rounded-lg font-semibold text-white transition-colors ${
-                    !galleryHeroFile || uploadingGalleryHero
-                      ? 'bg-gray-400 cursor-not-allowed'
-                      : 'bg-pink-600 hover:bg-pink-700'
-                  }`}
+                  className={`w-full py-3 px-4 rounded-lg font-semibold text-white transition-colors ${!galleryHeroFile || uploadingGalleryHero
+                    ? 'bg-gray-400 cursor-not-allowed'
+                    : 'bg-pink-600 hover:bg-pink-700'
+                    }`}
                 >
                   {uploadingGalleryHero ? 'Uploading...' : 'Upload Gallery Hero Image'}
                 </button>
 
                 {galleryHeroUploadMessage && (
-                  <div className={`p-3 rounded-lg text-sm ${
-                    galleryHeroUploadMessage.includes('✓') 
-                      ? 'bg-green-100 text-green-800' 
-                      : 'bg-red-100 text-red-800'
-                  }`}>
+                  <div className={`p-3 rounded-lg text-sm ${galleryHeroUploadMessage.includes('✓')
+                    ? 'bg-green-100 text-green-800'
+                    : 'bg-red-100 text-red-800'
+                    }`}>
                     {galleryHeroUploadMessage}
                   </div>
                 )}
@@ -3607,9 +3629,9 @@ export default function AdminDashboard() {
               <div className="bg-gray-50 p-4 rounded-lg">
                 <h3 className="font-semibold text-gray-900 mb-3">Current Hero Image</h3>
                 <div className="w-full max-w-md mx-auto">
-                  <img 
-                    src="/hero-professional.jpg" 
-                    alt="Current Hero" 
+                  <img
+                    src="/hero-professional.jpg"
+                    alt="Current Hero"
                     className="w-full h-48 object-cover rounded-lg border-2 border-gray-200"
                     onError={(e) => {
                       e.currentTarget.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23ddd" width="400" height="300"/%3E%3Ctext fill="%23999" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3ENo Image%3C/text%3E%3C/svg%3E';
@@ -3621,7 +3643,7 @@ export default function AdminDashboard() {
               {/* Upload New Image */}
               <div className="bg-blue-50 p-4 rounded-lg">
                 <h3 className="font-semibold text-gray-900 mb-3">Upload New Hero Image</h3>
-                
+
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -3646,9 +3668,9 @@ export default function AdminDashboard() {
                         Preview
                       </label>
                       <div className="w-full max-w-md mx-auto">
-                        <img 
-                          src={heroImagePreview} 
-                          alt="Preview" 
+                        <img
+                          src={heroImagePreview}
+                          alt="Preview"
                           className="w-full h-48 object-cover rounded-lg border-2 border-blue-300"
                         />
                       </div>
@@ -3659,63 +3681,26 @@ export default function AdminDashboard() {
                   <button
                     onClick={handleHeroImageUpload}
                     disabled={!heroImageFile || uploadingHero}
-                    className={`w-full py-3 px-4 rounded-lg font-semibold text-white transition-colors ${
-                      !heroImageFile || uploadingHero
-                        ? 'bg-gray-400 cursor-not-allowed'
-                        : 'bg-blue-600 hover:bg-blue-700'
-                    }`}
+                    className={`w-full py-3 px-4 rounded-lg font-semibold text-white transition-colors ${!heroImageFile || uploadingHero
+                      ? 'bg-gray-400 cursor-not-allowed'
+                      : 'bg-blue-600 hover:bg-blue-700'
+                      }`}
                   >
                     {uploadingHero ? 'Uploading...' : 'Upload Hero Image'}
                   </button>
 
                   {/* Upload Message */}
                   {uploadMessage && (
-                    <div className={`p-3 rounded-lg text-sm ${
-                      uploadMessage.includes('✓') 
-                        ? 'bg-green-100 text-green-800' 
-                        : 'bg-red-100 text-red-800'
-                    }`}>
+                    <div className={`p-3 rounded-lg text-sm ${uploadMessage.includes('✓')
+                      ? 'bg-green-100 text-green-800'
+                      : 'bg-red-100 text-red-800'
+                      }`}>
                       {uploadMessage}
                     </div>
                   )}
                 </div>
               </div>
 
-              {/* Instructions */}
-              <div className="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
-                <h4 className="font-semibold text-yellow-900 mb-2">📝 Instructions</h4>
-                <ul className="text-sm text-yellow-800 space-y-1 list-disc list-inside">
-                  <li>Select a professional image from your computer</li>
-                  <li>Preview the image before uploading</li>
-                  <li>Click "Upload Hero Image" to apply</li>
-                  <li>Refresh the home page (Ctrl + Shift + R) to see changes</li>
-                  <li>The image will replace the current hero section image</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* System Settings */}
-        <div className="bg-white rounded-lg shadow-sm border">
-          <div className="p-6 border-b">
-            <h2 className="text-lg font-semibold text-gray-900">System Settings</h2>
-            <p className="text-gray-600">Configure system preferences and settings</p>
-          </div>
-          <div className="p-6">
-            <div className="space-y-6">
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <h3 className="font-semibold text-gray-900 mb-2">Database Status</h3>
-                <p className="text-green-600 text-sm">✓ MongoDB Connected</p>
-              </div>
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <h3 className="font-semibold text-gray-900 mb-2">Email Configuration</h3>
-                <p className="text-yellow-600 text-sm">⚠ Email notifications not configured</p>
-              </div>
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <h3 className="font-semibold text-gray-900 mb-2">Backup Status</h3>
-                <p className="text-gray-600 text-sm">Last backup: Not configured</p>
-              </div>
             </div>
           </div>
         </div>
@@ -3741,7 +3726,7 @@ export default function AdminDashboard() {
             </div>
           </div>
         </div>
-        
+
         <div className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
@@ -3853,7 +3838,7 @@ export default function AdminDashboard() {
             </div>
           </div>
         </div>
-        
+
         <div className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
@@ -3876,11 +3861,10 @@ export default function AdminDashboard() {
                 </div>
                 <p className="text-gray-600 text-sm mb-4 line-clamp-2">{course.description}</p>
                 <div className="flex items-center justify-between mb-4">
-                  <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                    course.category === 'Undergraduate' ? 'bg-blue-100 text-blue-800' :
+                  <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${course.category === 'Undergraduate' ? 'bg-blue-100 text-blue-800' :
                     course.category === 'Postgraduate' ? 'bg-green-100 text-green-800' :
-                    'bg-yellow-100 text-yellow-800'
-                  }`}>
+                      'bg-yellow-100 text-yellow-800'
+                    }`}>
                     {course.category}
                   </span>
                   <span className="text-xs text-gray-500">{course.duration}</span>
@@ -3927,7 +3911,7 @@ export default function AdminDashboard() {
             </div>
           </div>
         </div>
-        
+
         <div className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
@@ -3948,11 +3932,10 @@ export default function AdminDashboard() {
                 </div>
                 <p className="text-gray-600 text-sm mb-4 line-clamp-2">{university.description}</p>
                 <div className="flex items-center justify-between mb-4">
-                  <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                    university.accreditation === 'NAAC A++' ? 'bg-green-100 text-green-800' :
+                  <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${university.accreditation === 'NAAC A++' ? 'bg-green-100 text-green-800' :
                     university.accreditation === 'NAAC A+' ? 'bg-blue-100 text-blue-800' :
-                    'bg-yellow-100 text-yellow-800'
-                  }`}>
+                      'bg-yellow-100 text-yellow-800'
+                    }`}>
                     {university.accreditation}
                   </span>
                   <span className="text-xs text-gray-500">Est. {university.established}</span>
@@ -4126,7 +4109,7 @@ export default function AdminDashboard() {
                       placeholder="e.g., Semester 1: Programming Fundamentals, Mathematics, English. Semester 2: Data Structures, Database Systems, Web Development..."
                     />
                   </div>
-                  
+
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Career Opportunities</label>
                     <textarea
@@ -4329,7 +4312,7 @@ export default function AdminDashboard() {
                     />
                   </div>
                 </div>
-                
+
                 <div className="mt-6">
                   <label className="block text-sm font-medium text-gray-700 mb-1">Courses Offered</label>
                   <textarea
@@ -4340,7 +4323,7 @@ export default function AdminDashboard() {
                     placeholder="e.g., Undergraduate: BA, B.Com, BBA, B.Sc, B.Tech. Postgraduate: MA, M.Com, MBA, M.Sc, M.Tech. Doctoral: Ph.D programs in various disciplines..."
                   />
                 </div>
-                
+
                 <div className="mt-6">
                   <label className="block text-sm font-medium text-gray-700 mb-1">Specializations</label>
                   <textarea
@@ -4351,7 +4334,7 @@ export default function AdminDashboard() {
                     placeholder="e.g., Engineering, Management, Arts, Science, Commerce, Computer Applications, Education, Law, Medicine, Agriculture..."
                   />
                 </div>
-                
+
                 <div className="mt-6">
                   <label className="block text-sm font-medium text-gray-700 mb-1">Facilities</label>
                   <textarea
@@ -4362,7 +4345,7 @@ export default function AdminDashboard() {
                     placeholder="e.g., Modern classrooms, Well-equipped laboratories, Digital library, Sports complex, Auditorium, Cafeteria, Medical center, Wi-Fi campus..."
                   />
                 </div>
-                
+
                 <div className="mt-6">
                   <label className="block text-sm font-medium text-gray-700 mb-1">Admission Process</label>
                   <textarea
@@ -4373,7 +4356,7 @@ export default function AdminDashboard() {
                     placeholder="e.g., Online application, Document verification, Entrance examination, Merit-based selection, Counseling process, Final admission..."
                   />
                 </div>
-                
+
                 <div className="mt-6">
                   <label className="block text-sm font-medium text-gray-700 mb-1">Fee Structure</label>
                   <textarea
@@ -4515,7 +4498,7 @@ export default function AdminDashboard() {
                   />
                 </div>
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Excerpt * (Brief Summary)</label>
                 <textarea
@@ -4820,35 +4803,122 @@ export default function AdminDashboard() {
           </div>
         </div>
       )}
-      
-      <div className="min-h-screen bg-gray-50 flex">
+
+      <div className="min-h-screen flex admin-dashboard-theme bg-[#030712] selection:bg-blue-500/30">
+        <style dangerouslySetInnerHTML={{
+          __html: `
+          :root {
+            --dashboard-bg: #030712;
+            --dashboard-card: #050B14;
+            --dashboard-border: rgba(255, 255, 255, 0.05);
+            --dashboard-text: #f1f5f9;
+            --dashboard-text-muted: #94a3b8;
+            --dashboard-accent: #3b82f6;
+          }
+          
+          .admin-dashboard-theme {
+            background-color: var(--dashboard-bg) !important;
+            color: var(--dashboard-text) !important;
+          }
+          
+          .admin-dashboard-theme .bg-white {
+            background-color: var(--dashboard-card) !important;
+            border-color: var(--dashboard-border) !important;
+            color: var(--dashboard-text) !important;
+            backdrop-filter: blur(12px);
+          }
+          
+          .admin-dashboard-theme .bg-gray-50, 
+          .admin-dashboard-theme .bg-gray-100 {
+            background-color: var(--dashboard-bg) !important;
+            border-color: var(--dashboard-border) !important;
+            color: var(--dashboard-text) !important;
+          }
+          
+          .admin-dashboard-theme .text-gray-900, 
+          .admin-dashboard-theme .text-gray-800 {
+            color: #f8fafc !important;
+          }
+          
+          .admin-dashboard-theme .text-gray-700, 
+          .admin-dashboard-theme .text-gray-600 {
+            color: var(--dashboard-text-muted) !important;
+          }
+          
+          .admin-dashboard-theme .border-gray-200, 
+          .admin-dashboard-theme .border-gray-300, 
+          .admin-dashboard-theme .border-b {
+            border-color: var(--dashboard-border) !important;
+          }
+          
+          .admin-dashboard-theme .hover\\:bg-gray-50:hover, 
+          .admin-dashboard-theme .hover\\:bg-gray-100:hover {
+            background-color: rgba(255, 255, 255, 0.03) !important;
+          }
+          
+          .admin-dashboard-theme input, 
+          .admin-dashboard-theme select, 
+          .admin-dashboard-theme textarea {
+            background-color: rgba(0, 0, 0, 0.2) !important;
+            color: #f8fafc !important;
+            border-color: var(--dashboard-border) !important;
+            border-radius: 0.75rem !important;
+          }
+          
+          .admin-dashboard-theme input:focus, 
+          .admin-dashboard-theme select:focus, 
+          .admin-dashboard-theme textarea:focus {
+            background-color: rgba(255, 255, 255, 0.05) !important;
+            border-color: var(--dashboard-accent) !important;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2) !important;
+          }
+
+          .admin-dashboard-theme .divide-gray-200 > * + * {
+            border-color: var(--dashboard-border) !important;
+          }
+
+          .admin-dashboard-theme .bg-blue-600 {
+            background-color: #2563eb !important;
+            box-shadow: 0 0 20px rgba(37, 99, 235, 0.2);
+          }
+          
+          .admin-dashboard-theme .bg-blue-100 {
+            background-color: rgba(37, 99, 235, 0.1) !important;
+            color: #60a5fa !important;
+          }
+
+          .glass-panel {
+            background: rgba(255, 255, 255, 0.02) !important;
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+          }
+        `}} />
         {/* Mobile Sidebar Overlay */}
         {sidebarOpen && (
-          <div 
+          <div
             className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
             onClick={() => setSidebarOpen(false)}
           ></div>
         )}
 
         {/* Sidebar - Fixed on all screen sizes */}
-        <div className={`${
-          sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        } fixed lg:translate-x-0 transition-transform duration-300 ease-in-out z-50 w-64 bg-white shadow-lg border-r border-gray-200 flex flex-col h-screen`}>
+        <div className={`${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+          } fixed lg:translate-x-0 transition-transform duration-300 ease-in-out z-50 w-64 bg-[#050B14]/80 backdrop-blur-xl shadow-2xl border-r border-white/5 flex flex-col h-screen`}>
           {/* Sidebar Header */}
-          <div className="p-6 border-b border-gray-200 bg-gradient-to-r from-blue-600 to-blue-700">
+          <div className="p-6 border-b border-white/5 bg-gradient-to-br from-blue-900/40 to-indigo-900/40">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
-                  <Shield className="h-6 w-6 text-blue-600" />
+                <div className="w-10 h-10 bg-white/[0.05] border border-white/[0.1] rounded-xl flex items-center justify-center">
+                  <Shield className="h-6 w-6 text-blue-400" />
                 </div>
                 <div>
-                  <h2 className="text-lg font-bold text-white">Admin Panel</h2>
-                  <p className="text-blue-100 text-sm">EDBELL EDUSOLUTIONS</p>
+                  <h2 className="text-lg font-bold text-slate-100 tracking-tight leading-none">Admin</h2>
+                  <p className="text-[10px] text-blue-400 font-bold uppercase tracking-widest mt-1">EDBELL</p>
                 </div>
               </div>
               <button
                 onClick={() => setSidebarOpen(false)}
-                className="lg:hidden text-white hover:text-blue-200"
+                className="lg:hidden text-slate-400 hover:text-white"
               >
                 <X className="h-6 w-6" />
               </button>
@@ -4856,14 +4926,14 @@ export default function AdminDashboard() {
           </div>
 
           {/* User Info */}
-          <div className="p-4 border-b border-gray-200 bg-gray-50">
+          <div className="p-4 border-b border-white/5 bg-white/[0.02]">
             <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                <User className="h-4 w-4 text-blue-600" />
+              <div className="w-8 h-8 bg-blue-500/10 border border-blue-500/20 rounded-full flex items-center justify-center">
+                <User className="h-4 w-4 text-blue-400" />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-gray-900 truncate">Welcome back!</p>
-                <p className="text-xs text-gray-500 truncate">{userEmail}</p>
+                <p className="text-xs font-bold text-slate-400 uppercase tracking-tighter">Session Active</p>
+                <p className="text-xs text-slate-500 truncate">{userEmail}</p>
               </div>
             </div>
           </div>
@@ -4880,32 +4950,25 @@ export default function AdminDashboard() {
                   setActiveSection(item.id);
                   setSidebarOpen(false);
                 }}
-                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-left transition-all duration-200 group ${
-                  activeSection === item.id
-                    ? 'bg-blue-100 text-blue-700 shadow-sm border border-blue-200'
-                    : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
-                }`}
+                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-left transition-all duration-300 group ${activeSection === item.id
+                  ? 'bg-blue-600 text-white shadow-[0_0_20px_rgba(37,99,235,0.2)] border border-blue-500/50'
+                  : 'text-slate-400 hover:bg-white/[0.05] hover:text-slate-100 border border-transparent'
+                  }`}
               >
-                <div className={`flex-shrink-0 ${
-                  activeSection === item.id ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-600'
-                }`}>
+                <div className={`flex-shrink-0 transition-colors ${activeSection === item.id ? 'text-white' : 'text-slate-500 group-hover:text-blue-400'
+                  }`}>
                   {item.icon}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className={`font-medium text-sm ${
-                    activeSection === item.id ? 'text-blue-900' : 'text-gray-900'
-                  }`}>
+                  <div className={`font-bold text-sm tracking-tight ${activeSection === item.id ? 'text-white' : 'text-slate-200'
+                    }`}>
                     {item.name}
                   </div>
-                  <div className={`text-xs ${
-                    activeSection === item.id ? 'text-blue-600' : 'text-gray-500'
-                  }`}>
+                  <div className={`text-[10px] ${activeSection === item.id ? 'text-blue-100' : 'text-slate-500'
+                    }`}>
                     {item.description}
                   </div>
                 </div>
-                {activeSection === item.id && (
-                  <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                )}
               </button>
             ))}
           </nav>
@@ -4915,39 +4978,36 @@ export default function AdminDashboard() {
         {/* Main Content Area - Add left margin to account for fixed sidebar */}
         <div className="flex-1 flex flex-col min-w-0 lg:ml-64">
           {/* Top Header - Fixed at top */}
-          <div className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-30">
+          <div className="bg-[#050B14]/80 backdrop-blur-xl border-b border-white/5 sticky top-0 z-30">
             <div className="px-6 py-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-4">
                   <button
                     onClick={() => setSidebarOpen(true)}
-                    className="lg:hidden p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+                    className="lg:hidden p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all"
                   >
                     <Menu className="h-6 w-6" />
                   </button>
                   <div>
-                    <h1 className="text-2xl font-bold text-gray-900">
+                    <h1 className="text-2xl font-bold text-slate-100 tracking-tight">
                       {navigationItems.find(item => item.id === activeSection)?.name || 'Dashboard'}
                     </h1>
-                    <p className="text-gray-600 mt-1">
-                      {navigationItems.find(item => item.id === activeSection)?.description || 'Welcome to your admin dashboard'}
+                    <p className="text-slate-500 text-xs font-medium uppercase tracking-widest mt-0.5">
+                      {navigationItems.find(item => item.id === activeSection)?.description || 'Welcome back'}
                     </p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-4">
-                  <div className="text-sm text-gray-500 hidden sm:block">
-                    Last updated: {new Date().toLocaleDateString()}
-                  </div>
-                  <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                  <div className="text-xs text-slate-500 font-bold uppercase tracking-tighter hidden sm:block">
+                    Status: <span className="text-green-500">Online</span>
                   </div>
                   <button
                     onClick={handleLogout}
-                    className="flex items-center space-x-2 text-gray-700 hover:text-gray-900 px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+                    className="flex items-center space-x-2 text-slate-400 hover:text-red-400 px-4 py-2 rounded-xl hover:bg-red-500/10 transition-all duration-300"
                     title="Logout"
                   >
                     <LogOut className="h-5 w-5" />
-                    <span className="hidden md:inline font-medium">Logout</span>
+                    <span className="hidden md:inline font-bold text-sm tracking-tight">Log Out</span>
                   </button>
                 </div>
               </div>

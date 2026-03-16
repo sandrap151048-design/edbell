@@ -12,7 +12,7 @@ export default function ConditionalLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const isAdminRoute = pathname.startsWith('/admin') || pathname.startsWith('/login');
+  const isAdminRoute = pathname.startsWith('/admin');
 
   if (isAdminRoute) {
     return (

@@ -3,26 +3,31 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   // Add empty turbopack config to silence the warning
   turbopack: {},
-  
+
   // Image optimization for better mobile performance
   images: {
     formats: ['image/webp', 'image/avif'],
     deviceSizes: [375, 640, 768, 1024, 1280, 1536],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    minimumCacheTTL: 60,
+    minimumCacheTTL: 3600,
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    unoptimized: false,
   },
-  
+
   // Experimental features for better mobile performance
   experimental: {
     optimizeCss: true,
     scrollRestoration: true,
+    optimizePackageImports: ['lucide-react'],
   },
-  
+
   // Compress responses for better mobile loading
   compress: true,
-  
+
+  // Optimize production builds
+  productionBrowserSourceMaps: false,
+
   // PWA-ready headers and Security Headers
   async headers() {
     return [

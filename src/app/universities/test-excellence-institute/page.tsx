@@ -1,221 +1,89 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { 
-  Award, 
-  CheckCircle, 
-  Star, 
-  MapPin, 
-  Users, 
-  BookOpen, 
-  Globe, 
-  Calendar, 
-  Phone, 
-  Mail,
+import {
+  CheckCircle,
+  Phone,
   ArrowLeft,
-  TrendingUp,
   Building,
-  GraduationCap
+  Zap
 } from 'lucide-react';
+import Newsletter from '@/components/Newsletter';
 
 export const metadata: Metadata = {
-  title: 'Test University - Excellence Institute - Online University Programs | EDBELL EDUSOLUTIONS',
-  description: 'This is a test university known for its excellence in higher education and research opportunities.',
-  keywords: 'Test University - Excellence Institute, online university, distance education, UGC approved, NAAC A++',
-  openGraph: {
-    title: 'Test University - Excellence Institute - Online University Programs',
-    description: 'This is a test university known for its excellence in higher education and research opportunities.',
-    type: 'article',
-    url: 'https://edbelledusolutions.com/universities/test-excellence-institute',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Test University - Excellence Institute - Online University Programs',
-    description: 'This is a test university known for its excellence in higher education and research opportunities.',
-  },
-  alternates: {
-    canonical: 'https://edbelledusolutions.com/universities/test-excellence-institute',
-  },
+  title: 'Test University - Excellence Institute | EDBELL',
+  description: "Excellence in higher education and research.",
 };
 
 export default function UniversityPage() {
   const university = {
-    name: "Test University - Excellence Institute",
-    description: "This is a test university known for its excellence in higher education and research opportunities.",
+    name: "Excellence Institute",
+    description: "A research-driven educational node focused on future technologies and management excellence.",
     accreditation: "NAAC A++",
     established: "2000",
-    location: "Test City, India",
-    website: "www.testuniversity.edu"
+    location: "Knowledge City, India",
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#030712] selection:bg-blue-500/30">
+      {/* Hero Header */}
+      <section className="relative pt-32 pb-20 px-6 lg:px-12 overflow-hidden border-b border-white/5">
+        <div className="relative z-10 max-w-7xl mx-auto space-y-12 text-center lg:text-left">
+          <Link href="/universities" className="inline-flex items-center space-x-3 text-[10px] font-black text-blue-400 uppercase tracking-[0.3em] hover:text-white transition-colors group">
+            <ArrowLeft className="h-4 w-4 group-hover:-translate-x-2 transition-transform" />
+            <span>Back to Global Repository</span>
+          </Link>
 
-
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-green-600 to-green-800 text-white py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <div className="flex items-center space-x-2 mb-4">
-                <Link href="/universities" className="flex items-center text-green-200 hover:text-white">
-                  <ArrowLeft className="h-4 w-4 mr-1" />
-                  Back to Universities
-                </Link>
-              </div>
-              <h1 className="text-4xl md:text-5xl font-bold mb-4">{university.name}</h1>
-              <p className="text-xl text-green-100 mb-6">{university.description}</p>
-              
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                <div className="text-center">
-                  <Calendar className="h-6 w-6 mx-auto mb-2" />
-                  <div className="text-sm text-green-200">Established</div>
-                  <div className="font-semibold">{university.established}</div>
-                </div>
-                <div className="text-center">
-                  <Award className="h-6 w-6 mx-auto mb-2" />
-                  <div className="text-sm text-green-200">Accreditation</div>
-                  <div className="font-semibold">{university.accreditation}</div>
-                </div>
-                <div className="text-center">
-                  <MapPin className="h-6 w-6 mx-auto mb-2" />
-                  <div className="text-sm text-green-200">Location</div>
-                  <div className="font-semibold">{university.location}</div>
-                </div>
-                <div className="text-center">
-                  <Star className="h-6 w-6 mx-auto mb-2" />
-                  <div className="text-sm text-green-200">Rating</div>
-                  <div className="font-semibold">4.5/5</div>
-                </div>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-4">
-                <a href="tel:+919876543210" className="bg-yellow-500 hover:bg-yellow-600 text-green-900 font-semibold py-3 px-6 rounded-lg transition-colors duration-200 text-center">
-                  Apply Now
-                </a>
-                <a href="mailto:info@edbelledusolutions.com?subject=University Information Request&body=Hi, I would like more information about this university. Please contact me." className="bg-white/20 hover:bg-white/30 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 text-center">
-                  Get More Info
-                </a>
-              </div>
+          <div className="space-y-10">
+            <div className="inline-flex items-center bg-white/[0.03] border border-white/[0.1] rounded-2xl px-5 py-2.5">
+              <Building className="h-4 w-4 text-blue-400 mr-3" />
+              <span className="text-[10px] font-black text-blue-400 tracking-[0.3em] uppercase">Intelligence Node</span>
             </div>
+            <h1 className="text-5xl lg:text-9xl font-black text-white leading-none tracking-tighter uppercase">{university.name}</h1>
+            <p className="text-xl text-slate-400 font-light leading-relaxed max-w-3xl mx-auto lg:mx-0">{university.description}</p>
 
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
-              <h3 className="text-2xl font-bold mb-6">University Details</h3>
-              <div className="space-y-4">
-                <div className="flex justify-between">
-                  <span className="text-green-200">Established:</span>
-                  <span className="font-semibold">{university.established}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-green-200">Accreditation:</span>
-                  <span className="font-semibold">{university.accreditation}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-green-200">Location:</span>
-                  <span className="font-semibold">{university.location}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-green-200">Website:</span>
-                  <span className="font-semibold text-sm">{university.website}</span>
-                </div>
+            <div className="hidden lg:flex gap-12 pt-8">
+              <div>
+                <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">Established</p>
+                <p className="text-2xl font-black text-white">{university.established}</p>
+              </div>
+              <div>
+                <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">Accreditation</p>
+                <p className="text-2xl font-black text-blue-400">{university.accreditation}</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* University Content */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Main Content */}
-            <div className="lg:col-span-2 space-y-8">
-              <div className="bg-white rounded-xl shadow-sm border p-6">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">About the University</h3>
-                <p className="text-gray-600 leading-relaxed">{university.description}</p>
-              </div>
-
-              <div className="bg-white rounded-xl shadow-sm border p-6">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Why Choose This University?</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="flex items-center space-x-3">
-                    <CheckCircle className="h-5 w-5 text-green-500" />
-                    <span className="text-gray-600">UGC Approved</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <CheckCircle className="h-5 w-5 text-green-500" />
-                    <span className="text-gray-600">Quality Education</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <CheckCircle className="h-5 w-5 text-green-500" />
-                    <span className="text-gray-600">Online Learning</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <CheckCircle className="h-5 w-5 text-green-500" />
-                    <span className="text-gray-600">Student Support</span>
-                  </div>
+      {/* Primary Interface Node */}
+      <section className="py-32 bg-[#050B14]">
+        <div className="max-w-4xl mx-auto px-6 text-center space-y-20">
+          <div className="space-y-12">
+            <h3 className="text-3xl lg:text-5xl font-black text-white uppercase tracking-tighter">Synchronized Excellence</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {["Future-Ready Tech", "Global Faculty", "High placement Rate", "Research Grants"].map((h, i) => (
+                <div key={i} className="bg-[#030712] border border-white/5 rounded-[40px] p-12 hover:border-blue-500/30 transition-all flex flex-col items-center">
+                  <Zap className="h-10 w-10 text-blue-600 mb-6" />
+                  <span className="text-lg font-black text-white uppercase tracking-widest">{h}</span>
                 </div>
-              </div>
+              ))}
             </div>
+          </div>
 
-            {/* Sidebar */}
-            <div className="space-y-6">
-              <div className="bg-white rounded-xl shadow-sm border p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Quick Facts</h3>
-                <div className="space-y-3">
-                  <div className="flex justify-between">
-                    <span className="text-gray-500">Established:</span>
-                    <span className="font-medium">{university.established}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-500">Accreditation:</span>
-                    <span className="font-medium">{university.accreditation}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-500">Location:</span>
-                    <span className="font-medium">{university.location}</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white rounded-xl shadow-sm border p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Contact Information</h3>
-                <div className="space-y-3">
-                  <div className="flex items-center space-x-3">
-                    <Globe className="h-5 w-5 text-gray-400" />
-                    <span className="text-gray-600 text-sm">{university.website}</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <Phone className="h-5 w-5 text-gray-400" />
-                    <span className="text-gray-600 text-sm">Contact for details</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <Mail className="h-5 w-5 text-gray-400" />
-                    <span className="text-gray-600 text-sm">Contact for details</span>
-                  </div>
-                </div>
-              </div>
+          <div className="pt-20 border-t border-white/5 space-y-10">
+            <p className="text-slate-500 text-[10px] font-black uppercase tracking-[0.5em]">Command Center</p>
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <a href="tel:+919876543210" className="px-12 py-6 bg-blue-600 rounded-3xl text-sm font-black text-white uppercase tracking-[0.2em] hover:shadow-[0_0_40px_rgba(37,99,235,0.4)] transition-all">Initialize Connection</a>
+              <Link href="/contact" className="px-12 py-6 bg-white/[0.03] border border-white/10 rounded-3xl text-sm font-black text-white uppercase tracking-[0.2em] hover:bg-white hover:text-black transition-all">Request Briefing</Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="bg-green-600 text-white py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Ready to Join This University?
-          </h2>
-          <p className="text-xl mb-8 text-green-100">
-            Take the next step in your educational journey with quality online programs.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="tel:+919876543210" className="bg-yellow-500 hover:bg-yellow-600 text-green-900 font-semibold py-3 px-6 rounded-lg transition-colors duration-200">
-              Apply Now
-            </a>
-            <a href="mailto:info@edbelledusolutions.com?subject=University Information Request&body=Hi, I would like more information about this university. Please contact me." className="bg-white text-green-600 hover:bg-gray-100 font-semibold py-3 px-6 rounded-lg transition-colors duration-200">
-              Get More Information
-            </a>
-          </div>
+      {/* Global Newsletter Node */}
+      <section className="py-20 bg-[#030712] border-t border-white/5">
+        <div className="max-w-4xl mx-auto px-6">
+          <Newsletter />
         </div>
       </section>
     </div>

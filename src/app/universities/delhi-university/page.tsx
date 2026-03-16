@@ -1,46 +1,33 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { 
-  Award, 
-  CheckCircle, 
-  Star, 
-  MapPin, 
-  Users, 
-  BookOpen, 
-  Globe, 
-  Calendar, 
-  Phone, 
+import {
+  Award,
+  CheckCircle,
+  Star,
+  MapPin,
+  Users,
+  BookOpen,
+  Globe,
+  Calendar,
+  Phone,
   Mail,
   ArrowLeft,
   TrendingUp,
   Building,
-  GraduationCap
+  GraduationCap,
+  Zap
 } from 'lucide-react';
+import Newsletter from '@/components/Newsletter';
 
 export const metadata: Metadata = {
-  title: 'Delhi University - Online University Programs | EDBELL EDUSOLUTIONS',
-  description: 'Delhi University (DU), officially known as the University of Delhi, is one of India\'s premier central universities, established in 1922. It is accredited with an A++ grade by NAAC and currently has over 77 colleges, 16 faculties, and more than 162,000 students enrolled.',
-  keywords: 'delhi university, online university, distance education, UGC approved, NAAC',
-  openGraph: {
-    title: 'Delhi University - Online University Programs',
-    description: 'Delhi University (DU), officially known as the University of Delhi, is one of India\'s premier central universities, established in 1922. It is accredited with an A++ grade by NAAC and currently has over 77 colleges, 16 faculties, and more than 162,000 students enrolled.',
-    type: 'article',
-    url: 'https://edbelledusolutions.com/universities/delhi-university',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Delhi University - Online University Programs',
-    description: 'Delhi University (DU), officially known as the University of Delhi, is one of India\'s premier central universities, established in 1922. It is accredited with an A++ grade by NAAC and currently has over 77 colleges, 16 faculties, and more than 162,000 students enrolled.',
-  },
-  alternates: {
-    canonical: 'https://edbelledusolutions.com/universities/delhi-university',
-  },
+  title: 'Delhi University - Online University Programs | EDBELL',
+  description: "One of India's premier central universities, established in 1922.",
 };
 
 export default function UniversityPage() {
   const university = {
     name: "Delhi University",
-    description: "One of India's premier central universities, established in 1922. NAAC A++ accredited with 77 colleges and 162,000+ students.",
+    description: "One of India's premier central universities, established in 1922. NAAC A++ accredited.",
     accreditation: "NAAC A++",
     established: "1922",
     location: "New Delhi, India",
@@ -48,162 +35,94 @@ export default function UniversityPage() {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[var(--bg-primary)] selection:bg-[var(--primary)]/30">
+      {/* Hero Header */}
+      <section className="relative pt-32 pb-20 px-6 lg:px-12 overflow-hidden border-b border-[var(--border)]">
+        <div className="absolute top-0 right-0 w-1/2 h-full bg-[var(--primary)]/5 blur-[120px] -translate-y-1/2"></div>
+        <div className="relative z-10 max-w-7xl mx-auto space-y-12">
+          <Link href="/universities" className="inline-flex items-center space-x-3 text-[10px] font-black text-[var(--primary)] uppercase tracking-[0.3em] hover:text-[var(--text-heading)] transition-colors group">
+            <ArrowLeft className="h-4 w-4 group-hover:-translate-x-2 transition-transform" />
+            <span>Back to Global Repository</span>
+          </Link>
 
-
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-800 via-blue-900 to-cyan-900 text-white py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-            <div>
-              <div className="flex items-center space-x-2 mb-4">
-                <Link href="/universities" className="flex items-center text-blue-200 hover:text-white transition-colors">
-                  <ArrowLeft className="h-4 w-4 mr-1" />
-                  Back to Universities
-                </Link>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+            <div className="lg:col-span-7 space-y-10">
+              <div className="inline-flex items-center bg-[var(--surface)]/40 border border-[var(--border)] rounded-2xl px-5 py-2.5">
+                <Building className="h-4 w-4 text-[var(--primary)] mr-3" />
+                <span className="text-[10px] font-black text-[var(--primary)] tracking-[0.3em] uppercase">Institutional Core</span>
               </div>
-              <h1 className="text-3xl md:text-4xl font-bold mb-4">{university.name}</h1>
-              <p className="text-lg text-blue-100 mb-6">{university.description}</p>
-              
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
-                <div className="text-center bg-blue-500/20 backdrop-blur-sm rounded-xl p-3 border border-blue-400/30">
-                  <Calendar className="h-5 w-5 mx-auto mb-1" />
-                  <div className="text-xs text-blue-200">Established</div>
-                  <div className="font-semibold text-sm">{university.established}</div>
-                </div>
-                <div className="text-center bg-blue-500/20 backdrop-blur-sm rounded-xl p-3 border border-blue-400/30">
-                  <Award className="h-5 w-5 mx-auto mb-1" />
-                  <div className="text-xs text-blue-200">Accreditation</div>
-                  <div className="font-semibold text-sm">{university.accreditation}</div>
-                </div>
-                <div className="text-center bg-blue-500/20 backdrop-blur-sm rounded-xl p-3 border border-blue-400/30">
-                  <MapPin className="h-5 w-5 mx-auto mb-1" />
-                  <div className="text-xs text-blue-200">Location</div>
-                  <div className="font-semibold text-sm">New Delhi</div>
-                </div>
-                <div className="text-center bg-blue-500/20 backdrop-blur-sm rounded-xl p-3 border border-blue-400/30">
-                  <Star className="h-5 w-5 mx-auto mb-1" />
-                  <div className="text-xs text-blue-200">Rating</div>
-                  <div className="font-semibold text-sm">4.5/5</div>
-                </div>
-              </div>
+              <h1 className="text-5xl lg:text-8xl font-black text-[var(--text-heading)] leading-none tracking-tighter uppercase">{university.name}</h1>
+              <p className="text-xl text-[var(--text-primary)] font-light leading-relaxed max-w-2xl">{university.description}</p>
 
-              <div className="flex flex-col sm:flex-row gap-3">
-                <a href="tel:+919876543210" className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 text-center shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                  Apply Now
-                </a>
-                <a href="mailto:info@edbelledusolutions.com?subject=University Information Request" className="bg-blue-500/20 backdrop-blur-sm border border-blue-400/30 hover:bg-blue-500/30 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 text-center shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                  Get Info
-                </a>
+              <div className="flex flex-wrap gap-12 pt-8">
+                <div>
+                  <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest mb-2">Established</p>
+                  <p className="text-2xl font-black text-[var(--text-heading)]">{university.established}</p>
+                </div>
+                <div>
+                  <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest mb-2">Location</p>
+                  <p className="text-2xl font-black text-[var(--text-heading)]">NEW DELHI</p>
+                </div>
+                <div>
+                  <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest mb-2">Accreditation</p>
+                  <p className="text-2xl font-black text-[var(--primary)]">{university.accreditation}</p>
+                </div>
               </div>
             </div>
 
-            <div className="bg-blue-500/20 backdrop-blur-lg rounded-2xl p-6 border border-blue-400/30 shadow-2xl">
-              <h3 className="text-xl font-bold mb-4">University Details</h3>
-              <div className="space-y-3">
-                <div className="flex justify-between items-center">
-                  <span className="text-blue-200 text-sm">Established:</span>
-                  <span className="font-semibold">{university.established}</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-blue-200 text-sm">Accreditation:</span>
-                  <span className="font-semibold">{university.accreditation}</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-blue-200 text-sm">Location:</span>
-                  <span className="font-semibold">{university.location}</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-blue-200 text-sm">Website:</span>
-                  <a href={university.website} target="_blank" rel="noopener noreferrer" className="font-semibold text-sm text-cyan-300 hover:text-cyan-200 transition-colors">Visit Site</a>
-                </div>
+            <div className="lg:col-span-5 bg-[var(--bg-secondary)] border border-[var(--border)] rounded-[48px] p-10 lg:p-12 space-y-8 relative overflow-hidden shadow-2xl">
+              <div className="absolute top-0 right-0 p-8">
+                <Zap className="h-10 w-10 text-[var(--primary)] opacity-20" />
+              </div>
+              <h3 className="text-xs font-black text-[var(--primary)] uppercase tracking-[0.4em]">Node Protocol</h3>
+              <div className="space-y-6">
+                {["UGC Approved", "Global Recognition", "Heritage Campus", "Research Excellence"].map((h, i) => (
+                  <div key={i} className="flex items-center space-x-4">
+                    <CheckCircle className="h-5 w-5 text-[var(--primary)]" />
+                    <span className="text-sm font-black text-[var(--text-primary)] uppercase tracking-widest">{h}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="pt-8 border-t border-[var(--border)] flex gap-4">
+                <button className="flex-1 py-4 bg-[var(--primary)] rounded-2xl text-white text-xs font-black uppercase tracking-widest hover:shadow-[0_0_30px_rgba(37,99,235,0.4)] transition-all">Initialize Enrollment</button>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* University Content */}
-      <section className="py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-50 via-blue-50 to-cyan-50">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Main Content */}
-            <div className="lg:col-span-2 space-y-6">
-              <div className="bg-white rounded-xl shadow-lg border border-blue-100 p-6 hover:shadow-xl transition-shadow duration-300">
-                <h3 className="text-xl font-bold text-blue-900 mb-3 flex items-center">
-                  <Building className="h-5 w-5 mr-2 text-blue-600" />
-                  About the University
-                </h3>
-                <p className="text-gray-700 leading-relaxed">{university.description}</p>
-              </div>
-
-              <div className="bg-white rounded-xl shadow-lg border border-blue-100 p-6 hover:shadow-xl transition-shadow duration-300">
-                <h3 className="text-xl font-bold text-blue-900 mb-4 flex items-center">
-                  <CheckCircle className="h-5 w-5 mr-2 text-blue-600" />
-                  Why Choose This University?
-                </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  <div className="flex items-center space-x-2 p-2 rounded-lg hover:bg-blue-50 transition-colors">
-                    <CheckCircle className="h-4 w-4 text-blue-600 flex-shrink-0" />
-                    <span className="text-gray-700 text-sm">UGC Approved</span>
-                  </div>
-                  <div className="flex items-center space-x-2 p-2 rounded-lg hover:bg-blue-50 transition-colors">
-                    <CheckCircle className="h-4 w-4 text-blue-600 flex-shrink-0" />
-                    <span className="text-gray-700 text-sm">Quality Education</span>
-                  </div>
-                  <div className="flex items-center space-x-2 p-2 rounded-lg hover:bg-blue-50 transition-colors">
-                    <CheckCircle className="h-4 w-4 text-blue-600 flex-shrink-0" />
-                    <span className="text-gray-700 text-sm">Online Learning</span>
-                  </div>
-                  <div className="flex items-center space-x-2 p-2 rounded-lg hover:bg-blue-50 transition-colors">
-                    <CheckCircle className="h-4 w-4 text-blue-600 flex-shrink-0" />
-                    <span className="text-gray-700 text-sm">Student Support</span>
-                  </div>
-                </div>
-              </div>
+      {/* Deployment Details Node */}
+      <section className="py-32 bg-[var(--bg-secondary)] border-y border-[var(--border)]">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-12 gap-20">
+          <div className="lg:col-span-8 space-y-24">
+            {/* Program Matrix */}
+            <div className="bg-[var(--bg-primary)]/60 backdrop-blur-3xl border border-[var(--border)] rounded-[48px] p-8 lg:p-16 shadow-xl">
+              <h3 className="text-3xl font-black text-[var(--text-heading)] uppercase tracking-tighter mb-8">About Institutional Node</h3>
+              <p className="text-base lg:text-xl text-[var(--text-primary)] font-light leading-relaxed">
+                The University of Delhi is a premier university of the country with a venerable legacy and international acclaim for highest academic standards, diverse educational programs, distinguished faculty, illustrious alumni, varied co-curricular activities and modern infrastructure. Over the many years of its existence, the University has sustained the highest global standards and best practices in higher education.
+              </p>
             </div>
+          </div>
 
-            {/* Sidebar */}
-            <div className="space-y-6">
-              <div className="bg-white rounded-xl shadow-lg border border-blue-100 p-6 hover:shadow-xl transition-shadow duration-300">
-                <h3 className="text-lg font-bold text-blue-900 mb-4 flex items-center">
-                  <Award className="h-5 w-5 mr-2 text-blue-600" />
-                  Quick Facts
-                </h3>
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center pb-2 border-b border-gray-100">
-                    <span className="text-gray-600 text-sm">Established:</span>
-                    <span className="font-semibold text-blue-900">{university.established}</span>
-                  </div>
-                  <div className="flex justify-between items-center pb-2 border-b border-gray-100">
-                    <span className="text-gray-600 text-sm">Accreditation:</span>
-                    <span className="font-semibold text-blue-900">{university.accreditation}</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-600 text-sm">Location:</span>
-                    <span className="font-semibold text-blue-900 text-sm">{university.location}</span>
-                  </div>
+          <div className="lg:col-span-4 space-y-10">
+            <div className="bg-[var(--bg-primary)]/60 backdrop-blur-3xl border border-[var(--border)] rounded-[40px] p-8 lg:p-10 space-y-8 sticky top-32 shadow-xl">
+              <h4 className="text-[10px] font-black text-[var(--primary)] uppercase tracking-[0.4em]">Institutional Metadata</h4>
+              <div className="space-y-6">
+                <div className="flex justify-between border-b border-[var(--border)] pb-4">
+                  <span className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest">Type</span>
+                  <span className="text-xs font-bold text-[var(--text-heading)] uppercase">Central</span>
+                </div>
+                <div className="flex justify-between border-b border-[var(--border)] pb-4">
+                  <span className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest">Base Hub</span>
+                  <span className="text-xs font-bold text-[var(--text-heading)] uppercase">Delhi</span>
                 </div>
               </div>
-
-              <div className="bg-white rounded-xl shadow-lg border border-blue-100 p-6 hover:shadow-xl transition-shadow duration-300">
-                <h3 className="text-lg font-bold text-blue-900 mb-4 flex items-center">
-                  <Phone className="h-5 w-5 mr-2 text-blue-600" />
-                  Contact Information
-                </h3>
-                <div className="space-y-3">
-                  <a href={university.website} target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2 p-2 rounded-lg hover:bg-blue-50 transition-colors group">
-                    <Globe className="h-4 w-4 text-blue-600 flex-shrink-0" />
-                    <span className="text-gray-700 text-sm group-hover:text-blue-600 transition-colors">Visit Website</span>
+              <div className="space-y-4 pt-6">
+                <div className="flex flex-col gap-3">
+                  <a href="tel:+919876543210" className="flex items-center justify-center space-x-3 py-4 bg-[var(--surface)] border border-[var(--border)] rounded-2xl text-[10px] font-black text-[var(--text-heading)] hover:bg-[var(--primary)] hover:text-white transition-all">
+                    <Phone className="h-4 w-4" />
+                    <span>Call Advisor</span>
                   </a>
-                  <div className="flex items-center space-x-2 p-2 rounded-lg hover:bg-blue-50 transition-colors">
-                    <Phone className="h-4 w-4 text-blue-600 flex-shrink-0" />
-                    <span className="text-gray-700 text-sm">Contact for details</span>
-                  </div>
-                  <div className="flex items-center space-x-2 p-2 rounded-lg hover:bg-blue-50 transition-colors">
-                    <Mail className="h-4 w-4 text-blue-600 flex-shrink-0" />
-                    <span className="text-gray-700 text-sm">Contact for details</span>
-                  </div>
                 </div>
               </div>
             </div>
@@ -211,23 +130,10 @@ export default function UniversityPage() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="bg-gradient-to-br from-blue-600 via-blue-700 to-cyan-600 text-white py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-2xl md:text-3xl font-bold mb-4">
-            Ready to Join This University?
-          </h2>
-          <p className="text-lg mb-6 text-blue-100">
-            Take the next step in your educational journey with quality online programs.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <a href="tel:+919876543210" className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-semibold py-3 px-8 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-              Apply Now
-            </a>
-            <a href="mailto:info@edbelledusolutions.com?subject=University Information Request" className="bg-white text-blue-600 hover:bg-gray-100 font-semibold py-3 px-8 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-              Get More Information
-            </a>
-          </div>
+      {/* Global Newsletter Node */}
+      <section className="py-20 bg-[var(--bg-primary)] border-t border-[var(--border)]">
+        <div className="max-w-4xl mx-auto px-6">
+          <Newsletter />
         </div>
       </section>
     </div>

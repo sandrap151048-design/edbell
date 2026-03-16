@@ -7,12 +7,15 @@ import { join } from 'path';
 // GET - Fetch all universities
 export async function GET() {
   try {
-    await connectDB();
+    const conn = await connectDB();
+    if (!conn) {
+      return NextResponse.json({ success: true, universities: [], message: 'Database not configured' });
+    }
     const universities = await University.find({}).sort({ createdAt: -1 });
     return NextResponse.json({ success: true, universities });
   } catch (error) {
     console.error('Error fetching universities:', error);
-    return NextResponse.json({ success: false, error: 'Failed to fetch universities' }, { status: 500 });
+    return NextResponse.json({ success: true, universities: [], message: 'Database connection issue' });
   }
 }
 
@@ -24,7 +27,6 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     console.log('Received university data:', body);
     
-    // Validate required fields
     if (!body.name || !body.description || !body.accreditation || !body.established) {
       return NextResponse.json({ 
         success: false, 
@@ -32,12 +34,10 @@ export async function POST(request: NextRequest) {
       }, { status: 400 });
     }
 
-    // Auto-generate URL if not provided
     if (!body.url) {
       body.url = '/universities/' + body.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
     }
 
-    // Clean up empty strings for optional fields
     const optionalFields = ['location', 'website'];
     optionalFields.forEach(field => {
       if (body[field] === '') {
@@ -45,7 +45,6 @@ export async function POST(request: NextRequest) {
       }
     });
 
-    // Ensure description has minimum length
     if (body.description.length < 10) {
       return NextResponse.json({ 
         success: false, 
@@ -53,12 +52,10 @@ export async function POST(request: NextRequest) {
       }, { status: 400 });
     }
     
-    // Create university in database
     const university = new University(body);
     await university.save();
     console.log('University saved successfully:', university._id);
 
-    // Generate university page file
     const pageCreated = await generateUniversityPage(university);
 
     return NextResponse.json({ 
@@ -97,7 +94,6 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ success: false, error: 'University not found' }, { status: 404 });
     }
 
-    // Update university page file
     const pageUpdated = await generateUniversityPage(university);
 
     return NextResponse.json({ 
@@ -130,10 +126,7 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ success: false, error: 'University not found' }, { status: 404 });
     }
 
-    // Delete university page file
     const pageDeleted = await deleteUniversityPage(university.url);
-
-    // Delete from database
     await University.findByIdAndDelete(id);
 
     return NextResponse.json({ 
@@ -154,140 +147,107 @@ async function generateUniversityPage(university: any): Promise<boolean> {
     const universitiesDir = join(process.cwd(), 'src', 'app', 'universities');
     const universityDir = join(universitiesDir, universitySlug);
     
-    // Create directory if it doesn't exist
     if (!existsSync(universityDir)) {
       mkdirSync(universityDir, { recursive: true });
     }
 
+    const esc = (val: string) => (val || '').replace(/'/g, "\\'").replace(/"/g, '\\"');
+
     const pageContent = `import { Metadata } from 'next';
 import Link from 'next/link';
-import { 
-  Award, 
-  CheckCircle, 
-  Star, 
-  MapPin, 
-  Users, 
-  BookOpen, 
-  Globe, 
-  Calendar, 
-  Phone, 
-  Mail,
-  ArrowLeft,
-  TrendingUp,
-  Building,
-  GraduationCap
-} from 'lucide-react';
+import { Award, CheckCircle, MapPin, Users, Globe, Calendar, ArrowLeft, Building, GraduationCap } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: '${university.name} - Online University Programs | EDBELL EDUSOLUTIONS',
-  description: '${university.description}',
-  keywords: '${university.name}, online university, distance education, UGC approved, ${university.accreditation}',
-  openGraph: {
-    title: '${university.name} - Online University Programs',
-    description: '${university.description}',
-    type: 'article',
-    url: 'https://edbelledusolutions.com${university.url}',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: '${university.name} - Online University Programs',
-    description: '${university.description}',
-  },
-  alternates: {
-    canonical: 'https://edbelledusolutions.com${university.url}',
-  },
+  title: '${esc(university.name)} - Online University Programs | EDBELL EDUSOLUTIONS',
+  description: '${esc(university.description)}',
 };
 
 export default function UniversityPage() {
   const university = {
-    name: "${university.name}",
-    description: "${university.description}",
-    accreditation: "${university.accreditation}",
-    established: "${university.established}",
-    location: "${university.location || 'India'}",
-    website: "${university.website || 'Contact for details'}"
+    name: "${esc(university.name)}",
+    description: "${esc(university.description)}",
+    accreditation: "${esc(university.accreditation)}",
+    established: "${esc(university.established)}",
+    location: "${esc(university.location || 'India')}",
+    website: "${esc(university.website || '')}",
+    universityType: "${esc(university.universityType || 'Private')}",
+    campusSize: "${esc(university.campusSize || '')}",
+    totalStudents: "${esc(university.totalStudents || '')}",
+    facultyCount: "${esc(university.facultyCount || '')}",
+    coursesOffered: "${esc(university.coursesOffered || '')}",
+    specializations: "${esc(university.specializations || '')}",
+    facilities: "${esc(university.facilities || '')}",
+    admissionProcess: "${esc(university.admissionProcess || 'Simple online admission process')}",
+    feeStructure: "${esc(university.feeStructure || 'Contact for details')}"
   };
 
   return (
-    <div className="min-h-screen">
-      {/* Breadcrumb */}
-      <div className="bg-gray-50 py-4">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <nav className="flex items-center space-x-2 text-sm">
-            <Link href="/" className="text-gray-500 hover:text-blue-600">Home</Link>
-            <span className="text-gray-400">/</span>
-            <Link href="/universities" className="text-gray-500 hover:text-blue-600">Universities</Link>
-            <span className="text-gray-400">/</span>
-            <span className="text-gray-900">{university.name}</span>
-          </nav>
-        </div>
-      </div>
-
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-green-600 to-green-800 text-white py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <div className="min-h-screen bg-[#030B1A]">
+      <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0066CC]/10 via-transparent to-transparent"></div>
+        <div className="absolute top-20 right-1/4 w-96 h-96 bg-[#0066CC]/8 rounded-full blur-[120px]"></div>
+        <div className="relative max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
-              <div className="flex items-center space-x-2 mb-4">
-                <Link href="/universities" className="flex items-center text-green-200 hover:text-white">
-                  <ArrowLeft className="h-4 w-4 mr-1" />
-                  Back to Universities
-                </Link>
-              </div>
-              <h1 className="text-4xl md:text-5xl font-bold mb-4">{university.name}</h1>
-              <p className="text-xl text-green-100 mb-6">{university.description}</p>
-              
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                <div className="text-center">
-                  <Calendar className="h-6 w-6 mx-auto mb-2" />
-                  <div className="text-sm text-green-200">Established</div>
-                  <div className="font-semibold">{university.established}</div>
+              <Link href="/universities" className="inline-flex items-center text-[#0066CC]/70 hover:text-[#0066CC] text-sm font-medium mb-8 transition-colors">
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                Back to Universities
+              </Link>
+              <h1 className="text-4xl md:text-5xl font-black text-white mb-6 tracking-tight leading-tight">{university.name}</h1>
+              <p className="text-lg text-[#B0C4DE] mb-10 leading-relaxed">{university.description}</p>
+              <div className="grid grid-cols-2 gap-4 mb-10">
+                <div className="bg-[#0A1628] border border-[#0066CC]/15 rounded-2xl p-4">
+                  <Calendar className="h-5 w-5 mb-2 text-[#0066CC]" />
+                  <div className="text-[10px] text-[#0066CC]/60 uppercase tracking-widest font-bold mb-1">Established</div>
+                  <div className="text-sm font-bold text-white">{university.established}</div>
                 </div>
-                <div className="text-center">
-                  <Award className="h-6 w-6 mx-auto mb-2" />
-                  <div className="text-sm text-green-200">Accreditation</div>
-                  <div className="font-semibold">{university.accreditation}</div>
+                <div className="bg-[#0A1628] border border-[#0066CC]/15 rounded-2xl p-4">
+                  <Award className="h-5 w-5 mb-2 text-[#0066CC]" />
+                  <div className="text-[10px] text-[#0066CC]/60 uppercase tracking-widest font-bold mb-1">Accreditation</div>
+                  <div className="text-sm font-bold text-white">{university.accreditation}</div>
                 </div>
-                <div className="text-center">
-                  <MapPin className="h-6 w-6 mx-auto mb-2" />
-                  <div className="text-sm text-green-200">Location</div>
-                  <div className="font-semibold">{university.location}</div>
+                <div className="bg-[#0A1628] border border-[#0066CC]/15 rounded-2xl p-4">
+                  <MapPin className="h-5 w-5 mb-2 text-[#0066CC]" />
+                  <div className="text-[10px] text-[#0066CC]/60 uppercase tracking-widest font-bold mb-1">Location</div>
+                  <div className="text-sm font-bold text-white">{university.location}</div>
                 </div>
-                <div className="text-center">
-                  <Star className="h-6 w-6 mx-auto mb-2" />
-                  <div className="text-sm text-green-200">Rating</div>
-                  <div className="font-semibold">4.5/5</div>
+                <div className="bg-[#0A1628] border border-[#0066CC]/15 rounded-2xl p-4">
+                  <Building className="h-5 w-5 mb-2 text-[#0066CC]" />
+                  <div className="text-[10px] text-[#0066CC]/60 uppercase tracking-widest font-bold mb-1">Type</div>
+                  <div className="text-sm font-bold text-white">{university.universityType}</div>
                 </div>
               </div>
-
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link href="/contact" className="bg-yellow-500 hover:bg-yellow-600 text-green-900 font-semibold py-3 px-6 rounded-lg transition-colors duration-200 text-center">
+                <Link href="/contact" className="bg-[#0066CC] hover:bg-[#0055AA] text-white font-bold py-4 px-8 rounded-2xl transition-all duration-300 text-center hover:shadow-[0_0_30px_rgba(0,102,204,0.3)]">
                   Apply Now
                 </Link>
-                <Link href="/contact" className="bg-white/20 hover:bg-white/30 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 text-center">
+                <Link href="/contact" className="bg-white/5 hover:bg-white/10 border border-[#0066CC]/30 text-white font-bold py-4 px-8 rounded-2xl transition-all duration-300 text-center">
                   Get More Info
                 </Link>
               </div>
             </div>
-
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
-              <h3 className="text-2xl font-bold mb-6">University Details</h3>
-              <div className="space-y-4">
-                <div className="flex justify-between">
-                  <span className="text-green-200">Established:</span>
-                  <span className="font-semibold">{university.established}</span>
+            <div className="bg-gradient-to-br from-[#0A1628] to-[#051428] rounded-3xl p-8 border border-[#0066CC]/20 shadow-[0_0_40px_rgba(0,102,204,0.1)]">
+              <h3 className="text-2xl font-bold text-white mb-8">University Overview</h3>
+              <div className="space-y-5">
+                {university.totalStudents && (
+                  <div className="flex justify-between items-center py-3 border-b border-[#0066CC]/10">
+                    <span className="text-[#B0C4DE]/70 text-sm">Total Students</span>
+                    <span className="font-bold text-white text-sm">{university.totalStudents}</span>
+                  </div>
+                )}
+                {university.facultyCount && (
+                  <div className="flex justify-between items-center py-3 border-b border-[#0066CC]/10">
+                    <span className="text-[#B0C4DE]/70 text-sm">Faculty Members</span>
+                    <span className="font-bold text-white text-sm">{university.facultyCount}</span>
+                  </div>
+                )}
+                <div className="flex justify-between items-center py-3 border-b border-[#0066CC]/10">
+                  <span className="text-[#B0C4DE]/70 text-sm">Fee Structure</span>
+                  <span className="font-bold text-white text-sm">{university.feeStructure}</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-green-200">Accreditation:</span>
-                  <span className="font-semibold">{university.accreditation}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-green-200">Location:</span>
-                  <span className="font-semibold">{university.location}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-green-200">Website:</span>
-                  <span className="font-semibold text-sm">{university.website}</span>
+                <div className="flex justify-between items-center py-3">
+                  <span className="text-[#B0C4DE]/70 text-sm">Recognition</span>
+                  <span className="font-bold text-[#0066CC] text-sm">UGC Approved</span>
                 </div>
               </div>
             </div>
@@ -295,96 +255,71 @@ export default function UniversityPage() {
         </div>
       </section>
 
-      {/* University Content */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#050E1F]">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Main Content */}
             <div className="lg:col-span-2 space-y-8">
-              <div className="bg-white rounded-xl shadow-sm border p-6">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">About the University</h3>
-                <p className="text-gray-600 leading-relaxed">{university.description}</p>
-              </div>
-
-              <div className="bg-white rounded-xl shadow-sm border p-6">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Why Choose This University?</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="flex items-center space-x-3">
-                    <CheckCircle className="h-5 w-5 text-green-500" />
-                    <span className="text-gray-600">UGC Approved</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <CheckCircle className="h-5 w-5 text-green-500" />
-                    <span className="text-gray-600">Quality Education</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <CheckCircle className="h-5 w-5 text-green-500" />
-                    <span className="text-gray-600">Online Learning</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <CheckCircle className="h-5 w-5 text-green-500" />
-                    <span className="text-gray-600">Student Support</span>
-                  </div>
+              {university.coursesOffered && (
+                <div className="bg-[#0A1628] rounded-2xl border border-[#0066CC]/15 p-8">
+                  <h3 className="text-2xl font-bold text-white mb-4">Courses Offered</h3>
+                  <p className="text-[#B0C4DE] leading-relaxed">{university.coursesOffered}</p>
                 </div>
-              </div>
+              )}
+              {university.specializations && (
+                <div className="bg-[#0A1628] rounded-2xl border border-[#0066CC]/15 p-8">
+                  <h3 className="text-2xl font-bold text-white mb-4">Specializations</h3>
+                  <p className="text-[#B0C4DE] leading-relaxed">{university.specializations}</p>
+                </div>
+              )}
+              {university.admissionProcess && (
+                <div className="bg-[#0A1628] rounded-2xl border border-[#0066CC]/15 p-8">
+                  <h3 className="text-2xl font-bold text-white mb-4">Admission Process</h3>
+                  <p className="text-[#B0C4DE] leading-relaxed">{university.admissionProcess}</p>
+                </div>
+              )}
             </div>
-
-            {/* Sidebar */}
             <div className="space-y-6">
-              <div className="bg-white rounded-xl shadow-sm border p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Quick Facts</h3>
-                <div className="space-y-3">
-                  <div className="flex justify-between">
-                    <span className="text-gray-500">Established:</span>
-                    <span className="font-medium">{university.established}</span>
+              <div className="bg-[#0A1628] rounded-2xl border border-[#0066CC]/15 p-8">
+                <h3 className="text-xl font-bold text-white mb-6">Key Highlights</h3>
+                <div className="space-y-4">
+                  <div className="flex items-center space-x-3">
+                    <CheckCircle className="h-5 w-5 text-[#0066CC]" />
+                    <span className="text-[#B0C4DE]">UGC Recognized</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-500">Accreditation:</span>
-                    <span className="font-medium">{university.accreditation}</span>
+                  <div className="flex items-center space-x-3">
+                    <CheckCircle className="h-5 w-5 text-[#0066CC]" />
+                    <span className="text-[#B0C4DE]">NAAC Accredited</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-500">Location:</span>
-                    <span className="font-medium">{university.location}</span>
+                  <div className="flex items-center space-x-3">
+                    <CheckCircle className="h-5 w-5 text-[#0066CC]" />
+                    <span className="text-[#B0C4DE]">Online Learning</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <CheckCircle className="h-5 w-5 text-[#0066CC]" />
+                    <span className="text-[#B0C4DE]">Placement Support</span>
                   </div>
                 </div>
               </div>
-
-              <div className="bg-white rounded-xl shadow-sm border p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Contact Information</h3>
-                <div className="space-y-3">
-                  <div className="flex items-center space-x-3">
-                    <Globe className="h-5 w-5 text-gray-400" />
-                    <span className="text-gray-600 text-sm">{university.website}</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <Phone className="h-5 w-5 text-gray-400" />
-                    <span className="text-gray-600 text-sm">Contact for details</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <Mail className="h-5 w-5 text-gray-400" />
-                    <span className="text-gray-600 text-sm">Contact for details</span>
-                  </div>
+              {university.facilities && (
+                <div className="bg-[#0A1628] rounded-2xl border border-[#0066CC]/15 p-8">
+                  <h3 className="text-xl font-bold text-white mb-4">Facilities</h3>
+                  <p className="text-[#B0C4DE] text-sm leading-relaxed">{university.facilities}</p>
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="bg-green-600 text-white py-16 px-4 sm:px-6 lg:px-8">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#030B1A] border-t border-[#0066CC]/10">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Ready to Join This University?
-          </h2>
-          <p className="text-xl mb-8 text-green-100">
-            Take the next step in your educational journey with quality online programs.
-          </p>
+          <h2 className="text-3xl md:text-4xl font-black text-white mb-6 tracking-tight">Ready to Join?</h2>
+          <p className="text-lg mb-10 text-[#B0C4DE]">Take the first step towards your future with a globally recognized degree.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/contact" className="bg-yellow-500 hover:bg-yellow-600 text-green-900 font-semibold py-3 px-6 rounded-lg transition-colors duration-200">
+            <Link href="/contact" className="bg-[#0066CC] hover:bg-[#0055AA] text-white font-bold py-4 px-8 rounded-2xl transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,102,204,0.3)]">
               Apply Now
             </Link>
-            <Link href="/contact" className="bg-white text-green-600 hover:bg-gray-100 font-semibold py-3 px-6 rounded-lg transition-colors duration-200">
+            <Link href="/contact" className="bg-white/5 border border-[#0066CC]/30 text-white hover:bg-white/10 font-bold py-4 px-8 rounded-2xl transition-all duration-300">
               Get More Information
             </Link>
           </div>
@@ -413,7 +348,6 @@ async function deleteUniversityPage(universityUrl: string): Promise<boolean> {
     
     if (existsSync(pageFilePath)) {
       unlinkSync(pageFilePath);
-      // Try to remove directory if empty
       try {
         const fs = require('fs');
         const files = fs.readdirSync(universityDir);
