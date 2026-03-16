@@ -101,32 +101,32 @@ const Header = () => {
           {/* Action Cluster */}
           <div className="flex items-center space-x-4">
             {isAuthenticated ? (
-              <div className="hidden md:flex items-center space-x-4">
+              <div className="hidden lg:flex items-center space-x-4">
                 <Link
                   href="/admin"
-                  className="flex items-center space-x-2 px-5 py-2.5 bg-white/[0.03] border border-white/10 rounded-xl text-[10px] font-black tracking-widest text-slate-200 hover:bg-white/5 transition-all"
+                  className="flex items-center space-x-2 px-4 py-2 bg-white/[0.03] border border-white/10 rounded-xl text-[10px] font-black tracking-widest text-slate-200 hover:bg-white/5 transition-all"
                 >
                   <User className="h-3 w-3 text-blue-400" />
                   <span>DASHBOARD</span>
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="p-2.5 bg-red-500/10 border border-red-500/20 rounded-xl text-red-500 hover:bg-red-500 hover:text-white transition-all shadow-lg"
+                  className="p-2 bg-red-500/10 border border-red-500/20 rounded-xl text-red-500 hover:bg-red-500 hover:text-white transition-all shadow-lg"
                 >
                   <LogOut className="h-4 w-4" />
                 </button>
               </div>
             ) : (
-              <div className="hidden sm:flex items-center space-x-4">
+              <div className="hidden lg:flex items-center space-x-4">
                 <Link
                   href="/login"
-                  className={`px-6 py-2.5 text-[10px] font-black tracking-widest transition-colors ${isScrolled ? 'text-gray-800 hover:text-gray-900' : 'text-slate-300 hover:text-white'}`}
+                  className={`px-4 py-2 text-[10px] font-black tracking-widest transition-colors ${isScrolled ? 'text-gray-800 hover:text-gray-900' : 'text-slate-300 hover:text-white'}`}
                 >
                   LOGIN
                 </Link>
                 <Link
                   href="/contact"
-                  className="group relative px-8 py-3 bg-blue-600 rounded-2xl text-white text-[11px] font-black tracking-widest hover:shadow-[0_0_40px_rgba(37,99,235,0.4)] transition-all transform hover:-translate-y-0.5 overflow-hidden"
+                  className="group relative px-6 py-2.5 bg-blue-600 rounded-xl text-white text-[10px] font-black tracking-widest hover:shadow-[0_0_40px_rgba(37,99,235,0.4)] transition-all transform hover:-translate-y-0.5 overflow-hidden"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
                   <span className="relative flex items-center">
@@ -215,9 +215,9 @@ const Header = () => {
                     <Link
                       href="/contact"
                       onClick={() => setIsMenuOpen(false)}
-                      className="w-full flex items-center justify-center py-5 bg-blue-600 rounded-3xl text-white font-black uppercase tracking-widest text-xs"
+                      className="w-full flex items-center justify-center py-4 bg-blue-600 rounded-2xl text-white font-black uppercase tracking-widest text-[10px]"
                     >
-                      Contact Us
+                      GET STARTED
                     </Link>
                   </div>
                 )}

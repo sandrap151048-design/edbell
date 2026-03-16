@@ -294,7 +294,7 @@ export default function Universities() {
   return (
     <div className="min-h-screen bg-[var(--bg-primary)] overflow-hidden">
       {/* Hero Section */}
-      <section className="relative py-12 sm:py-16 lg:py-20 overflow-hidden min-h-[650px] lg:min-h-[850px] bg-[var(--bg-primary)] pt-20 flex items-center">
+      <section className="relative py-10 sm:py-14 lg:py-16 overflow-hidden min-h-[500px] sm:min-h-[550px] lg:min-h-[650px] bg-[var(--bg-primary)] pt-20 flex items-center">
         {/* Background Animation */}
         <div className="absolute inset-0 z-0 overflow-hidden">
           <img
@@ -312,50 +312,50 @@ export default function Universities() {
         <div className="absolute inset-x-0 top-0 h-96 bg-gradient-to-b from-[var(--primary)]/10 to-transparent blur-3xl opacity-50 z-10" />
         <div className="absolute top-1/4 -right-24 w-96 h-96 bg-[var(--primary)]/10 rounded-full blur-[120px] animate-pulse z-10" />
 
-        <div className="relative max-w-7xl mx-auto px-6 lg:px-12 z-20 w-full pt-12">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 z-20 w-full pt-6 sm:pt-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
             {/* Left Content */}
-            <div className={`text-center lg:text-left space-y-8 ${mounted ? 'animate-fade-in-up' : 'opacity-0'}`}>
-              <div className="inline-flex items-center bg-[var(--surface)]/40 border border-[var(--border)] rounded-full px-4 py-2 backdrop-blur-md mb-2 hover:bg-[var(--surface-alt)]/60 transition-all duration-300 transform hover:scale-105">
-                <span className="flex h-2 w-2 rounded-full bg-[var(--primary)] mr-3 animate-pulse"></span>
-                <span className="text-sm font-medium text-[var(--text-primary)] tracking-wide uppercase">Premier University Partners</span>
+            <div className={`text-center lg:text-left space-y-5 sm:space-y-6 ${mounted ? 'animate-fade-in-up' : 'opacity-0'}`}>
+              <div className="inline-flex items-center bg-[var(--surface)]/40 border border-[var(--border)] rounded-full px-3 py-1.5 backdrop-blur-md mb-2 hover:bg-[var(--surface-alt)]/60 transition-all duration-300 transform hover:scale-105">
+                <span className="flex h-2 w-2 rounded-full bg-[var(--primary)] mr-2 animate-pulse"></span>
+                <span className="text-[10px] sm:text-xs font-medium text-[var(--text-primary)] tracking-wide uppercase">Premier University Partners</span>
               </div>
 
-              <h1 className={`text-4xl sm:text-5xl lg:text-6xl font-bold text-[var(--text-heading)] leading-[1.1] tracking-tight uppercase not-italic font-serif ${mounted ? 'animate-fade-in-up animation-delay-100' : 'opacity-0'}`}>
+              <h1 className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[var(--text-heading)] leading-[1.1] tracking-tight uppercase not-italic font-serif ${mounted ? 'animate-fade-in-up animation-delay-100' : 'opacity-0'}`}>
                 Choose Your <br />
                 <span className="text-transparent bg-gradient-to-r from-[var(--primary)] to-[var(--accent)] bg-clip-text">
                   Dream University
                 </span>
               </h1>
 
-              <p className={`text-lg sm:text-xl text-[var(--text-primary)] leading-relaxed font-light max-w-xl mx-auto lg:mx-0 ${mounted ? 'animate-fade-in-up animation-delay-200' : 'opacity-0'}`}>
+              <p className={`text-sm sm:text-base lg:text-lg text-[var(--text-primary)] leading-relaxed font-light max-w-xl mx-auto lg:mx-0 ${mounted ? 'animate-fade-in-up animation-delay-200' : 'opacity-0'}`}>
                 Partner with India's top universities offering world-class online education with industry-recognized degrees and career support.
               </p>
 
               {/* Stats Cards */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
-                <div className="group relative bg-[var(--surface)]/20 border border-[var(--border)] rounded-2xl p-6 hover:bg-[var(--surface-alt)]/40 transition-all duration-500 overflow-hidden hover:-translate-y-1 hover:shadow-2xl shadow-sm">
-                  <div className="text-3xl font-bold text-[var(--text-heading)] mb-2 group-hover:text-[var(--primary)] transition-colors">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
+                <div className="group relative bg-[var(--surface)]/20 border border-[var(--border)] rounded-xl p-3 sm:p-4 hover:bg-[var(--surface-alt)]/40 transition-all duration-500 overflow-hidden hover:-translate-y-1 hover:shadow-2xl shadow-sm">
+                  <div className="text-xl sm:text-2xl font-bold text-[var(--text-heading)] mb-1 group-hover:text-[var(--primary)] transition-colors">
                     {universities.length === 0 ? "10" : universities.length}+
                   </div>
-                  <div className="text-sm text-[var(--text-muted)] font-medium">Top Universities</div>
+                  <div className="text-[10px] sm:text-xs text-[var(--text-muted)] font-medium">Top Universities</div>
                 </div>
-                <div className="group relative bg-[var(--surface)]/20 border border-[var(--border)] rounded-2xl p-6 hover:bg-[var(--surface-alt)]/40 transition-all duration-500 overflow-hidden hover:-translate-y-1 hover:shadow-2xl shadow-sm">
-                  <div className="text-3xl font-bold text-[var(--text-heading)] mb-2 group-hover:text-[var(--accent)] transition-colors">200+</div>
-                  <div className="text-sm text-[var(--text-muted)] font-medium">Degree Programs</div>
+                <div className="group relative bg-[var(--surface)]/20 border border-[var(--border)] rounded-xl p-3 sm:p-4 hover:bg-[var(--surface-alt)]/40 transition-all duration-500 overflow-hidden hover:-translate-y-1 hover:shadow-2xl shadow-sm">
+                  <div className="text-xl sm:text-2xl font-bold text-[var(--text-heading)] mb-1 group-hover:text-[var(--accent)] transition-colors">200+</div>
+                  <div className="text-[10px] sm:text-xs text-[var(--text-muted)] font-medium">Degree Programs</div>
                 </div>
-                <div className="group relative bg-[var(--surface)]/20 border border-[var(--border)] rounded-2xl p-6 hover:bg-[var(--surface-alt)]/40 transition-all duration-500 overflow-hidden hover:-translate-y-1 hover:shadow-2xl shadow-sm sm:col-span-1 col-span-2">
-                  <div className="text-3xl font-bold text-[var(--text-heading)] mb-2 group-hover:text-[var(--primary)] transition-colors">95%</div>
-                  <div className="text-sm text-[var(--text-muted)] font-medium tracking-tight">Success Rate</div>
+                <div className="group relative bg-[var(--surface)]/20 border border-[var(--border)] rounded-xl p-3 sm:p-4 hover:bg-[var(--surface-alt)]/40 transition-all duration-500 overflow-hidden hover:-translate-y-1 hover:shadow-2xl shadow-sm sm:col-span-1 col-span-2">
+                  <div className="text-xl sm:text-2xl font-bold text-[var(--text-heading)] mb-1 group-hover:text-[var(--primary)] transition-colors">95%</div>
+                  <div className="text-[10px] sm:text-xs text-[var(--text-muted)] font-medium tracking-tight">Success Rate</div>
                 </div>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center lg:justify-start">
-                <Link href="#universities" className="bg-[var(--primary)] hover:bg-[var(--primary)]/90 text-white px-8 py-4 rounded-xl font-bold shadow-[0_0_40px_rgba(37,99,235,0.3)] hover:shadow-[0_0_60px_rgba(37,99,235,0.4)] transform hover:-translate-y-0.5 transition-all duration-300 inline-flex items-center justify-center group uppercase tracking-widest text-sm">
+              <div className="flex flex-col sm:flex-row gap-3 pt-2 justify-center lg:justify-start">
+                <Link href="#universities" className="bg-[var(--primary)] hover:bg-[var(--primary)]/90 text-white px-6 py-3 rounded-xl font-bold shadow-[0_0_30px_rgba(37,99,235,0.3)] hover:shadow-[0_0_40px_rgba(37,99,235,0.4)] transform hover:-translate-y-0.5 transition-all duration-300 inline-flex items-center justify-center group uppercase tracking-widest text-xs">
                   <span>Explore Universities</span>
-                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
-                <Link href="/contact" className="bg-[var(--surface)]/40 border border-[var(--border)] hover:bg-[var(--surface-alt)]/60 text-[var(--text-heading)] px-8 py-4 rounded-xl font-bold transition-all duration-300 inline-flex items-center justify-center uppercase tracking-widest text-sm">
+                <Link href="/contact" className="bg-[var(--surface)]/40 border border-[var(--border)] hover:bg-[var(--surface-alt)]/60 text-[var(--text-heading)] px-6 py-3 rounded-xl font-bold transition-all duration-300 inline-flex items-center justify-center uppercase tracking-widest text-xs">
                   Get Guidance
                 </Link>
               </div>
@@ -435,44 +435,44 @@ export default function Universities() {
       </section>
 
       {/* Search and Filters */}
-      <section className="py-16 bg-[var(--bg-secondary)] border-y border-[var(--border)]" id="universities">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-[var(--text-heading)] mb-4 tracking-tight uppercase">Find Your Future University</h2>
-            <p className="text-[var(--text-primary)] max-w-2xl mx-auto font-light leading-relaxed">
+      <section className="py-10 sm:py-12 bg-[var(--bg-secondary)] border-y border-[var(--border)]" id="universities">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+          <div className="text-center mb-8 sm:mb-10">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[var(--text-heading)] mb-3 tracking-tight uppercase">Find Your Future University</h2>
+            <p className="text-sm sm:text-base text-[var(--text-primary)] max-w-xl mx-auto font-light leading-relaxed">
               Browse through our handpicked partner institutions to find the perfect fit for your educational journey.
             </p>
           </div>
 
           {/* Search Interface */}
-          <div className="max-w-3xl mx-auto mb-12">
+          <div className="max-w-2xl mx-auto mb-8 sm:mb-10">
             <div className="group relative">
-              <div className="absolute -inset-1 bg-gradient-to-r from-[var(--primary)] to-[var(--accent)] rounded-2xl blur opacity-25 group-focus-within:opacity-50 transition-all duration-500" />
+              <div className="absolute -inset-1 bg-gradient-to-r from-[var(--primary)] to-[var(--accent)] rounded-xl blur opacity-25 group-focus-within:opacity-50 transition-all duration-500" />
               <div className="relative">
-                <Search className="absolute left-6 top-1/2 -translate-y-1/2 h-6 w-6 text-[var(--text-muted)] group-focus-within:text-[var(--primary)] transition-colors" />
+                <Search className="absolute left-4 sm:left-5 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-[var(--text-muted)] group-focus-within:text-[var(--primary)] transition-colors" />
                 <input
                   type="text"
                   placeholder="Search by name, location, or specialization..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-16 pr-8 py-5 text-lg border border-[var(--border)] rounded-2xl bg-[var(--bg-primary)]/80 backdrop-blur-xl text-[var(--text-heading)] placeholder-[var(--text-muted)] outline-none focus:border-[var(--primary)]/30 transition-all uppercase tracking-tight font-bold"
+                  className="w-full pl-10 sm:pl-12 pr-4 py-3 sm:py-4 text-sm sm:text-base border border-[var(--border)] rounded-xl bg-[var(--bg-primary)]/80 backdrop-blur-xl text-[var(--text-heading)] placeholder-[var(--text-muted)] outline-none focus:border-[var(--primary)]/30 transition-all tracking-tight font-bold"
                 />
               </div>
             </div>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-4">
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
             {filters.map((filter) => (
               <button
                 key={filter.id}
                 onClick={() => setSelectedFilter(filter.id)}
-                className={`px-8 py-3 rounded-xl font-black transition-all duration-500 flex items-center space-x-3 border uppercase tracking-widest text-xs ${selectedFilter === filter.id
-                  ? 'bg-[var(--primary)] border-[var(--primary)] text-white shadow-[0_0_30px_rgba(37,99,235,0.3)] scale-105'
+                className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg sm:rounded-xl font-black transition-all duration-500 flex items-center space-x-2 border uppercase tracking-wider text-[9px] sm:text-[10px] ${selectedFilter === filter.id
+                  ? 'bg-[var(--primary)] border-[var(--primary)] text-white shadow-[0_0_20px_rgba(37,99,235,0.3)] scale-105'
                   : 'bg-[var(--surface)] border-[var(--border)] text-[var(--text-muted)] hover:bg-[var(--surface-alt)] hover:text-white hover:-translate-y-0.5'
                   }`}
               >
                 <span>{filter.name}</span>
-                <span className={`text-[10px] px-2 py-0.5 rounded-full font-black ${selectedFilter === filter.id ? 'bg-white/20' : 'bg-[var(--surface-alt)] text-[var(--text-muted)]'
+                <span className={`text-[8px] sm:text-[9px] px-1.5 py-0.5 rounded-full font-black ${selectedFilter === filter.id ? 'bg-white/20' : 'bg-[var(--surface-alt)] text-[var(--text-muted)]'
                   }`}>
                   {filter.count}
                 </span>
@@ -483,7 +483,7 @@ export default function Universities() {
       </section>
 
       {/* Grid Section */}
-      <section className="py-20 px-6 lg:px-12 bg-[var(--bg-primary)]">
+      <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-12 bg-[var(--bg-primary)]">
         <div className="max-w-7xl mx-auto">
           {filteredUniversities.length === 0 ? (
             <div className="text-center py-24">
@@ -500,7 +500,7 @@ export default function Universities() {
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {filteredUniversities.map((university, index) => (
                 <div
                   key={university._id || university.name}
@@ -510,10 +510,10 @@ export default function Universities() {
                   {/* Top Bar Decoration */}
                   <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-[var(--primary)] via-[var(--accent)] to-[var(--highlight)] transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-700" />
 
-                  <div className="p-8 flex flex-col h-full">
-                    <div className="flex items-start justify-between mb-8">
-                      <div className="w-16 h-16 bg-[var(--bg-primary)] border border-[var(--border)] rounded-2xl flex items-center justify-center text-[var(--text-muted)] group-hover:scale-110 group-hover:bg-[var(--primary)] group-hover:text-white transition-all duration-500">
-                        <Building className="w-8 h-8" />
+                  <div className="p-4 sm:p-6 flex flex-col h-full">
+                    <div className="flex items-start justify-between mb-4 sm:mb-6">
+                      <div className="w-11 h-11 sm:w-14 sm:h-14 bg-[var(--bg-primary)] border border-[var(--border)] rounded-xl sm:rounded-2xl flex items-center justify-center text-[var(--text-muted)] group-hover:scale-110 group-hover:bg-[var(--primary)] group-hover:text-white transition-all duration-500">
+                        <Building className="w-5 h-5 sm:w-6 sm:h-6" />
                       </div>
                       <div className="text-right">
                         <div className="inline-flex items-center bg-[var(--primary)]/10 text-[var(--primary)] px-3 py-1 rounded-full text-[10px] font-black tracking-widest mb-2 uppercase border border-[var(--primary)]/10">
@@ -526,9 +526,9 @@ export default function Universities() {
                       </div>
                     </div>
 
-                    <h3 className="text-2xl font-bold text-[var(--text-heading)] mb-4 group-hover:text-[var(--primary)] transition-colors tracking-tight uppercase italic">{university.name}</h3>
+                    <h3 className="text-base sm:text-lg lg:text-xl font-bold text-[var(--text-heading)] mb-2 sm:mb-3 group-hover:text-[var(--primary)] transition-colors tracking-tight uppercase italic">{university.name}</h3>
 
-                    <div className="flex items-center text-[var(--text-muted)] text-sm mb-6 space-x-4">
+                    <div className="flex items-center text-[var(--text-muted)] text-xs mb-4 space-x-3">
                       <div className="flex items-center">
                         <MapPin className="w-4 h-4 mr-1.5 text-[var(--primary)]/50" />
                         <span>{university.location || 'India'}</span>
@@ -539,29 +539,29 @@ export default function Universities() {
                       </div>
                     </div>
 
-                    <p className="text-[var(--text-primary)] text-sm font-light leading-relaxed mb-8 flex-grow line-clamp-3 group-hover:line-clamp-none transition-all duration-500">
+                    <p className="text-[var(--text-primary)] text-xs sm:text-sm font-light leading-relaxed mb-4 sm:mb-6 flex-grow line-clamp-3 group-hover:line-clamp-none transition-all duration-500">
                       {university.description}
                     </p>
 
-                    <div className="grid grid-cols-2 gap-4 mb-8">
-                      <div className="bg-[var(--surface-alt)]/40 rounded-2xl p-4 border border-[var(--border)]">
-                        <div className="text-sm font-bold text-[var(--text-heading)]">{university.studentsCount || '5K+'}</div>
-                        <div className="text-[10px] text-[var(--text-muted)] font-black uppercase tracking-wider">Students</div>
+                    <div className="grid grid-cols-2 gap-2 sm:gap-3 mb-4 sm:mb-6">
+                      <div className="bg-[var(--surface-alt)]/40 rounded-xl p-2.5 sm:p-3 border border-[var(--border)]">
+                        <div className="text-xs sm:text-sm font-bold text-[var(--text-heading)]">{university.studentsCount || '5K+'}</div>
+                        <div className="text-[8px] sm:text-[9px] text-[var(--text-muted)] font-black uppercase tracking-wider">Students</div>
                       </div>
-                      <div className="bg-[var(--surface-alt)]/40 rounded-2xl p-4 border border-[var(--border)]">
-                        <div className="text-sm font-bold text-[var(--text-heading)]">{university.coursesOffered || '50+'}</div>
-                        <div className="text-[10px] text-[var(--text-muted)] font-black uppercase tracking-wider">Courses</div>
+                      <div className="bg-[var(--surface-alt)]/40 rounded-xl p-2.5 sm:p-3 border border-[var(--border)]">
+                        <div className="text-xs sm:text-sm font-bold text-[var(--text-heading)]">{university.coursesOffered || '50+'}</div>
+                        <div className="text-[8px] sm:text-[9px] text-[var(--text-muted)] font-black uppercase tracking-wider">Courses</div>
                       </div>
                     </div>
 
                     <div className="flex items-center gap-3">
                       <Link href={`/universities/${getUniversitySlug(university.name)}`} className="flex-1">
-                        <button className="w-full bg-[var(--primary)] hover:bg-[var(--primary)]/90 text-white font-black py-4 rounded-xl transition-all shadow-lg hover:shadow-blue-500/20 text-xs uppercase tracking-widest">
+                        <button className="w-full bg-[var(--primary)] hover:bg-[var(--primary)]/90 text-white font-black py-2.5 sm:py-3 rounded-lg sm:rounded-xl transition-all shadow-lg hover:shadow-blue-500/20 text-[10px] sm:text-xs uppercase tracking-widest">
                           View Program
                         </button>
                       </Link>
-                      <Link href="/contact" className="w-14 items-center justify-center flex">
-                        <button className="w-14 h-14 bg-[var(--surface-alt)]/40 border border-[var(--border)] rounded-xl flex items-center justify-center text-[var(--text-muted)] hover:text-[var(--primary)] hover:bg-[var(--primary)]/10 transition-all">
+                      <Link href="/contact" className="w-10 sm:w-12 items-center justify-center flex">
+                        <button className="w-10 h-10 sm:w-12 sm:h-12 bg-[var(--surface-alt)]/40 border border-[var(--border)] rounded-lg sm:rounded-xl flex items-center justify-center text-[var(--text-muted)] hover:text-[var(--primary)] hover:bg-[var(--primary)]/10 transition-all">
                           <Phone className="w-5 h-5" />
                         </button>
                       </Link>
@@ -575,34 +575,34 @@ export default function Universities() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 px-6 lg:px-12 bg-gradient-to-br from-[var(--bg-secondary)] via-[var(--bg-primary)] to-[var(--bg-secondary)] relative overflow-hidden">
+      <section className="py-14 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-12 bg-gradient-to-br from-[var(--bg-secondary)] via-[var(--bg-primary)] to-[var(--bg-secondary)] relative overflow-hidden">
         <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-[var(--primary)] via-[var(--accent)] to-[var(--highlight)]" />
 
-        <div className="relative z-10 max-w-5xl mx-auto text-center">
-          <div className="w-20 h-20 bg-[var(--surface)]/40 backdrop-blur-xl rounded-2xl border border-[var(--border)] flex items-center justify-center mx-auto mb-10 shadow-2xl group cursor-pointer hover:rotate-12 transition-transform">
-            <GraduationCap className="h-10 w-10 text-[var(--primary)]" />
+        <div className="relative z-10 max-w-4xl mx-auto text-center">
+          <div className="w-14 h-14 sm:w-16 sm:h-16 bg-[var(--surface)]/40 backdrop-blur-xl rounded-xl border border-[var(--border)] flex items-center justify-center mx-auto mb-6 sm:mb-8 shadow-2xl group cursor-pointer hover:rotate-12 transition-transform">
+            <GraduationCap className="h-6 w-6 sm:h-8 sm:w-8 text-[var(--primary)]" />
           </div>
 
-          <h2 className="text-4xl lg:text-7xl font-bold text-[var(--text-heading)] mb-6 tracking-tight leading-tight uppercase italic">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-[var(--text-heading)] mb-4 tracking-tight leading-tight uppercase italic">
             Start Your Journey with <br />
             <span className="text-transparent bg-gradient-to-r from-[var(--primary)] to-[var(--highlight)] bg-clip-text">EDBELL EDUSOLUTIONS</span>
           </h2>
 
-          <p className="text-base lg:text-xl text-[var(--text-primary)] mb-12 max-w-3xl mx-auto font-light leading-relaxed">
+          <p className="text-sm sm:text-base lg:text-lg text-[var(--text-primary)] mb-8 sm:mb-10 max-w-2xl mx-auto font-light leading-relaxed">
             Get personalized university recommendations. Our expert counselors will guide you through the entire admission process for free.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Link href="/contact" className="w-full sm:auto">
-              <button className="w-full sm:w-auto bg-[var(--primary)] hover:bg-[var(--primary)]/90 text-white px-10 py-5 rounded-2xl font-black shadow-[0_0_40px_rgba(37,99,235,0.3)] hover:shadow-[0_0_60px_rgba(37,99,235,0.4)] transition-all duration-300 transform hover:-translate-y-1 inline-flex items-center justify-center space-x-3 group uppercase tracking-widest text-sm">
-                <Phone className="w-5 h-5" />
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+            <Link href="/contact" className="w-full sm:w-auto">
+              <button className="w-full sm:w-auto bg-[var(--primary)] hover:bg-[var(--primary)]/90 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-black shadow-[0_0_30px_rgba(37,99,235,0.3)] hover:shadow-[0_0_40px_rgba(37,99,235,0.4)] transition-all duration-300 transform hover:-translate-y-1 inline-flex items-center justify-center space-x-2 group uppercase tracking-widest text-xs">
+                <Phone className="w-4 h-4" />
                 <span>Book Free Consultation</span>
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
             </Link>
-            <Link href="/courses" className="w-full sm:auto">
-              <button className="w-full sm:w-auto bg-[var(--surface)]/40 border border-[var(--border)] hover:bg-[var(--surface-alt)]/60 text-[var(--text-heading)] px-10 py-5 rounded-2xl font-black transition-all transform hover:-translate-y-1 inline-flex items-center justify-center space-x-3 uppercase tracking-widest text-sm">
-                <BookOpen className="w-5 h-5" />
+            <Link href="/courses" className="w-full sm:w-auto">
+              <button className="w-full sm:w-auto bg-[var(--surface)]/40 border border-[var(--border)] hover:bg-[var(--surface-alt)]/60 text-[var(--text-heading)] px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-black transition-all transform hover:-translate-y-1 inline-flex items-center justify-center space-x-2 uppercase tracking-widest text-xs">
+                <BookOpen className="w-4 h-4" />
                 <span>Explore Courses</span>
               </button>
             </Link>
@@ -611,7 +611,7 @@ export default function Universities() {
       </section>
 
       {/* Footer Addition */}
-      <section className="py-20 px-6 lg:px-12 bg-[var(--bg-primary)] border-t border-[var(--border)]">
+      <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-12 bg-[var(--bg-primary)] border-t border-[var(--border)]">
         <div className="max-w-4xl mx-auto">
           <Newsletter />
         </div>

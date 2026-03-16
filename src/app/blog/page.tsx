@@ -81,8 +81,7 @@ export default function Blog() {
   return (
     <div className="min-h-screen bg-[var(--bg-primary)] selection:bg-blue-500/30">
       {/* Hero Section */}
-      <section className="relative min-h-[80vh] flex items-center pt-24 overflow-hidden">
-        {/* Dynamic Backdrop */}
+      <section className="relative min-h-[60vh] sm:min-h-[70vh] flex items-center pt-20 sm:pt-24 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
             src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&q=80"
@@ -93,44 +92,43 @@ export default function Blog() {
           <div className="absolute inset-0 bg-white/5 backdrop-blur-[2px]"></div>
         </div>
 
-        {/* Global Glows */}
-        <div className="absolute top-20 left-1/4 w-64 h-64 bg-blue-600/10 rounded-full blur-[100px] animate-pulse"></div>
-        <div className="absolute bottom-20 right-1/4 w-96 h-96 bg-indigo-600/10 rounded-full blur-[120px] animate-pulse delay-1000"></div>
+        <div className="absolute top-20 left-1/4 w-40 h-40 bg-blue-600/10 rounded-full blur-[80px] animate-pulse"></div>
+        <div className="absolute bottom-20 right-1/4 w-56 h-56 bg-indigo-600/10 rounded-full blur-[100px] animate-pulse delay-1000"></div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 w-full">
-          <div className="max-w-3xl space-y-10">
-            <div className={`inline-flex items-center bg-white/[0.03] border border-white/[0.1] rounded-2xl px-5 py-2.5 backdrop-blur-2xl uppercase ${mounted ? 'animate-fade-in-up' : 'opacity-0'}`}>
-              <Sparkles className="h-4 w-4 text-blue-400 mr-3" />
-              <span className="text-[10px] sm:text-xs font-black text-blue-400 tracking-[0.3em]">Knowledge Base Alpha</span>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 w-full">
+          <div className="max-w-3xl space-y-6 sm:space-y-8">
+            <div className={`inline-flex items-center bg-white/[0.03] border border-white/[0.1] rounded-xl px-4 py-2 backdrop-blur-2xl uppercase ${mounted ? 'animate-fade-in-up' : 'opacity-0'}`}>
+              <Sparkles className="h-3.5 w-3.5 text-blue-400 mr-2" />
+              <span className="text-[8px] sm:text-[10px] font-black text-blue-400 tracking-[0.25em]">Knowledge Base Alpha</span>
             </div>
 
-            <h1 className={`text-3xl lg:text-5xl font-black text-[var(--text-heading)] leading-[0.9] tracking-tighter uppercase ${mounted ? 'animate-fade-in-up animation-delay-100' : 'opacity-0'}`}>
+            <h1 className={`text-2xl sm:text-3xl lg:text-4xl font-black text-[var(--text-heading)] leading-[0.9] tracking-tighter uppercase ${mounted ? 'animate-fade-in-up animation-delay-100' : 'opacity-0'}`}>
               Intelligence <br />
               <span className="text-transparent bg-gradient-to-r from-[var(--primary)] via-[var(--accent)] to-[var(--highlight)] bg-clip-text">
                 & Insights
               </span>
             </h1>
 
-            <p className={`text-base lg:text-xl text-[var(--text-primary)] font-light leading-relaxed max-w-xl ${mounted ? 'animate-fade-in-up animation-delay-200' : 'opacity-0'}`}>
+            <p className={`text-sm sm:text-base lg:text-lg text-[var(--text-primary)] font-light leading-relaxed max-w-xl ${mounted ? 'animate-fade-in-up animation-delay-200' : 'opacity-0'}`}>
               Scanning the frontlines of global education. Access high-resolution analysis on institutional trends, career optimization, and academic infrastructure.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Main Interface Nodes */}
-      <section className="py-32 bg-[var(--bg-secondary)]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
-            {/* Content Terminal */}
-            <div className="lg:col-span-8 space-y-12">
-              <div className="flex items-center justify-between mb-16">
-                <div className="flex flex-wrap gap-4">
+      {/* Main Content */}
+      <section className="py-16 sm:py-20 bg-[var(--bg-secondary)]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+            {/* Content */}
+            <div className="lg:col-span-8 space-y-6 sm:space-y-8">
+              <div className="flex items-center justify-between mb-8 sm:mb-10">
+                <div className="flex flex-wrap gap-2 sm:gap-3">
                   {categories.map((c) => (
                     <button
                       key={c}
                       onClick={() => setSelectedCategory(c)}
-                      className={`px-6 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all ${selectedCategory === c
+                      className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-[8px] sm:text-[9px] font-black uppercase tracking-wider transition-all ${selectedCategory === c
                         ? 'bg-[var(--primary)] text-white shadow-lg'
                         : 'bg-[var(--surface)]/40 text-[var(--text-muted)] hover:text-white hover:bg-[var(--surface-alt)]/60'
                         }`}
@@ -143,12 +141,12 @@ export default function Blog() {
 
               {blogPosts.map((post) => (
                 <Link key={post.id} href={`/blog/${post.slug}`} className="group block">
-                  <article className="relative bg-gradient-to-br from-[#0A1F3F] to-[#051428] backdrop-blur-3xl border border-[#0066CC]/20 rounded-[48px] p-8 lg:p-12 hover:border-[#0066CC]/50 transition-all duration-500 flex flex-col lg:flex-row gap-12 overflow-hidden shadow-sm hover:shadow-[0_0_40px_rgba(0,102,204,0.2)]">
+                  <article className="relative bg-gradient-to-br from-[#0A1F3F] to-[#051428] backdrop-blur-3xl border border-[#0066CC]/20 rounded-2xl sm:rounded-3xl p-5 sm:p-8 hover:border-[#0066CC]/50 transition-all duration-500 flex flex-col sm:flex-row gap-5 sm:gap-8 overflow-hidden shadow-sm hover:shadow-[0_0_30px_rgba(0,102,204,0.2)]">
                     <div className="absolute inset-0 bg-gradient-to-r from-[#0066CC]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
 
-                    <div className="lg:w-1/3 h-64 lg:h-auto rounded-[32px] overflow-hidden bg-[#0066CC]/10">
-                      <img 
-                        src={post.image} 
+                    <div className="sm:w-1/3 h-48 sm:h-auto rounded-xl sm:rounded-2xl overflow-hidden bg-[#0066CC]/10 flex-shrink-0">
+                      <img
+                        src={post.image}
                         alt={post.title}
                         className="w-full h-full object-cover group-hover:scale-110 transition-all duration-1000"
                         onError={(e) => {
@@ -157,33 +155,33 @@ export default function Blog() {
                       />
                     </div>
 
-                    <div className="lg:w-2/3 space-y-6 relative z-10">
-                      <div className="flex items-center space-x-4">
-                        <span className="text-[10px] font-black text-[#0066CC] uppercase tracking-widest">{post.category}</span>
+                    <div className="sm:w-2/3 space-y-3 sm:space-y-4 relative z-10">
+                      <div className="flex items-center space-x-3">
+                        <span className="text-[8px] sm:text-[9px] font-black text-[#0066CC] uppercase tracking-widest">{post.category}</span>
                         <div className="h-1 w-1 bg-[#0066CC]/30 rounded-full"></div>
-                        <span className="text-[10px] font-black text-[#0066CC]/70 uppercase tracking-widest">{post.readTime}</span>
+                        <span className="text-[8px] sm:text-[9px] font-black text-[#0066CC]/70 uppercase tracking-widest">{post.readTime}</span>
                       </div>
 
-                      <h3 className="text-3xl font-black text-white hover:text-[#0066CC] transition-colors uppercase tracking-tighter leading-none">
+                      <h3 className="text-lg sm:text-xl lg:text-2xl font-black text-white hover:text-[#0066CC] transition-colors uppercase tracking-tighter leading-tight">
                         {post.title}
                       </h3>
 
-                      <p className="text-[#B0C4DE] font-light leading-relaxed">
+                      <p className="text-xs sm:text-sm text-[#B0C4DE] font-light leading-relaxed">
                         {post.excerpt}
                       </p>
 
-                      <div className="pt-8 border-t border-[#0066CC]/20 flex items-center justify-between">
-                        <div className="flex items-center space-x-4">
-                          <div className="w-10 h-10 bg-[#0066CC] rounded-2xl flex items-center justify-center text-white font-bold">
+                      <div className="pt-4 sm:pt-5 border-t border-[#0066CC]/20 flex items-center justify-between">
+                        <div className="flex items-center space-x-3">
+                          <div className="w-8 h-8 bg-[#0066CC] rounded-xl flex items-center justify-center text-white font-bold text-xs">
                             {post.author[0]}
                           </div>
                           <div>
-                            <p className="text-[10px] font-black text-[#0066CC]/70 uppercase tracking-widest mb-1">Expert Analyst</p>
-                            <p className="text-xs font-bold text-white">{post.author}</p>
+                            <p className="text-[8px] sm:text-[9px] font-black text-[#0066CC]/70 uppercase tracking-widest mb-0.5">Expert Analyst</p>
+                            <p className="text-[10px] sm:text-xs font-bold text-white">{post.author}</p>
                           </div>
                         </div>
-                        <div className="p-4 bg-[#0066CC]/20 rounded-2xl group-hover:bg-[#0066CC] transition-all">
-                          <ArrowRight className="h-5 w-5 text-white" />
+                        <div className="p-2.5 bg-[#0066CC]/20 rounded-xl group-hover:bg-[#0066CC] transition-all">
+                          <ArrowRight className="h-4 w-4 text-white" />
                         </div>
                       </div>
                     </div>
@@ -192,16 +190,16 @@ export default function Blog() {
               ))}
             </div>
 
-            {/* Sidebar Matrix */}
-            <div className="lg:col-span-4 space-y-12">
+            {/* Sidebar */}
+            <div className="lg:col-span-4 space-y-8">
             </div>
           </div>
         </div>
       </section>
 
-      {/* Global Newsletter Node */}
-      <section className="py-20 bg-[var(--bg-primary)] border-t border-[var(--border)]">
-        <div className="max-w-4xl mx-auto px-6">
+      {/* Newsletter */}
+      <section className="py-12 sm:py-16 bg-[var(--bg-primary)] border-t border-[var(--border)]">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <Newsletter />
         </div>
       </section>

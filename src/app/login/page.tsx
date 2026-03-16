@@ -63,24 +63,17 @@ export default function Login() {
               <ShieldCheck className="h-7 w-7 text-blue-500" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-slate-100 tracking-tight leading-none mb-1">EDBELL</h1>
-              <p className="text-[10px] text-slate-500 font-bold tracking-[0.2em] uppercase">Edusolutions LLP</p>
+              <h1 className="text-xl sm:text-2xl font-bold text-slate-100 tracking-tight leading-none mb-1">EDBELL</h1>
+              <p className="text-[8px] sm:text-[10px] text-slate-500 font-bold tracking-[0.2em] uppercase">Edusolutions LLP</p>
             </div>
           </Link>
         </div>
 
-        <div className="text-center space-y-2 mb-8">
-          <h2 className="text-3xl font-bold text-slate-100 tracking-tight">
-            Admin Access
-          </h2>
-          <p className="text-slate-400 font-light">
-            Sign in to manage your educational ecosystem
-          </p>
-        </div>
+        {/* Header section removed per user request */}
       </div>
 
       <div className="relative z-10 mt-2 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white/[0.02] backdrop-blur-xl border border-white/[0.05] py-8 px-6 shadow-2xl sm:rounded-3xl sm:px-10">
+        <div className="bg-white/[0.02] backdrop-blur-xl border border-white/[0.05] py-6 sm:py-8 px-4 sm:px-10 shadow-2xl rounded-2xl sm:rounded-3xl">
           <form className="space-y-6" onSubmit={handleSubmit}>
             {error && (
               <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4 animate-shake">
