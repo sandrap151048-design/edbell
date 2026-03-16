@@ -4,9 +4,11 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Menu, X, User, LogOut, ArrowRight, Zap, Sparkles } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 
 const Header = () => {
   const router = useRouter();
+  const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -68,7 +70,7 @@ const Header = () => {
   return (
     <header className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 bg-white border-b border-gray-100 ${isScrolled ? 'py-1 lg:py-1.5 shadow-md' : 'py-2 lg:py-3 shadow-sm'}`}>
       <div className="max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
-        <div className="flex justify-between items-center group">
+        <div className="flex justify-between items-center">
           {/* Logo Cluster */}
           <Link href="/" className="flex items-center group relative z-10 transition-all hover:scale-105">
             <div className="absolute -inset-4 bg-blue-600/10 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
@@ -91,16 +93,23 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-2 xl:space-x-6">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="relative px-2 xl:px-3 py-2 text-[9px] xl:text-[10px] font-black text-gray-800 hover:text-blue-700 transition-all tracking-[0.1em] xl:tracking-[0.2em] group flex items-center"
-              >
-                <span className="relative z-10">{item.name}</span>
-                <span className="absolute bottom-0 left-2 xl:left-3 right-2 xl:right-3 h-0.5 bg-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded-full"></span>
-              </Link>
-            ))}
+            {navigation.map((item) => {
+              const isActive = pathname === item.href;
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={`relative px-2 xl:px-3 py-2 text-[9px] xl:text-[10px] font-black tracking-[0.1em] xl:tracking-[0.2em] transition-all group flex items-center ${
+                    isActive ? 'text-blue-700' : 'text-gray-800 hover:text-blue-700'
+                  }`}
+                >
+                  <span className="relative z-10">{item.name}</span>
+                  <span className={`absolute bottom-0 left-2 xl:left-3 right-2 xl:right-3 h-0.5 bg-blue-600 transition-transform origin-left rounded-full ${
+                    isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                  }`}></span>
+                </Link>
+              );
+            })}
           </nav>
 
           {/* Action Cluster */}
