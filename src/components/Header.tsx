@@ -66,9 +66,9 @@ const Header = () => {
   ];
 
   return (
-    <header className={`fixed top-4 left-0 right-0 z-[100] transition-all duration-300 px-4 sm:px-6 lg:px-8`}>
-      <div className={`max-w-[1600px] mx-auto bg-white border border-gray-100 rounded-[30px] sm:rounded-[40px] transition-all duration-300 ${isScrolled ? 'py-2 lg:py-3 shadow-xl' : 'py-4 lg:py-6 shadow-lg'}`}>
-        <div className="px-6 sm:px-8 lg:px-12 flex justify-between items-center">
+    <header className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 pt-4 px-4 pointer-events-none`}>
+      <div className={`max-w-[1600px] mx-auto bg-white border border-gray-100 transition-all duration-300 pointer-events-auto ${isScrolled ? 'py-2 lg:py-3 shadow-xl' : 'py-6 lg:py-8 shadow-lg'}`}>
+        <div className="px-6 sm:px-10 lg:px-14 flex justify-between items-center">
           {/* Logo Cluster */}
           {/* Logo Cluster */}
           <Link href="/" className="flex items-center group relative z-10 transition-all hover:scale-105">
@@ -76,7 +76,7 @@ const Header = () => {
             <img 
               src="/edbell-logo.png" 
               alt="EdBell Edusolutions" 
-              className="h-20 lg:h-28 w-auto object-contain drop-shadow-[0_4px_15px_rgba(37,99,235,0.25)] group-hover:scale-105 transition-transform duration-300"
+              className="h-24 lg:h-32 w-auto object-contain drop-shadow-[0_4px_15px_rgba(37,99,235,0.25)] group-hover:scale-105 transition-transform duration-300"
               onError={(e) => {
                 e.currentTarget.style.display = 'none';
                 const fallback = document.getElementById('logo-fallback-header');
@@ -238,7 +238,7 @@ const Header = () => {
         )}
       </div>
     </header>
-  );
-};
+    );
+  };
 
 export default Header;
