@@ -68,9 +68,9 @@ const Header = () => {
   ];
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 bg-white border-b border-gray-100 ${isScrolled ? 'py-1 lg:py-1.5 shadow-md' : 'py-2 lg:py-3 shadow-sm'}`}>
-      <div className="max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
-        <div className="flex justify-between items-center">
+    <header className={`fixed top-6 left-0 right-0 z-[100] transition-all duration-300 px-4 sm:px-6 lg:px-8 pointer-events-none`}>
+      <div className={`max-w-[1400px] mx-auto bg-white/80 backdrop-blur-2xl border border-white/40 pointer-events-auto transition-all duration-500 ${isScrolled ? 'py-1 lg:py-1.5 shadow-2xl shadow-blue-500/10' : 'py-2 lg:py-3 shadow-xl shadow-blue-500/5'}`}>
+        <div className="px-6 sm:px-10 lg:px-14 flex justify-between items-center">
           {/* Logo Cluster */}
           <Link href="/" className="flex items-center group relative z-10 transition-all hover:scale-105">
             <div className="absolute -inset-4 bg-blue-600/10 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
@@ -246,7 +246,7 @@ const Header = () => {
         )}
       </div>
     </header>
-    );
-  };
+  );
+};
 
 export default Header;
