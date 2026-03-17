@@ -146,7 +146,7 @@ export default function AdminDashboard() {
   const [courseApplications, setCourseApplications] = useState<CourseApplication[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedStatus, setSelectedStatus] = useState('all');
-  const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
+  const [selectedContact, setSelectedContact] = useState<any | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -1423,10 +1423,10 @@ export default function AdminDashboard() {
 
                           if (response.ok) {
                             // Update local state
-                            setSelectedContact({ ...selectedContact, status: newStatus });
+                            setSelectedContact({ ...selectedContact, status: newStatus } as any);
                             setContacts(contacts.map(c =>
                               c._id === selectedContact._id ? { ...c, status: newStatus } : c
-                            ));
+                            ) as any);
                             alert(`✅ Contact status updated to "${newStatus.replace('-', ' ')}"`);
                           } else {
                             alert('❌ Failed to update contact status');
@@ -1707,7 +1707,7 @@ export default function AdminDashboard() {
                           <select 
                             value={selectedContact.status}
                             onChange={async (e) => {
-                              const newStatus = e.target.value;
+                              const newStatus = e.target.value as CourseApplication['status'];
                               try {
                                 const response = await fetch(`/api/courses/apply/${selectedContact._id}`, {
                                   method: 'PATCH',
@@ -1715,10 +1715,10 @@ export default function AdminDashboard() {
                                   body: JSON.stringify({ status: newStatus })
                                 });
                                 if (response.ok) {
-                                  setSelectedContact({ ...selectedContact, status: newStatus });
+                                  setSelectedContact({ ...selectedContact, status: newStatus } as CourseApplication);
                                   setCourseApplications(courseApplications.map(a => 
                                     a._id === selectedContact._id ? { ...a, status: newStatus } : a
-                                  ));
+                                  ) as any);
                                   alert('✅ Status updated successfully');
                                 }
                               } catch (err) {
