@@ -47,14 +47,14 @@ export default function TuitionServices() {
         </div>
 
         <div className={`relative z-10 max-w-4xl w-full text-center space-y-8 ${mounted ? 'animate-fade-in-up' : 'opacity-0'}`}>
-          <div className="inline-flex items-center space-x-3 bg-red-500/10 border border-red-500/20 rounded-full px-4 py-1.5 backdrop-blur-3xl mx-auto">
-            <BookOpen className="h-4 w-4 text-red-500" />
-            <span className="text-[9px] font-black text-red-500 uppercase tracking-[0.4em]">Pedagogical_Audit_Active</span>
+          <div className="inline-flex items-center space-x-3 bg-blue-500/10 border border-blue-500/20 rounded-full px-4 py-1.5 backdrop-blur-3xl mx-auto">
+            <BookOpen className="h-4 w-4 text-blue-500" />
+            <span className="text-[9px] font-black text-blue-500 uppercase tracking-[0.4em]">Pedagogical_Audit_Active</span>
           </div>
           
           <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black uppercase tracking-tighter leading-[0.85] font-serif">
             Tuition <br />
-            <span className="text-transparent bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 bg-clip-text italic">
+            <span className="text-transparent bg-gradient-to-r from-blue-400 via-indigo-400 to-cyan-400 bg-clip-text italic">
               Excellence
             </span>
           </h1>
@@ -64,7 +64,7 @@ export default function TuitionServices() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-             <Link href="/contact" className="px-10 py-4 bg-red-600 rounded-full text-white font-black text-xs uppercase tracking-widest hover:shadow-[0_0_50px_rgba(220,38,38,0.4)] transition-all">
+             <Link href="/contact" className="px-10 py-4 bg-blue-600 rounded-2xl text-white font-black text-xs uppercase tracking-widest hover:shadow-[0_0_50px_rgba(37,99,235,0.4)] transition-all">
                 Enroll In Node
              </Link>
           </div>
@@ -76,8 +76,8 @@ export default function TuitionServices() {
         <div className="max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-12">
            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {features.map((feature, i) => (
-                <div key={i} className="p-8 bg-[var(--bg-primary)] border border-[var(--border)] rounded-[32px] hover:border-red-500/50 transition-all group">
-                   <div className="w-12 h-12 bg-red-500/10 border border-red-500/20 rounded-xl flex items-center justify-center text-red-500 mb-6 group-hover:scale-110 transition-transform">
+                <div key={i} className="p-8 bg-[var(--bg-primary)] border border-[var(--border)] rounded-[32px] hover:border-blue-500/50 transition-all group">
+                   <div className="w-12 h-12 bg-blue-500/10 border border-blue-500/20 rounded-xl flex items-center justify-center text-blue-500 mb-6 group-hover:scale-110 transition-transform">
                       {feature.icon || <Sparkles className="h-5 w-5" />}
                    </div>
                    <h3 className="text-sm font-black text-white uppercase tracking-widest mb-3">{feature.title || feature.name}</h3>
@@ -100,7 +100,7 @@ export default function TuitionServices() {
                { sub: "ENTRANCE PREP", rate: "EXAM_CORE" }
             ].map((sub, i) => (
                <div key={i} className="flex flex-col items-center justify-center p-8 bg-[var(--surface)]/30 border border-[var(--border)] rounded-[40px] text-center shadow-lg hover:bg-[var(--surface-alt)]/50 transition-all">
-                  <span className="text-[9px] font-black text-red-500 tracking-[0.3em] uppercase mb-4 opacity-70">{sub.rate}</span>
+                  <span className="text-[9px] font-black text-blue-500 tracking-[0.3em] uppercase mb-4 opacity-70">{sub.rate}</span>
                   <h4 className="text-lg font-black tracking-tighter uppercase text-white">{sub.sub}</h4>
                </div>
             ))}
