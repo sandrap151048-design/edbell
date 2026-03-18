@@ -297,14 +297,13 @@ export default function Gallery() {
                 </div>
                 <p className="text-sm sm:text-base text-[var(--text-primary)] font-light leading-relaxed">{selectedImage.description}</p>
               </div>
-              <div className="pt-6 space-y-3">
-                <button className="w-full py-3.5 bg-[var(--primary)] rounded-xl sm:rounded-2xl flex items-center justify-center space-x-3 text-white font-black uppercase text-[10px] sm:text-xs tracking-widest hover:shadow-[0_0_20px_rgba(59,130,246,0.5)] transition-all">
-                  <Download className="h-4 w-4" />
-                  <span>Download Data</span>
-                </button>
-                <button className="w-full py-3.5 bg-[var(--primary)]/10 border border-[var(--border)] rounded-xl sm:rounded-2xl flex items-center justify-center space-x-3 text-[var(--primary)] font-black uppercase text-[10px] sm:text-xs tracking-widest hover:text-white hover:bg-[var(--primary)] transition-all">
-                  <Share2 className="h-4 w-4" />
-                  <span>Distribute Signal</span>
+              <div className="pt-6">
+                <button 
+                  onClick={() => setSelectedImage(null)}
+                  className="w-full py-4 sm:py-5 bg-[var(--primary)] rounded-2xl flex items-center justify-center space-x-3 text-white font-black uppercase text-[10px] sm:text-xs tracking-widest hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] transition-all transform hover:-translate-y-1"
+                >
+                  <ArrowRight className="h-4 w-4" />
+                  <span>Return to Repository</span>
                 </button>
               </div>
             </div>
