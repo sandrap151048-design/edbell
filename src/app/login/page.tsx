@@ -59,7 +59,7 @@ export default function Login() {
           <Link href="/" className="flex items-center space-x-4 group">
             <div className="relative w-12 h-12 flex items-center justify-center transition-all duration-300 group-hover:scale-110">
               <img
-                src="/edbell-logo.svg"
+                src="/edbell-logo.jpg"
                 alt="EDBELL"
                 className="w-full h-full object-contain drop-shadow-[0_0_15px_rgba(37,99,235,0.3)]"
                 onError={(e) => {

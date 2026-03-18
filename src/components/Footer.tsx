@@ -60,7 +60,7 @@ const Footer = () => {
           <div className="lg:col-span-4 space-y-8 lg:space-y-10 text-center md:text-left">
             <Link href="/" className="inline-block">
               <img 
-                src="/edbell-logo.svg" 
+                src="/edbell-logo.jpg" 
                 alt="EdBell Edusolutions" 
                 className="h-20 lg:h-28 w-auto object-contain mx-auto md:mx-0"
                 onError={(e) => {

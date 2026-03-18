@@ -74,7 +74,7 @@ const Header = () => {
           {/* Logo Cluster */}
           <Link href="/" className="flex items-center group relative z-10 transition-all w-[60%] sm:w-auto overflow-hidden">
             <img 
-              src="/edbell-logo.svg" 
+              src="/edbell-logo.jpg" 
               alt="EdBell Edusolutions" 
               className="h-8 sm:h-12 lg:h-20 w-auto object-contain drop-shadow-[0_4px_15px_rgba(255,255,255,0.1)] group-hover:scale-105 transition-transform duration-300"
               onError={(e) => {
@@ -170,7 +170,7 @@ const Header = () => {
               <div className="flex justify-between items-center">
                 <Link href="/" onClick={() => setIsMenuOpen(false)} className="flex items-center">
                   <img 
-                    src="/edbell-logo.svg" 
+                    src="/edbell-logo.jpg" 
                     alt="EdBell Edusolutions" 
                     className="h-24 w-auto object-contain"
                     onError={(e) => {
