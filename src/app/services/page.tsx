@@ -41,37 +41,37 @@ export default function Services() {
   const mainServices = [
     {
       id: 'SERV_001',
-      icon: <UserCheck className="h-7 w-7 sm:h-8 sm:w-8" />,
-      title: "Career Strategy",
-      description: "Synchronizing student objectives with global industry demand signals for precise career trajectory.",
-      features: ["Assessment", "Trajectory Mapping", "Inquiry simulation", "Resume Optimization"],
-      stats: { success: "98%", speed: "High" },
+      icon: <GraduationCap className="h-7 w-7 sm:h-8 sm:w-8" />,
+      title: "SSLC / +2",
+      description: "Direct academic pathways for completing Secondary (10th) and Senior Secondary (12th) certifications with recognized boards.",
+      features: ["Jamia Admissions", "NIOS Stream Execution", "BOSSE Board Selection", "Document Verification"],
+      stats: { success: "100%", speed: "Verified Nodes" },
       gradient: "from-blue-600 to-indigo-600"
     },
     {
       id: 'SERV_002',
       icon: <Plane className="h-7 w-7 sm:h-8 sm:w-8" />,
-      title: "Global Mobility",
-      description: "End-to-end data processing for international academic deployment across Tier-1 institutions.",
-      features: ["University Filtering", "Visa Logic Processing", "Scholarship Mining", "Arrival Protocols"],
+      title: "Study Abroad",
+      description: "End-to-end data processing for international academic deployment across Tier-1 institutions globally.",
+      features: ["University Filtering", "Visa Logic Processing", "International Discovery", "Arrival Protocols"],
       stats: { success: "95%", speed: "Optimized" },
       gradient: "from-indigo-600 to-violet-600"
     },
     {
       id: 'SERV_003',
-      icon: <DollarSign className="h-7 w-7 sm:h-8 sm:w-8" />,
-      title: "Capital Support",
-      description: "Activating financial aid protocols and scholarship discovery modules for academic funding.",
-      features: ["Grant Identification", "Asset Management", "Sponsorship Links", "Document Auditing"],
-      stats: { success: "88%", speed: "Rapid" },
+      icon: <Award className="h-7 w-7 sm:h-8 sm:w-8" />,
+      title: "Online Degree",
+      description: "Activating flexible digital academic protocols for recognized undergraduate and postgraduate programs.",
+      features: ["UGC Approved Nodes", "Flexible Learning", "Distance Calibration", "Digital Certification"],
+      stats: { success: "98%", speed: "Rapid Access" },
       gradient: "from-violet-600 to-purple-600"
     },
     {
       id: 'SERV_004',
-      icon: <BookOpen className="h-7 w-7 sm:h-8 sm:w-8" />,
-      title: "Benchmark Prep",
-      description: "High-intensity training modules for competitive examination benchmarks and entrance logic.",
-      features: ["Adaptive Testing", "Linguistic Prep", "Logic Workshops", "Mock Environments"],
+      icon: <Zap className="h-7 w-7 sm:h-8 sm:w-8" />,
+      title: "Scholarships",
+      description: "Activating financial aid protocols and scholarship discovery modules for academic funding and excellence.",
+      features: ["Merit Identification", "Asset Management", "Sponsorship Links", "Document Auditing"],
       stats: { success: "92%", speed: "Accelerated" },
       gradient: "from-purple-600 to-fuchsia-600"
     }
