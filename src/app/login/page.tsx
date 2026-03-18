@@ -21,7 +21,7 @@ export default function Login() {
       ...prev,
       [name]: value
     }));
-    setError(''); // Clear error when user starts typing
+    setError('');
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -30,7 +30,6 @@ export default function Login() {
     setError('');
 
     try {
-      // Simulate API call - replace with actual authentication
       await new Promise(resolve => setTimeout(resolve, 1000));
 
       // For demo purposes, accept any email/password combination
@@ -50,7 +49,6 @@ export default function Login() {
 
   return (
     <div className="min-h-screen bg-[#030712] flex flex-col justify-center relative overflow-hidden py-12 px-4 sm:px-6 lg:px-8">
-      {/* Background Elements */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-600/10 rounded-full blur-[120px] animate-pulse"></div>
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-indigo-600/10 rounded-full blur-[120px] animate-pulse delay-1000"></div>
@@ -60,9 +58,9 @@ export default function Login() {
         <div className="flex justify-center mb-8">
           <Link href="/" className="flex items-center space-x-4 group">
             <div className="relative w-12 h-12 flex items-center justify-center transition-all duration-300 group-hover:scale-110">
-              <img 
-                src="/edbell-logo.svg" 
-                alt="EDBELL" 
+              <img
+                src="/edbell-logo.svg"
+                alt="EDBELL"
                 className="w-full h-full object-contain drop-shadow-[0_0_15px_rgba(37,99,235,0.3)]"
                 onError={(e) => {
                   e.currentTarget.style.display = 'none';
@@ -115,7 +113,7 @@ export default function Login() {
                     required
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="block w-full pl-12 pr-4 py-3.5 bg-[#030712]/50 border border-white/[0.05] rounded-xl text-slate-100 placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-blue-500/50 transition-all text-sm"
+                    className="block w-full pl-12 pr-4 py-3.5 bg-[#030712]/50 border border-white/[0.05] rounded-xl !text-slate-100 placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-blue-500/50 transition-all text-sm"
                     placeholder="name@company.com"
                   />
                 </div>
@@ -139,7 +137,7 @@ export default function Login() {
                     required
                     value={formData.password}
                     onChange={handleInputChange}
-                    className="block w-full pl-12 pr-12 py-3.5 bg-[#030712]/50 border border-white/[0.05] rounded-xl text-slate-100 placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-blue-500/50 transition-all text-sm"
+                    className="block w-full pl-12 pr-12 py-3.5 bg-[#030712]/50 border border-white/[0.05] rounded-xl !text-slate-100 placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-blue-500/50 transition-all text-sm"
                     placeholder="••••••••"
                   />
                   <div className="absolute inset-y-0 right-0 pr-4 flex items-center">
