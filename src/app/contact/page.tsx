@@ -141,7 +141,7 @@ export default function Contact() {
                     <input
                       type="text" name="name" required value={formData.name} onChange={handleChange}
                       placeholder="John Doe"
-                      className="w-full bg-[var(--bg-primary)] border border-[var(--border)] rounded-xl sm:rounded-2xl py-3 sm:py-4 px-5 sm:px-6 text-sm sm:text-base text-[var(--text-heading)] focus:outline-none focus:border-[var(--primary)]/50 transition-all font-bold placeholder:text-[var(--text-muted)]"
+                      className="w-full bg-white border border-gray-200 rounded-xl sm:rounded-2xl py-3 sm:py-4 px-5 sm:px-6 text-sm sm:text-base text-black focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all font-bold placeholder:text-gray-400"
                     />
                   </div>
                   <div className="space-y-2">
@@ -149,7 +149,7 @@ export default function Contact() {
                     <input
                       type="email" name="email" required value={formData.email} onChange={handleChange}
                       placeholder="john@example.com"
-                      className="w-full bg-[var(--bg-primary)] border border-[var(--border)] rounded-xl sm:rounded-2xl py-3 sm:py-4 px-5 sm:px-6 text-sm sm:text-base text-[var(--text-heading)] focus:outline-none focus:border-[var(--primary)]/50 transition-all font-bold placeholder:text-[var(--text-muted)]"
+                      className="w-full bg-white border border-gray-200 rounded-xl sm:rounded-2xl py-3 sm:py-4 px-5 sm:px-6 text-sm sm:text-base text-black focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all font-bold placeholder:text-gray-400"
                     />
                   </div>
                 </div>
@@ -160,14 +160,14 @@ export default function Contact() {
                     <input
                       type="tel" name="phone" required value={formData.phone} onChange={handleChange}
                       placeholder="+91 00000 00000"
-                      className="w-full bg-[var(--bg-primary)] border border-[var(--border)] rounded-xl sm:rounded-2xl py-3 sm:py-4 px-5 sm:px-6 text-sm sm:text-base text-[var(--text-heading)] focus:outline-none focus:border-[var(--primary)]/50 transition-all font-bold placeholder:text-[var(--text-muted)]"
+                      className="w-full bg-white border border-gray-200 rounded-xl sm:rounded-2xl py-3 sm:py-4 px-5 sm:px-6 text-sm sm:text-base text-black focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all font-bold placeholder:text-gray-400"
                     />
                   </div>
                   <div className="space-y-2">
                     <label className="text-[8px] sm:text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest ml-3">PROTOCOL_INTEREST</label>
                     <select
                       name="serviceInterest" value={formData.serviceInterest} onChange={handleChange}
-                      className="w-full bg-[var(--bg-primary)] border border-[var(--border)] rounded-xl sm:rounded-2xl py-3 sm:py-4 px-5 sm:px-6 text-sm sm:text-base text-[var(--text-heading)] focus:outline-none focus:border-[var(--primary)]/50 transition-all font-bold appearance-none cursor-pointer"
+                      className="w-full bg-white border border-gray-200 rounded-xl sm:rounded-2xl py-3 sm:py-4 px-5 sm:px-6 text-sm sm:text-base text-black focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all font-bold appearance-none cursor-pointer"
                     >
                       <option value="Career Strategy">Career Strategy</option>
                       <option value="Global Mobility">Global Mobility</option>
@@ -183,7 +183,7 @@ export default function Contact() {
                     name="message" required value={formData.message} onChange={handleChange}
                     placeholder="Briefly describe your academic synchronization requirements..."
                     rows={4}
-                    className="w-full bg-[var(--bg-primary)] border border-[var(--border)] rounded-xl sm:rounded-2xl py-3 sm:py-5 px-5 sm:px-6 text-sm sm:text-base text-[var(--text-heading)] focus:outline-none focus:border-[var(--primary)]/50 transition-all font-bold placeholder:text-[var(--text-muted)] resize-none"
+                    className="w-full bg-white border border-gray-200 rounded-xl sm:rounded-2xl py-3 sm:py-5 px-5 sm:px-6 text-sm sm:text-base text-black focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all font-bold placeholder:text-gray-400 resize-none"
                   ></textarea>
                 </div>
 
