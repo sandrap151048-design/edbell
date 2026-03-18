@@ -18,14 +18,14 @@ import {
   BookOpenCheck
 } from 'lucide-react';
 
-export default function Centres() {
+export default function Centers() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  const centres = [
+  const Centers = [
     {
       name: "HEAD OFFICE - KERALA",
       location: "15/382, Calicut Tower, Kozhikode Road, Wayanad, Kerala, India",
@@ -77,7 +77,7 @@ export default function Centres() {
         <div className="absolute inset-0 z-0">
           <img
             src="https://images.unsplash.com/photo-1524178232457-3bb2449b382a?auto=format&fit=crop&q=80"
-            alt="Centres Backdrop"
+            alt="Centers Backdrop"
             className="w-full h-full object-cover opacity-20 filter contrast-125 brightness-50"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-[var(--bg-primary)] via-[var(--bg-primary)]/50 to-[var(--bg-primary)]"></div>
@@ -95,8 +95,8 @@ export default function Centres() {
               <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black text-[var(--text-heading)] leading-[0.85] tracking-tighter uppercase font-serif">
                 Operational <br />
                 <span className="text-transparent bg-gradient-to-r from-[var(--primary)] via-[var(--accent)] to-[var(--highlight)] bg-clip-text">
-                  Centres
-                </span>
+                  Centers
+</span>
               </h1>
               <p className="text-sm sm:text-base lg:text-lg text-[var(--text-primary)] font-light max-w-2xl mx-auto leading-relaxed">
                 Scanning the domestic grid for verified educational nodes. Experience our physical infrastructure designed for high-performance learning and academic support.
@@ -117,7 +117,7 @@ export default function Centres() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
-            {centres.map((centre, i) => (
+            {Centers.map((centre, i) => (
               <div key={i} className="group relative flex flex-col space-y-6">
                 <div className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-[var(--border)] shadow-2xl">
                   <div className="absolute inset-0 bg-blue-600/10 group-hover:bg-transparent transition-colors z-10"></div>

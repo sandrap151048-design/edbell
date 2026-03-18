@@ -287,11 +287,11 @@ export default function AdminDashboard() {
   const [servicesImagePreview, setServicesImagePreview] = useState<string>('');
   const [uploadingServices, setUploadingServices] = useState(false);
 
-  // Centres hero image states
-  const [centresHeroFile, setCentresHeroFile] = useState<File | null>(null);
-  const [centresHeroPreview, setCentresHeroPreview] = useState<string>('');
-  const [uploadingCentresHero, setUploadingCentresHero] = useState(false);
-  const [centresHeroUploadMessage, setCentresHeroUploadMessage] = useState('');
+  // Centers hero image states
+  const [CentersHeroFile, setCentersHeroFile] = useState<File | null>(null);
+  const [CentersHeroPreview, setCentersHeroPreview] = useState<string>('');
+  const [uploadingCentersHero, setUploadingCentersHero] = useState(false);
+  const [CentersHeroUploadMessage, setCentersHeroUploadMessage] = useState('');
 
   // Gallery hero image states
   const [galleryHeroFile, setGalleryHeroFile] = useState<File | null>(null);
@@ -319,8 +319,8 @@ export default function AdminDashboard() {
     { id: 'applications', name: 'Course Applications', icon: <GraduationCap className="h-5 w-5" />, description: 'Track course applies & enquiries' },
     { id: 'subscribers', name: 'Newsletter Subscribers', icon: <Mail className="h-5 w-5" />, description: 'Manage newsletter subscriptions' },
     { id: 'hero-images', name: 'Hero Images', icon: <Award className="h-5 w-5" />, description: 'Manage hero section images' },
-    { id: 'blogs', name: 'Centres Management', icon: <Building2 className="h-5 w-5" />, description: 'Create and manage study centres' },
-    { id: 'centres-manage', name: 'Centres Page UI', icon: <FileText className="h-5 w-5" />, description: 'Manage Centres Hero & UI' },
+    { id: 'blogs', name: 'Centers Management', icon: <Building2 className="h-5 w-5" />, description: 'Create and manage study Centers' },
+    { id: 'Centers-manage', name: 'Centers Page UI', icon: <FileText className="h-5 w-5" />, description: 'Manage Centers Hero & UI' },
     { id: 'services', name: 'Service Management', icon: <Briefcase className="h-5 w-5" />, description: 'Manage website services' },
     { id: 'gallery', name: 'Gallery Management', icon: <Award className="h-5 w-5" />, description: 'Manage photo gallery' },
     { id: 'add-course', name: 'Add Course', icon: <BookOpen className="h-5 w-5" />, description: 'Create and manage courses' },
@@ -1201,13 +1201,13 @@ export default function AdminDashboard() {
     });
   };
 
-  const renderCentresSection = () => (
+  const renderCentersSection = () => (
     <div className="space-y-6">
       <div className="bg-white rounded-3xl border border-gray-100 p-8 shadow-sm">
         <div className="flex justify-between items-center mb-6">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-1">Centres Page Management</h2>
-            <p className="text-gray-500 text-sm">Update the high-end hero section for Study Centres</p>
+            <h2 className="text-2xl font-bold text-gray-900 mb-1">Centers Page Management</h2>
+            <p className="text-gray-500 text-sm">Update the high-end hero section for Study Centers</p>
           </div>
         </div>
 
@@ -1215,8 +1215,8 @@ export default function AdminDashboard() {
           <label className="block text-xs font-black text-gray-400 uppercase tracking-widest">Hero Background Matrix</label>
           <div className="flex items-center space-x-6">
              <div className="w-48 h-32 rounded-2xl bg-gray-100 border-2 border-dashed border-gray-200 overflow-hidden relative group">
-                {centresHeroPreview ? (
-                  <img src={centresHeroPreview} className="w-full h-full object-cover" />
+                {CentersHeroPreview ? (
+                  <img src={CentersHeroPreview} className="w-full h-full object-cover" />
                 ) : (
                   <div className="flex flex-col items-center justify-center h-full text-gray-400">
                     <Building2 className="h-8 w-8 mb-2" />
@@ -1231,8 +1231,8 @@ export default function AdminDashboard() {
                   onChange={(e) => {
                     const file = e.target.files?.[0];
                     if (file) {
-                      setCentresHeroFile(file);
-                      setCentresHeroPreview(URL.createObjectURL(file));
+                      setCentersHeroFile(file);
+                      setCentersHeroPreview(URL.createObjectURL(file));
                     }
                   }}
                   className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-black file:bg-blue-50 file:text-blue-600 hover:file:bg-blue-100"
@@ -1261,7 +1261,7 @@ export default function AdminDashboard() {
                 {item.icon}
               </div>
               <h4 className="text-sm font-black text-gray-900 uppercase tracking-tight">{item.title}</h4>
-              <p className="text-[10px] text-gray-500 mt-2 font-medium">Auto-synced with Centres page matrix.</p>
+              <p className="text-[10px] text-gray-500 mt-2 font-medium">Auto-synced with Centers page matrix.</p>
             </div>
           ))}
         </div>
@@ -5673,7 +5673,7 @@ export default function AdminDashboard() {
             {activeSection === 'applications' && renderApplicationsSection()}
             {activeSection === 'subscribers' && renderSubscribersSection()}
             {activeSection === 'hero-images' && renderHeroImagesSection()}
-            {activeSection === 'centres-manage' && renderCentresSection()}
+            {activeSection === 'Centers-manage' && renderCentersSection()}
             {activeSection === 'services' && renderServicesSection()}
             {activeSection === 'gallery' && renderGallerySection()}
             {activeSection === 'add-course' && renderAddCourseSection()}
