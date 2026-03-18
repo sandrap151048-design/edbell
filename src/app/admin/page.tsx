@@ -36,7 +36,10 @@ import {
   CheckCircle,
   RefreshCw,
   Cpu,
-  Building2
+  Building2,
+  PhoneCall,
+  Languages,
+  BookOpenCheck
 } from 'lucide-react';
 
 interface Contact {
