@@ -33,6 +33,11 @@ import {
 export default function Services() {
   const [mounted, setMounted] = useState(false);
   const [activeService, setActiveService] = useState(0);
+  const [activeFeature, setActiveFeature] = useState<{serviceIdx: number, featureIdx: number} | null>(null);
+
+  useEffect(() => {
+    setActiveFeature(null);
+  }, [activeService]);
 
   useEffect(() => {
     setMounted(true);
@@ -44,7 +49,12 @@ export default function Services() {
       icon: <GraduationCap className="h-7 w-7 sm:h-8 sm:w-8" />,
       title: "SSLC / +2",
       description: "Direct academic pathways for completing Secondary (10th) and Senior Secondary (12th) certifications with recognized boards like Jamia, NIOS, and BOSSE.",
-      features: ["Jamia Admissions", "NIOS Stream Execution", "BOSSE Board Selection", "Document Verification"],
+      features: [
+        { name: "Jamia Admissions", details: "Official support for Jamia Millia Islamia school admissions and board enrollment." },
+        { name: "NIOS Stream Execution", "details": "End-to-end guidance for NIOS 10th/12th stream registration and examination." },
+        { name: "BOSSE Board Selection", "details": "State board equivalency programs through Board of Open Schooling and Skill Education." },
+        { name: "Document Verification", "details": "Assistance in authenticating previous academic records for smooth admission." }
+      ],
       stats: { success: "100%", speed: "Verified Nodes" },
       gradient: "from-blue-600 to-indigo-600"
     },
@@ -53,7 +63,12 @@ export default function Services() {
       icon: <Plane className="h-7 w-7 sm:h-8 sm:w-8" />,
       title: "Study Abroad",
       description: "End-to-end data processing for international academic deployment across Tier-1 institutions globally.",
-      features: ["University Filtering", "Visa Logic Processing", "International Discovery", "Arrival Protocols"],
+      features: [
+        { name: "University Filtering", details: "Algorithmic matching of student profile with global institutional requirements." },
+        { name: "Visa Logic Processing", details: "Expert handling of student visa documentation and interview preparation." },
+        { name: "International Discovery", details: "Mapping global career market trends for optimal course selection." },
+        { name: "Arrival Protocols", details: "Pre-departure briefings and on-ground landing support for international students." }
+      ],
       stats: { success: "95%", speed: "Optimized" },
       gradient: "from-indigo-600 to-violet-600"
     },
@@ -62,7 +77,12 @@ export default function Services() {
       icon: <Award className="h-7 w-7 sm:h-8 sm:w-8" />,
       title: "Online Degree",
       description: "Activating flexible digital academic protocols for recognized undergraduate and postgraduate programs.",
-      features: ["UGC Approved Nodes", "Flexible Learning", "Distance Calibration", "Digital Certification"],
+      features: [
+        { name: "UGC Approved Nodes", details: "Ensuring all degree programs are fully recognized by University Grants Commission." },
+        { name: "Flexible Learning", details: "Access to recorded sessions and digital modules for self-paced graduation." },
+        { name: "Distance Calibration", details: "Optimizing communication between student and university for remote exams." },
+        { name: "Digital Certification", details: "Verified electronic certificates issued directly by parent universities." }
+      ],
       stats: { success: "98%", speed: "Rapid Access" },
       gradient: "from-violet-600 to-purple-600"
     },
@@ -71,7 +91,12 @@ export default function Services() {
       icon: <Zap className="h-7 w-7 sm:h-8 sm:w-8" />,
       title: "Scholarships",
       description: "Activating financial aid protocols and scholarship discovery modules for academic funding and excellence.",
-      features: ["Merit Identification", "Asset Management", "Sponsorship Links", "Document Auditing"],
+      features: [
+        { name: "Merit Identification", details: "Identifying scholarship eligibility based on academic and sports excellence." },
+        { name: "Asset Management", details: "Guidance on managing grants and tuition fee waivers efficiently." },
+        { name: "Sponsorship Links", details: "Connecting students with corporate and NGO educational sponsors." },
+        { name: "Document Auditing", details: "Compiling financial and identity proof for scholarship applications." }
+      ],
       stats: { success: "92%", speed: "Accelerated" },
       gradient: "from-purple-600 to-fuchsia-600"
     }
@@ -160,11 +185,31 @@ export default function Services() {
                     </p>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 relative">
                     {mainServices[activeService].features.map((f, idx) => (
-                      <div key={idx} className="flex items-center space-x-3 p-3 sm:p-4 bg-white/10 backdrop-blur-md rounded-xl sm:rounded-2xl border border-white/10 hover:bg-white/20 transition-all">
-                        <CheckCircle className="h-4 w-4 text-white/70 flex-shrink-0" />
-                        <span className="text-xs sm:text-sm font-black text-white uppercase tracking-wider">{f}</span>
+                      <div key={idx} className="relative group/feature">
+                        <button 
+                          onClick={() => setActiveFeature(activeFeature?.featureIdx === idx ? null : {serviceIdx: activeService, featureIdx: idx})}
+                          className={`w-full flex items-center space-x-3 p-3 sm:p-4 bg-white/10 backdrop-blur-md rounded-xl sm:rounded-2xl border transition-all ${activeFeature?.featureIdx === idx ? 'border-white/40 bg-white/30' : 'border-white/10 hover:bg-white/20'}`}
+                        >
+                          <CheckCircle className={`h-4 w-4 flex-shrink-0 transition-colors ${activeFeature?.featureIdx === idx ? 'text-white' : 'text-white/70'}`} />
+                          <span className="text-xs sm:text-sm font-black text-white uppercase tracking-wider text-left">{f.name}</span>
+                        </button>
+                        
+                        {activeFeature?.serviceIdx === activeService && activeFeature?.featureIdx === idx && (
+                          <div className="absolute top-full left-0 right-0 mt-2 z-[60] animate-fade-in-up">
+                            <div className="bg-white p-4 rounded-xl shadow-2xl border border-blue-100 relative">
+                              <div className="absolute -top-1.5 left-6 w-3 h-3 bg-white rotate-45"></div>
+                              <p className="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-1.5 flex items-center">
+                                <Sparkles className="h-3 w-3 mr-1" />
+                                Execution Detail
+                              </p>
+                              <p className="text-xs text-slate-700 font-medium leading-relaxed">
+                                {f.details}
+                              </p>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     ))}
                   </div>
