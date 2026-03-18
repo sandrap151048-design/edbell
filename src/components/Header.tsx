@@ -72,11 +72,11 @@ const Header = () => {
       <div className="max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
         <div className="flex justify-between items-center">
           {/* Logo Cluster */}
-          <Link href="/" className="flex items-center group relative z-10 transition-all">
+          <Link href="/" className="flex items-center group relative z-10 transition-all w-[60%] sm:w-auto overflow-hidden">
             <img 
               src="/edbell-logo.svg" 
               alt="EdBell Edusolutions" 
-              className="h-16 lg:h-24 w-auto object-contain drop-shadow-[0_4px_15px_rgba(255,255,255,0.1)] group-hover:scale-105 transition-transform duration-300"
+              className="h-12 sm:h-16 lg:h-24 w-auto object-contain drop-shadow-[0_4px_15px_rgba(255,255,255,0.1)] group-hover:scale-105 transition-transform duration-300"
               onError={(e) => {
                 e.currentTarget.style.display = 'none';
                 const fallback = document.getElementById('logo-fallback-header');
@@ -85,13 +85,13 @@ const Header = () => {
             />
             {/* Fallback text - only shown if image fails */}
             <div id="logo-fallback-header" className="hidden items-center space-x-2 ml-1">
-              <span className="text-2xl lg:text-3xl font-black tracking-tighter leading-none transition-colors text-white group-hover:text-blue-400">EdBell</span>
-              <span className="text-[9px] lg:text-[10px] font-black text-blue-400 tracking-[0.25em] uppercase opacity-80">edusolutions</span>
+              <span className="text-xl sm:text-2xl lg:text-3xl font-black tracking-tighter leading-none transition-colors text-white group-hover:text-blue-400">EdBell</span>
+              <span className="hidden sm:block text-[9px] lg:text-[10px] font-black text-blue-400 tracking-[0.25em] uppercase opacity-80">edusolutions</span>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-2 xl:space-x-6">
+          <nav className="hidden lg:flex items-center space-x-2 xl:space-x-6 shrink-0">
             {navigation.map((item) => {
               const isActive = pathname === item.href;
               return (
@@ -112,14 +112,14 @@ const Header = () => {
           </nav>
 
           {/* Action Cluster */}
-          <div className="flex items-center space-x-2 sm:space-x-4">
+          <div className="flex items-center space-x-3 sm:space-x-4 shrink-0">
             {isAuthenticated ? (
               <div className="hidden sm:flex items-center space-x-2 sm:space-x-4">
                 <Link
                   href="/admin"
-                  className="flex items-center space-x-2 px-3 sm:px-4 py-2 bg-[var(--primary)]/10 border border-[var(--primary)]/20 rounded-xl text-[9px] sm:text-[10px] font-black tracking-widest text-[var(--primary)] hover:bg-[var(--primary)]/20 transition-all"
+                  className="flex items-center space-x-2 px-3 sm:px-4 py-2 bg-[#2563EB]/10 border border-[#2563EB]/20 rounded-xl text-[9px] sm:text-[10px] font-black tracking-widest text-[#2563EB] hover:bg-[#2563EB]/20 transition-all"
                 >
-                  <User className="h-3 w-3 text-[var(--primary)] outline-none" />
+                  <User className="h-3 w-3 text-[#2563EB] outline-none" />
                   <span className="hidden 2xl:inline">DASHBOARD</span>
                   <span className="2xl:hidden">ADMIN</span>
                 </Link>
@@ -153,7 +153,7 @@ const Header = () => {
             {/* Mobile Interface Toggle */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden p-2.5 sm:p-3 bg-white/5 border border-white/10 rounded-2xl text-white hover:bg-white/10 transition-all outline-none"
+              className="lg:hidden p-2 sm:p-3 bg-[#2563EB] border border-[#2563EB] rounded-xl text-white hover:bg-[#1D4ED8] hover:shadow-[0_0_15px_rgba(37,99,235,0.4)] transition-all outline-none flex items-center justify-center shrink-0 ml-auto"
             >
               {isMenuOpen ? <X className="h-5 w-5 sm:h-6 sm:w-6 stroke-[2.5]" /> : <Menu className="h-5 w-5 sm:h-6 sm:w-6 stroke-[2.5]" />}
             </button>
