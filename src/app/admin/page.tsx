@@ -35,7 +35,8 @@ import {
   Tag,
   CheckCircle,
   RefreshCw,
-  Cpu
+  Cpu,
+  Building2
 } from 'lucide-react';
 
 interface Contact {
