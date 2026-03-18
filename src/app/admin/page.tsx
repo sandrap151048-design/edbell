@@ -283,6 +283,9 @@ export default function AdminDashboard() {
   const [campusUploadMessage, setCampusUploadMessage] = useState('');
 
   const [servicesUploadMessage, setServicesUploadMessage] = useState('');
+  const [servicesImageFile, setServicesImageFile] = useState<File | null>(null);
+  const [servicesImagePreview, setServicesImagePreview] = useState<string>('');
+  const [uploadingServices, setUploadingServices] = useState(false);
 
   // Centres hero image states
   const [centresHeroFile, setCentresHeroFile] = useState<File | null>(null);
