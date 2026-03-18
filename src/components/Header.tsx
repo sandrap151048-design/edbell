@@ -68,7 +68,7 @@ const Header = () => {
   ];
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 border-b border-white/10 ${isScrolled ? 'bg-[#0A192F]/95 backdrop-blur-2xl py-1 lg:py-1.5 shadow-2xl shadow-blue-900/20' : 'bg-gradient-to-b from-white/10 via-white/5 to-transparent backdrop-blur-sm py-2 lg:py-3'}`}>
+    <header className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 border-b border-white/10 ${isScrolled || isMenuOpen ? 'bg-[#0A192F]/95 backdrop-blur-2xl shadow-2xl' : 'bg-[#0A192F]/90 lg:bg-gradient-to-b lg:from-white/10 lg:via-white/5 lg:to-transparent lg:backdrop-blur-sm'} py-2 lg:py-4`}>
       <div className="max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
         <div className="flex justify-between items-center">
           {/* Logo Cluster */}
@@ -76,7 +76,7 @@ const Header = () => {
             <img 
               src="/edbell-logo.svg" 
               alt="EdBell Edusolutions" 
-              className="h-12 sm:h-16 lg:h-24 w-auto object-contain drop-shadow-[0_4px_15px_rgba(255,255,255,0.1)] group-hover:scale-105 transition-transform duration-300"
+              className="h-8 sm:h-12 lg:h-20 w-auto object-contain drop-shadow-[0_4px_15px_rgba(255,255,255,0.1)] group-hover:scale-105 transition-transform duration-300"
               onError={(e) => {
                 e.currentTarget.style.display = 'none';
                 const fallback = document.getElementById('logo-fallback-header');
@@ -153,9 +153,10 @@ const Header = () => {
             {/* Mobile Interface Toggle */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden p-2 sm:p-3 bg-[#2563EB] border border-[#2563EB] rounded-xl text-white hover:bg-[#1D4ED8] hover:shadow-[0_0_15px_rgba(37,99,235,0.4)] transition-all outline-none flex items-center justify-center shrink-0 ml-auto"
+              className="lg:hidden p-2 bg-[#2563EB] rounded-lg text-white hover:bg-[#1D4ED8] transition-all outline-none flex items-center justify-center shrink-0"
+              aria-label="Toggle Menu"
             >
-              {isMenuOpen ? <X className="h-5 w-5 sm:h-6 sm:w-6 stroke-[2.5]" /> : <Menu className="h-5 w-5 sm:h-6 sm:w-6 stroke-[2.5]" />}
+              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
         </div>

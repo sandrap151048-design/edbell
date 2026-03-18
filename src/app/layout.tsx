@@ -128,13 +128,6 @@ export default function RootLayout({
         <link rel="manifest" href="/manifest.json" />
       </head>
       <body className={inter.className}>
-        <div className="fixed inset-0 z-[-1] pointer-events-none bg-[#030712]">
-              <img 
-                src="/edbell-logo.svg" 
-                alt="EdBell Edusolutions" 
-                className="h-20 lg:h-28 w-auto object-contain mx-auto md:mx-0 opacity-20"
-          />
-        </div>
         <ConditionalLayout>
           {children}
         </ConditionalLayout>
