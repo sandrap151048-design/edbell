@@ -4,7 +4,13 @@ import CourseApplication from '@/models/CourseApplication';
 
 export async function POST(request: NextRequest) {
   try {
-    await dbConnect();
+    const conn = await dbConnect();
+    if (!conn) {
+       return NextResponse.json(
+        { success: false, error: 'Database connection is not configured or failed to connect. Please check your MongoDB settings.' },
+        { status: 500 }
+      );
+    }
     const body = await request.json();
     const { name, email, phone, password, courseId, courseName, type } = body;
 
