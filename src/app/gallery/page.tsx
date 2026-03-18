@@ -140,7 +140,6 @@ export default function Gallery() {
             alt="Graduation Ceremony Backdrop"
             className="w-full h-full object-cover opacity-20 filter contrast-125 brightness-50"
           />
-          <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-[var(--primary)] via-[var(--accent)] to-[var(--highlight)]" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.15),transparent_70%)]"></div>
           <div className="grid grid-cols-10 h-full w-full opacity-10">
             {[...Array(100)].map((_, i) => (
