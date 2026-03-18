@@ -30,12 +30,6 @@ export default function MobilePhones() {
     { title: "Digital Infrastructure", desc: "Next-gen communication protocols for high-speed learning." }
   ];
 
-  const mobiles = [
-    { name: "Support Node Alpha", tech: "ED-001", status: "Active" },
-    { name: "Support Node Beta", tech: "ED-002", status: "Active" },
-    { name: "Support Node Gamma", tech: "ED-003", status: "Active" }
-  ];
-
   return (
     <div className="min-h-screen bg-[var(--bg-primary)] selection:bg-blue-500/30 overflow-hidden pt-24 text-white">
       <section className="relative py-20 px-4 sm:px-6 lg:px-12 flex flex-col items-center">
@@ -66,7 +60,7 @@ export default function MobilePhones() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-             <Link href="/contact" className="px-10 py-4 bg-blue-600 rounded-full text-white font-black text-xs uppercase tracking-widest hover:shadow-[0_0_50px_rgba(37,99,235,0.4)] transition-all">
+             <Link href="/contact" className="px-10 py-4 bg-blue-600 rounded-2xl text-white font-black text-xs uppercase tracking-widest hover:shadow-[0_0_50px_rgba(37,99,235,0.4)] transition-all">
                 Access Node
              </Link>
           </div>
@@ -90,19 +84,23 @@ export default function MobilePhones() {
         </div>
       </section>
 
-      {/* Node Status */}
+      {/* Technical Support Solutions */}
       <section className="py-20">
-         <div className="max-w-4xl mx-auto px-4 text-center">
-            <h2 className="text-2xl font-black uppercase tracking-widest mb-12">Support Grid Status</h2>
-            <div className="space-y-4">
-               {mobiles.map((node, i) => (
-                 <div key={i} className="flex items-center justify-between p-6 bg-[var(--surface)]/30 border border-[var(--border)] rounded-2xl backdrop-blur-xl">
-                    <div className="flex items-center space-x-4">
-                       <CircleDot className="h-4 w-4 text-blue-500 animate-pulse" />
-                       <span className="font-bold uppercase tracking-tight text-sm">{node.name}</span>
+         <div className="max-w-4xl mx-auto px-4">
+            <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tighter text-center mb-12">Technical Support Solutions</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+               {[
+                  { title: "Software Sync", desc: "Automated updates for educational portals and academic toolkits.", icon: <Settings className="h-5 w-5" /> },
+                  { title: "Hardware Nodes", desc: "Diagnostic support and maintenance for institutional mobile devices.", icon: <Cpu className="h-5 w-5" /> },
+                  { title: "Cloud Integration", desc: "Secure provisioning of cloud storage for academic project backups.", icon: <Sparkles className="h-5 w-5" /> },
+                  { title: "Network Access", desc: "Configuration of high-speed institutional WiFi and data protocols.", icon: <Zap className="h-5 w-5" /> }
+               ].map((service, i) => (
+                 <div key={i} className="group p-8 bg-[var(--surface)]/40 border border-[var(--border)] rounded-[40px] hover:bg-[var(--surface-alt)]/60 transition-all flex flex-col items-center text-center shadow-xl">
+                    <div className="w-14 h-14 bg-blue-500/10 border border-blue-500/20 rounded-2xl flex items-center justify-center text-blue-400 mb-6 group-hover:scale-110 transition-transform">
+                       {service.icon}
                     </div>
-                    <span className="text-[10px] font-black bg-blue-500 text-white px-3 py-1 rounded-md tracking-[0.2em]">{node.tech}</span>
-                    <span className="text-[10px] font-black text-green-500 uppercase tracking-widest">{node.status}</span>
+                    <h3 className="text-lg font-black text-white uppercase tracking-tight mb-2">{service.title}</h3>
+                    <p className="text-sm text-[var(--text-primary)] font-light leading-relaxed">{service.desc}</p>
                  </div>
                ))}
             </div>
