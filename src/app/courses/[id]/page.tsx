@@ -300,9 +300,10 @@ export default async function CoursePage({ params }: CoursePageProps) {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#050B14]">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-6 px-4 sm:px-6 lg:px-8">
+      <section className="bg-[#0A192F] text-white py-16 px-4 sm:px-6 lg:px-8 border-b border-white/5 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.1),transparent_70%)] opacity-50"></div>
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -394,7 +395,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
                 <h2 className="text-xl font-bold text-gray-900 mb-3">Curriculum</h2>
                 <div className="space-y-3">
                   {course.curriculum.map((year, index) => (
-                    <div key={index} className="bg-white border border-gray-200 rounded-lg p-4">
+              <div className="bg-[#0A192F]/50 backdrop-blur-xl rounded-3xl border border-white/5 p-8 shadow-2xl">
                       <h3 className="text-lg font-semibold text-gray-900 mb-3">{year.year}</h3>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                         {year.subjects.map((subject, subIndex) => (
@@ -414,7 +415,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
                 <h2 className="text-xl font-bold text-gray-900 mb-3">Specializations</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {course.specializations.map((spec, index) => (
-                    <div key={index} className="bg-white border border-gray-200 rounded-lg p-3">
+              <div className="bg-[#0A192F]/50 backdrop-blur-xl rounded-3xl border border-white/5 p-8 shadow-2xl">
                       <h3 className="text-sm font-semibold text-gray-900 mb-1">{spec.name}</h3>
                       <p className="text-xs text-gray-600">{spec.description}</p>
                     </div>
@@ -427,7 +428,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
                 <h2 className="text-xl font-bold text-gray-900 mb-3">Career Opportunities</h2>
                 <div className="space-y-3">
                   {course.careerOptions.map((career, index) => (
-                    <div key={index} className="bg-white border border-gray-200 rounded-lg p-3">
+              <div className="bg-[#0A192F]/50 backdrop-blur-xl rounded-3xl border border-white/5 p-8 shadow-2xl">
                       <div className="flex items-start justify-between mb-1">
                         <h3 className="text-sm font-semibold text-gray-900">{career.title}</h3>
                         <span className="bg-green-100 text-green-800 text-xs font-semibold px-2 py-0.5 rounded-full">
@@ -444,7 +445,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
             {/* Sidebar */}
             <div className="space-y-4">
               {/* Quick Info */}
-              <div className="bg-white border border-gray-200 rounded-lg p-3">
+              <div className="bg-[#0A192F]/50 backdrop-blur-xl rounded-3xl border border-white/5 p-8 shadow-2xl">
                 <h3 className="text-base font-semibold text-gray-900 mb-2">Quick Information</h3>
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
@@ -471,7 +472,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
               </div>
 
               {/* Universities */}
-              <div className="bg-white border border-gray-200 rounded-lg p-4">
+              <div className="bg-[#0A192F]/50 backdrop-blur-xl rounded-3xl border border-white/5 p-8 shadow-2xl">
                 <h3 className="text-lg font-semibold text-gray-900 mb-3">Partner Universities</h3>
                 <div className="space-y-2">
                   {course.universities.map((university, index) => (

@@ -55,11 +55,10 @@ export default function CoursePage() {
   };
 
   return (
-    <div className="min-h-screen">
-
-
+    <div className="min-h-screen bg-[#050B14]">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16 px-4 sm:px-6 lg:px-8">
+      <section className="bg-[#0A192F] text-white py-16 px-4 sm:px-6 lg:px-8 border-b border-white/5 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.1),transparent_70%)]"></div>
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -130,28 +129,28 @@ export default function CoursePage() {
             {/* Main Content */}
             <div className="lg:col-span-2 space-y-8">
               {course.curriculum && (
-                <div className="bg-white rounded-xl shadow-sm border p-6">
+                <div className="bg-[#0A192F]/50 backdrop-blur-xl rounded-3xl border border-white/5 p-8 shadow-2xl">
                   <h3 className="text-2xl font-bold text-gray-900 mb-4">Curriculum</h3>
                   <p className="text-gray-600 leading-relaxed">{course.curriculum}</p>
                 </div>
               )}
 
               {course.careerOpportunities && (
-                <div className="bg-white rounded-xl shadow-sm border p-6">
+                <div className="bg-[#0A192F]/50 backdrop-blur-xl rounded-3xl border border-white/5 p-8 shadow-2xl">
                   <h3 className="text-2xl font-bold text-gray-900 mb-4">Career Opportunities</h3>
                   <p className="text-gray-600 leading-relaxed">{course.careerOpportunities}</p>
                 </div>
               )}
 
               {course.learningOutcomes && (
-                <div className="bg-white rounded-xl shadow-sm border p-6">
+                <div className="bg-[#0A192F]/50 backdrop-blur-xl rounded-3xl border border-white/5 p-8 shadow-2xl">
                   <h3 className="text-2xl font-bold text-gray-900 mb-4">Learning Outcomes</h3>
                   <p className="text-gray-600 leading-relaxed">{course.learningOutcomes}</p>
                 </div>
               )}
 
               {course.admissionProcess && (
-                <div className="bg-white rounded-xl shadow-sm border p-6">
+                <div className="bg-[#0A192F]/50 backdrop-blur-xl rounded-3xl border border-white/5 p-8 shadow-2xl">
                   <h3 className="text-2xl font-bold text-gray-900 mb-4">Admission Process</h3>
                   <p className="text-gray-600 leading-relaxed">{course.admissionProcess}</p>
                 </div>
@@ -160,7 +159,7 @@ export default function CoursePage() {
 
             {/* Sidebar */}
             <div className="space-y-6">
-              <div className="bg-white rounded-xl shadow-sm border p-6">
+                  <div className="bg-[#0A192F]/50 backdrop-blur-xl rounded-3xl border border-white/5 p-8 shadow-2xl space-y-4">
                 <h3 className="text-xl font-bold text-gray-900 mb-4">Quick Facts</h3>
                 <div className="space-y-3">
                   <div className="flex items-center space-x-3">
@@ -183,14 +182,14 @@ export default function CoursePage() {
               </div>
 
               {course.studyMaterials && (
-                <div className="bg-white rounded-xl shadow-sm border p-6">
+                    <div className="bg-[#0A192F]/50 backdrop-blur-xl rounded-3xl border border-white/5 p-8 shadow-2xl space-y-4">
                   <h3 className="text-xl font-bold text-gray-900 mb-4">Study Materials</h3>
                   <p className="text-gray-600 text-sm leading-relaxed">{course.studyMaterials}</p>
                 </div>
               )}
 
               {course.facultySupport && (
-                <div className="bg-white rounded-xl shadow-sm border p-6">
+                    <div className="bg-[#0A192F]/50 backdrop-blur-xl rounded-3xl border border-white/5 p-8 shadow-2xl space-y-4">
                   <h3 className="text-xl font-bold text-gray-900 mb-4">Faculty Support</h3>
                   <p className="text-gray-600 text-sm leading-relaxed">{course.facultySupport}</p>
                 </div>
@@ -201,7 +200,8 @@ export default function CoursePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-blue-600 text-white py-16 px-4 sm:px-6 lg:px-8">
+      <section className="bg-[#0A192F] text-white py-16 px-4 sm:px-6 lg:px-8 border-t border-white/5 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.1),transparent_70%)] opacity-50"></div>
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
             Ready to Start Your Journey?

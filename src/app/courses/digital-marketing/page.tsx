@@ -16,9 +16,10 @@ export const metadata: Metadata = {
 
 export default function DigitalMarketingCertificationPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#050B14]">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white">
+      <div className="bg-[#0A192F] text-white border-b border-white/5 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.1),transparent_70%)]"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="text-center">
             <div className="flex justify-center mb-6">
@@ -55,7 +56,7 @@ export default function DigitalMarketingCertificationPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Main Content */}
           <div className="lg:col-span-2">
-            <div className="bg-white rounded-lg shadow-sm border p-8">
+            <div className="bg-[#0A192F]/50 backdrop-blur-xl rounded-3xl border border-white/5 p-8 shadow-2xl">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Course Overview</h2>
               <p className="text-gray-700 mb-8 leading-relaxed">
                 Comprehensive digital marketing program covering SEO, social media marketing, Google Ads, content marketing.
@@ -106,7 +107,7 @@ export default function DigitalMarketingCertificationPage() {
 
           {/* Sidebar */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg shadow-sm border p-6 sticky top-8">
+            <div className="bg-[#0A192F]/50 backdrop-blur-xl rounded-3xl border border-white/5 p-6 sticky top-24 shadow-2xl">
               <h3 className="text-xl font-bold text-gray-900 mb-6">Enroll Now</h3>
               <div className="space-y-4 mb-6">
                 <div className="flex justify-between">
