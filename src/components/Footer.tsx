@@ -184,11 +184,6 @@ const Footer = () => {
             <Link href="#" className="hover:text-[var(--primary)] transition-colors uppercase">Privacy</Link>
             <Link href="#" className="hover:text-[var(--primary)] transition-colors uppercase">Terms</Link>
           </div>
-          <div className="flex items-center text-[9px] lg:text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] space-x-2">
-            <span>DESIGNED BY</span>
-            <Zap className="h-3 w-3 text-[var(--primary)] fill-current" />
-            <span className="text-[var(--text-heading)]">EDBELL_LABS</span>
-          </div>
         </div>
       </div>
     </footer>

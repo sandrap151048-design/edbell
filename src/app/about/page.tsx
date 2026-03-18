@@ -26,10 +26,10 @@ export default function About() {
     setMounted(true);
   }, []);
   const timeline = [
-    { year: "2024", title: "GENESIS", desc: "Initialization in Kerala. Core mission parameters established." },
-    { year: "2024", title: "NETWORK_SYNC", desc: "UGC-DEB partner node integration finalized." },
-    { year: "2025", title: "ECOSYSTEM_v1", desc: "Edbell Digital Portal deployed for global operations." },
-    { year: "FUTURE", title: "EXPANSION_CORE", desc: "Scaling across every domestic educational zone." }
+    { year: "2016", title: "EC HUB", desc: "The foundation of our educational vision was laid with the launch of EC Hub, centering academic support." },
+    { year: "2024", title: "EDBELL GENESIS", desc: "Official launch of EdBell in Kerala. Core mission parameters established for high-performance learning." },
+    { year: "2025", title: "ECOSYSTEM_v1", desc: "Edbell Digital Portal deployed for global operations and student synchronization." },
+    { year: "FUTURE", title: "GLOBAL_EXPANSION", desc: "Scaling across every domestic and international educational zone." }
   ];
 
   return (
