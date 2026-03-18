@@ -299,7 +299,7 @@ export default function AdminDashboard() {
           fetchBlogs();
         } else if (activeSection === 'gallery') {
           fetchGalleryImages();
-        } else if (activeSection === 'applications') {
+        } else if (activeSection === 'applications' || activeSection === 'my-courses') {
           fetchCourseApplications();
         } else if (activeSection === 'analytics') {
           fetchAnalyticsData();
@@ -1066,23 +1066,20 @@ export default function AdminDashboard() {
   }
 
   const renderEnrolledCoursesSection = () => {
-    const enrolledCourses = JSON.parse(localStorage.getItem('enrolledCourses') || '[]');
+    const enrolledCourses = courseApplications.filter(app => app.type === 'apply');
     
     return (
       <div className="space-y-6">
         <div>
           <h2 className="text-2xl font-bold text-gray-900 mb-2">My Enrolled Courses</h2>
-          <p className="text-gray-600">Track your course enrollments and progress</p>
+          <p className="text-gray-600">Track all student course enrollments and progress</p>
         </div>
 
         {enrolledCourses.length === 0 ? (
           <div className="bg-white rounded-lg border border-gray-200 p-12 text-center">
             <BookOpen className="h-12 w-12 text-gray-400 mx-auto mb-4" />
             <h3 className="text-lg font-semibold text-gray-900 mb-2">No Enrolled Courses Yet</h3>
-            <p className="text-gray-600 mb-4">Start your learning journey by enrolling in a course</p>
-            <Link href="/courses" className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors">
-              Browse Courses
-            </Link>
+            <p className="text-gray-600 mb-4">No students have enrolled in any courses yet.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -1094,26 +1091,27 @@ export default function AdminDashboard() {
                 <div className="p-4 space-y-3">
                   <div>
                     <p className="text-xs text-gray-500 uppercase font-semibold">Student Name</p>
-                    <p className="text-sm font-medium text-gray-900">{course.studentName}</p>
+                    <p className="text-sm font-medium text-gray-900">{course.name}</p>
                   </div>
                   <div>
                     <p className="text-xs text-gray-500 uppercase font-semibold">Email</p>
-                    <p className="text-sm text-gray-700">{course.studentEmail}</p>
+                    <p className="text-sm text-gray-700">{course.email}</p>
                   </div>
                   <div>
                     <p className="text-xs text-gray-500 uppercase font-semibold">Phone</p>
-                    <p className="text-sm text-gray-700">{course.studentPhone}</p>
+                    <p className="text-sm text-gray-700">{course.phone}</p>
                   </div>
                   <div>
                     <p className="text-xs text-gray-500 uppercase font-semibold">Enrolled Date</p>
-                    <p className="text-sm text-gray-700">{new Date(course.enrolledAt).toLocaleDateString('en-IN')}</p>
+                    <p className="text-sm text-gray-700">{new Date(course.createdAt).toLocaleDateString('en-IN')}</p>
                   </div>
                   <div>
                     <p className="text-xs text-gray-500 uppercase font-semibold">Status</p>
                     <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
                       course.status === 'new' ? 'bg-blue-100 text-blue-800' :
-                      course.status === 'in-progress' ? 'bg-yellow-100 text-yellow-800' :
-                      'bg-green-100 text-green-800'
+                      course.status === 'contacted' ? 'bg-yellow-100 text-yellow-800' :
+                      course.status === 'admitted' ? 'bg-green-100 text-green-800' :
+                      'bg-red-100 text-red-800'
                     }`}>
                       {course.status.charAt(0).toUpperCase() + course.status.slice(1)}
                     </span>

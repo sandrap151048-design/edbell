@@ -87,13 +87,15 @@
     user-select: none;
   }
 
-  /* Allow text selection for input fields */
+  /* Allow text selection for input fields and enforce black text */
   input,
-  textarea {
+  textarea,
+  select {
     -webkit-user-select: text;
     -moz-user-select: text;
     -ms-user-select: text;
     user-select: text;
+    color: #000000 !important;
   }
 
   /* Prevent zoom on input focus on iOS */
