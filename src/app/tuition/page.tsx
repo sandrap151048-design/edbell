@@ -28,10 +28,10 @@ export default function TuitionServices() {
   }, []);
 
   const features = [
-    { title: "STEM Core Mastery", icon: <Beaker className="h-5 w-5" />, desc: "High-performance Science and Mathematics acceleration nodes for all curricula." },
-    { id: "NODE_HUMANITIES", name: "Strategic Humanities", icon: <History className="h-5 w-5" />, desc: "Deep-dive analytical coaching for History, Civics, and Social Sciences." },
-    { title: "Academic Audit", icon: <Calculator className="h-5 w-5" />, desc: "Regular performance auditing and milestone tracking for primary-secondary levels." },
-    { title: "Board Calibration", icon: <GraduationCap className="h-5 w-5" />, desc: "Specialized preparation sub-systems for CBSE, ICSE, and Kerala State boards." }
+    { title: "8th & 9th Nodes", icon: <Beaker className="h-5 w-5" />, desc: "Foundation acceleration programs for 8th and 9th standard students in all core subjects." },
+    { id: "NODE_SSLC", name: "SSLC (10th) Excellence", icon: <GraduationCap className="h-5 w-5" />, desc: "High-focus online/offline coaching specifically designed for SSLC board success." },
+    { title: "+2 Advanced Hub", icon: <Calculator className="h-5 w-5" />, desc: "Comprehensive +2 subjects support available via digital and physical learning nodes." },
+    { title: "Hybrid Delivery", icon: <Zap className="h-5 w-5" />, desc: "Flexible switching between online and offline classes for uninterrupted academic synchronization." }
   ];
 
   return (
@@ -60,7 +60,7 @@ export default function TuitionServices() {
           </h1>
           
           <p className="text-base sm:text-lg text-[var(--text-primary)] font-light max-w-2xl mx-auto leading-relaxed">
-            Deployment of elite subject-matter experts for academic acceleration across all levels. Focused coaching nodes designed for board excellence and competitive readiness.
+            EdBell offers both <strong>Online and Offline</strong> institutional classes for students in <strong>8th, 9th, SSLC, and +2</strong>. Flexible learning protocols allow SSLC and Higher Secondary (+2) candidates to synchronize their curriculum via high-speed online nodes.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
