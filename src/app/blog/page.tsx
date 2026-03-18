@@ -51,13 +51,13 @@ export default function Center() {
 
   const auxiliaryServices = [
     {
-      title: "MOBILE PHONE SOLUTIONS",
+      title: "MOBILE PHONE TECHNICIAN",
       icon: <PhoneCall className="h-6 w-6" />,
       desc: "Integrated communication support for students including device maintenance and digital access.",
       href: "/mobiles"
     },
     {
-      title: "SPOKEN ENGLISH MASTERCLASS",
+      title: "SPOKEN ENGLISH COURSES",
       icon: <Languages className="h-6 w-6" />,
       desc: "Advanced fluency protocols to enhance global communication competence and professional presentation.",
       href: "/english"
