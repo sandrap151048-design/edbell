@@ -34,7 +34,8 @@ import {
   Award,
   Tag,
   CheckCircle,
-  RefreshCw
+  RefreshCw,
+  Cpu
 } from 'lucide-react';
 
 interface Contact {
@@ -136,6 +137,25 @@ interface GalleryImage {
   updatedAt?: string;
 }
 
+interface Service {
+  _id?: string;
+  serviceId: string;
+  title: string;
+  description: string;
+  icon: string;
+  gradient: string;
+  features: {
+    name: string;
+    details: string;
+  }[];
+  stats: {
+    success: string;
+    speed: string;
+  };
+  isActive: boolean;
+  order: number;
+}
+
 export default function AdminDashboard() {
   const router = useRouter();
   const [contacts, setContacts] = useState<Contact[]>([]);
@@ -143,6 +163,7 @@ export default function AdminDashboard() {
   const [universities, setUniversities] = useState<University[]>([]);
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
+  const [services, setServices] = useState<Service[]>([]);
   const [courseApplications, setCourseApplications] = useState<CourseApplication[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedStatus, setSelectedStatus] = useState('all');
@@ -163,6 +184,8 @@ export default function AdminDashboard() {
   const [editingUniversity, setEditingUniversity] = useState<University | null>(null);
   const [editingBlog, setEditingBlog] = useState<Blog | null>(null);
   const [editingGalleryImage, setEditingGalleryImage] = useState<GalleryImage | null>(null);
+  const [editingService, setEditingService] = useState<Service | null>(null);
+  const [showServiceModal, setShowServiceModal] = useState(false);
   const [courseForm, setCourseForm] = useState<Course>({
     name: '',
     url: '',
@@ -218,6 +241,25 @@ export default function AdminDashboard() {
     featured: false,
     published: true
   });
+  const [serviceForm, setServiceForm] = useState<Service>({
+    serviceId: '',
+    title: '',
+    description: '',
+    icon: 'Cpu',
+    gradient: 'from-blue-600 to-indigo-600',
+    features: [
+      { name: '', details: '' },
+      { name: '', details: '' },
+      { name: '', details: '' },
+      { name: '', details: '' }
+    ],
+    stats: {
+      success: '95%',
+      speed: 'Optimized'
+    },
+    isActive: true,
+    order: 0
+  });
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isSeeding, setIsSeeding] = useState(false);
 
@@ -269,6 +311,7 @@ export default function AdminDashboard() {
     { id: 'subscribers', name: 'Newsletter Subscribers', icon: <Mail className="h-5 w-5" />, description: 'Manage newsletter subscriptions' },
     { id: 'hero-images', name: 'Hero Images', icon: <Award className="h-5 w-5" />, description: 'Manage hero section images' },
     { id: 'blogs', name: 'Blog Management', icon: <FileText className="h-5 w-5" />, description: 'Create and manage blog posts' },
+    { id: 'services', name: 'Service Management', icon: <Briefcase className="h-5 w-5" />, description: 'Manage website services' },
     { id: 'gallery', name: 'Gallery Management', icon: <Award className="h-5 w-5" />, description: 'Manage photo gallery' },
     { id: 'add-course', name: 'Add Course', icon: <BookOpen className="h-5 w-5" />, description: 'Create and manage courses' },
     { id: 'add-university', name: 'Add University', icon: <GraduationCap className="h-5 w-5" />, description: 'Create and manage universities' },
@@ -299,6 +342,8 @@ export default function AdminDashboard() {
           fetchBlogs();
         } else if (activeSection === 'gallery') {
           fetchGalleryImages();
+        } else if (activeSection === 'services') {
+          fetchServices();
         } else if (activeSection === 'applications' || activeSection === 'my-courses') {
           fetchCourseApplications();
         } else if (activeSection === 'analytics') {
@@ -1056,6 +1101,176 @@ export default function AdminDashboard() {
       setIsSeeding(false);
     }
   };
+
+  const fetchServices = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch('/api/services');
+      const data = await response.json();
+      if (data.success) {
+        setServices(data.services);
+      }
+    } catch (error) {
+      console.error('Error fetching services:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const createService = async () => {
+    try {
+      const response = await fetch('/api/services', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(serviceForm)
+      });
+      const data = await response.json();
+      if (data.success) {
+        setServices([...services, data.service]);
+        setShowServiceModal(false);
+        resetServiceForm();
+        alert('✅ Service created successfully!');
+      }
+    } catch (error) {
+      console.error('Error creating service:', error);
+      alert('❌ Error creating service');
+    }
+  };
+
+  const updateService = async () => {
+    try {
+      const response = await fetch('/api/services', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...serviceForm, _id: editingService?._id })
+      });
+      const data = await response.json();
+      if (data.success) {
+        setServices(services.map(s => s._id === editingService?._id ? data.service : s));
+        setShowServiceModal(false);
+        setEditingService(null);
+        resetServiceForm();
+        alert('✅ Service updated successfully!');
+      }
+    } catch (error) {
+      console.error('Error updating service:', error);
+      alert('❌ Error updating service');
+    }
+  };
+
+  const deleteService = async (id: string) => {
+    if (!confirm('Are you sure you want to delete this service?')) return;
+    try {
+      const response = await fetch(`/api/services?id=${id}`, { method: 'DELETE' });
+      const data = await response.json();
+      if (data.success) {
+        setServices(services.filter(s => s._id !== id));
+        alert('✅ Service deleted successfully!');
+      }
+    } catch (error) {
+      console.error('Error deleting service:', error);
+    }
+  };
+
+  const resetServiceForm = () => {
+    setServiceForm({
+      serviceId: '',
+      title: '',
+      description: '',
+      icon: 'Cpu',
+      gradient: 'from-blue-600 to-indigo-600',
+      features: [
+        { name: '', details: '' },
+        { name: '', details: '' },
+        { name: '', details: '' },
+        { name: '', details: '' }
+      ],
+      stats: { success: '95%', speed: 'Optimized' },
+      isActive: true,
+      order: services.length
+    });
+  };
+
+  const openServiceModal = (service?: Service) => {
+    if (service) {
+      setEditingService(service);
+      setServiceForm(service);
+    } else {
+      setEditingService(null);
+      resetServiceForm();
+    }
+    setShowServiceModal(true);
+  };
+
+  const renderServicesSection = () => (
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <div>
+          <h2 className="text-2xl font-bold text-gray-900 mb-1">Service Management</h2>
+          <p className="text-gray-500 text-sm">Configure major service categories and their interactive features</p>
+        </div>
+        <button
+          onClick={() => openServiceModal()}
+          className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl font-bold transition-all shadow-lg shadow-blue-500/20"
+        >
+          <Plus className="h-4 w-4" />
+          <span>Add Service Node</span>
+        </button>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {services.length === 0 ? (
+          <div className="col-span-full py-20 text-center bg-gray-50 rounded-3xl border-2 border-dashed border-gray-200">
+            <Briefcase className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+            <p className="text-gray-500 font-medium">No service records found in the database matrix.</p>
+          </div>
+        ) : (
+          services.sort((a,b) => a.order - b.order).map((service) => (
+            <div key={service._id} className="bg-white rounded-3xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all group">
+              <div className={`h-24 bg-gradient-to-br ${service.gradient} p-6 flex items-start justify-between`}>
+                <div className="w-10 h-10 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center text-white">
+                  <Cpu className="h-5 w-5" />
+                </div>
+                <div className="flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <button 
+                    onClick={() => openServiceModal(service)}
+                    className="p-1.5 bg-white/20 hover:bg-white/40 rounded-lg text-white transition-colors"
+                  >
+                    <Edit className="h-4 w-4" />
+                  </button>
+                  <button 
+                    onClick={() => deleteService(service._id!)}
+                    className="p-1.5 bg-red-500/20 hover:bg-red-500/40 rounded-lg text-white transition-colors"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </button>
+                </div>
+              </div>
+              <div className="p-6 space-y-4">
+                <div>
+                  <h3 className="text-lg font-black text-gray-900 uppercase tracking-tight">{service.title}</h3>
+                  <p className="text-xs text-gray-500 line-clamp-2 mt-1">{service.description}</p>
+                </div>
+                <div className="pt-4 border-t border-gray-50">
+                  <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-gray-400">
+                    <span>Performance</span>
+                    <span className="text-blue-600">{service.stats.success} Success</span>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5 mt-2">
+                    {service.features.map((f, i) => (
+                      <span key={i} className="text-[9px] font-bold bg-gray-100 text-gray-600 px-2 py-1 rounded-md uppercase tracking-tighter">
+                        {f.name}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+    </div>
+  );
 
   if (!isAuthenticated) {
     return (
@@ -5380,7 +5595,7 @@ export default function AdminDashboard() {
             {activeSection === 'applications' && renderApplicationsSection()}
             {activeSection === 'subscribers' && renderSubscribersSection()}
             {activeSection === 'hero-images' && renderHeroImagesSection()}
-            {activeSection === 'blogs' && renderBlogsSection()}
+            {activeSection === 'services' && renderServicesSection()}
             {activeSection === 'gallery' && renderGallerySection()}
             {activeSection === 'add-course' && renderAddCourseSection()}
             {activeSection === 'add-university' && renderAddUniversitySection()}
@@ -5390,6 +5605,140 @@ export default function AdminDashboard() {
           </div>
         </div>
       </div>
+      
+      {/* Service Modal */}
+      {showServiceModal && (
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-[#030712]/80 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl w-full max-w-2xl shadow-2xl border border-gray-100 overflow-hidden">
+            <div className="p-8 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+              <div>
+                <h3 className="text-2xl font-black text-gray-900 tracking-tight">
+                  {editingService ? 'Update Service Nodes' : 'Deploy New Service Node'}
+                </h3>
+                <p className="text-gray-500 text-sm mt-1">Configure service parameters for public accessibility</p>
+              </div>
+              <button 
+                onClick={() => setShowServiceModal(false)}
+                className="p-2 hover:bg-gray-200 rounded-xl transition-colors"
+              >
+                <X className="h-6 w-6 text-gray-500" />
+              </button>
+            </div>
+            
+            <div className="p-8 space-y-6 max-h-[70vh] overflow-y-auto">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-xs font-black text-gray-400 uppercase tracking-widest mb-2">Service Title</label>
+                  <input
+                    type="text"
+                    value={serviceForm.title}
+                    onChange={(e) => setServiceForm({...serviceForm, title: e.target.value})}
+                    placeholder="e.g. Admission Support"
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all font-medium text-gray-900"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-black text-gray-400 uppercase tracking-widest mb-2">Icon Logic</label>
+                  <select
+                    value={serviceForm.icon}
+                    onChange={(e) => setServiceForm({...serviceForm, icon: e.target.value})}
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all font-medium text-gray-900"
+                  >
+                    <option value="Cpu">Cpu (Tech)</option>
+                    <option value="GraduationCap">GraduationCap (Academic)</option>
+                    <option value="Globe">Globe (International)</option>
+                    <option value="Plane">Plane (Travel)</option>
+                    <option value="Award">Award (Certificates)</option>
+                    <option value="Briefcase">Briefcase (Career)</option>
+                    <option value="UserCheck">UserCheck (Support)</option>
+                    <option value="Sparkles">Sparkles (Special)</option>
+                    <option value="Zap">Zap (Scholarship)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-black text-gray-400 uppercase tracking-widest mb-2">Service Description</label>
+                <textarea
+                  value={serviceForm.description}
+                  onChange={(e) => setServiceForm({...serviceForm, description: e.target.value})}
+                  rows={3}
+                  placeholder="Detailed explanation of the service protocol..."
+                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all font-medium text-gray-900"
+                ></textarea>
+              </div>
+
+              <div className="space-y-4">
+                <label className="block text-xs font-black text-gray-400 uppercase tracking-widest">Interactive Features (Click to Detail)</label>
+                {serviceForm.features.map((feature, idx) => (
+                  <div key={idx} className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-blue-50/50 border border-blue-100 rounded-2xl">
+                    <input
+                      type="text"
+                      value={feature.name}
+                      onChange={(e) => {
+                        const newFeatures = [...serviceForm.features];
+                        newFeatures[idx].name = e.target.value;
+                        setServiceForm({...serviceForm, features: newFeatures});
+                      }}
+                      placeholder={`Feature ${idx + 1} Name`}
+                      className="px-4 py-2 bg-white border border-blue-100 rounded-lg outline-none focus:ring-2 focus:ring-blue-400 text-sm font-bold"
+                    />
+                    <input
+                      type="text"
+                      value={feature.details}
+                      onChange={(e) => {
+                        const newFeatures = [...serviceForm.features];
+                        newFeatures[idx].details = e.target.value;
+                        setServiceForm({...serviceForm, features: newFeatures});
+                      }}
+                      placeholder={`Detail explanation for feature ${idx + 1}`}
+                      className="px-4 py-2 bg-white border border-blue-100 rounded-lg outline-none focus:ring-2 focus:ring-blue-400 text-xs text-gray-600"
+                    />
+                  </div>
+                ))}
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                 <div>
+                  <label className="block text-xs font-black text-gray-400 uppercase tracking-widest mb-2">Display Order</label>
+                  <input
+                    type="number"
+                    value={serviceForm.order}
+                    onChange={(e) => setServiceForm({...serviceForm, order: parseInt(e.target.value)})}
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-black text-gray-400 uppercase tracking-widest mb-2">Success Metric (%)</label>
+                  <input
+                    type="text"
+                    value={serviceForm.stats.success}
+                    onChange={(e) => setServiceForm({...serviceForm, stats: {...serviceForm.stats, success: e.target.value}})}
+                    placeholder="e.g. 98%"
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="p-8 bg-gray-50 border-t border-gray-100 flex justify-end space-x-4">
+              <button
+                onClick={() => setShowServiceModal(false)}
+                className="px-6 py-3 rounded-2xl font-bold text-gray-500 hover:bg-gray-200 transition-all"
+              >
+                Abort
+              </button>
+              <button
+                onClick={editingService ? updateService : createService}
+                className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-black shadow-xl shadow-blue-500/20 active:scale-95 transition-all flex items-center space-x-2"
+              >
+                <Save className="h-5 w-5" />
+                <span>{editingService ? 'Commit Changes' : 'Execute Creation'}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

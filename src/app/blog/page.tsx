@@ -4,200 +4,194 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Newsletter from '@/components/Newsletter';
 import {
-  BookOpen,
-  Calendar,
-  User,
-  ArrowRight,
-  Clock,
-  Tag,
-  Target,
-  Users,
-  Zap,
-  GraduationCap,
+  MapPin,
+  Phone,
+  Mail,
+  Navigation,
   Sparkles,
-  Play
+  ArrowRight,
+  Globe,
+  Users,
+  Building2,
+  PhoneCall,
+  Languages,
+  BookOpenCheck
 } from 'lucide-react';
 
-interface BlogPost {
-  id: number;
-  title: string;
-  slug: string;
-  excerpt: string;
-  content: string;
-  author: string;
-  category: string;
-  tags: string[];
-  publishDate: string;
-  readTime: string;
-  featured: boolean;
-  views: number;
-  image: string;
-}
-
-export default function Blog() {
+export default function StudyCentres() {
   const [mounted, setMounted] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('All Intelligence');
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  const blogPosts: BlogPost[] = [
+  const centres = [
     {
-      id: 1,
-      title: "The Architecture of Modern Learning in India",
-      slug: "future-online-education-india",
-      excerpt: "Analyzing the structural transition from legacy classrooms to high-bandwidth digital education protocols.",
-      content: "Full content here...",
-      author: "Dr. Arif Wafy Varambatta",
-      category: "Macro Trends",
-      tags: ["online learning", "infrastructure", "india", "future"],
-      publishDate: "2024-02-01",
-      readTime: "5 min read",
-      featured: true,
-      views: 1250,
-      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800&h=600"
+      name: "HEAD OFFICE - KERALA",
+      location: "15/382, Calicut Tower, Kozhikode Road, Wayanad, Kerala, India",
+      phone: "+91 98765 43210",
+      email: "info@edbelledusolutions.com",
+      image: "https://images.unsplash.com/photo-1577412647305-991150c7d163?auto=format&fit=crop&q=80&w=800&h=600"
     },
     {
-      id: 2,
-      title: "Optimization Strategies Post-Graduation",
-      slug: "top-career-opportunities-graduation",
-      excerpt: "A tactical guide to navigating high-growth career sectors in the current industrial landscape.",
-      content: "Full content here...",
-      author: "Dr. Arif Wafy Varambatta",
-      category: "Tactical Guidance",
-      tags: ["career", "optimization", "jobs", "industrial"],
-      publishDate: "2024-01-28",
-      readTime: "7 min read",
-      featured: false,
-      views: 980,
-      image: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&q=80&w=800&h=600"
+      name: "REGIONAL CENTRE - CALICUT",
+      location: "Building 4, Cyberpark Road, Nellikode, Kozhikode, Kerala",
+      phone: "+91 98765 43211",
+      email: "calicut@edbelledusolutions.com",
+      image: "https://images.unsplash.com/photo-1568241723642-8411993952ba?auto=format&fit=crop&q=80&w=800&h=600"
+    },
+    {
+      name: "COE CENTRE - KOCHI",
+      location: "MG Road, Ravipuram, Kochi, Kerala",
+      phone: "+91 98765 43212",
+      email: "kochi@edbelledusolutions.com",
+      image: "https://images.unsplash.com/photo-1590012314607-cda9d8ecaa19?auto=format&fit=crop&q=80&w=800&h=600"
     }
   ];
 
-  const categories = ['All Intelligence', 'Macro Trends', 'Tactical Guidance', 'Global Nodes', 'Scholarship Matrix'];
+  const auxiliaryServices = [
+    {
+      title: "MOBILE PHONE SOLUTIONS",
+      icon: <PhoneCall className="h-6 w-6" />,
+      desc: "Integrated communication support for students including device maintenance and digital access."
+    },
+    {
+      title: "SPOKEN ENGLISH MASTERCLASS",
+      icon: <Languages className="h-6 w-6" />,
+      desc: "Advanced fluency protocols to enhance global communication competence and professional presentation."
+    },
+    {
+      title: "PREMIUM TUITION NODES",
+      icon: <BookOpenCheck className="h-6 w-6" />,
+      desc: "Subject-specific acceleration programs focusing on core academic performance across all boards."
+    }
+  ];
 
   return (
-    <div className="min-h-screen bg-[var(--bg-primary)] selection:bg-blue-500/30">
-      {/* Hero Section */}
-      <section className="relative min-h-[60vh] sm:min-h-[70vh] flex items-center pt-20 sm:pt-24 overflow-hidden">
+    <div className="min-h-screen bg-[var(--bg-primary)] selection:bg-blue-500/30 overflow-hidden">
+      {/* Hero Section - About style */}
+      <section className="relative min-h-[70vh] sm:min-h-[80vh] flex items-center justify-center pt-16 sm:pt-20 pb-12 sm:pb-16 px-4 sm:px-6 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&q=80"
-            alt="University Library Backdrop"
+            src="https://images.unsplash.com/photo-1524178232457-3bb2449b382a?auto=format&fit=crop&q=80"
+            alt="Study Centres Backdrop"
             className="w-full h-full object-cover opacity-20 filter contrast-125 brightness-50"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[var(--bg-primary)] via-transparent to-[var(--bg-primary)]"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-[var(--bg-primary)] via-[var(--bg-primary)]/50 to-[var(--bg-primary)]"></div>
           <div className="absolute inset-0 bg-white/5 backdrop-blur-[2px]"></div>
         </div>
 
-        <div className="absolute top-20 left-1/4 w-40 h-40 bg-blue-600/10 rounded-full blur-[80px] animate-pulse"></div>
-        <div className="absolute bottom-20 right-1/4 w-56 h-56 bg-indigo-600/10 rounded-full blur-[100px] animate-pulse delay-1000"></div>
-
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 w-full">
-          <div className="max-w-3xl space-y-6 sm:space-y-8">
-            <div className={`inline-flex items-center bg-white/[0.03] border border-white/[0.1] rounded-xl px-4 py-2 backdrop-blur-2xl uppercase ${mounted ? 'animate-fade-in-up' : 'opacity-0'}`}>
-              <Sparkles className="h-3.5 w-3.5 text-blue-400 mr-2" />
-              <span className="text-[8px] sm:text-[10px] font-black text-blue-400 tracking-[0.25em]">Knowledge Base Alpha</span>
+        <div className="relative z-10 max-w-4xl mx-auto w-full text-center space-y-8">
+          <div className={`space-y-6 ${mounted ? 'animate-fade-in-up' : 'opacity-0'}`}>
+            <div className="inline-flex items-center space-x-3 bg-[var(--surface)]/40 border border-[var(--border)] rounded-full px-4 py-1.5 backdrop-blur-3xl mx-auto">
+              <Building2 className="h-4 w-4 sm:h-5 sm:w-5 text-[var(--primary)]" />
+              <span className="text-[8px] sm:text-[9px] font-black text-[var(--primary)] uppercase tracking-[0.4em]">Global Infrastructure Matrix</span>
             </div>
 
-            <h1 className={`text-2xl sm:text-3xl lg:text-4xl font-black text-[var(--text-heading)] leading-[0.9] tracking-tighter uppercase ${mounted ? 'animate-fade-in-up animation-delay-100' : 'opacity-0'}`}>
-              Intelligence <br />
-              <span className="text-transparent bg-gradient-to-r from-[var(--primary)] via-[var(--accent)] to-[var(--highlight)] bg-clip-text">
-                & Insights
-              </span>
-            </h1>
-
-            <p className={`text-sm sm:text-base lg:text-lg text-[var(--text-primary)] font-light leading-relaxed max-w-xl ${mounted ? 'animate-fade-in-up animation-delay-200' : 'opacity-0'}`}>
-              Scanning the frontlines of global education. Access high-resolution analysis on institutional trends, career optimization, and academic infrastructure.
-            </p>
+            <div className="space-y-4">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black text-[var(--text-heading)] leading-[0.85] tracking-tighter uppercase font-serif">
+                Operational <br />
+                <span className="text-transparent bg-gradient-to-r from-[var(--primary)] via-[var(--accent)] to-[var(--highlight)] bg-clip-text">
+                  Centres
+                </span>
+              </h1>
+              <p className="text-sm sm:text-base lg:text-lg text-[var(--text-primary)] font-light max-w-2xl mx-auto leading-relaxed">
+                Scanning the domestic grid for verified educational nodes. Experience our physical infrastructure designed for high-performance learning and academic support.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Main Content */}
-      <section className="py-16 sm:py-20 bg-[var(--bg-secondary)]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-            {/* Content */}
-            <div className="lg:col-span-8 space-y-6 sm:space-y-8">
-              <div className="flex items-center justify-between mb-8 sm:mb-10">
-                <div className="flex flex-wrap gap-2 sm:gap-3">
-                  {categories.map((c) => (
-                    <button
-                      key={c}
-                      onClick={() => setSelectedCategory(c)}
-                      className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-[8px] sm:text-[9px] font-black uppercase tracking-wider transition-all ${selectedCategory === c
-                        ? 'bg-[var(--primary)] text-white shadow-lg'
-                        : 'bg-[var(--surface)]/40 text-[var(--text-muted)] hover:text-white hover:bg-[var(--surface-alt)]/60'
-                        }`}
-                    >
-                      {c}
-                    </button>
-                  ))}
+      {/* Corporate Nodes - The 3 Photos Section */}
+      <section className="py-20 lg:py-28 bg-[var(--bg-secondary)] relative border-y border-[var(--border)]">
+        <div className="max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-12 space-y-16">
+          <div className="flex flex-col lg:flex-row items-end justify-between gap-6">
+            <div className="space-y-2">
+              <p className="text-[9px] sm:text-[10px] font-black text-[var(--primary)] uppercase tracking-[0.3em]">Infrastructure_Pulse</p>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-black text-[var(--text-heading)] uppercase tracking-tighter">Strategic Locations</h2>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
+            {centres.map((centre, i) => (
+              <div key={i} className="group relative flex flex-col space-y-6">
+                <div className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-[var(--border)] shadow-2xl">
+                  <div className="absolute inset-0 bg-blue-600/10 group-hover:bg-transparent transition-colors z-10"></div>
+                  <img
+                    src={centre.image}
+                    alt={centre.name}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
+                  />
+                  <div className="absolute top-4 right-4 z-20">
+                     <div className="p-3 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl">
+                        <Navigation className="h-5 w-5 text-white" />
+                     </div>
+                  </div>
+                </div>
+                
+                <div className="space-y-4 px-2">
+                  <div className="space-y-1">
+                    <p className="text-[9px] font-black text-[var(--primary)] uppercase tracking-widest">NODE_00{i+1}</p>
+                    <h3 className="text-lg lg:text-xl font-black text-[var(--text-heading)] uppercase tracking-tighter">{centre.name}</h3>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <div className="flex items-start space-x-3 text-sm text-[var(--text-primary)] font-light">
+                      <MapPin className="h-4 w-4 text-[var(--primary)] flex-shrink-0 mt-0.5" />
+                      <span>{centre.location}</span>
+                    </div>
+                    <div className="flex items-center space-x-3 text-sm text-[var(--text-primary)] font-light">
+                      <Phone className="h-4 w-4 text-[var(--primary)]" />
+                      <span>{centre.phone}</span>
+                    </div>
+                  </div>
+
+                  <Link href="/contact" className="inline-flex items-center text-[var(--primary)] font-black text-[10px] uppercase tracking-widest hover:translate-x-2 transition-transform">
+                    Initialize Contact <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
                 </div>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-              {blogPosts.map((post) => (
-                <Link key={post.id} href={`/blog/${post.slug}`} className="group block">
-                  <article className="relative bg-gradient-to-br from-[#0A1F3F] to-[#051428] backdrop-blur-3xl border border-[#0066CC]/20 rounded-2xl sm:rounded-3xl p-5 sm:p-8 hover:border-[#0066CC]/50 transition-all duration-500 flex flex-col sm:flex-row gap-5 sm:gap-8 overflow-hidden shadow-sm hover:shadow-[0_0_30px_rgba(0,102,204,0.2)]">
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#0066CC]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-
-                    <div className="sm:w-1/3 h-48 sm:h-auto rounded-xl sm:rounded-2xl overflow-hidden bg-[#0066CC]/10 flex-shrink-0">
-                      <img
-                        src={post.image}
-                        alt={post.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-all duration-1000"
-                        onError={(e) => {
-                          e.currentTarget.src = "https://images.unsplash.com/photo-1516321318423-f06f70d504f0?auto=format&fit=crop&q=80&w=600&h=400";
-                        }}
-                      />
-                    </div>
-
-                    <div className="sm:w-2/3 space-y-3 sm:space-y-4 relative z-10">
-                      <div className="flex items-center space-x-3">
-                        <span className="text-[8px] sm:text-[9px] font-black text-[#0066CC] uppercase tracking-widest">{post.category}</span>
-                        <div className="h-1 w-1 bg-[#0066CC]/30 rounded-full"></div>
-                        <span className="text-[8px] sm:text-[9px] font-black text-[#0066CC]/70 uppercase tracking-widest">{post.readTime}</span>
-                      </div>
-
-                      <h3 className="text-lg sm:text-xl lg:text-2xl font-black text-white hover:text-[#0066CC] transition-colors uppercase tracking-tighter leading-tight">
-                        {post.title}
-                      </h3>
-
-                      <p className="text-xs sm:text-sm text-[#B0C4DE] font-light leading-relaxed">
-                        {post.excerpt}
-                      </p>
-
-                      <div className="pt-4 sm:pt-5 border-t border-[#0066CC]/20 flex items-center justify-between">
-                        <div className="flex items-center space-x-3">
-                          <div className="w-8 h-8 bg-[#0066CC] rounded-xl flex items-center justify-center text-white font-bold text-xs">
-                            {post.author[0]}
-                          </div>
-                          <div>
-                            <p className="text-[8px] sm:text-[9px] font-black text-[#0066CC]/70 uppercase tracking-widest mb-0.5">Expert Analyst</p>
-                            <p className="text-[10px] sm:text-xs font-bold text-white">{post.author}</p>
-                          </div>
-                        </div>
-                        <div className="p-2.5 bg-[#0066CC]/20 rounded-xl group-hover:bg-[#0066CC] transition-all">
-                          <ArrowRight className="h-4 w-4 text-white" />
-                        </div>
-                      </div>
-                    </div>
-                  </article>
+      {/* Support Sub-Systems - Mobile, English, Tuition */}
+      <section className="py-20 lg:py-28 bg-[var(--bg-primary)]">
+        <div className="max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+            <div className="lg:col-span-5 space-y-10">
+              <div className="space-y-4">
+                <span className="text-[10px] font-black text-[var(--primary)] uppercase tracking-[0.4em]">Service_Extensions</span>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[var(--text-heading)] uppercase tracking-tighter leading-[0.9]">Advanced <br /> Support Modules</h2>
+                <p className="text-base text-[var(--text-secondary)] font-light leading-relaxed max-w-md pt-4">
+                  Deploying additional pedagogical and technical infrastructure beyond standard institutional protocols to ensure holistic student development.
+                </p>
+              </div>
+              
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link href="/contact" className="px-10 py-4 bg-[var(--primary)] rounded-full text-white font-black text-xs uppercase tracking-widest hover:scale-105 transition-all shadow-xl shadow-blue-500/20">
+                  Join The Node
                 </Link>
-              ))}
+              </div>
             </div>
 
-            {/* Sidebar */}
-            <div className="lg:col-span-4 space-y-8">
+            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+              {auxiliaryServices.map((service, i) => (
+                <div key={i} className={`p-8 lg:p-10 bg-[var(--surface)]/40 border border-[var(--border)] rounded-[40px] hover:bg-[var(--surface-alt)]/60 transition-all group ${i === 2 ? 'sm:col-span-2' : ''}`}>
+                  <div className="w-14 h-14 rounded-2xl bg-[var(--bg-primary)] border border-[var(--border)] flex items-center justify-center text-[var(--primary)] mb-6 shadow-xl group-hover:scale-110 transition-transform">
+                    {service.icon}
+                  </div>
+                  <h3 className="text-lg lg:text-xl font-black text-[var(--text-heading)] uppercase mb-3 tracking-tight">{service.title}</h3>
+                  <p className="text-sm text-[var(--text-primary)] font-light leading-relaxed">{service.desc}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Newsletter */}
       <section className="py-12 sm:py-16 bg-[var(--bg-primary)] border-t border-[var(--border)]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <Newsletter />
