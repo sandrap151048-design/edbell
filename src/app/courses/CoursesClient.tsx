@@ -243,7 +243,7 @@ export default function CoursesClient() {
       </section>
 
       {/* Navigation & Filter Node */}
-      <section id="filter-node" className="sticky top-0 z-[100] bg-[var(--bg-primary)]/80 backdrop-blur-3xl border-y border-[var(--border)] py-6">
+      <section id="filter-node" className="relative z-20 bg-[var(--bg-primary)]/80 backdrop-blur-3xl border-y border-[var(--border)] py-6">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col md:flex-row items-center gap-8 justify-between">
           <div className="flex items-center space-x-4">
             <div className="w-10 h-10 bg-[var(--primary)]/10 rounded-xl flex items-center justify-center text-[var(--primary)]">
