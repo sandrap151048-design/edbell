@@ -43,7 +43,7 @@ export default function Services() {
       id: 'SERV_001',
       icon: <GraduationCap className="h-7 w-7 sm:h-8 sm:w-8" />,
       title: "SSLC / +2",
-      description: "Direct academic pathways for completing Secondary (10th) and Senior Secondary (12th) certifications with recognized boards.",
+      description: "Direct academic pathways for completing Secondary (10th) and Senior Secondary (12th) certifications with recognized boards like Jamia, NIOS, and BOSSE.",
       features: ["Jamia Admissions", "NIOS Stream Execution", "BOSSE Board Selection", "Document Verification"],
       stats: { success: "100%", speed: "Verified Nodes" },
       gradient: "from-blue-600 to-indigo-600"
@@ -204,12 +204,12 @@ export default function Services() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
             {[
+              { title: "Admission Support", icon: <UserCheck className="w-5 h-5" />, desc: "Complete assistance for university admissions and institutional enrollment." },
+              { title: "Career Guidance", icon: <Sparkles className="w-5 h-5" />, desc: "Expert assessment and trajectory mapping for students (Free of cost)." },
               { title: "Visa Sync", icon: <Shield className="w-5 h-5" />, desc: "High-priority visa documentation and processing modules." },
               { title: "Asset Discovery", icon: <FileText className="w-5 h-5" />, desc: "Discovery protocols for scholarships and financial grants." },
               { title: "Arrival Protocols", icon: <Globe className="w-5 h-5" />, desc: "Pre-departure coordination and landing logistics." },
-              { title: "Node Networking", icon: <Users className="w-5 h-5" />, desc: "Connecting students with verified alumni clusters." },
-              { title: "Metric Analysis", icon: <Activity className="w-5 h-5" />, desc: "Deep performance auditing for institutional matching." },
-              { title: "Data Security", icon: <Shield className="w-5 h-5" />, desc: "Encrypted handling of all sensitive student data points." }
+              { title: "Node Networking", icon: <Users className="w-5 h-5" />, desc: "Connecting students with verified alumni clusters." }
             ].map((item, i) => (
               <div key={i} className="p-5 sm:p-6 lg:p-7 bg-[var(--surface)]/40 border border-[var(--border)] rounded-2xl sm:rounded-3xl hover:bg-[var(--surface-alt)]/60 transition-all group">
                 <div className="w-10 h-10 bg-[var(--primary)]/10 border border-[var(--primary)]/20 rounded-xl flex items-center justify-center text-[var(--primary)] mb-4 sm:mb-5 group-hover:bg-[var(--primary)] group-hover:text-white transition-all">
