@@ -12,6 +12,7 @@ import {
   Building,
   Star
 } from 'lucide-react';
+import CourseEnrollmentSection from '@/components/CourseEnrollmentSection';
 
 export const metadata: Metadata = {
   title: 'bsc cs - Online Degree Program | EDBELL EDUSOLUTIONS',
@@ -94,14 +95,7 @@ export default function CoursePage() {
                 </div>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4">
-                <a href="tel:+919876543210" className="bg-yellow-500 hover:bg-yellow-600 text-blue-900 font-semibold py-3 px-6 rounded-lg transition-colors duration-200 text-center">
-                  Enroll Now
-                </a>
-                <a href="mailto:info@edbelledusolutions.com?subject=Course Information Request&body=Hi, I would like more information about this course. Please contact me." className="bg-white/20 hover:bg-white/30 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 text-center">
-                  Get More Info
-                </a>
-              </div>
+              <CourseEnrollmentSection courseId="bsc-cs" courseName={course.name} />
             </div>
 
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">

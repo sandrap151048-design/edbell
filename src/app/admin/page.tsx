@@ -263,6 +263,7 @@ export default function AdminDashboard() {
   const [pageViewsData, setPageViewsData] = useState<any>({});
 
   const navigationItems = [
+    { id: 'my-courses', name: 'My Enrolled Courses', icon: <BookOpen className="h-5 w-5" />, description: 'View your enrolled courses' },
     { id: 'contacts', name: 'Contact Management', icon: <MessageCircle className="h-5 w-5" />, description: 'Manage inquiries and messages' },
     { id: 'applications', name: 'Course Applications', icon: <GraduationCap className="h-5 w-5" />, description: 'Track course applies & enquiries' },
     { id: 'subscribers', name: 'Newsletter Subscribers', icon: <Mail className="h-5 w-5" />, description: 'Manage newsletter subscriptions' },
@@ -1063,6 +1064,68 @@ export default function AdminDashboard() {
       </div>
     );
   }
+
+  const renderEnrolledCoursesSection = () => {
+    const enrolledCourses = JSON.parse(localStorage.getItem('enrolledCourses') || '[]');
+    
+    return (
+      <div className="space-y-6">
+        <div>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">My Enrolled Courses</h2>
+          <p className="text-gray-600">Track your course enrollments and progress</p>
+        </div>
+
+        {enrolledCourses.length === 0 ? (
+          <div className="bg-white rounded-lg border border-gray-200 p-12 text-center">
+            <BookOpen className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">No Enrolled Courses Yet</h3>
+            <p className="text-gray-600 mb-4">Start your learning journey by enrolling in a course</p>
+            <Link href="/courses" className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors">
+              Browse Courses
+            </Link>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {enrolledCourses.map((course: any, index: number) => (
+              <div key={index} className="bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
+                <div className="bg-gradient-to-r from-blue-600 to-blue-800 p-4">
+                  <h3 className="text-white font-bold text-sm line-clamp-2">{course.courseName}</h3>
+                </div>
+                <div className="p-4 space-y-3">
+                  <div>
+                    <p className="text-xs text-gray-500 uppercase font-semibold">Student Name</p>
+                    <p className="text-sm font-medium text-gray-900">{course.studentName}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-500 uppercase font-semibold">Email</p>
+                    <p className="text-sm text-gray-700">{course.studentEmail}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-500 uppercase font-semibold">Phone</p>
+                    <p className="text-sm text-gray-700">{course.studentPhone}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-500 uppercase font-semibold">Enrolled Date</p>
+                    <p className="text-sm text-gray-700">{new Date(course.enrolledAt).toLocaleDateString('en-IN')}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-500 uppercase font-semibold">Status</p>
+                    <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
+                      course.status === 'new' ? 'bg-blue-100 text-blue-800' :
+                      course.status === 'in-progress' ? 'bg-yellow-100 text-yellow-800' :
+                      'bg-green-100 text-green-800'
+                    }`}>
+                      {course.status.charAt(0).toUpperCase() + course.status.slice(1)}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  };
 
   const renderContactsSection = () => (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -5314,6 +5377,7 @@ export default function AdminDashboard() {
 
           {/* Content Area */}
           <div className="flex-1 p-6 overflow-auto">
+            {activeSection === 'my-courses' && renderEnrolledCoursesSection()}
             {activeSection === 'contacts' && renderContactsSection()}
             {activeSection === 'applications' && renderApplicationsSection()}
             {activeSection === 'subscribers' && renderSubscribersSection()}

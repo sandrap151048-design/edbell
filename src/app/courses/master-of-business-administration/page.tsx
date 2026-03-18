@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { BookOpen, Clock, Users, Award, ArrowRight, CheckCircle } from 'lucide-react';
+import CourseApplyButton from '@/components/CourseApplyButton';
 
 export const metadata: Metadata = {
   title: 'Master of Business Administration (MBA) - EDBELL EDUSOLUTIONS',
@@ -122,13 +123,7 @@ export default function MasterofBusinessAdministrationMBAPage() {
                 </div>
               </div>
               
-              <a
-                href="tel:+919876543210"
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2"
-              >
-                <span>Apply Now</span>
-                <ArrowRight className="h-4 w-4" />
-              </a>
+              <CourseApplyButton courseId="master-of-business-administration" courseName="Master of Business Administration (MBA)" />
               
               <p className="text-sm text-gray-500 mt-4 text-center">
                 Get in touch with our counselors for more information

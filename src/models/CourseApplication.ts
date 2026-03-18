@@ -14,11 +14,9 @@ const CourseApplicationSchema = new mongoose.Schema({
   },
   phone: {
     type: String,
-    required: [true, 'Please provide your phone number'],
   },
   password: {
     type: String,
-    required: [true, 'Please provide a password'],
   },
   courseId: {
     type: String,

@@ -45,6 +45,22 @@ export default function CourseApplicationForm({ courseId, courseName, isOpen, on
 
       if (data.success) {
         setSuccess(true);
+        
+        // Store enrolled course in localStorage
+        const enrolledCourses = JSON.parse(localStorage.getItem('enrolledCourses') || '[]');
+        if (type === 'apply') {
+          enrolledCourses.push({
+            courseId,
+            courseName,
+            studentName: formData.name,
+            studentEmail: formData.email,
+            studentPhone: formData.phone,
+            enrolledAt: new Date().toISOString(),
+            status: 'new'
+          });
+          localStorage.setItem('enrolledCourses', JSON.stringify(enrolledCourses));
+        }
+        
         setTimeout(() => {
           onClose();
           setSuccess(false);
