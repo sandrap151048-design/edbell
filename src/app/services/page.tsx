@@ -99,6 +99,34 @@ export default function Services() {
       ],
       stats: { success: "92%", speed: "Accelerated" },
       gradient: "from-purple-600 to-fuchsia-600"
+    },
+    {
+      id: 'SERV_005',
+      icon: <UserCheck className="h-7 w-7 sm:h-8 sm:w-8" />,
+      title: "Admission Support",
+      description: "Comprehensive end-to-end assistance for navigating complex university admission protocols and documentation.",
+      features: [
+        { name: "Form Submission", details: "Expert handling of university application forms to ensure zero-error submissions." },
+        { name: "SOP Assistance", details: "Guidance on drafting compelling Statements of Purpose for top-tier institutions." },
+        { name: "Document Audit", details: "Thorough verification of all academic and identity proofs before application." },
+        { name: "Follow-up Logic", details: "Persistent coordination with university admission desks for status updates." }
+      ],
+      stats: { success: "100%", speed: "Reliable" },
+      gradient: "from-blue-500 to-cyan-500"
+    },
+    {
+      id: 'SERV_006',
+      icon: <Sparkles className="h-7 w-7 sm:h-8 sm:w-8" />,
+      title: "Career Guidance",
+      description: "Expert mentorship and psychological mapping to align student passion with industry demand (Provided Free of Cost).",
+      features: [
+        { name: "Psychometric Testing", details: "Advanced aptitude mapping to identify the most suitable career streams." },
+        { name: "One-on-One Mentoring", details: "Personalized sessions with industry leaders for strategic career planning." },
+        { name: "Free Consultation", details: "Initial roadmap planning and career path discovery at zero cost." },
+        { name: "Market Trend Audit", details: "Real-time updates on emerging high-growth industries and job roles." }
+      ],
+      stats: { success: "96%", speed: "Deep-Analysis" },
+      gradient: "from-emerald-500 to-teal-500"
     }
   ];
 
@@ -143,7 +171,7 @@ export default function Services() {
                 <div className="h-1 w-full bg-[var(--bg-primary)] rounded-full overflow-hidden">
                   <div
                     className="h-full bg-[var(--primary)] transition-all duration-700"
-                    style={{ width: `${(activeService + 1) * 25}%` }}
+                    style={{ width: `${((activeService + 1) / mainServices.length) * 100}%` }}
                   ></div>
                 </div>
               </div>
