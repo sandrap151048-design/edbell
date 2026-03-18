@@ -95,7 +95,7 @@ export default function Center() {
               <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black text-[var(--text-heading)] leading-[0.85] tracking-tighter uppercase font-serif">
                 Operational <br />
                 <span className="text-transparent bg-gradient-to-r from-[var(--primary)] via-[var(--accent)] to-[var(--highlight)] bg-clip-text">
-                  Center
+                  Study Center
 </span>
               </h1>
               <p className="text-sm sm:text-base lg:text-lg text-[var(--text-primary)] font-light max-w-2xl mx-auto leading-relaxed">
