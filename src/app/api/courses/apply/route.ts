@@ -44,8 +44,15 @@ export async function POST(request: NextRequest) {
 
   } catch (error: any) {
     console.error('❌ Course application error:', error);
+    // Explicitly check for DB connection issues
+    if (error.name === 'MongooseServerSelectionError') {
+      return NextResponse.json(
+        { success: false, error: 'Database connection failed. Please check if Vercel IP relies on correct Network Access whitelist in MongoDB Atlas.' },
+        { status: 500 }
+      );
+    }
     return NextResponse.json(
-      { success: false, error: error.message || 'Internal Server Error' },
+      { success: false, error: error.message || 'Internal Server Error', details: error.toString() },
       { status: 500 }
     );
   }
