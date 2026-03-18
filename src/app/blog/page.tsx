@@ -18,7 +18,7 @@ import {
   BookOpenCheck
 } from 'lucide-react';
 
-export default function StudyCentres() {
+export default function Centres() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -74,7 +74,7 @@ export default function StudyCentres() {
         <div className="absolute inset-0 z-0">
           <img
             src="https://images.unsplash.com/photo-1524178232457-3bb2449b382a?auto=format&fit=crop&q=80"
-            alt="Study Centres Backdrop"
+            alt="Centres Backdrop"
             className="w-full h-full object-cover opacity-20 filter contrast-125 brightness-50"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-[var(--bg-primary)] via-[var(--bg-primary)]/50 to-[var(--bg-primary)]"></div>

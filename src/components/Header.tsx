@@ -61,11 +61,8 @@ const Header = () => {
     { name: 'UNIVERSITIES', href: '/universities' },
     { name: 'COURSES', href: '/courses' },
     { name: 'SERVICES', href: '/services' },
-    { name: 'SPOKEN ENGLISH', href: '/english' },
-    { name: 'TUITION', href: '/tuition' },
-    { name: 'MOBILE PHONES', href: '/mobiles' },
     { name: 'GALLERY', href: '/gallery' },
-    { name: 'STUDY CENTRES', href: '/blog' },
+    { name: 'CENTRES', href: '/blog' },
     { name: 'ABOUT', href: '/about' },
     { name: 'CONTACT', href: '/contact' },
   ];
