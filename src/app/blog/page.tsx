@@ -38,14 +38,14 @@ export default function Centres() {
       location: "Building 4, Cyberpark Road, Nellikode, Kozhikode, Kerala",
       phone: "+91 98765 43211",
       email: "calicut@edbelledusolutions.com",
-      image: "https://images.unsplash.com/photo-1568241723642-8411993952ba?auto=format&fit=crop&q=80&w=800&h=600"
+      image: "/calicut-centre.png"
     },
     {
       name: "COE CENTRE - KOCHI",
       location: "MG Road, Ravipuram, Kochi, Kerala",
       phone: "+91 98765 43212",
       email: "kochi@edbelledusolutions.com",
-      image: "https://images.unsplash.com/photo-1590012314607-cda9d8ecaa19?auto=format&fit=crop&q=80&w=800&h=600"
+      image: "/kochi-centre.png"
     }
   ];
 
@@ -53,17 +53,20 @@ export default function Centres() {
     {
       title: "MOBILE PHONE SOLUTIONS",
       icon: <PhoneCall className="h-6 w-6" />,
-      desc: "Integrated communication support for students including device maintenance and digital access."
+      desc: "Integrated communication support for students including device maintenance and digital access.",
+      href: "/mobiles"
     },
     {
       title: "SPOKEN ENGLISH MASTERCLASS",
       icon: <Languages className="h-6 w-6" />,
-      desc: "Advanced fluency protocols to enhance global communication competence and professional presentation."
+      desc: "Advanced fluency protocols to enhance global communication competence and professional presentation.",
+      href: "/english"
     },
     {
       title: "PREMIUM TUITION NODES",
       icon: <BookOpenCheck className="h-6 w-6" />,
-      desc: "Subject-specific acceleration programs focusing on core academic performance across all boards."
+      desc: "Subject-specific acceleration programs focusing on core academic performance across all boards.",
+      href: "/tuition"
     }
   ];
 
@@ -179,13 +182,17 @@ export default function Centres() {
 
             <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               {auxiliaryServices.map((service, i) => (
-                <div key={i} className={`p-8 lg:p-10 bg-[var(--surface)]/40 border border-[var(--border)] rounded-[40px] hover:bg-[var(--surface-alt)]/60 transition-all group ${i === 2 ? 'sm:col-span-2' : ''}`}>
+                <Link 
+                  key={i} 
+                  href={service.href}
+                  className={`p-8 lg:p-10 bg-[var(--surface)]/40 border border-[var(--border)] rounded-[40px] hover:bg-[var(--surface-alt)]/60 transition-all group block ${i === 2 ? 'sm:col-span-2' : ''}`}
+                >
                   <div className="w-14 h-14 rounded-2xl bg-[var(--bg-primary)] border border-[var(--border)] flex items-center justify-center text-[var(--primary)] mb-6 shadow-xl group-hover:scale-110 transition-transform">
                     {service.icon}
                   </div>
                   <h3 className="text-lg lg:text-xl font-black text-[var(--text-heading)] uppercase mb-3 tracking-tight">{service.title}</h3>
                   <p className="text-sm text-[var(--text-primary)] font-light leading-relaxed">{service.desc}</p>
-                </div>
+                </Link>
               ))}
             </div>
           </div>
