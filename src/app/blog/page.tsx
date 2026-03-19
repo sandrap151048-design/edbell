@@ -29,9 +29,13 @@ export default function Center() {
     {
       name: "HEAD OFFICE - KERALA",
       location: "15/382, Calicut Tower, Kozhikode Road, Wayanad, Kerala, India",
-      phone: "+91 92413 0060",
+      phone: "+91 924130060",
       email: "info@edbelledusolutions.com",
-      image: "https://images.unsplash.com/photo-1577412647305-991150c7d163?auto=format&fit=crop&q=80&w=800&h=600"
+      image: "/zakaria-cm.jpg",
+      manager: {
+        name: "Zakaria CM",
+        position: "Manager"
+      }
     },
     {
       name: "REGIONAL CENTRE - CALICUT",
@@ -140,6 +144,12 @@ export default function Center() {
                   </div>
                   
                   <div className="space-y-3">
+                    {centre.manager && (
+                      <div className="flex items-center space-x-2 text-xs text-[var(--primary)] font-black uppercase mb-2">
+                        <Users className="h-3 w-3" />
+                        <span>{centre.manager.name} — {centre.manager.position}</span>
+                      </div>
+                    )}
                     <div className="flex items-start space-x-3 text-sm text-[var(--text-primary)] font-light">
                       <MapPin className="h-4 w-4 text-[var(--primary)] flex-shrink-0 mt-0.5" />
                       <span>{centre.location}</span>
