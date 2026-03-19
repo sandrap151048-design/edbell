@@ -22,7 +22,8 @@ import {
 } from 'lucide-react';
 
 interface Course {
-  id: string;
+  _id?: string;
+  id?: string;
   name: string;
   url: string;
   category: 'Undergraduate' | 'Postgraduate' | 'Specialized';
@@ -34,74 +35,19 @@ interface Course {
 
 export default function Home() {
   const [mounted, setMounted] = useState(false);
-
+  const [courses, setCourses] = useState<Course[]>([]);
+  
   useEffect(() => {
     setMounted(true);
+    fetch('/api/courses')
+      .then(res => res.json())
+      .then(data => {
+        if (data.success && data.courses) {
+          setCourses(data.courses);
+        }
+      })
+      .catch(console.error);
   }, []);
-
-  const courses: Course[] = [
-    {
-      id: '1',
-      name: 'Bachelor of Arts (BA)',
-      url: '/courses/bachelor-of-arts',
-      category: 'Undergraduate',
-      duration: '3 Years',
-      fees: '₹15,000',
-      eligibility: '12th Pass',
-      description: 'Comprehensive liberal arts program covering literature, history, political science, and more.'
-    },
-    {
-      id: '2',
-      name: 'Bachelor of Commerce (B.Com)',
-      url: '/courses/bachelor-of-commerce',
-      category: 'Undergraduate',
-      duration: '3 Years',
-      fees: '₹18,000',
-      eligibility: '12th Pass',
-      description: 'Business-focused program covering accounting, finance, economics, and business management.'
-    },
-    {
-      id: '3',
-      name: 'Master of Business Administration (MBA)',
-      url: '/courses/master-of-business-administration',
-      category: 'Postgraduate',
-      duration: '2 Years',
-      fees: '₹40,000',
-      eligibility: 'Graduate',
-      description: 'Comprehensive management program preparing leaders for global business challenges.'
-    },
-    {
-      id: '4',
-      name: 'Bachelor of Science (B.Sc)',
-      url: '/courses/bsc',
-      category: 'Undergraduate',
-      duration: '3 Years',
-      fees: '₹20,000',
-      eligibility: '12th Pass (Science)',
-      description: 'Science-focused undergraduate program with specializations in various disciplines.'
-    },
-    {
-      id: '5',
-      name: 'Bachelor of Computer Applications (BCA)',
-      url: '/courses/bca',
-      category: 'Undergraduate',
-      duration: '3 Years',
-      fees: '₹25,000',
-      eligibility: '12th Pass',
-      description: 'Computer applications program focusing on programming and software development.'
-    },
-    {
-      id: '6',
-      name: 'Digital Marketing Certification',
-      url: '/courses/digital-marketing',
-      category: 'Specialized',
-      duration: '6 Months',
-      fees: '₹12,000',
-      eligibility: 'Any Graduate',
-      description: 'Professional certification in digital marketing strategies and online advertising.'
-    }
-  ];
-
   const features = [
     {
       icon: <Sparkles className="w-5 h-5 sm:w-6 sm:h-6" />,
@@ -275,8 +221,10 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-            {courses.slice(0, 6).map((c, i) => (
-              <Link key={i} href={c.url} className="group">
+            {courses.length === 0 ? (
+               <div className="col-span-full py-12 text-center text-gray-500">Retrieving specialized modules...</div>
+            ) : courses.slice(0, 6).map((c, i) => (
+              <Link key={c.id || c._id || i} href={c.url} className="group">
                 <div className="bg-[var(--surface)]/80 backdrop-blur-3xl border border-[var(--border)] rounded-2xl sm:rounded-3xl p-5 sm:p-6 lg:p-8 hover:border-[var(--primary)]/40 transition-all duration-500 h-full flex flex-col shadow-sm hover:shadow-xl">
                   <div className="flex items-center justify-between mb-5 sm:mb-6">
                     <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[var(--bg-primary)] border border-[var(--border)] rounded-xl flex items-center justify-center text-[var(--primary)] group-hover:bg-[var(--primary)] group-hover:text-white transition-all">

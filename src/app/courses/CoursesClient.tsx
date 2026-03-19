@@ -17,108 +17,7 @@ interface Course {
   description: string;
 }
 
-const fallbackCourses: Course[] = [
-  {
-    id: 'bachelor-of-arts',
-    name: 'Bachelor of Arts (BA)',
-    url: '/courses/bachelor-of-arts',
-    category: 'Undergraduate',
-    duration: '3 Years',
-    fees: '₹24,000/year',
-    eligibility: '12th Pass',
-    description: 'Comprehensive liberal arts program with humanities and social sciences.'
-  },
-  {
-    id: 'bachelor-of-commerce',
-    name: 'Bachelor of Commerce (B.Com)',
-    url: '/courses/bachelor-of-commerce',
-    category: 'Undergraduate',
-    duration: '3 Years',
-    fees: '₹18,000/year',
-    eligibility: '12th Pass',
-    description: 'Business-focused program covering accounting, finance, and economics.'
-  },
-  {
-    id: 'bba',
-    name: 'Bachelor of Business Administration (BBA)',
-    url: '/courses/bba',
-    category: 'Undergraduate',
-    duration: '3 Years',
-    fees: '₹25,000/year',
-    eligibility: '12th Pass',
-    description: 'Management and leadership program for future business professionals.'
-  },
-  {
-    id: 'bca',
-    name: 'Bachelor of Computer Applications (BCA)',
-    url: '/courses/bca',
-    category: 'Undergraduate',
-    duration: '3 Years',
-    fees: '₹22,000/year',
-    eligibility: '12th Pass',
-    description: 'Technical program focusing on software development and IT applications.'
-  },
-  {
-    id: 'mba',
-    name: 'Master of Business Administration (MBA)',
-    url: '/courses/mba',
-    category: 'Postgraduate',
-    duration: '2 Years',
-    fees: '₹45,000/year',
-    eligibility: 'Graduate Degree',
-    description: 'Elite management program for leadership roles in various industries.'
-  },
-  {
-    id: 'mca',
-    name: 'Master of Computer Applications (MCA)',
-    url: '/courses/mca',
-    category: 'Postgraduate',
-    duration: '2 Years',
-    fees: '₹35,000/year',
-    eligibility: 'BCA / B.Sc CS',
-    description: 'Advanced technical degree for software architects and IT leaders.'
-  },
-  {
-    id: 'master-of-arts',
-    name: 'Master of Arts (MA)',
-    url: '/courses/master-of-arts',
-    category: 'Postgraduate',
-    duration: '2 Years',
-    fees: '₹20,000/year',
-    eligibility: 'Bachelor\'s Degree',
-    description: 'Advanced academic specialization in humanities and social sciences.'
-  },
-  {
-    id: 'master-of-commerce',
-    name: 'Master of Commerce (M.Com)',
-    url: '/courses/master-of-commerce',
-    category: 'Postgraduate',
-    duration: '2 Years',
-    fees: '₹22,000/year',
-    eligibility: 'B.Com / BBA',
-    description: 'Postgraduate program for advanced business and financial studies.'
-  },
-  {
-    id: 'digital-marketing',
-    name: 'Digital Marketing Certification',
-    url: '/courses/digital-marketing',
-    category: 'Specialized',
-    duration: '6 Months',
-    fees: '₹15,000',
-    eligibility: '12th Pass / Graduate',
-    description: 'Practical certification covering SEO, SMM, and Performance Marketing.'
-  },
-  {
-    id: 'data-science',
-    name: 'Data Science & Analytics',
-    url: '/courses/data-science',
-    category: 'Specialized',
-    duration: '6 Months',
-    fees: '₹20,000',
-    eligibility: 'Maths / Tech Background',
-    description: 'Professional program in data analysis, SQL, and machine learning.'
-  }
-];
+
 
 export default function CoursesClient() {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -143,23 +42,15 @@ export default function CoursesClient() {
         clearTimeout(timeoutId);
 
         if (data.success && data.courses) {
-          const apiCourses = data.courses;
-          const mergedCourses = [...apiCourses];
-          
-          fallbackCourses.forEach(fb => {
-            const exists = apiCourses.some((c: any) => c.id === fb.id || c.url === fb.url);
-            if (!exists) mergedCourses.push(fb);
-          });
-
-          setCourses(mergedCourses);
+          setCourses(data.courses);
           setLoading(false);
           return;
         }
       } catch (err) {
-        console.warn('Live sync failed or timed out, activating fallback protocol.', err);
+        console.warn('Live sync failed or timed out.', err);
       }
 
-      setCourses(fallbackCourses);
+      setCourses([]);
     } catch (error) {
       console.error('Critical failure in fetchCourses:', error);
     } finally {
