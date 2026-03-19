@@ -185,7 +185,7 @@ export default async function CoursePage({ params }: Props) {
                  <div className="space-y-8">
                    <div className="flex items-center space-x-3">
                      <Building2 className="h-5 w-5 text-blue-500" />
-                     <h3 className="text-2xl font-black text-white uppercase tracking-tighter italic font-serif">Accredited Partners</h3>
+                     <h3 className="text-2xl font-black text-white uppercase tracking-tighter italic font-serif">Universities</h3>
                    </div>
                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                      {course.offeredByUniversities?.map((uni: any, idx: number) => (
