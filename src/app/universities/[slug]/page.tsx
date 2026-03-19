@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { Award, CheckCircle, MapPin, Users, Globe, Calendar, ArrowLeft, Building, GraduationCap, Phone, Info } from 'lucide-react';
+import { Award, CheckCircle, MapPin, Users, Globe, Calendar, ArrowLeft, ArrowRight, Building, GraduationCap, Phone, Info } from 'lucide-react';
 import connectDB from '@/lib/mongodb';
 import University from '@/models/University';
 import { notFound } from 'next/navigation';

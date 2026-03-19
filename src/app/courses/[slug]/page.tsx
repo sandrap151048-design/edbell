@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { Clock, Users, Award, CheckCircle, ArrowLeft, Star, Building2, MapPin, GraduationCap, Laptop, BookOpen, ShieldCheck } from 'lucide-react';
+import { Clock, Users, Award, CheckCircle, ArrowLeft, ArrowRight, Star, Building2, MapPin, GraduationCap, Laptop, BookOpen, ShieldCheck } from 'lucide-react';
 import connectDB from '@/lib/mongodb';
 import Course from '@/models/Course';
 import University from '@/models/University';
