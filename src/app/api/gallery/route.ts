@@ -19,9 +19,9 @@ const runMiddleware = (req: any, res: any, fn: any) => {
 // GET - Fetch all gallery images
 export async function GET(request: NextRequest) {
   try {
-    const db = await connectToDatabase();
+    const conn = await connectToDatabase();
 
-    if (!db) {
+    if (!conn) {
       return NextResponse.json({
         success: true,
         images: [],
@@ -83,7 +83,14 @@ export async function GET(request: NextRequest) {
 // POST - Upload new gallery image
 export async function POST(request: NextRequest) {
   try {
-    await connectToDatabase();
+    const conn = await connectToDatabase();
+    
+    if (!conn) {
+      return NextResponse.json(
+        { success: false, error: 'Database connection failed' },
+        { status: 503 }
+      );
+    }
     
     const formData = await request.formData();
     const file = formData.get('image') as File;
@@ -195,7 +202,14 @@ export async function POST(request: NextRequest) {
 // PUT - Update gallery image
 export async function PUT(request: NextRequest) {
   try {
-    await connectToDatabase();
+    const conn = await connectToDatabase();
+    
+    if (!conn) {
+      return NextResponse.json(
+        { success: false, error: 'Database connection failed' },
+        { status: 503 }
+      );
+    }
     
     const body = await request.json();
     const { _id, ...updateData } = body;
@@ -275,7 +289,14 @@ export async function PUT(request: NextRequest) {
 // DELETE - Delete gallery image
 export async function DELETE(request: NextRequest) {
   try {
-    await connectToDatabase();
+    const conn = await connectToDatabase();
+    
+    if (!conn) {
+      return NextResponse.json(
+        { success: false, error: 'Database connection failed' },
+        { status: 503 }
+      );
+    }
     
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
