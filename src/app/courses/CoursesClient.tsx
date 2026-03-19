@@ -24,6 +24,7 @@ export default function CoursesClient() {
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
   const [mounted, setMounted] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     setMounted(true);
@@ -65,9 +66,12 @@ export default function CoursesClient() {
     { id: 'Specialized', name: 'Specialized' }
   ];
 
-  const filteredCourses = selectedCategory === 'all'
-    ? courses
-    : courses.filter(course => course.category === selectedCategory);
+  const filteredCourses = courses.filter(course => {
+    const matchesCategory = selectedCategory === 'all' || course.category === selectedCategory;
+    const matchesSearch = (course.name?.toLowerCase() || '').includes(searchQuery.toLowerCase()) || 
+                        (course.description?.toLowerCase() || '').includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
 
   if (loading) {
     return (
@@ -161,6 +165,8 @@ export default function CoursesClient() {
             <input
               type="text"
               placeholder="SEARCH CURRICULUM..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-gray-100 border border-gray-300 rounded-2xl py-3 pl-12 pr-6 text-xs font-bold text-gray-900 placeholder-gray-500 focus:outline-none focus:border-blue-600 transition-all uppercase tracking-widest"
             />
           </div>
