@@ -18,7 +18,8 @@ import {
   BookOpen,
   Users,
   CheckCircle,
-  Play
+  Play,
+  Building2
 } from 'lucide-react';
 
 interface Course {
@@ -31,6 +32,13 @@ interface Course {
   fees: string;
   eligibility: string;
   description: string;
+  offeredByUniversities?: {
+    _id: string;
+    name: string;
+    location?: string;
+    url?: string;
+    logo?: string;
+  }[];
 }
 
 export default function Home() {
@@ -235,6 +243,12 @@ export default function Home() {
 
                   <div className="flex-1">
                     <h4 className="text-base sm:text-lg font-black text-[var(--text-heading)] mb-2 tracking-tighter group-hover:text-[var(--primary)] transition-colors uppercase leading-tight">{c.name}</h4>
+                    {c.offeredByUniversities && c.offeredByUniversities.length > 0 && (
+                      <div className="flex items-center space-x-2 mb-3 text-[var(--primary)]/70">
+                        <Building2 className="h-3 w-3" />
+                        <span className="text-[9px] font-black uppercase tracking-widest">{c.offeredByUniversities[0].name}</span>
+                      </div>
+                    )}
                     <p className="text-[var(--text-primary)] font-light text-xs sm:text-sm leading-relaxed mb-5 sm:mb-6">{c.description}</p>
                   </div>
 

@@ -67,7 +67,7 @@ interface Course {
   // Enhanced course details
   curriculum?: string;
   careerOpportunities?: string;
-  offeredByUniversities?: string[]; // IDs of universities
+  offeredByUniversities?: any[]; 
   createdAt?: string;
   updatedAt?: string;
 }
@@ -2498,6 +2498,7 @@ export default function AdminDashboard() {
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Course</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Duration</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">University</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                 </tr>
@@ -2505,7 +2506,7 @@ export default function AdminDashboard() {
               <tbody className="bg-transparent divide-y divide-white/5">
                 {courses.length === 0 ? (
                   <tr>
-                    <td colSpan={5} className="px-6 py-12 text-center">
+                    <td colSpan={6} className="px-6 py-12 text-center">
                       <BookOpen className="h-12 w-12 text-gray-400 mx-auto mb-4" />
                       <h3 className="text-lg font-medium text-white mb-2">No courses found</h3>
                       <p className="text-slate-400 mb-4 text-sm font-mono tracking-tighter">Initialize database or add curriculum manually</p>
@@ -2552,6 +2553,16 @@ export default function AdminDashboard() {
                       </td>
                       <td className="px-6 py-4 text-sm text-slate-300 font-mono whitespace-nowrap">
                         {course.duration}
+                      </td>
+                      <td className="px-6 py-4">
+                        {course.offeredByUniversities && course.offeredByUniversities.length > 0 ? (
+                          <div className="flex items-center space-x-2">
+                             <Building2 className="h-3 w-3 text-[var(--primary)]" />
+                             <span className="text-[10px] font-black text-slate-100 uppercase tracking-widest">{course.offeredByUniversities[0].name}</span>
+                          </div>
+                        ) : (
+                          <span className="text-[10px] text-slate-500 italic">Not Linked</span>
+                        )}
                       </td>
                       <td className="px-6 py-4">
                         <div className="text-sm text-slate-400 line-clamp-2 italic">"{course.description}"</div>
