@@ -40,9 +40,13 @@ export default function Center() {
     {
       name: "REGIONAL CENTRE - CALICUT",
       location: "Building 4, Cyberpark Road, Nellikode, Kozhikode, Kerala",
-      phone: "+91 92413 0060",
+      phone: "+91 924130060",
       email: "calicut@edbelledusolutions.com",
-      image: "/calicut-centre.png"
+      image: "/rashid-director.jpg",
+      manager: {
+        name: "Rashid",
+        position: "Regional Director"
+      }
     },
     {
       name: "COE CENTRE - KOCHI",
