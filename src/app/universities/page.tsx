@@ -183,61 +183,35 @@ export default function Universities() {
               </div>
             </div>
 
-            {/* Right Content - Featured Showcase */}
+            {/* Right Content - Featured Showcase (Dynamic) */}
             <div className="relative hidden lg:block">
-              <div className="grid grid-cols-2 gap-6">
-                <div className="space-y-6">
-                  <div className="group relative bg-[var(--surface)]/20 border border-[var(--border)] rounded-3xl p-6 hover:bg-[var(--surface-alt)]/40 hover:-translate-y-2 transition-all duration-500 overflow-hidden hover:shadow-2xl cursor-pointer">
-                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[var(--primary)] to-[var(--accent)] transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
-                    <div className="flex items-center justify-between mb-6">
-                      <div className="w-12 h-12 bg-[var(--bg-primary)] border border-[var(--border)] rounded-xl flex items-center justify-center text-[var(--primary)] group-hover:scale-110 transition-transform">
-                        <Award className="w-6 h-6" />
+              {universities.length > 0 ? (
+                <div className="grid grid-cols-2 gap-6">
+                  {universities.slice(0, 4).map((u, i) => (
+                    <div 
+                      key={u._id || i}
+                      className={`group relative bg-[var(--surface)]/20 border border-[var(--border)] rounded-3xl p-6 hover:bg-[var(--surface-alt)]/40 hover:-translate-y-2 transition-all duration-500 overflow-hidden hover:shadow-2xl cursor-pointer ${i % 2 === 1 ? 'mt-12' : ''}`}
+                    >
+                      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[var(--primary)] to-[var(--accent)] transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+                      <div className="flex items-center justify-between mb-6">
+                        <div className="w-12 h-12 bg-[var(--bg-primary)] border border-[var(--border)] rounded-xl flex items-center justify-center text-[var(--primary)] group-hover:scale-110 transition-transform">
+                          {i % 2 === 0 ? <Award className="w-6 h-6" /> : <Trophy className="w-6 h-6" />}
+                        </div>
+                        <span className="text-[10px] bg-[var(--primary)]/20 text-[var(--primary)] border border-[var(--primary)]/20 px-2 py-0.5 rounded-full uppercase font-black tracking-widest">{u.accreditation}</span>
                       </div>
-                      <span className="text-[10px] bg-[var(--primary)]/20 text-[var(--primary)] border border-[var(--primary)]/20 px-2 py-0.5 rounded-full uppercase font-black tracking-widest">NAAC A++</span>
+                      <h3 className="text-lg font-bold text-[var(--text-heading)] mb-2 group-hover:text-[var(--primary)] transition-colors line-clamp-1">{u.name}</h3>
+                      <p className="text-[var(--text-muted)] text-xs font-light leading-relaxed line-clamp-2">{u.description}</p>
                     </div>
-                    <h3 className="text-lg font-bold text-[var(--text-heading)] mb-2 group-hover:text-[var(--primary)] transition-colors">IGNOU</h3>
-                    <p className="text-[var(--text-muted)] text-xs font-light leading-relaxed">India's largest distance education leader with global reach.</p>
-                  </div>
-
-                  <div className="group relative bg-[var(--surface)]/20 border border-[var(--border)] rounded-3xl p-6 hover:bg-[var(--surface-alt)]/40 hover:-translate-y-2 transition-all duration-500 overflow-hidden hover:shadow-2xl cursor-pointer">
-                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[var(--accent)] to-[var(--highlight)] transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
-                    <div className="flex items-center justify-between mb-6">
-                      <div className="w-12 h-12 bg-[var(--bg-primary)] border border-[var(--border)] rounded-xl flex items-center justify-center text-[var(--accent)] group-hover:scale-110 transition-transform">
-                        <Zap className="w-6 h-6" />
-                      </div>
-                      <span className="text-[10px] bg-[var(--accent)]/20 text-[var(--accent)] border border-[var(--accent)]/20 px-2 py-0.5 rounded-full uppercase font-black tracking-widest">Tech Leader</span>
-                    </div>
-                    <h3 className="text-lg font-bold text-[var(--text-heading)] mb-2 group-hover:text-[var(--accent)] transition-colors">LPU (Placement)</h3>
-                    <p className="text-[var(--text-muted)] text-xs font-light leading-relaxed">Innovative industry-linked programs for modern careers.</p>
+                  ))}
+                </div>
+              ) : (
+                <div className="flex items-center justify-center h-full">
+                  <div className="text-center space-y-4 opacity-50">
+                    <Building className="w-16 h-16 mx-auto text-[var(--text-muted)]" />
+                    <p className="text-xs font-black uppercase tracking-widest">Network Synchronizing...</p>
                   </div>
                 </div>
-
-                <div className="space-y-6 mt-12">
-                  <div className="group relative bg-[var(--surface)]/20 border border-[var(--border)] rounded-3xl p-6 hover:bg-[var(--surface-alt)]/40 hover:-translate-y-2 transition-all duration-500 overflow-hidden hover:shadow-2xl cursor-pointer">
-                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[var(--primary)] to-[var(--highlight)] transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
-                    <div className="flex items-center justify-between mb-6">
-                      <div className="w-12 h-12 bg-[var(--bg-primary)] border border-[var(--border)] rounded-xl flex items-center justify-center text-[var(--primary)] group-hover:scale-110 transition-transform">
-                        <Trophy className="w-6 h-6" />
-                      </div>
-                      <span className="text-[10px] bg-[var(--primary)]/20 text-[var(--primary)] border border-[var(--primary)]/20 px-2 py-0.5 rounded-full uppercase font-black tracking-widest">Premier</span>
-                    </div>
-                    <h3 className="text-lg font-bold text-[var(--text-heading)] mb-2 group-hover:text-[var(--primary)] transition-colors">Amity (Online)</h3>
-                    <p className="text-[var(--text-muted)] text-xs font-light leading-relaxed">World-class digital learning ecosystem and excellence.</p>
-                  </div>
-
-                  <div className="group relative bg-[var(--surface)]/20 border border-[var(--border)] rounded-3xl p-6 hover:bg-[var(--surface-alt)]/40 hover:-translate-y-2 transition-all duration-500 overflow-hidden hover:shadow-2xl cursor-pointer">
-                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[var(--highlight)] to-[var(--primary)] transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
-                    <div className="flex items-center justify-between mb-6">
-                      <div className="w-12 h-12 bg-[var(--bg-primary)] border border-[var(--border)] rounded-xl flex items-center justify-center text-[var(--text-heading)] group-hover:scale-110 transition-transform">
-                        <GraduationCap className="w-6 h-6" />
-                      </div>
-                      <span className="text-[10px] bg-[var(--surface)] text-[var(--text-muted)] border border-[var(--border)] px-2 py-0.5 rounded-full uppercase font-black tracking-widest">Historic</span>
-                    </div>
-                    <h3 className="text-lg font-bold text-[var(--text-heading)] mb-2 group-hover:text-[var(--primary)] transition-colors">Delhi Univ (Heritage)</h3>
-                    <p className="text-[var(--text-muted)] text-xs font-light leading-relaxed">Centuries of academic excellence and heritage research.</p>
-                  </div>
-                </div>
-              </div>
+              )}
 
               {/* Central Floating Badge */}
               <div className="absolute -top-10 -right-10 bg-[var(--surface)]/60 backdrop-blur-2xl border border-[var(--border)] rounded-2xl p-5 shadow-2xl animate-bounce hover:animate-none group transition-all duration-300 cursor-pointer">

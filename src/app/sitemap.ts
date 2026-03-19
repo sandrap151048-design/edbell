@@ -15,26 +15,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/login',
   ]
 
-  // Course pages
-  const coursePages = [
-    '/courses/bachelor-of-arts',
-    '/courses/bachelor-of-commerce',
-    '/courses/bachelor-of-business-administration',
-    '/courses/master-of-arts',
-    '/courses/master-of-commerce',
-    '/courses/master-of-business-administration',
-    '/courses/digital-marketing',
-    '/courses/hospital-administration',
-  ]
+  // Course pages - These should be dynamic in production, but we remove the demo data as requested
+  const coursePages: string[] = []
 
-  // University pages
-  const universityPages = [
-    '/universities/ignou',
-    '/universities/lpu',
-    '/universities/amity-university',
-    '/universities/manipal-university',
-    '/universities/chandigarh-university',
-  ]
+  // University pages - These should be dynamic in production, but we remove the demo data as requested
+  const universityPages: string[] = []
 
   const allPages = [...staticPages, ...coursePages, ...universityPages]
 
