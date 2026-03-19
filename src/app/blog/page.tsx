@@ -63,9 +63,9 @@ export default function Center() {
 
   const auxiliaryServices = [
     {
-      title: "MOBILE PHONE TECHNICIAN",
+      title: "STUDENT COMMUNICATION",
       icon: <PhoneCall className="h-6 w-6" />,
-      desc: "Integrated communication support for students including device maintenance and digital access.",
+      desc: "Provisioning high-performance communication hardware and technical support protocols to ensure seamless student connectivity within the EdBell ecosystem.",
       href: "/mobiles"
     },
     {

@@ -316,15 +316,14 @@ export default function AdminDashboard() {
   const [pageViewsData, setPageViewsData] = useState<any>({});
 
   const navigationItems = [
-    { id: 'my-courses', name: 'My Enrolled Courses', icon: <BookOpen className="h-5 w-5" />, description: 'View your enrolled courses' },
     { id: 'contacts', name: 'Contact Enquiries', icon: <MessageCircle className="h-5 w-5" />, description: 'Manage inquiries and messages' },
     { id: 'applications', name: 'Course Applications', icon: <GraduationCap className="h-5 w-5" />, description: 'Track course applies & enquiries' },
     { id: 'subscribers', name: 'Newsletter Subscribers', icon: <Mail className="h-5 w-5" />, description: 'Manage newsletter subscriptions' },
     { id: 'hero-images', name: 'Hero Images', icon: <Award className="h-5 w-5" />, description: 'Manage hero section images' },
     { id: 'services', name: 'Service Management', icon: <Briefcase className="h-5 w-5" />, description: 'Manage website services' },
     { id: 'gallery', name: 'Gallery Management', icon: <Award className="h-5 w-5" />, description: 'Manage photo gallery' },
-    { id: 'add-course', name: 'Add Course', icon: <BookOpen className="h-5 w-5" />, description: 'Create and manage courses' },
-    { id: 'add-university', name: 'Add University', icon: <GraduationCap className="h-5 w-5" />, description: 'Create and manage universities' },
+    { id: 'courses', name: 'Course Management', icon: <BookOpen className="h-5 w-5" />, description: 'Administer all curriculum modules' },
+    { id: 'universities', name: 'University Management', icon: <GraduationCap className="h-5 w-5" />, description: 'Manage institutional partnerships' },
     { id: 'seo', name: 'SEO Optimization', icon: <Globe className="h-5 w-5" />, description: 'Manage meta tags and SEO' },
     { id: 'analytics', name: 'Analytics', icon: <BarChart3 className="h-5 w-5" />, description: 'Website statistics' },
     { id: 'settings', name: 'Settings', icon: <Settings className="h-5 w-5" />, description: 'System configuration' }
@@ -350,7 +349,7 @@ export default function AdminDashboard() {
           fetchUniversities();
         } else if (activeSection === 'services') {
           fetchServices();
-        } else if (activeSection === 'applications' || activeSection === 'my-courses') {
+        } else if (activeSection === 'applications') {
           fetchCourseApplications();
         } else if (activeSection === 'analytics') {
           fetchAnalyticsData();
@@ -1357,65 +1356,6 @@ export default function AdminDashboard() {
     );
   }
 
-  const renderEnrolledCoursesSection = () => {
-    const enrolledCourses = courseApplications.filter(app => app.type === 'apply');
-    
-    return (
-      <div className="space-y-6">
-        <div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">My Enrolled Courses</h2>
-          <p className="text-gray-600">Track all student course enrollments and progress</p>
-        </div>
-
-        {enrolledCourses.length === 0 ? (
-          <div className="bg-white rounded-lg border border-gray-200 p-12 text-center">
-            <BookOpen className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">No Enrolled Courses Yet</h3>
-            <p className="text-gray-600 mb-4">No students have enrolled in any courses yet.</p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {enrolledCourses.map((course: any, index: number) => (
-              <div key={index} className="bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
-                <div className="bg-gradient-to-r from-blue-600 to-blue-800 p-4">
-                  <h3 className="text-white font-bold text-sm line-clamp-2">{course.courseName}</h3>
-                </div>
-                <div className="p-4 space-y-3">
-                  <div>
-                    <p className="text-xs text-gray-500 uppercase font-semibold">Student Name</p>
-                    <p className="text-sm font-medium text-gray-900">{course.name}</p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-gray-500 uppercase font-semibold">Email</p>
-                    <p className="text-sm text-gray-700">{course.email}</p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-gray-500 uppercase font-semibold">Phone</p>
-                    <p className="text-sm text-gray-700">{course.phone}</p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-gray-500 uppercase font-semibold">Enrolled Date</p>
-                    <p className="text-sm text-gray-700">{new Date(course.createdAt).toLocaleDateString('en-IN')}</p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-gray-500 uppercase font-semibold">Status</p>
-                    <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
-                      course.status === 'new' ? 'bg-blue-100 text-blue-800' :
-                      course.status === 'contacted' ? 'bg-yellow-100 text-yellow-800' :
-                      course.status === 'admitted' ? 'bg-green-100 text-green-800' :
-                      'bg-red-100 text-red-800'
-                    }`}>
-                      {course.status.charAt(0).toUpperCase() + course.status.slice(1)}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-    );
-  };
 
   const renderContactsSection = () => (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -2537,13 +2477,13 @@ export default function AdminDashboard() {
                 <BookOpen className="h-5 w-5 text-white" />
               </div>
               <div>
-                <h2 className="text-2xl font-bold text-gray-900">Course Management</h2>
-                <p className="text-gray-600 mt-1">Create, edit, and manage course pages</p>
+                <h2 className="text-2xl font-bold text-gray-100">Course Management</h2>
+                <p className="text-slate-400 mt-1 uppercase tracking-widest text-[10px] font-bold">Administer curriculum modules and details</p>
               </div>
             </div>
             <button
               onClick={() => openCourseModal()}
-              className="flex items-center space-x-2 bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition-colors duration-200"
+              className="flex items-center space-x-2 bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition-colors duration-200 shadow-lg shadow-purple-500/20"
             >
               <Plus className="h-4 w-4" />
               <span>Add Course</span>
@@ -2552,8 +2492,8 @@ export default function AdminDashboard() {
         </div>
         <div className="p-6">
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
+            <table className="min-w-full divide-y divide-white/5">
+              <thead className="bg-white/[0.02]">
                 <tr>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Course</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
@@ -2562,13 +2502,13 @@ export default function AdminDashboard() {
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="bg-transparent divide-y divide-white/5">
                 {courses.length === 0 ? (
                   <tr>
                     <td colSpan={5} className="px-6 py-12 text-center">
                       <BookOpen className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                      <h3 className="text-lg font-medium text-gray-900 mb-2">No courses found</h3>
-                      <p className="text-gray-500 mb-4">Get started by adding your first course or use sample data</p>
+                      <h3 className="text-lg font-medium text-white mb-2">No courses found</h3>
+                      <p className="text-slate-400 mb-4 text-sm font-mono tracking-tighter">Initialize database or add curriculum manually</p>
                       <div className="flex justify-center space-x-3">
                         <button
                           onClick={() => openCourseModal()}
@@ -2579,7 +2519,7 @@ export default function AdminDashboard() {
                         <button
                           onClick={seedSampleData}
                           disabled={isSeeding}
-                          className="bg-green-600 hover:bg-green-700 disabled:bg-green-400 text-white px-4 py-2 rounded-lg text-sm transition-colors"
+                          className="bg-blue-600/20 hover:bg-blue-600 text-blue-400 hover:text-white px-4 py-2 rounded-lg text-sm transition-colors border border-blue-500/30"
                         >
                           {isSeeding ? 'Loading...' : 'Add Sample Data'}
                         </button>
@@ -2588,46 +2528,46 @@ export default function AdminDashboard() {
                   </tr>
                 ) : (
                   courses.map((course, index) => (
-                    <tr key={course._id || index} className="hover:bg-gray-50">
+                    <tr key={course._id || index} className="hover:bg-white/[0.02]">
                       <td className="px-6 py-4">
                         <div className="flex items-center">
                           <div className="flex-shrink-0 h-8 w-8">
-                            <div className="h-8 w-8 bg-purple-100 rounded-lg flex items-center justify-center">
-                              <BookOpen className="h-4 w-4 text-purple-600" />
+                            <div className="h-8 w-8 bg-purple-900/20 rounded-lg flex items-center justify-center">
+                              <BookOpen className="h-4 w-4 text-purple-400" />
                             </div>
                           </div>
                           <div className="ml-4 min-w-0 flex-1">
-                            <div className="text-sm font-medium text-gray-900 truncate">{course.name}</div>
-                            <div className="text-sm text-gray-500 truncate">{course.url}</div>
+                            <div className="text-sm font-bold text-slate-100 truncate">{course.name}</div>
+                            <div className="text-[10px] text-blue-400 font-mono truncate">{course.url}</div>
                           </div>
                         </div>
                       </td>
                       <td className="px-6 py-4">
-                        <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full whitespace-nowrap ${course.category === 'Undergraduate' ? 'bg-blue-100 text-blue-800' :
-                          course.category === 'Postgraduate' ? 'bg-green-100 text-green-800' :
-                            'bg-yellow-100 text-yellow-800'
+                        <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full whitespace-nowrap ${course.category === 'Undergraduate' ? 'bg-blue-900/40 text-blue-200 border border-blue-500/30' :
+                          course.category === 'Postgraduate' ? 'bg-green-900/40 text-green-200 border border-green-500/30' :
+                            'bg-yellow-900/40 text-yellow-200 border border-yellow-500/30'
                           }`}>
                           {course.category}
                         </span>
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
+                      <td className="px-6 py-4 text-sm text-slate-300 font-mono whitespace-nowrap">
                         {course.duration}
                       </td>
                       <td className="px-6 py-4">
-                        <div className="text-sm text-gray-900 line-clamp-2">{course.description}</div>
+                        <div className="text-sm text-slate-400 line-clamp-2 italic">"{course.description}"</div>
                       </td>
-                      <td className="px-6 py-4">
+                      <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex space-x-2">
                           <button
                             onClick={() => openCourseModal(course)}
-                            className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-xs transition-colors flex items-center space-x-1"
+                            className="bg-blue-600/10 hover:bg-blue-600 text-blue-400 hover:text-white px-3 py-1 rounded text-xs transition-colors flex items-center space-x-1 border border-blue-500/30"
                           >
                             <Edit className="h-3 w-3" />
                             <span>Edit</span>
                           </button>
                           <button
                             onClick={() => deleteCourse(course._id!)}
-                            className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-xs transition-colors flex items-center space-x-1"
+                            className="bg-red-600/10 hover:bg-red-600 text-red-400 hover:text-white px-3 py-1 rounded text-xs transition-colors flex items-center space-x-1 border border-red-600/30"
                           >
                             <Trash2 className="h-3 w-3" />
                             <span>Delete</span>
@@ -2636,7 +2576,7 @@ export default function AdminDashboard() {
                             <Link
                               href={course.url}
                               target="_blank"
-                              className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1 rounded text-xs transition-colors"
+                              className="bg-white/5 hover:bg-white/10 text-slate-300 px-3 py-1 rounded text-xs transition-colors border border-white/5"
                             >
                               View
                             </Link>
@@ -2657,21 +2597,21 @@ export default function AdminDashboard() {
   const renderAddUniversitySection = () => (
     <div className="space-y-8">
       {/* University Management Header */}
-      <div className="bg-white rounded-lg shadow-sm border">
-        <div className="p-6 border-b border-white/5 bg-gradient-to-r from-green-900/20 to-emerald-900/20">
+      <div className="bg-[#050B14] rounded-lg shadow-2xl border border-white/5">
+        <div className="p-6 border-b border-white/5 bg-gradient-to-r from-green-900/10 to-emerald-900/10">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <div className="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center">
                 <GraduationCap className="h-5 w-5 text-white" />
               </div>
               <div>
-                <h2 className="text-2xl font-bold text-gray-900">University Management</h2>
-                <p className="text-gray-600 mt-1">Create, edit, and manage university pages</p>
+                <h2 className="text-2xl font-bold text-gray-100">University Management</h2>
+                <p className="text-slate-400 mt-1 uppercase tracking-widest text-[10px] font-bold">Manage institutional partnerships and details</p>
               </div>
             </div>
             <button
               onClick={() => openUniversityModal()}
-              className="flex items-center space-x-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors duration-200"
+              className="flex items-center space-x-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors duration-200 shadow-lg shadow-green-500/20"
             >
               <Plus className="h-4 w-4" />
               <span>Add University</span>
@@ -2680,8 +2620,8 @@ export default function AdminDashboard() {
         </div>
         <div className="p-6">
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
+            <table className="min-w-full divide-y divide-white/5">
+              <thead className="bg-white/[0.02]">
                 <tr>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">University</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Accreditation</th>
@@ -2690,13 +2630,13 @@ export default function AdminDashboard() {
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="bg-transparent divide-y divide-white/5">
                 {universities.length === 0 ? (
                   <tr>
                     <td colSpan={5} className="px-6 py-12 text-center">
                       <GraduationCap className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                      <h3 className="text-lg font-medium text-gray-900 mb-2">No universities found</h3>
-                      <p className="text-gray-500 mb-4">Get started by adding your first university or use sample data</p>
+                      <h3 className="text-lg font-medium text-white mb-2">No universities found</h3>
+                      <p className="text-slate-400 mb-4 text-sm font-mono tracking-tighter">Initialize database or add universities manually</p>
                       <div className="flex justify-center space-x-3">
                         <button
                           onClick={() => openUniversityModal()}
@@ -2707,7 +2647,7 @@ export default function AdminDashboard() {
                         <button
                           onClick={seedSampleData}
                           disabled={isSeeding}
-                          className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white px-4 py-2 rounded-lg text-sm transition-colors"
+                          className="bg-blue-600/20 hover:bg-blue-600 text-blue-400 hover:text-white px-4 py-2 rounded-lg text-sm transition-colors border border-blue-500/30"
                         >
                           {isSeeding ? 'Loading...' : 'Add Sample Data'}
                         </button>
@@ -2716,46 +2656,46 @@ export default function AdminDashboard() {
                   </tr>
                 ) : (
                   universities.map((university, index) => (
-                    <tr key={university._id || index} className="hover:bg-gray-50">
+                    <tr key={university._id || index} className="hover:bg-white/[0.02]">
                       <td className="px-6 py-4">
                         <div className="flex items-center">
                           <div className="flex-shrink-0 h-8 w-8">
-                            <div className="h-8 w-8 bg-green-100 rounded-lg flex items-center justify-center">
-                              <GraduationCap className="h-4 w-4 text-green-600" />
+                            <div className="h-8 w-8 bg-green-900/20 rounded-lg flex items-center justify-center">
+                              <GraduationCap className="h-4 w-4 text-green-400" />
                             </div>
                           </div>
                           <div className="ml-4 min-w-0 flex-1">
-                            <div className="text-sm font-medium text-gray-900 truncate">{university.name}</div>
-                            <div className="text-sm text-gray-500 truncate">{university.url}</div>
+                            <div className="text-sm font-bold text-slate-100 truncate">{university.name}</div>
+                            <div className="text-[10px] text-emerald-400 font-mono truncate">{university.url}</div>
                           </div>
                         </div>
                       </td>
                       <td className="px-6 py-4">
-                        <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full whitespace-nowrap ${university.accreditation === 'NAAC A++' ? 'bg-green-100 text-green-800' :
-                          university.accreditation === 'NAAC A+' ? 'bg-blue-100 text-blue-800' :
-                            'bg-yellow-100 text-yellow-800'
+                        <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full whitespace-nowrap ${university.accreditation === 'NAAC A++' ? 'bg-green-900/40 text-green-200 border border-green-500/30' :
+                          university.accreditation === 'NAAC A+' ? 'bg-blue-900/40 text-blue-200 border border-blue-500/30' :
+                            'bg-yellow-900/40 text-yellow-200 border border-yellow-500/30'
                           }`}>
                           {university.accreditation}
                         </span>
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
+                      <td className="px-6 py-4 text-sm text-slate-300 font-mono whitespace-nowrap">
                         {university.established}
                       </td>
                       <td className="px-6 py-4">
-                        <div className="text-sm text-gray-900 line-clamp-2">{university.description}</div>
+                        <div className="text-sm text-slate-400 line-clamp-2 italic">"{university.description}"</div>
                       </td>
-                      <td className="px-6 py-4">
+                      <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex space-x-2">
                           <button
                             onClick={() => openUniversityModal(university)}
-                            className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-xs transition-colors flex items-center space-x-1"
+                            className="bg-blue-600/10 hover:bg-blue-600 text-blue-400 hover:text-white px-3 py-1 rounded text-xs transition-colors flex items-center space-x-1 border border-blue-500/30"
                           >
                             <Edit className="h-3 w-3" />
                             <span>Edit</span>
                           </button>
                           <button
                             onClick={() => deleteUniversity(university._id!)}
-                            className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-xs transition-colors flex items-center space-x-1"
+                            className="bg-red-600/10 hover:bg-red-600 text-red-400 hover:text-white px-3 py-1 rounded text-xs transition-colors flex items-center space-x-1 border border-red-600/30"
                           >
                             <Trash2 className="h-3 w-3" />
                             <span>Delete</span>
@@ -2764,7 +2704,7 @@ export default function AdminDashboard() {
                             <Link
                               href={university.url}
                               target="_blank"
-                              className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1 rounded text-xs transition-colors"
+                              className="bg-white/5 hover:bg-white/10 text-slate-300 px-3 py-1 rounded text-xs transition-colors border border-white/5"
                             >
                               View
                             </Link>
@@ -5452,15 +5392,14 @@ export default function AdminDashboard() {
 
           {/* Content Area */}
           <div className="flex-1 p-6 overflow-auto">
-            {activeSection === 'my-courses' && renderEnrolledCoursesSection()}
             {activeSection === 'contacts' && renderContactsSection()}
             {activeSection === 'applications' && renderApplicationsSection()}
             {activeSection === 'subscribers' && renderSubscribersSection()}
             {activeSection === 'hero-images' && renderHeroImagesSection()}
             {activeSection === 'services' && renderServicesSection()}
             {activeSection === 'gallery' && renderGallerySection()}
-            {activeSection === 'add-course' && renderAddCourseSection()}
-            {activeSection === 'add-university' && renderAddUniversitySection()}
+            {activeSection === 'courses' && renderAddCourseSection()}
+            {activeSection === 'universities' && renderAddUniversitySection()}
             {activeSection === 'seo' && renderSEOSection()}
             {activeSection === 'analytics' && renderAnalyticsSection()}
             {activeSection === 'settings' && renderSettingsSection()}
