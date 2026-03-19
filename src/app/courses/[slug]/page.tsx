@@ -11,16 +11,17 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
+export const dynamic = 'force-dynamic';
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   await connectDB();
-  const course = await Course.findOne({ 
-    $or: [
-      { url: `/courses/${slug}` },
-      { url: `courses/${slug}` },
-      { url: new RegExp(`^/courses/${slug}$`, 'i') }
-    ]
-  }).lean();
+  
+  // Safe search slugs
+  const searchSlugs = [`/courses/${slug}`, `courses/${slug}`, slug];
+  if (!slug.startsWith('/')) searchSlugs.push(`/courses/${slug}`);
+  
+  const course = await Course.findOne({ url: { $in: searchSlugs } }).lean();
   
   if (!course) {
     return {
@@ -39,12 +40,13 @@ export default async function CoursePage({ params }: Props) {
   
   // Initialize Database and Models
   await connectDB();
+  
+  // Explicitly reference University model to ensure it's registered for populate
+  const _ensureReg = University.modelName;
+
+  const searchSlugs = [`/courses/${slug}`, `courses/${slug}`, slug];
   const dbCourse = await Course.findOne({ 
-    $or: [
-      { url: `/courses/${slug}` },
-      { url: `courses/${slug}` },
-      { url: new RegExp(`^/courses/${slug}$`, 'i') }
-    ]
+    url: { $in: searchSlugs }
   }).populate('offeredByUniversities').lean();
 
   if (!dbCourse) {
