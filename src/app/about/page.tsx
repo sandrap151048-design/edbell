@@ -70,11 +70,11 @@ export default function About() {
 
               <div className="space-y-4">
                 <h1 className={`text-3xl sm:text-4xl lg:text-5xl font-black text-[var(--text-heading)] leading-[0.85] tracking-tighter uppercase not-italic font-serif ${mounted ? 'animate-fade-in-up animation-delay-100' : 'opacity-0'}`}>
-                  Beyond <br />
-                  <span className="text-transparent bg-gradient-to-r from-[var(--primary)] via-[var(--accent)] to-[var(--highlight)] bg-clip-text">Boundaries</span>
+                  Empowering <br />
+                  <span className="text-transparent bg-gradient-to-r from-[var(--primary)] via-[var(--accent)] to-[var(--highlight)] bg-clip-text">Success</span>
                 </h1>
                 <p className={`text-sm sm:text-base lg:text-lg text-[var(--text-primary)] font-light max-w-xl mx-auto leading-relaxed ${mounted ? 'animate-fade-in-up animation-delay-200' : 'opacity-0'}`}>
-                  We are the structural integrity for the next generation of global scholars. Since 2024, our mission has been the high-speed democratization of top-tier education.
+                  Welcome to EdBell Edusolutions, where we bridge the gap between aspirations and achievements. Our mission is to empower individuals through accessible, high-quality education and career guidance, fostering a community of lifelong learners and successful professionals.
                 </p>
               </div>
 

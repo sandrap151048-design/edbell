@@ -152,14 +152,14 @@ export default function Gallery() {
           <div className={`lg:col-span-6 space-y-6 sm:space-y-8 ${mounted ? 'animate-fade-in' : 'opacity-0'}`}>
             <div className="inline-flex items-center space-x-2 text-[9px] sm:text-[10px] font-black text-[var(--primary)] uppercase tracking-[0.4em]">
               <Camera className="h-3.5 w-3.5" />
-              <span>Visual Core Intelligence</span>
+              <span>Campus Life & Events</span>
             </div>
             <h1 className={`text-2xl sm:text-3xl lg:text-4xl font-black text-[var(--text-heading)] leading-[0.85] tracking-tighter uppercase not-italic font-serif ${mounted ? 'animate-fade-in' : 'opacity-0'}`}>
-              Optical <br />
-              <span className="text-transparent bg-gradient-to-r from-[var(--primary)] via-[var(--accent)] to-[var(--highlight)] bg-clip-text">Repository</span>
+              Edbell <br />
+              <span className="text-transparent bg-gradient-to-r from-[var(--primary)] via-[var(--accent)] to-[var(--highlight)] bg-clip-text">Visual Gallery</span>
             </h1>
             <p className={`text-sm sm:text-base text-[var(--text-primary)] font-light leading-relaxed max-w-lg ${mounted ? 'animate-fade-in' : 'opacity-0'}`}>
-              Visualizing the high-resolution trajectory of institutional growth and student deployment benchmarks across our global network.
+              Explore the vibrant life at EdBell through our curated visual repository, showcasing our modern facilities, graduation successes, and student engagement across Kerala.
             </p>
           </div>
 

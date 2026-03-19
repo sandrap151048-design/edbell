@@ -88,18 +88,18 @@ export default function Center() {
           <div className={`space-y-6 ${mounted ? 'animate-fade-in-up' : 'opacity-0'}`}>
             <div className="inline-flex items-center space-x-3 bg-[var(--surface)]/40 border border-[var(--border)] rounded-full px-4 py-1.5 backdrop-blur-3xl mx-auto">
               <Building2 className="h-4 w-4 sm:h-5 sm:w-5 text-[var(--primary)]" />
-              <span className="text-[8px] sm:text-[9px] font-black text-[var(--primary)] uppercase tracking-[0.4em]">Global Infrastructure Matrix</span>
+              <span className="text-[8px] sm:text-[9px] font-black text-[var(--primary)] uppercase tracking-[0.4em]">Our Physical Locations</span>
             </div>
 
             <div className="space-y-4">
               <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black text-[var(--text-heading)] leading-[0.85] tracking-tighter uppercase font-serif">
-                Operational <br />
+                Edbell <br />
                 <span className="text-transparent bg-gradient-to-r from-[var(--primary)] via-[var(--accent)] to-[var(--highlight)] bg-clip-text">
-                  Study Center
-</span>
+                  Study Centers
+                </span>
               </h1>
               <p className="text-sm sm:text-base lg:text-lg text-[var(--text-primary)] font-light max-w-2xl mx-auto leading-relaxed">
-                Scanning the domestic grid for verified educational nodes. Experience our physical infrastructure designed for high-performance learning and academic support.
+                EdBell Study Centers serve as the physical backbone of our educational ecosystem. Our strategically located centers across Kerala provide students with dedicated learning spaces, high-speed access, and personalized academic support.
               </p>
             </div>
           </div>
@@ -167,15 +167,15 @@ export default function Center() {
             <div className="lg:col-span-5 space-y-10">
               <div className="space-y-4">
                 <span className="text-[10px] font-black text-[var(--primary)] uppercase tracking-[0.4em]">Service_Extensions</span>
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[var(--text-heading)] uppercase tracking-tighter leading-[0.9]">Advanced <br /> Support Modules</h2>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[var(--text-heading)] uppercase tracking-tighter leading-[0.9]">Additional <br /> Learning Hubs</h2>
                 <p className="text-base text-[var(--text-secondary)] font-light leading-relaxed max-w-md pt-4">
-                  Deploying additional pedagogical and technical infrastructure beyond standard institutional protocols to ensure holistic student development.
+                  We provide specialized support modules beyond university curriculums, including technical training and language proficiency, ensuring the holistic development of every student.
                 </p>
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="/contact" className="px-10 py-4 bg-[var(--primary)] rounded-full text-white font-black text-xs uppercase tracking-widest hover:scale-105 transition-all shadow-xl shadow-blue-500/20">
-                  Join The Node
+                  Contact Us
                 </Link>
               </div>
             </div>
