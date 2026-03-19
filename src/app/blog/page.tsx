@@ -15,7 +15,10 @@ import {
   Building2,
   PhoneCall,
   Languages,
-  BookOpenCheck
+  BookOpenCheck,
+  TrendingUp,
+  Cpu,
+  Layers
 } from 'lucide-react';
 
 export default function Center() {
@@ -79,6 +82,33 @@ export default function Center() {
       icon: <BookOpenCheck className="h-6 w-6" />,
       desc: "Subject-specific acceleration programs focusing on core academic performance across all boards.",
       href: "/tuition"
+    }
+  ];
+
+  const growthArchitecture = [
+    { 
+      label: "EC HUB", 
+      desc: "The foundation of our educational vision was laid with the launch of EC Hub, centering academic support.",
+      metric: "Phase_01",
+      icon: <Building2 className="h-5 w-5" />
+    },
+    { 
+      label: "Edbelledu Solutions", 
+      desc: "Official launch of EdBell in Kerala. Core mission parameters established for high-performance learning.",
+      metric: "Phase_02",
+      icon: <Sparkles className="h-5 w-5" />
+    },
+    { 
+      label: "ECOSYSTEM_v1", 
+      desc: "Edbell Digital Portal deployed for global operations and student synchronization.",
+      metric: "Phase_03",
+      icon: <Cpu className="h-5 w-5" />
+    },
+    { 
+      label: "GLOBAL_EXPANSION", 
+      desc: "Scaling across every domestic and international educational zone.",
+      metric: "Phase_04",
+      icon: <Globe className="h-5 w-5" />
     }
   ];
 
@@ -152,6 +182,46 @@ export default function Center() {
                     </div>
                   )}
                 </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Growth Architecture section */}
+      <section className="py-20 lg:py-28 bg-[var(--bg-primary)] overflow-hidden">
+        <div className="max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-12 space-y-16">
+          <div className="text-center space-y-4">
+            <div className="inline-flex items-center space-x-3 bg-blue-500/10 border border-blue-500/20 rounded-full px-4 py-1.5 backdrop-blur-3xl mx-auto">
+                <TrendingUp className="h-4 w-4 text-[var(--primary)]" />
+                <span className="text-[9px] font-black text-[var(--primary)] uppercase tracking-[0.4em]">Chronological_Roadmap</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[var(--text-heading)] uppercase tracking-tighter leading-none">Growth Architecture</h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative">
+            {/* Background Line */}
+            <div className="absolute top-1/2 left-0 right-0 h-px bg-white/5 hidden lg:block -translate-y-1/2"></div>
+            
+            {growthArchitecture.map((phase, i) => (
+              <div 
+                key={i} 
+                className={`group relative p-8 bg-[var(--surface)]/40 border border-[var(--border)] rounded-[40px] hover:bg-[var(--surface-alt)]/60 transition-all duration-700 ${mounted ? 'animate-fade-in-up' : 'opacity-0'}`}
+                style={{ animationDelay: `${i * 150}ms` }}
+              >
+                <div className="relative z-10 space-y-6">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[9px] font-black text-[var(--primary)] uppercase tracking-widest">{phase.metric}</span>
+                    <div className="w-10 h-10 bg-[var(--bg-primary)] border border-[var(--border)] rounded-xl flex items-center justify-center text-[var(--primary)] group-hover:scale-110 transition-transform">
+                      {phase.icon}
+                    </div>
+                  </div>
+                  <h3 className="text-xl font-black text-[var(--text-heading)] uppercase tracking-tight">{phase.label}</h3>
+                  <p className="text-sm text-[var(--text-primary)] font-light leading-relaxed">{phase.desc}</p>
+                </div>
+                
+                {/* Connector Nodes */}
+                <div className="absolute top-1/2 -right-3 w-6 h-6 rounded-full bg-[var(--bg-primary)] border-4 border-white/5 hidden lg:block -translate-y-1/2 z-20 group-last:hidden"></div>
               </div>
             ))}
           </div>

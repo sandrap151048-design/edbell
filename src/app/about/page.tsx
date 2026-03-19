@@ -157,7 +157,11 @@ export default function About() {
             <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-white/5 hidden lg:block"></div>
 
             {timeline.map((item, i) => (
-              <div key={i} className={`flex flex-col lg:flex-row items-center gap-6 sm:gap-8 lg:gap-12 ${i % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
+              <div 
+                key={i} 
+                className={`flex flex-col lg:flex-row items-center gap-6 sm:gap-8 lg:gap-12 ${i % 2 === 1 ? 'lg:flex-row-reverse' : ''} ${mounted ? 'animate-fade-in-up' : 'opacity-0'}`}
+                style={{ animationDelay: `${i * 150}ms` }}
+              >
                 <div className="lg:w-1/2 text-center lg:text-right">
                   <span className="text-3xl sm:text-4xl lg:text-5xl font-black text-[var(--text-heading)]/5 uppercase tracking-tighter select-none">{item.year}</span>
                 </div>
