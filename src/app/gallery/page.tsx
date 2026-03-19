@@ -67,8 +67,8 @@ export default function Gallery() {
     { id: 'achievements', name: 'Benchmarks', icon: Award }
   ];
 
-  // Fallback images if no database images are available
-  const fallbackImages: GalleryImage[] = [
+  // Demo gallery images - always displayed along with database images
+  const demoImages: GalleryImage[] = [
     {
       imageUrl: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=600&h=600',
       imageAlt: 'Educational Excellence',
@@ -88,6 +88,15 @@ export default function Gallery() {
       description: 'Students engaged in collaborative learning and knowledge sharing.'
     },
     {
+      imageUrl: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&q=80&w=600&h=600',
+      imageAlt: 'University Campus',
+      title: 'Modern Educational Infrastructure',
+      category: 'campus',
+      eventDate: '2024-02-20',
+      location: 'Campus Node',
+      description: 'State-of-the-art campus facilities designed for optimal learning experience.'
+    },
+    {
       imageUrl: 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&q=80&w=600&h=600',
       imageAlt: 'Graduation Ceremony',
       title: 'Success Protocol 2024',
@@ -95,10 +104,38 @@ export default function Gallery() {
       eventDate: '2024-01-30',
       location: 'Convocation Hall',
       description: 'Celebrating the successful deployment of our elite student fleet.'
+    },
+    {
+      imageUrl: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=600&h=600',
+      imageAlt: 'Programming & Development',
+      title: 'Collaborative Workspace',
+      category: 'activities',
+      eventDate: '2024-03-10',
+      location: 'Learning Zone',
+      description: 'Collaborative environments focused on high-bandwidth knowledge transfer.'
+    },
+    {
+      imageUrl: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=600&h=600',
+      imageAlt: 'Research Lab',
+      title: 'Academic Research Wing',
+      category: 'achievements',
+      eventDate: '2024-02-28',
+      location: 'Innovation Lab',
+      description: 'Experimental learning nodes achieving unprecedented academic benchmarks.'
+    },
+    {
+      imageUrl: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=600&h=600',
+      imageAlt: 'Workshop Session',
+      title: 'International Strategy Workshop',
+      category: 'events',
+      eventDate: '2024-03-05',
+      location: 'Seminar Suite',
+      description: 'Bridging international educational gaps through strategic collaboration.'
     }
   ];
 
-  const displayImages = galleryImages.length > 0 ? galleryImages : fallbackImages;
+  // Combine database images with demo images
+  const displayImages = [...galleryImages, ...demoImages];
   const displayFiltered = selectedCategory === 'all'
     ? displayImages
     : displayImages.filter(img => img.category === selectedCategory);
