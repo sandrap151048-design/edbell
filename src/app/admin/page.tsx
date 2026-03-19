@@ -398,20 +398,30 @@ export default function AdminDashboard() {
       });
 
       const response = await fetch(`/api/contact?${params}`);
+      
+      if (!response.ok) {
+        console.error('Failed to fetch contacts:', response.status);
+        setContacts([]);
+        setTotalPages(1);
+        return;
+      }
+      
       const data = await response.json();
 
       if (response.ok) {
-        setContacts(data.contacts);
-        setTotalPages(data.pagination.pages);
+        setContacts(data.contacts || []);
+        setTotalPages(data.pagination?.pages || 1);
 
         // Update analytics data with real contact count
         setAnalyticsData(prev => ({
           ...prev,
-          contactInquiries: data.pagination.total || data.contacts.length
+          contactInquiries: data.pagination?.total || data.contacts?.length || 0
         }));
       }
     } catch (error) {
       console.error('Error fetching contacts:', error);
+      setContacts([]);
+      setTotalPages(1);
     } finally {
       setLoading(false);
     }
@@ -465,12 +475,20 @@ export default function AdminDashboard() {
     try {
       setLoading(true);
       const response = await fetch('/api/courses/apply');
+      if (!response.ok) {
+        console.error('Failed to fetch course applications:', response.status);
+        setCourseApplications([]);
+        return;
+      }
       const data = await response.json();
       if (data.success) {
         setCourseApplications(data.applications);
+      } else {
+        setCourseApplications([]);
       }
     } catch (error) {
       console.error('Error fetching course applications:', error);
+      setCourseApplications([]);
     } finally {
       setLoading(false);
     }
@@ -480,44 +498,50 @@ export default function AdminDashboard() {
   const fetchAnalyticsData = async () => {
     try {
       // Fetch newsletter subscriptions
-      const subscriptionsResponse = await fetch('/api/subscribe');
-      if (subscriptionsResponse.ok) {
-        const subscriptionsData = await subscriptionsResponse.json();
-        setSubscriptions(subscriptionsData.subscriptions || []);
+      try {
+        const subscriptionsResponse = await fetch('/api/subscribe');
+        if (subscriptionsResponse.ok) {
+          const subscriptionsData = await subscriptionsResponse.json();
+          setSubscriptions(subscriptionsData.subscriptions || []);
 
-        setAnalyticsData(prev => ({
-          ...prev,
-          newsletterSubscribers: subscriptionsData.pagination?.total || subscriptionsData.subscriptions?.length || 0,
-          subscriberGrowth: '+5% growth' // You can calculate this based on date comparison
-        }));
+          setAnalyticsData(prev => ({
+            ...prev,
+            newsletterSubscribers: subscriptionsData.pagination?.total || subscriptionsData.subscriptions?.length || 0,
+            subscriberGrowth: '+5% growth'
+          }));
+        }
+      } catch (subError) {
+        console.error('Error fetching subscriptions:', subError);
       }
 
       // Fetch page views analytics
-      const analyticsResponse = await fetch('/api/analytics');
-      if (analyticsResponse.ok) {
-        const analyticsDataResponse = await analyticsResponse.json();
-        setPopularPages(analyticsDataResponse.popularPages || []);
-        setPageViewsData(analyticsDataResponse);
+      try {
+        const analyticsResponse = await fetch('/api/analytics');
+        if (analyticsResponse.ok) {
+          const analyticsDataResponse = await analyticsResponse.json();
+          setPopularPages(analyticsDataResponse.popularPages || []);
+          setPageViewsData(analyticsDataResponse);
 
-        // Calculate course page views from analytics
-        const courseViews = analyticsDataResponse.popularPages?.find((page: any) =>
-          page.path === '/courses' || page.page.toLowerCase().includes('course')
-        )?.views || 0;
+          // Calculate course page views from analytics
+          const courseViews = analyticsDataResponse.popularPages?.find((page: any) =>
+            page.path === '/courses' || page.page.toLowerCase().includes('course')
+          )?.views || 0;
 
-        setAnalyticsData(prev => ({
-          ...prev,
-          totalVisitors: analyticsDataResponse.totalViews || 0,
-          coursePageViews: courseViews,
-          visitorGrowth: '+12% from last month', // You can calculate this based on daily data
-          courseViewsGrowth: '+8% from last week'
-        }));
+          setAnalyticsData(prev => ({
+            ...prev,
+            totalVisitors: analyticsDataResponse.totalViews || 0,
+            coursePageViews: courseViews,
+            visitorGrowth: '+12% from last month',
+            courseViewsGrowth: '+8% from last week'
+          }));
+        }
+      } catch (analyticsError) {
+        console.error('Error fetching analytics:', analyticsError);
       }
 
     } catch (error) {
       console.error('Error fetching analytics data:', error);
-
-      // Fallback to basic data if analytics fails
-      setAnalyticsData(prev => ({
+    }
         ...prev,
         totalVisitors: 0,
         coursePageViews: 0,
@@ -1107,7 +1131,11 @@ export default function AdminDashboard() {
   const openCourseModal = (course?: Course) => {
     if (course) {
       setEditingCourse(course);
-      setCourseForm(course);
+      // Extract IDs from potentially populated university objects to prevent 400 errors
+      const universityIds = (course.offeredByUniversities || []).map((u: any) =>
+        typeof u === 'string' ? u : u._id
+      );
+      setCourseForm({ ...course, offeredByUniversities: universityIds });
     } else {
       setEditingCourse(null);
       resetCourseForm();
