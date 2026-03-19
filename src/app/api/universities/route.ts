@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
 import University from '@/models/University';
-import { writeFileSync, existsSync, mkdirSync, unlinkSync } from 'fs';
-import { join } from 'path';
 
 // GET - Fetch all universities
 export async function GET() {
@@ -22,14 +20,6 @@ export async function GET() {
 // POST - Create new university
 export async function POST(request: NextRequest) {
   try {
-    const conn = await connectDB();
-    if (!conn) {
-      return NextResponse.json({ 
-        success: false, 
-        error: 'Database connection failed. Please try again later.' 
-      }, { status: 503 });
-    }
-    
     const body = await request.json();
     console.log('Received university data:', body);
     
@@ -58,14 +48,21 @@ export async function POST(request: NextRequest) {
       }, { status: 400 });
     }
     
+    const conn = await connectDB();
+    if (!conn) {
+      return NextResponse.json({ 
+        success: false, 
+        error: 'Database connection failed. Please try again later.' 
+      }, { status: 503 });
+    }
+    
     const university = new University(body);
     await university.save();
     console.log('University saved successfully:', university._id);
-    // Dynamic pages are now handled by src/app/universities/[slug]/page.tsx
+    
     return NextResponse.json({ 
       success: true, 
       university,
-      pageCreated: true,
       message: 'University created successfully'
     });
   } catch (error: any) {
@@ -80,19 +77,19 @@ export async function POST(request: NextRequest) {
 // PUT - Update university
 export async function PUT(request: NextRequest) {
   try {
+    const body = await request.json();
+    const { _id, ...updateData } = body;
+
+    if (!_id) {
+      return NextResponse.json({ success: false, error: 'University ID is required' }, { status: 400 });
+    }
+
     const conn = await connectDB();
     if (!conn) {
       return NextResponse.json({ 
         success: false, 
         error: 'Database connection failed. Please try again later.' 
       }, { status: 503 });
-    }
-    
-    const body = await request.json();
-    const { _id, ...updateData } = body;
-
-    if (!_id) {
-      return NextResponse.json({ success: false, error: 'University ID is required' }, { status: 400 });
     }
 
     const university = await University.findByIdAndUpdate(_id, updateData, { new: true });
@@ -103,7 +100,6 @@ export async function PUT(request: NextRequest) {
     return NextResponse.json({ 
       success: true, 
       university,
-      pageUpdated: true,
       message: 'University updated successfully'
     });
   } catch (error: any) {
@@ -115,7 +111,6 @@ export async function PUT(request: NextRequest) {
 // DELETE - Delete university
 export async function DELETE(request: NextRequest) {
   try {
-    await connectDB();
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
 
@@ -123,11 +118,18 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ success: false, error: 'University ID is required' }, { status: 400 });
     }
 
+    const conn = await connectDB();
+    if (!conn) {
+      return NextResponse.json({ 
+        success: false, 
+        error: 'Database connection failed. Please try again later.' 
+      }, { status: 503 });
+    }
+
     await University.findByIdAndDelete(id);
 
     return NextResponse.json({ 
       success: true, 
-      pageDeleted: true,
       message: 'University deleted successfully'
     });
   } catch (error) {

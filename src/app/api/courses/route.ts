@@ -1,9 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
 import Course from '@/models/Course';
-import University from '@/models/University';
-import { writeFileSync, existsSync, mkdirSync, unlinkSync } from 'fs';
-import { join } from 'path';
 
 // GET - Fetch all courses
 export async function GET() {
@@ -23,14 +20,6 @@ export async function GET() {
 // POST - Create new course
 export async function POST(request: NextRequest) {
   try {
-    const conn = await connectDB();
-    if (!conn) {
-      return NextResponse.json({ 
-        success: false, 
-        error: 'Database connection failed. Please try again later.' 
-      }, { status: 503 });
-    }
-    
     const body = await request.json();
     console.log('Received course data:', body);
     
@@ -66,19 +55,24 @@ export async function POST(request: NextRequest) {
       }, { status: 400 });
     }
     
+    // Connect to database
+    const conn = await connectDB();
+    if (!conn) {
+      return NextResponse.json({ 
+        success: false, 
+        error: 'Database connection failed. Please try again later.' 
+      }, { status: 503 });
+    }
+    
     // Create course in database
     const course = new Course(body);
     await course.save();
     
-    // Explicitly populate for page generation
-    const populatedCourse = await Course.findById(course._id).populate('offeredByUniversities', 'name location url logo placeholderBg');
     console.log('Course saved successfully:', course._id);
 
-    // Dynamic pages are now handled by src/app/courses/[slug]/page.tsx
     return NextResponse.json({ 
       success: true, 
       course,
-      pageCreated: true,
       message: 'Course created successfully'
     });
   } catch (error: any) {
@@ -103,14 +97,6 @@ export async function POST(request: NextRequest) {
 // PUT - Update course
 export async function PUT(request: NextRequest) {
   try {
-    const conn = await connectDB();
-    if (!conn) {
-      return NextResponse.json({ 
-        success: false, 
-        error: 'Database connection failed. Please try again later.' 
-      }, { status: 503 });
-    }
-    
     const body = await request.json();
     const { _id, ...updateData } = body;
 
@@ -118,16 +104,22 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ success: false, error: 'Course ID is required' }, { status: 400 });
     }
 
+    const conn = await connectDB();
+    if (!conn) {
+      return NextResponse.json({ 
+        success: false, 
+        error: 'Database connection failed. Please try again later.' 
+      }, { status: 503 });
+    }
+
     const course = await Course.findByIdAndUpdate(_id, updateData, { new: true }).populate('offeredByUniversities', 'name location url logo placeholderBg');
     if (!course) {
       return NextResponse.json({ success: false, error: 'Course not found' }, { status: 404 });
     }
 
-    // Dynamic pages are now handled by src/app/courses/[slug]/page.tsx
     return NextResponse.json({ 
       success: true, 
       course,
-      pageUpdated: true,
       message: 'Course updated successfully'
     });
   } catch (error: any) {
@@ -142,7 +134,6 @@ export async function PUT(request: NextRequest) {
 // DELETE - Delete course
 export async function DELETE(request: NextRequest) {
   try {
-    await connectDB();
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
 
@@ -150,11 +141,18 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ success: false, error: 'Course ID is required' }, { status: 400 });
     }
 
+    const conn = await connectDB();
+    if (!conn) {
+      return NextResponse.json({ 
+        success: false, 
+        error: 'Database connection failed. Please try again later.' 
+      }, { status: 503 });
+    }
+
     await Course.findByIdAndDelete(id);
 
     return NextResponse.json({ 
       success: true, 
-      pageDeleted: true, 
       message: 'Course deleted successfully'
     });
   } catch (error) {
