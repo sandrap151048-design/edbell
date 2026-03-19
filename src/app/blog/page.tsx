@@ -145,26 +145,18 @@ export default function Center() {
                   </div>
                 </div>
                 
-                <div className="space-y-4 px-2">
-                  <div className="space-y-1">
-                    <p className="text-[9px] font-black text-[var(--primary)] uppercase tracking-widest">{i === 0 ? 'Administration' : i === 1 ? 'Operations' : 'Academic COE'}</p>
-                    <h3 className="text-lg lg:text-xl font-black text-[var(--text-heading)] uppercase tracking-tighter">{centre.name}</h3>
-                  </div>
-                  
-                  <div className="space-y-3">
-                    {centre.manager && (
-                      <div className="flex items-center space-x-2 text-xs text-[var(--primary)] font-black uppercase mb-2">
-                        <Users className="h-3 w-3" />
-                        <span>{centre.manager.name} — {centre.manager.position}</span>
-                      </div>
-                    )}
-                    {/* Removed Location as per instructions */}
-                    <div className="flex items-center space-x-3 text-sm text-[var(--text-primary)] font-light">
-                      <Phone className="h-4 w-4 text-[var(--primary)]" />
-                      <span>{centre.phone}</span>
+                <div className="space-y-4 px-2 text-center">
+                  {centre.manager && (
+                    <div className="space-y-3">
+                       <h3 className="text-2xl lg:text-3xl xl:text-4xl font-black text-[var(--text-heading)] uppercase tracking-tighter italic font-serif">
+                         {centre.manager.name}
+                       </h3>
+                       <div className="inline-flex items-center space-x-2 bg-[var(--primary)]/10 border border-[var(--primary)]/20 rounded-full px-4 py-1.5 backdrop-blur-3xl">
+                         <Users className="h-3 w-3 text-[var(--primary)]" />
+                         <span className="text-[10px] font-black text-[var(--primary)] uppercase tracking-[0.3em]">{centre.manager.position}</span>
+                       </div>
                     </div>
-                  </div>
-
+                  )}
                   <Link href="/contact" className="inline-flex items-center text-[var(--primary)] font-black text-[10px] uppercase tracking-widest hover:translate-x-2 transition-transform">
                     Initialize Contact <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
