@@ -27,7 +27,7 @@ export default function About() {
   }, []);
   const timeline = [
     { year: "2016", title: "EC HUB", desc: "The foundation of our educational vision was laid with the launch of EC Hub, centering academic support." },
-    { year: "2024", title: "EDBELL GENESIS", desc: "Official launch of EdBell in Kerala. Core mission parameters established for high-performance learning." },
+    { year: "2024", title: "Edbelledu Solutions", desc: "Official launch of EdBell in Kerala. Core mission parameters established for high-performance learning." },
     { year: "2025", title: "ECOSYSTEM_v1", desc: "Edbell Digital Portal deployed for global operations and student synchronization." },
     { year: "FUTURE", title: "GLOBAL_EXPANSION", desc: "Scaling across every domestic and international educational zone." }
   ];
