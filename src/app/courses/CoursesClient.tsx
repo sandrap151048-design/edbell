@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import Newsletter from '@/components/Newsletter';
-import { BookOpen, Clock, Award, CheckCircle, GraduationCap, ArrowRight, Sparkles, Filter, Search, Zap, Building2 } from 'lucide-react';
+import { BookOpen, Clock, Award, CheckCircle, GraduationCap, ArrowRight, Sparkles, Filter, Search, Zap } from 'lucide-react';
 
 interface Course {
   _id?: string;
@@ -15,13 +15,6 @@ interface Course {
   fees?: string;
   eligibility?: string;
   description: string;
-  offeredByUniversities?: {
-    _id: string;
-    name: string;
-    location?: string;
-    url?: string;
-    logo?: string;
-  }[];
 }
 
 
@@ -210,17 +203,9 @@ export default function CoursesClient() {
                     </div>
 
                     <div className="relative z-10 flex-1">
-                      <h4 className="text-2xl font-black text-[var(--text-heading)] mb-2 tracking-tighter group-hover:text-[var(--primary)] transition-colors uppercase leading-tight">
+                      <h4 className="text-2xl font-black text-[var(--text-heading)] mb-4 tracking-tighter group-hover:text-[var(--primary)] transition-colors uppercase leading-tight">
                         {course.name}
                       </h4>
-                      {course.offeredByUniversities && course.offeredByUniversities.length > 0 && (
-                        <div className="flex items-center space-x-2 mb-4 text-[var(--primary)]">
-                          <Building2 className="h-3.5 w-3.5 opacity-70" />
-                          <span className="text-[10px] font-black uppercase tracking-widest bg-[var(--primary)]/5 px-2 py-1 rounded-md border border-[var(--primary)]/10">
-                            {course.offeredByUniversities[0].name}
-                          </span>
-                        </div>
-                      )}
                       <p className="text-[var(--text-primary)] font-light text-sm leading-relaxed mb-8">
                         {course.description}
                       </p>
