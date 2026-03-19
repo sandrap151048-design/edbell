@@ -51,9 +51,13 @@ export default function Center() {
     {
       name: "COE CENTRE - KOCHI",
       location: "MG Road, Ravipuram, Kochi, Kerala",
-      phone: "+91 92413 0060",
+      phone: "+91 924130060",
       email: "kochi@edbelledusolutions.com",
-      image: "/kochi-centre.png"
+      image: "/kochi-director.jpg",
+      manager: {
+        name: "Rashid",
+        position: "Director"
+      }
     }
   ];
 
