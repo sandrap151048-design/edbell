@@ -603,6 +603,11 @@ export default function AdminDashboard() {
       });
       const data = await response.json();
 
+      if (!response.ok) {
+        alert(`❌ Error creating course: ${data.error || 'Server error'}`);
+        return;
+      }
+
       if (data.success) {
         setCourses([...courses, data.course]);
         setShowCourseModal(false);
@@ -639,6 +644,11 @@ export default function AdminDashboard() {
         body: JSON.stringify({ ...courseForm, _id: editingCourse?._id })
       });
       const data = await response.json();
+
+      if (!response.ok) {
+        alert(`❌ Error updating course: ${data.error || 'Server error'}`);
+        return;
+      }
 
       if (data.success && editingCourse) {
         setCourses(courses.map(c => c._id === editingCourse._id ? { ...courseForm, _id: editingCourse._id } : c));
@@ -728,6 +738,11 @@ export default function AdminDashboard() {
       });
       const data = await response.json();
 
+      if (!response.ok) {
+        alert(`❌ Error creating university: ${data.error || 'Server error'}`);
+        return;
+      }
+
       if (data.success) {
         setUniversities([...universities, data.university]);
         setShowUniversityModal(false);
@@ -768,6 +783,11 @@ export default function AdminDashboard() {
         body: JSON.stringify({ ...universityForm, _id: editingUniversity?._id })
       });
       const data = await response.json();
+
+      if (!response.ok) {
+        alert(`❌ Error updating university: ${data.error || 'Server error'}`);
+        return;
+      }
 
       if (data.success && editingUniversity) {
         setUniversities(universities.map(u => u._id === editingUniversity._id ? { ...universityForm, _id: editingUniversity._id } : u));

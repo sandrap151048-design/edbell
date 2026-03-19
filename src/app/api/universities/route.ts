@@ -22,7 +22,13 @@ export async function GET() {
 // POST - Create new university
 export async function POST(request: NextRequest) {
   try {
-    await connectDB();
+    const conn = await connectDB();
+    if (!conn) {
+      return NextResponse.json({ 
+        success: false, 
+        error: 'Database connection failed. Please try again later.' 
+      }, { status: 503 });
+    }
     
     const body = await request.json();
     console.log('Received university data:', body);
@@ -74,9 +80,20 @@ export async function POST(request: NextRequest) {
 // PUT - Update university
 export async function PUT(request: NextRequest) {
   try {
-    await connectDB();
+    const conn = await connectDB();
+    if (!conn) {
+      return NextResponse.json({ 
+        success: false, 
+        error: 'Database connection failed. Please try again later.' 
+      }, { status: 503 });
+    }
+    
     const body = await request.json();
     const { _id, ...updateData } = body;
+
+    if (!_id) {
+      return NextResponse.json({ success: false, error: 'University ID is required' }, { status: 400 });
+    }
 
     const university = await University.findByIdAndUpdate(_id, updateData, { new: true });
     if (!university) {

@@ -23,7 +23,13 @@ export async function GET() {
 // POST - Create new course
 export async function POST(request: NextRequest) {
   try {
-    await connectDB();
+    const conn = await connectDB();
+    if (!conn) {
+      return NextResponse.json({ 
+        success: false, 
+        error: 'Database connection failed. Please try again later.' 
+      }, { status: 503 });
+    }
     
     const body = await request.json();
     console.log('Received course data:', body);
@@ -97,10 +103,20 @@ export async function POST(request: NextRequest) {
 // PUT - Update course
 export async function PUT(request: NextRequest) {
   try {
-    await connectDB();
+    const conn = await connectDB();
+    if (!conn) {
+      return NextResponse.json({ 
+        success: false, 
+        error: 'Database connection failed. Please try again later.' 
+      }, { status: 503 });
+    }
     
     const body = await request.json();
     const { _id, ...updateData } = body;
+
+    if (!_id) {
+      return NextResponse.json({ success: false, error: 'Course ID is required' }, { status: 400 });
+    }
 
     const course = await Course.findByIdAndUpdate(_id, updateData, { new: true }).populate('offeredByUniversities', 'name location url logo placeholderBg');
     if (!course) {
