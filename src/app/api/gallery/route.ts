@@ -1,20 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { connectToDatabase } from '@/lib/mongodb';
 import Gallery from '@/models/Gallery';
-import { upload, deleteUploadedFile, getFileUrl } from '@/lib/upload';
-import { promisify } from 'util';
-
-// Convert multer middleware to work with Next.js
-const runMiddleware = (req: any, res: any, fn: any) => {
-  return new Promise((resolve, reject) => {
-    fn(req, res, (result: any) => {
-      if (result instanceof Error) {
-        return reject(result);
-      }
-      return resolve(result);
-    });
-  });
-};
 
 // GET - Fetch all gallery images
 export async function GET(request: NextRequest) {
@@ -135,35 +121,19 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Save file to uploads directory
+    // Convert file to base64 for storage
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
+    const base64String = buffer.toString('base64');
+    const mimeType = file.type;
+    const dataUrl = `data:${mimeType};base64,${base64String}`;
     
-    // Generate unique filename
-    const timestamp = Date.now();
-    const randomSuffix = Math.round(Math.random() * 1E9);
-    const fileExtension = file.name.split('.').pop();
-    const sanitizedTitle = title.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
-    const filename = `${sanitizedTitle}-${timestamp}-${randomSuffix}.${fileExtension}`;
-    
-    // Ensure uploads directory exists
-    const fs = require('fs');
-    const path = require('path');
-    const uploadsDir = path.join(process.cwd(), 'public', 'uploads', 'gallery');
-    if (!fs.existsSync(uploadsDir)) {
-      fs.mkdirSync(uploadsDir, { recursive: true });
-    }
-    
-    // Write file
-    const filePath = path.join(uploadsDir, filename);
-    fs.writeFileSync(filePath, buffer);
-    
-    // Create gallery entry
+    // Create gallery entry with base64 encoded image
     const galleryImage = new Gallery({
       title: title.trim(),
       description: description.trim(),
       category,
-      imageUrl: `/uploads/gallery/${filename}`,
+      imageUrl: dataUrl,
       imageAlt: title.trim(),
       location: location?.trim() || undefined,
       eventDate: eventDate ? new Date(eventDate) : new Date(),
@@ -317,15 +287,7 @@ export async function DELETE(request: NextRequest) {
       );
     }
     
-    // Delete the physical file
-    if (image.imageUrl.startsWith('/uploads/')) {
-      const filename = image.imageUrl.split('/').pop();
-      if (filename) {
-        deleteUploadedFile(filename);
-      }
-    }
-    
-    // Delete from database
+    // Delete from database (no file system cleanup needed for base64 images)
     await Gallery.findByIdAndDelete(id);
     
     return NextResponse.json({
