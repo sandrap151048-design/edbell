@@ -138,11 +138,6 @@ export default function Center() {
                     alt={centre.name}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
                   />
-                  <div className="absolute top-4 right-4 z-20">
-                     <div className="p-3 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl">
-                        <Navigation className="h-5 w-5 text-white" />
-                     </div>
-                  </div>
                 </div>
                 
                 <div className="space-y-4 px-2 text-center">
