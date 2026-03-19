@@ -152,14 +152,10 @@ export default function Center() {
                          {centre.manager.name}
                        </h3>
                        <div className="inline-flex items-center space-x-2 bg-[var(--primary)]/10 border border-[var(--primary)]/20 rounded-full px-4 py-1.5 backdrop-blur-3xl">
-                         <Users className="h-3 w-3 text-[var(--primary)]" />
                          <span className="text-[10px] font-black text-[var(--primary)] uppercase tracking-[0.3em]">{centre.manager.position}</span>
                        </div>
                     </div>
                   )}
-                  <Link href="/contact" className="inline-flex items-center text-[var(--primary)] font-black text-[10px] uppercase tracking-widest hover:translate-x-2 transition-transform">
-                    Initialize Contact <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
                 </div>
               </div>
             ))}
