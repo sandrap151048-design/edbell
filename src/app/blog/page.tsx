@@ -115,8 +115,8 @@ export default function Center() {
         <div className="max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-12 space-y-16">
           <div className="flex flex-col lg:flex-row items-end justify-between gap-6">
             <div className="space-y-2">
-              <p className="text-[9px] sm:text-[10px] font-black text-[var(--primary)] uppercase tracking-[0.3em]">Infrastructure_Pulse</p>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-black text-[var(--text-heading)] uppercase tracking-tighter">Strategic Locations</h2>
+              <p className="text-[9px] sm:text-[10px] font-black text-[var(--primary)] uppercase tracking-[0.3em]">Institutional_Council</p>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-black text-[var(--text-heading)] uppercase tracking-tighter">Our Leadership Team</h2>
             </div>
           </div>
 
@@ -150,10 +150,7 @@ export default function Center() {
                         <span>{centre.manager.name} — {centre.manager.position}</span>
                       </div>
                     )}
-                    <div className="flex items-start space-x-3 text-sm text-[var(--text-primary)] font-light">
-                      <MapPin className="h-4 w-4 text-[var(--primary)] flex-shrink-0 mt-0.5" />
-                      <span>{centre.location}</span>
-                    </div>
+                    {/* Removed Location as per instructions */}
                     <div className="flex items-center space-x-3 text-sm text-[var(--text-primary)] font-light">
                       <Phone className="h-4 w-4 text-[var(--primary)]" />
                       <span>{centre.phone}</span>
