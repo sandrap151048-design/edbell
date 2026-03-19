@@ -65,7 +65,7 @@ export default function Center() {
     {
       title: "MOBILE PHONE TECHNICIAN",
       icon: <PhoneCall className="h-6 w-6" />,
-      desc: "Integrated communication support for students including device maintenance and digital access.",
+      desc: "EdBell's high-performance technical support facility, providing expert hardware maintenance and digital provisioning to ensure the continuous operational integrity of the student ecosystem.",
       href: "/mobiles"
     },
     {

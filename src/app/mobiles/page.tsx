@@ -24,10 +24,10 @@ export default function MobilePhones() {
   }, []);
 
   const features = [
-    { title: "Device Optimization", desc: "Configuration for optimized academic performance and educational access." },
-    { title: "Student Support Nodes", desc: "Dedicated line for technical and communication assistance." },
-    { title: "Security Matrix", desc: "Enhanced firewall and privacy settings for student data protection." },
-    { title: "Digital Infrastructure", desc: "Next-gen communication protocols for high-speed learning." }
+    { title: "Hardware Diagnostics", desc: "Expert analysis and repair of institutional mobile units used across the EdBell network." },
+    { title: "System Synchronization", desc: "Ensuring all student devices are perfectly configured for the latest academic portal updates." },
+    { title: "Connectivity Shield", desc: "Advanced hardware maintenance to prevent data loss and ensure long-term student connectivity." },
+    { title: "Priority Support Hub", desc: "Direct access to EdBell's hardware technicians for rapid turnaround on all equipment issues." }
   ];
 
   return (
@@ -56,7 +56,7 @@ export default function MobilePhones() {
           </h1>
           
           <p className="text-base sm:text-lg text-[var(--text-primary)] font-light max-w-2xl mx-auto leading-relaxed">
-            Integrated communication support for students including high-performance device maintenance, digital accessibility protocols, and seamless technical infrastructure within the EdBell ecosystem.
+            EdBell's high-performance technical support facility, providing expert hardware maintenance and digital provisioning to ensure the continuous operational integrity of the student ecosystem.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
