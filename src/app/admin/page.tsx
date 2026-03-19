@@ -542,13 +542,6 @@ export default function AdminDashboard() {
     } catch (error) {
       console.error('Error fetching analytics data:', error);
     }
-        ...prev,
-        totalVisitors: 0,
-        coursePageViews: 0,
-        visitorGrowth: 'No data',
-        courseViewsGrowth: 'No data'
-      }));
-    }
   };
 
   const getStatusColor = (status: string) => {
