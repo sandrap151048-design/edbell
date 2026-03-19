@@ -151,3 +151,60 @@ export async function GET(request: NextRequest) {
     );
   }
 }
+
+export async function PATCH(request: NextRequest) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
+    const body = await request.json();
+
+    if (!id) {
+      return NextResponse.json({ success: false, error: 'Contact ID is required' }, { status: 400 });
+    }
+
+    const connectDB = (await import('@/lib/mongodb')).default;
+    const Contact = (await import('@/models/Contact')).default;
+    await connectDB();
+
+    const updatedContact = await Contact.findByIdAndUpdate(
+      id,
+      { $set: { ...body, updatedAt: new Date() } },
+      { new: true }
+    );
+
+    if (!updatedContact) {
+      return NextResponse.json({ success: false, error: 'Contact not found' }, { status: 404 });
+    }
+
+    return NextResponse.json({ success: true, contact: updatedContact });
+  } catch (error) {
+    console.error('Error updating contact:', error);
+    return NextResponse.json({ success: false, error: 'Failed to update contact' }, { status: 500 });
+  }
+}
+
+export async function DELETE(request: NextRequest) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
+
+    if (!id) {
+      return NextResponse.json({ success: false, error: 'Contact ID is required' }, { status: 400 });
+    }
+
+    const connectDB = (await import('@/lib/mongodb')).default;
+    const Contact = (await import('@/models/Contact')).default;
+    await connectDB();
+
+    const deletedContact = await Contact.findByIdAndDelete(id);
+
+    if (!deletedContact) {
+      return NextResponse.json({ success: false, error: 'Contact not found' }, { status: 404 });
+    }
+
+    return NextResponse.json({ success: true, message: 'Contact deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting contact:', error);
+    return NextResponse.json({ success: false, error: 'Failed to delete contact' }, { status: 500 });
+  }
+}

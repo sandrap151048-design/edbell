@@ -317,7 +317,7 @@ export default function AdminDashboard() {
 
   const navigationItems = [
     { id: 'my-courses', name: 'My Enrolled Courses', icon: <BookOpen className="h-5 w-5" />, description: 'View your enrolled courses' },
-    { id: 'contacts', name: 'Contact Management', icon: <MessageCircle className="h-5 w-5" />, description: 'Manage inquiries and messages' },
+    { id: 'contacts', name: 'Contact Enquiries', icon: <MessageCircle className="h-5 w-5" />, description: 'Manage inquiries and messages' },
     { id: 'applications', name: 'Course Applications', icon: <GraduationCap className="h-5 w-5" />, description: 'Track course applies & enquiries' },
     { id: 'subscribers', name: 'Newsletter Subscribers', icon: <Mail className="h-5 w-5" />, description: 'Manage newsletter subscriptions' },
     { id: 'hero-images', name: 'Hero Images', icon: <Award className="h-5 w-5" />, description: 'Manage hero section images' },
@@ -415,6 +415,50 @@ export default function AdminDashboard() {
       console.error('Error fetching contacts:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const updateContactStatus = async (id: string, newStatus: string) => {
+    try {
+      const response = await fetch(`/api/contact?id=${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ status: newStatus })
+      });
+      const data = await response.json();
+      if (data.success) {
+        setContacts(contacts.map(c => c._id === id ? { ...c, status: newStatus as any } : c));
+        if (selectedContact?._id === id) {
+          setSelectedContact({ ...selectedContact, status: newStatus });
+        }
+        alert('✅ Contact status updated successfully!');
+      }
+    } catch (error) {
+      console.error('Error updating contact status:', error);
+      alert('Error updating contact status. Please try again.');
+    }
+  };
+
+  const deleteContactSubmission = async (id: string) => {
+    if (!confirm('Are you sure you want to delete this contact enquiry? This action cannot be undone.')) return;
+
+    try {
+      const response = await fetch(`/api/contact?id=${id}`, {
+        method: 'DELETE'
+      });
+      const data = await response.json();
+      if (data.success) {
+        setContacts(contacts.filter(c => c._id !== id));
+        if (selectedContact?._id === id) {
+          setSelectedContact(null);
+        }
+        alert('✅ Contact enquiry deleted successfully!');
+      }
+    } catch (error) {
+      console.error('Error deleting contact enquiry:', error);
+      alert('Error deleting contact enquiry. Please try again.');
     }
   };
 
@@ -1391,26 +1435,20 @@ export default function AdminDashboard() {
               India
             </p>
           </div>
-          
           <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
             <div className="flex items-center space-x-3 mb-3">
               <Phone className="h-6 w-6 text-blue-200" />
               <h3 className="text-lg font-semibold text-white">Phone</h3>
             </div>
-            <p className="text-blue-100 text-sm font-mono">
-              +91 92413 0060
-            </p>
+            <p className="text-blue-100 text-sm font-mono">+91 92413 0060</p>
             <p className="text-blue-200 text-xs mt-2">Direct Logic Support</p>
           </div>
-          
           <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
             <div className="flex items-center space-x-3 mb-3">
               <Mail className="h-6 w-6 text-blue-200" />
               <h3 className="text-lg font-semibold text-white">Email</h3>
             </div>
-            <p className="text-blue-100 text-sm break-all">
-              info@edbelledusolutions.com
-            </p>
+            <p className="text-blue-100 text-sm break-all">info@edbelledusolutions.com</p>
             <p className="text-blue-200 text-xs mt-2">Secure Document Sync</p>
           </div>
         </div>
@@ -1428,46 +1466,16 @@ export default function AdminDashboard() {
                     <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
                     <span className="text-sm text-gray-600">{contacts.length} Total Contacts</span>
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                    <span className="text-sm text-gray-600">
-                      {subscriptions.length} Total Subscribers
-                    </span>
-                  </div>
                 </div>
               </div>
               <div className="flex items-center space-x-2">
-                <button
-                  onClick={async () => {
-                    setLoading(true);
-                    try {
-                      await Promise.all([
-                        fetchContacts(),
-                        fetchAnalyticsData()
-                      ]);
-                    } catch (error) {
-                      console.error('Error refreshing data:', error);
-                    } finally {
-                      setLoading(false);
-                    }
-                  }}
-                  disabled={loading}
-                  className={`flex items-center space-x-2 px-3 py-1 rounded-md text-sm transition-colors ${loading
-                    ? 'bg-gray-400 cursor-not-allowed text-white'
-                    : 'bg-blue-600 hover:bg-blue-700 text-white'
-                    }`}
-                >
-                  <BarChart3 className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
-                  <span>{loading ? 'Refreshing...' : 'Refresh'}</span>
-                </button>
-                <Filter className="h-4 w-4 text-gray-400" />
                 <select
                   value={selectedStatus}
                   onChange={(e) => {
                     setSelectedStatus(e.target.value);
                     setCurrentPage(1);
                   }}
-                  className="border border-gray-300 rounded-md px-3 py-1 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="bg-slate-900 border border-white/10 rounded-md px-3 py-1 text-sm text-white focus:ring-2 focus:ring-blue-500"
                 >
                   <option value="all">All Status</option>
                   <option value="new">New</option>
@@ -1480,322 +1488,106 @@ export default function AdminDashboard() {
 
           <div className="divide-y divide-white/5">
             {loading ? (
-              <div className="p-8 text-center">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-                <p className="mt-2 text-slate-400">Loading contacts...</p>
-              </div>
+              <div className="p-8 text-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div></div>
             ) : contacts.length === 0 ? (
-              <div className="p-8 text-center">
-                <MessageCircle className="h-12 w-12 text-slate-700 mx-auto mb-4" />
-                <p className="text-slate-400">No contact submissions found</p>
-              </div>
+              <div className="p-8 text-center text-slate-500 italic">No contact submissions found</div>
             ) : (
               contacts.map((contact) => (
                 <div
                   key={contact._id}
-                  className={`p-4 hover:bg-white/[0.02] cursor-pointer transition-colors ${selectedContact?._id === contact._id ? 'bg-blue-600/10 border-l-4 border-blue-500' : ''
-                    }`}
+                  className={`p-4 hover:bg-white/[0.02] cursor-pointer transition-colors ${selectedContact?._id === contact._id ? 'bg-blue-600/10 border-l-4 border-blue-500' : ''}`}
                   onClick={() => setSelectedContact(contact)}
                 >
                   <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center space-x-3 mb-2">
-                        <h3 className="font-medium text-gray-900">{contact.name}</h3>
-                        <span className={`px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(contact.status)}`}>
-                          {contact.status.replace('-', ' ')}
+                    <div>
+                      <div className="flex items-center space-x-3 mb-1">
+                        <h3 className="font-medium text-white">{contact.name}</h3>
+                        <span className={`px-2 py-0.5 text-[10px] font-black uppercase tracking-widest rounded-full ${getStatusColor(contact.status)}`}>
+                          {contact.status}
                         </span>
-                        {subscriptions.some(sub => sub.email === contact.email) && (
-                          <span className="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
-                            Newsletter Subscriber
-                          </span>
-                        )}
                       </div>
-                      <p className="text-sm text-gray-600 mb-1">{contact.subject}</p>
-                      <div className="flex items-center space-x-4 text-xs text-gray-500">
-                        <div className="flex items-center space-x-1">
-                          <Mail className="h-3 w-3" />
-                          <span>{contact.email}</span>
-                        </div>
-                        <div className="flex items-center space-x-1">
-                          <Calendar className="h-3 w-3" />
-                          <span>{formatDate(contact.createdAt)}</span>
-                        </div>
-                      </div>
+                      <p className="text-sm text-slate-400 mb-1">{contact.subject}</p>
+                      <p className="text-xs text-slate-500">{contact.email} • {formatDate(contact.createdAt)}</p>
                     </div>
-                    <Eye className="h-4 w-4 text-gray-400" />
+                    <Eye className="h-4 w-4 text-slate-600" />
                   </div>
                 </div>
               ))
             )}
           </div>
-
-          {/* Pagination */}
-          {totalPages > 1 && (
-            <div className="p-4 border-t bg-gray-50">
-              <div className="flex items-center justify-between">
-                <button
-                  onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                  disabled={currentPage === 1}
-                  className="px-3 py-1 text-sm border border-gray-300 rounded-md hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  Previous
-                </button>
-                <span className="text-sm text-gray-600">
-                  Page {currentPage} of {totalPages}
-                </span>
-                <button
-                  onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-                  disabled={currentPage === totalPages}
-                  className="px-3 py-1 text-sm border border-gray-300 rounded-md hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  Next
-                </button>
-              </div>
-            </div>
-          )}
         </div>
       </div>
 
-      {/* Contact Details */}
+      {/* Details View */}
       <div className="lg:col-span-1">
-        <div className="bg-[#050B14] rounded-lg shadow-2xl border border-white/5">
+        <div className="bg-[#050B14] rounded-lg shadow-2xl border border-white/5 min-h-[400px]">
           {selectedContact ? (
             <div className="p-6">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-lg font-semibold text-white">Contact Details</h3>
-                <span className={`px-3 py-1 text-sm font-semibold rounded-full ${getStatusColor(selectedContact.status)}`}>
-                  {selectedContact.status.replace('-', ' ')}
-                </span>
+                <h3 className="text-lg font-black text-white uppercase tracking-tight">Enquiry Details</h3>
+                <button onClick={() => setSelectedContact(null)} className="text-slate-500 hover:text-white"><X className="h-5 w-5" /></button>
               </div>
 
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
-                  <div className="flex items-center space-x-2">
-                    <User className="h-4 w-4 text-gray-400" />
-                    <span className="text-gray-900">{selectedContact.name}</span>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                  <div className="flex items-center space-x-2">
-                    <Mail className="h-4 w-4 text-gray-400" />
-                    <a href={`mailto:${selectedContact.email}`} className="text-blue-600 hover:text-blue-800">
-                      {selectedContact.email}
-                    </a>
-                  </div>
-                  {/* Newsletter Subscription Status */}
-                  <div className="mt-2 ml-6">
-                    {subscriptions.find(sub => sub.email === selectedContact.email) ? (
-                      <div className="bg-green-50 border border-green-200 rounded-lg p-3 mt-2">
-                        <div className="flex items-center space-x-2 mb-2">
-                          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                          <span className="text-sm font-medium text-green-800">Newsletter Subscriber</span>
-                        </div>
-                        <div className="text-xs text-green-600 space-y-1">
-                          {(() => {
-                            const subscription = subscriptions.find(sub => sub.email === selectedContact.email);
-                            return (
-                              <>
-                                <p><strong>Subscribed:</strong> {new Date(subscription?.subscribedAt || '').toLocaleDateString('en-IN', {
-                                  year: 'numeric',
-                                  month: 'long',
-                                  day: 'numeric',
-                                  hour: '2-digit',
-                                  minute: '2-digit'
-                                })}</p>
-                                {subscription?.name && (
-                                  <p><strong>Subscriber Name:</strong> {subscription.name}</p>
-                                )}
-                                <p><strong>Status:</strong> {subscription?.isActive !== false ? 'Active' : 'Inactive'}</p>
-                                <p><strong>Source:</strong> Newsletter Signup</p>
-                              </>
-                            );
-                          })()}
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 mt-2">
-                        <div className="flex items-center space-x-2 mb-1">
-                          <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
-                          <span className="text-sm text-gray-600">Not subscribed to newsletter</span>
-                        </div>
-                        <button
-                          onClick={() => {
-                            const subscribeUrl = `${window.location.origin}/?subscribe=true&email=${encodeURIComponent(selectedContact.email)}&name=${encodeURIComponent(selectedContact.name)}`;
-                            navigator.clipboard.writeText(subscribeUrl);
-                            alert('✅ Newsletter signup link copied to clipboard');
-                          }}
-                          className="text-xs text-blue-600 hover:text-blue-800 underline"
-                        >
-                          Copy newsletter signup link
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
-                  <div className="flex items-center space-x-2">
-                    <Phone className="h-4 w-4 text-gray-400" />
-                    <a href={`tel:${selectedContact.phone}`} className="text-blue-600 hover:text-blue-800">
-                      {selectedContact.phone}
-                    </a>
-                  </div>
-                </div>
-
-                {selectedContact.serviceInterest && (
+              <div className="space-y-6">
+                <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Service Interest</label>
-                    <span className="text-gray-900">{selectedContact.serviceInterest}</span>
+                    <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Name</label>
+                    <p className="text-sm font-bold text-white">{selectedContact.name}</p>
                   </div>
-                )}
+                  <div>
+                    <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Phone</label>
+                    <a href={`tel:${selectedContact.phone}`} className="text-sm font-bold text-blue-400 hover:underline">{selectedContact.phone}</a>
+                  </div>
+                </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Subject</label>
-                  <span className="text-gray-900">{selectedContact.subject}</span>
+                  <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Email</label>
+                  <p className="text-sm font-bold text-slate-300">{selectedContact.email}</p>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
-                  <div className="bg-gray-50 p-3 rounded-md">
-                    <p className="text-gray-900 text-sm whitespace-pre-wrap">{selectedContact.message}</p>
+                  <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Message</label>
+                  <div className="bg-white/[0.03] rounded-xl p-4 border border-white/5 mt-1">
+                    <p className="text-sm text-slate-300 whitespace-pre-wrap">{selectedContact.message}</p>
                   </div>
                 </div>
 
-                <div className="pt-4 border-t">
-                  <div className="text-xs text-gray-500 space-y-1">
-                    <p>Submitted: {formatDate(selectedContact.createdAt)}</p>
-                    <p>Updated: {formatDate(selectedContact.updatedAt)}</p>
-                  </div>
-                </div>
+                <div className="pt-6 border-t border-white/5 space-y-4">
+                  <h4 className="text-xs font-black text-slate-500 uppercase tracking-widest text-center">Management Actions</h4>
+                  
+                  <div className="grid grid-cols-1 gap-3">
+                    <div className="flex flex-col space-y-2">
+                       <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Update Status</label>
+                       <select 
+                        value={selectedContact.status}
+                        onChange={(e) => updateContactStatus(selectedContact._id, e.target.value)}
+                        className="w-full bg-slate-800 border border-white/10 rounded-lg px-3 py-2 text-sm text-white"
+                      >
+                        <option value="new">New</option>
+                        <option value="in-progress">In Progress</option>
+                        <option value="resolved">Resolved</option>
+                      </select>
+                    </div>
 
-                <div className="pt-4 space-y-2">
-                  <button
-                    onClick={() => {
-                      const subject = `Re: ${selectedContact.subject}`;
-                      const body = `Dear ${selectedContact.name},\n\nThank you for contacting EDBELL EDUSOLUTIONS LLP regarding "${selectedContact.subject}".\n\n${selectedContact.serviceInterest ? `We understand you are interested in our ${selectedContact.serviceInterest} services. ` : ''}We have received your inquiry and would be happy to assist you.\n\nOriginal Message:\n"${selectedContact.message}"\n\nWe will provide you with detailed information and guidance. Please feel free to reach out if you have any additional questions.\n\nBest regards,\nEDBELL EDUSOLUTIONS LLP Team\nPhone: +91 98765 43210\nEmail: info@edbelledusolutions.com`;
-
-                      const mailtoLink = `mailto:${selectedContact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-                      window.open(mailtoLink, '_blank');
-                    }}
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors flex items-center justify-center space-x-2"
-                  >
-                    <Mail className="h-4 w-4" />
-                    <span>Reply via Email</span>
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      // Clean phone number for calling
-                      const cleanPhone = selectedContact.phone.replace(/[^\d+]/g, '');
-                      const telLink = `tel:${cleanPhone}`;
-                      window.open(telLink, '_self');
-                    }}
-                    className="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md transition-colors flex items-center justify-center space-x-2"
-                  >
-                    <Phone className="h-4 w-4" />
-                    <span>Call Contact</span>
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      // WhatsApp message
-                      const cleanPhone = selectedContact.phone.replace(/[^\d+]/g, '');
-                      const message = `Hello ${selectedContact.name}, this is EDBELL EDUSOLUTIONS LLP. We received your inquiry about "${selectedContact.subject}" and would like to assist you with ${selectedContact.serviceInterest ? `our ${selectedContact.serviceInterest} services` : 'your educational needs'}. When would be a good time to discuss your requirements?`;
-                      const whatsappLink = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
-                      window.open(whatsappLink, '_blank');
-                    }}
-                    className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2 px-4 rounded-md transition-colors flex items-center justify-center space-x-2"
-                  >
-                    <MessageCircle className="h-4 w-4" />
-                    <span>WhatsApp Contact</span>
-                  </button>
-
-                  <div className="pt-2 border-t">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Update Status</label>
-                    <select
-                      value={selectedContact.status}
-                      onChange={async (e) => {
-                        const newStatus = e.target.value as 'new' | 'in-progress' | 'resolved';
-                        try {
-                          // Update contact status
-                          const response = await fetch(`/api/contact/${selectedContact._id}`, {
-                            method: 'PATCH',
-                            headers: {
-                              'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({ status: newStatus }),
-                          });
-
-                          if (response.ok) {
-                            // Update local state
-                            setSelectedContact({ ...selectedContact, status: newStatus } as any);
-                            setContacts(contacts.map(c =>
-                              c._id === selectedContact._id ? { ...c, status: newStatus } : c
-                            ) as any);
-                            alert(`✅ Contact status updated to "${newStatus.replace('-', ' ')}"`);
-                          } else {
-                            alert('❌ Failed to update contact status');
-                          }
-                        } catch (error) {
-                          console.error('Error updating contact status:', error);
-                          alert('❌ Error updating contact status');
-                        }
-                      }}
-                      className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    >
-                      <option value="new">New</option>
-                      <option value="in-progress">In Progress</option>
-                      <option value="resolved">Resolved</option>
-                    </select>
-                  </div>
-
-                  <div className="pt-2">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Quick Actions</label>
-                    <div className="grid grid-cols-2 gap-2">
+                    <div className="grid grid-cols-2 gap-2 mt-2">
                       <button
                         onClick={() => {
-                          const contactInfo = `Contact: ${selectedContact.name}\nEmail: ${selectedContact.email}\nPhone: ${selectedContact.phone}\nSubject: ${selectedContact.subject}\nService Interest: ${selectedContact.serviceInterest || 'Not specified'}\nMessage: ${selectedContact.message}`;
-                          navigator.clipboard.writeText(contactInfo);
-                          alert('✅ Contact details copied to clipboard');
+                          const subject = `Re: ${selectedContact.subject}`;
+                          const body = `Dear ${selectedContact.name},\n\nRegarding your inquiry...`;
+                          window.open(`mailto:${selectedContact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`);
                         }}
-                        className="px-3 py-2 text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-md transition-colors"
+                        className="flex items-center justify-center space-x-2 bg-blue-600/10 hover:bg-blue-600 text-blue-500 hover:text-white border border-blue-500/20 py-2 rounded-lg transition-all"
                       >
-                        Copy Details
+                        <Mail className="h-4 w-4" />
+                        <span className="text-xs font-bold">Reply</span>
                       </button>
+                      
                       <button
-                        onClick={() => {
-                          const printWindow = window.open('', '_blank');
-                          if (printWindow) {
-                            printWindow.document.write(`
-                              <html>
-                                <head><title>Contact Details - ${selectedContact.name}</title></head>
-                                <body style="font-family: Arial, sans-serif; padding: 20px;">
-                                  <h2>Contact Details</h2>
-                                  <p><strong>Name:</strong> ${selectedContact.name}</p>
-                                  <p><strong>Email:</strong> ${selectedContact.email}</p>
-                                  <p><strong>Phone:</strong> ${selectedContact.phone}</p>
-                                  <p><strong>Subject:</strong> ${selectedContact.subject}</p>
-                                  <p><strong>Service Interest:</strong> ${selectedContact.serviceInterest || 'Not specified'}</p>
-                                  <p><strong>Status:</strong> ${selectedContact.status.replace('-', ' ')}</p>
-                                  <p><strong>Submitted:</strong> ${formatDate(selectedContact.createdAt)}</p>
-                                  <p><strong>Message:</strong></p>
-                                  <div style="background: #f5f5f5; padding: 10px; border-radius: 5px;">
-                                    ${selectedContact.message.replace(/\n/g, '<br>')}
-                                  </div>
-                                </body>
-                              </html>
-                            `);
-                            printWindow.document.close();
-                            printWindow.print();
-                          }
-                        }}
-                        className="px-3 py-2 text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-md transition-colors"
+                        onClick={() => deleteContactSubmission(selectedContact._id)}
+                        className="flex items-center justify-center space-x-2 bg-red-600/10 hover:bg-red-600 text-red-500 hover:text-white border border-red-500/20 py-2 rounded-lg transition-all"
                       >
-                        Print Details
+                        <Trash2 className="h-4 w-4" />
+                        <span className="text-xs font-bold">Delete</span>
                       </button>
                     </div>
                   </div>
@@ -1803,9 +1595,9 @@ export default function AdminDashboard() {
               </div>
             </div>
           ) : (
-            <div className="p-8 text-center">
-              <MessageCircle className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-              <p className="text-gray-600">Select a contact to view details</p>
+            <div className="p-12 text-center">
+              <MessageCircle className="h-12 w-12 text-slate-700 mx-auto mb-4" />
+              <p className="text-slate-500 font-medium">Select an inquiry to view details</p>
             </div>
           )}
         </div>
@@ -1889,6 +1681,7 @@ export default function AdminDashboard() {
                      <th className="p-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">Student</th>
                      <th className="p-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">Course</th>
                      <th className="p-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">Type</th>
+                     <th className="p-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">Phone</th>
                      <th className="p-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">Status</th>
                      <th className="p-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">Date</th>
                    </tr>
@@ -1896,7 +1689,7 @@ export default function AdminDashboard() {
                  <tbody className="divide-y divide-white/5">
                    {courseApplications.length === 0 ? (
                      <tr>
-                       <td colSpan={5} className="p-12 text-center text-slate-500 font-medium italic">
+                       <td colSpan={6} className="p-12 text-center text-slate-500 font-medium italic">
                          No applications or enquiries found.
                        </td>
                      </tr>
@@ -1927,6 +1720,9 @@ export default function AdminDashboard() {
                            }`}>
                              {app.type}
                            </span>
+                         </td>
+                         <td className="p-4">
+                            <a href={`tel:${app.phone}`} className="text-xs font-bold text-blue-400 hover:underline">{app.phone}</a>
                          </td>
                          <td className="p-4">
                             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tight">{app.status}</span>
