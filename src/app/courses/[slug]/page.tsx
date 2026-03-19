@@ -130,11 +130,8 @@ export default async function CoursePage({ params }: Props) {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link href="/contact" className="bg-blue-600 hover:bg-blue-700 text-white font-black py-4 px-10 rounded-2xl transition-all duration-300 text-center shadow-[0_0_30px_rgba(37,99,235,0.3)] uppercase tracking-widest text-xs flex items-center justify-center">
-                  Enroll Program <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-                <Link href="/contact" className="bg-white/5 hover:bg-white/10 border border-white/10 text-white font-black py-4 px-10 rounded-2xl transition-all duration-300 text-center uppercase tracking-widest text-xs">
-                  Request Info
+                <Link href="/contact" className="bg-blue-600 hover:bg-blue-700 text-white font-black py-4 px-12 rounded-2xl transition-all duration-300 text-center shadow-[0_0_30px_rgba(37,99,235,0.3)] uppercase tracking-widest text-xs flex items-center justify-center">
+                  Enroll Now <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </div>
             </div>
