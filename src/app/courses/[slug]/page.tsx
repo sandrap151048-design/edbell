@@ -14,7 +14,13 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   await connectDB();
-  const course = await Course.findOne({ url: `/courses/${slug}` });
+  const course = await Course.findOne({ 
+    $or: [
+      { url: `/courses/${slug}` },
+      { url: `courses/${slug}` },
+      { url: new RegExp(`^/courses/${slug}$`, 'i') }
+    ]
+  }).lean();
   
   if (!course) {
     return {
