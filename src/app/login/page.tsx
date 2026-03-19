@@ -189,22 +189,7 @@ export default function Login() {
               )}
             </button>
 
-            <div className="relative my-8">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-white/[0.05]"></div>
-              </div>
-              <div className="relative flex justify-center text-xs uppercase tracking-widest font-bold">
-                <span className="bg-[#0b101d] px-4 text-slate-500">Need access?</span>
-              </div>
-            </div>
-
-            <Link
-              href="/signup"
-              className="w-full flex justify-center items-center py-4 px-4 bg-white/[0.03] border border-white/[0.1] text-sm font-bold rounded-xl text-slate-100 hover:bg-white/[0.08] transition-all duration-300 transform hover:-translate-y-0.5"
-            >
-              <User className="h-4 w-4 mr-2" />
-              Create Partner Account
-            </Link>
+            {/* Signup options removed per user request */}
           </form>
 
           <p className="mt-8 text-center text-xs text-slate-500 font-light">
