@@ -49,14 +49,14 @@ export default function MobilePhones() {
           </div>
           
           <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black uppercase tracking-tighter leading-[0.85] font-serif">
-            Student <br />
+            Mobile Phone <br />
             <span className="text-transparent bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text italic">
-              Communication
+              Technician
             </span>
           </h1>
           
           <p className="text-base sm:text-lg text-[var(--text-primary)] font-light max-w-2xl mx-auto leading-relaxed">
-            Provisioning high-performance communication hardware and technical support protocols to ensure seamless student connectivity within the EdBell ecosystem.
+            Integrated communication support for students including high-performance device maintenance, digital accessibility protocols, and seamless technical infrastructure within the EdBell ecosystem.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
