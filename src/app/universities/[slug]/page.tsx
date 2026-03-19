@@ -6,6 +6,7 @@ import University from '@/models/University';
 import Course from '@/models/Course';
 import { notFound } from 'next/navigation';
 import Newsletter from '@/components/Newsletter';
+import CourseApplyButton from '@/components/CourseApplyButton';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -118,9 +119,11 @@ export default async function UniversityPage({ params }: Props) {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Link href="/contact" className="bg-blue-600 hover:bg-blue-700 text-white font-black py-4 px-10 rounded-2xl transition-all duration-300 text-center shadow-[0_0_30px_rgba(37,99,235,0.3)] uppercase tracking-widest text-xs flex items-center justify-center">
-                  Apply Now <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
+                <CourseApplyButton 
+                  courseId={university._id}
+                  courseName={university.name}
+                  label="Apply Now"
+                />
                 {university.website && (
                   <a href={university.website.startsWith('http') ? university.website : `https://${university.website}`} target="_blank" rel="noopener noreferrer" className="bg-white/5 hover:bg-white/10 border border-white/10 text-white font-black py-4 px-10 rounded-2xl transition-all duration-300 text-center uppercase tracking-widest text-xs">
                     Official Website
@@ -235,9 +238,12 @@ export default async function UniversityPage({ params }: Props) {
               Connect with our senior admission architect to begin your enrollment procedure at {university.name}.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
-              <Link href="/contact" className="bg-blue-600 hover:bg-blue-700 text-white font-black py-5 px-12 rounded-2xl transition-all shadow-xl hover:shadow-blue-600/20 uppercase tracking-[0.2em] text-xs">
-                Contact Counselor
-              </Link>
+              <CourseApplyButton 
+                courseId={university._id}
+                courseName={university.name}
+                label="Apply Now"
+                className="bg-blue-600 hover:bg-blue-700 text-white font-black py-5 px-12 rounded-2xl transition-all shadow-xl hover:shadow-blue-600/20 uppercase tracking-[0.2em] text-xs flex items-center justify-center"
+              />
               <a href={`tel:+91924130060`} className="bg-white/5 hover:bg-white/10 border border-white/10 text-white font-black py-5 px-12 rounded-2xl transition-all uppercase tracking-[0.2em] text-xs flex items-center justify-center">
                 <Phone className="h-4 w-4 mr-2" /> Call Support
               </a>
