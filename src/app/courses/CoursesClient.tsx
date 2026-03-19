@@ -15,6 +15,12 @@ interface Course {
   fees?: string;
   eligibility?: string;
   description: string;
+  offeredByUniversities?: {
+    _id: string;
+    name: string;
+    location?: string;
+    url?: string;
+  }[];
 }
 
 
@@ -226,6 +232,15 @@ export default function CoursesClient() {
                         </div>
                         <span className="text-sm font-bold text-[var(--primary)]">{course.fees || 'TBA'}</span>
                       </div>
+                      {course.offeredByUniversities && course.offeredByUniversities.length > 0 && (
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-3 opacity-60">
+                            <GraduationCap className="h-4 w-4 text-[var(--primary)]" />
+                            <span className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest">University</span>
+                          </div>
+                          <span className="text-sm font-bold text-[var(--text-heading)]">{course.offeredByUniversities[0].name}</span>
+                        </div>
+                      )}
                     </div>
 
                     <div className="relative z-10 mt-10 w-full py-4 bg-[var(--surface-alt)] group-hover:bg-[var(--primary)] border border-[var(--border)] group-hover:border-[var(--primary)] rounded-2xl flex items-center justify-center space-x-3 transition-all duration-500">
