@@ -30,19 +30,43 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function CoursePage({ params }: Props) {
   const { slug } = await params;
-  await connectDB();
   
-  // Find course and populate universities
-  const rawCourse = await Course.findOne({ url: `/courses/${slug}` })
-    .populate('offeredByUniversities', 'name location url logo placeholderBg accreditation')
-    .lean();
+  // Initialize Database and Models
+  await connectDB();
+  const dbCourse = await Course.findOne({ 
+    $or: [
+      { url: `/courses/${slug}` },
+      { url: `courses/${slug}` },
+      { url: new RegExp(`^/courses/${slug}$`, 'i') }
+    ]
+  }).populate('offeredByUniversities').lean();
 
-  if (!rawCourse) {
+  if (!dbCourse) {
     notFound();
   }
 
-  // Ensure plain object serialization
-  const course = JSON.parse(JSON.stringify(rawCourse));
+  // Manually map to a plain object to ensure 100% serializability for RSC
+  const course = {
+    _id: String(dbCourse._id),
+    name: String(dbCourse.name || ''),
+    description: String(dbCourse.description || ''),
+    category: String(dbCourse.category || 'Undergraduate'),
+    duration: String(dbCourse.duration || '2 Years'),
+    fees: String(dbCourse.fees || 'TBA'),
+    eligibility: String(dbCourse.eligibility || 'Graduation'),
+    curriculum: String(dbCourse.curriculum || ''),
+    careerOpportunities: String(dbCourse.careerOpportunities || ''),
+    admissionProcess: String(dbCourse.admissionProcess || ''),
+    learningOutcomes: String(dbCourse.learningOutcomes || ''),
+    studyMaterials: String(dbCourse.studyMaterials || ''),
+    offeredByUniversities: (dbCourse.offeredByUniversities || []).map((uni: any) => ({
+      name: String(uni.name || 'Partner'),
+      location: String(uni.location || ''),
+      url: String(uni.url || '#'),
+      logo: String(uni.logo || ''),
+      accreditation: String(uni.accreditation || 'UGC Approved')
+    }))
+  };
 
   return (
     <div className="min-h-screen bg-[#030B1A] selection:bg-blue-500/30 overflow-hidden">

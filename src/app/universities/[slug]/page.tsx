@@ -29,15 +29,31 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function UniversityPage({ params }: Props) {
   const { slug } = await params;
+  
+  // Initialize Database and Models
   await connectDB();
-  const rawUniversity = await University.findOne({ url: `/universities/${slug}` }).lean();
+  const dbUni = await University.findOne({ 
+    $or: [
+      { url: `/universities/${slug}` },
+      { url: `universities/${slug}` },
+      { url: new RegExp(`^/universities/${slug}$`, 'i') }
+    ]
+  }).lean();
 
-  if (!rawUniversity) {
+  if (!dbUni) {
     notFound();
   }
 
-  // Ensure plain object serialization
-  const university = JSON.parse(JSON.stringify(rawUniversity));
+  // Manually map to a plain object to ensure 100% serializability for RSC
+  const university = {
+    _id: String(dbUni._id),
+    name: String(dbUni.name || 'University'),
+    description: String(dbUni.description || ''),
+    accreditation: String(dbUni.accreditation || 'UGC A++'),
+    established: String(dbUni.established || 'TBD'),
+    location: String(dbUni.location || 'India'),
+    website: String(dbUni.website || '')
+  };
 
   return (
     <div className="min-h-screen bg-[#030B1A] selection:bg-blue-500/30">
