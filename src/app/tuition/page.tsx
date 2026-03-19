@@ -65,7 +65,7 @@ export default function TuitionServices() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
              <Link href="/contact" className="px-10 py-4 bg-blue-600 rounded-2xl text-white font-black text-xs uppercase tracking-widest hover:shadow-[0_0_50px_rgba(37,99,235,0.4)] transition-all">
-                Enroll In Node
+                Contact Us
              </Link>
           </div>
         </div>

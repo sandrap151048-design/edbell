@@ -66,7 +66,7 @@ export default function SpokenEnglish() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
              <Link href="/contact" className="px-10 py-4 bg-indigo-600 rounded-full text-white font-black text-xs uppercase tracking-widest hover:shadow-[0_0_50px_rgba(79,70,229,0.4)] transition-all">
-                Initialize Coaching
+                Contact Us
              </Link>
           </div>
         </div>
