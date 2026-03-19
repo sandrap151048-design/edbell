@@ -33,12 +33,16 @@ export default async function CoursePage({ params }: Props) {
   await connectDB();
   
   // Find course and populate universities
-  const course = await Course.findOne({ url: `/courses/${slug}` })
-    .populate('offeredByUniversities', 'name location url logo placeholderBg accreditation');
+  const rawCourse = await Course.findOne({ url: `/courses/${slug}` })
+    .populate('offeredByUniversities', 'name location url logo placeholderBg accreditation')
+    .lean();
 
-  if (!course) {
+  if (!rawCourse) {
     notFound();
   }
+
+  // Ensure plain object serialization
+  const course = JSON.parse(JSON.stringify(rawCourse));
 
   return (
     <div className="min-h-screen bg-[#030B1A] selection:bg-blue-500/30 overflow-hidden">
@@ -152,27 +156,27 @@ export default async function CoursePage({ params }: Props) {
                      <h3 className="text-2xl font-black text-white uppercase tracking-tighter italic font-serif">Accredited Partners</h3>
                    </div>
                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                     {course.offeredByUniversities.map((uni: any, idx: number) => (
+                     {course.offeredByUniversities?.map((uni: any, idx: number) => (
                        <Link 
-                        href={uni.url || '#'} 
+                        href={uni?.url || '#'} 
                         key={idx} 
                         className="bg-[#0A1628] border border-white/5 rounded-3xl p-6 flex flex-col gap-4 hover:border-blue-500/50 transition-all group relative overflow-hidden"
                        >
                          <div className="absolute top-0 right-0 w-24 h-24 bg-blue-600/5 blur-[40px]"></div>
                          <div className="flex items-center gap-4">
-                           {uni.logo ? (
+                           {uni?.logo ? (
                             <img src={uni.logo} alt={uni.name} className="w-12 h-12 rounded-xl object-contain bg-white border border-white/10" />
                            ) : (
-                            <div className="w-12 h-12 rounded-xl bg-blue-600 flex items-center justify-center font-black text-white text-lg border border-white/10">{uni.name.charAt(0)}</div>
+                            <div className="w-12 h-12 rounded-xl bg-blue-600 flex items-center justify-center font-black text-white text-lg border border-white/10">{(uni?.name || 'U').charAt(0)}</div>
                            )}
                            <div className="flex-1 min-w-0">
-                             <h4 className="font-black text-white text-sm uppercase truncate tracking-tight">{uni.name}</h4>
-                             <p className="text-[8px] text-blue-400 font-bold uppercase tracking-widest mt-1">{uni.accreditation || 'UGC A++'}</p>
+                             <h4 className="font-black text-white text-sm uppercase truncate tracking-tight">{uni?.name || 'Partner University'}</h4>
+                             <p className="text-[8px] text-blue-400 font-bold uppercase tracking-widest mt-1">{uni?.accreditation || 'UGC A++'}</p>
                            </div>
                          </div>
                          <div className="flex items-center text-[#B0C4DE]/60 text-[9px] font-black uppercase tracking-widest">
                            <MapPin className="w-3 h-3 mr-1.5 text-blue-500" />
-                           {uni.location || 'GLOBAL_NODE'}
+                           {uni?.location || 'GLOBAL_NODE'}
                          </div>
                        </Link>
                      ))}

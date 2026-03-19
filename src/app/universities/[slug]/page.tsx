@@ -30,11 +30,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function UniversityPage({ params }: Props) {
   const { slug } = await params;
   await connectDB();
-  const university = await University.findOne({ url: `/universities/${slug}` });
+  const rawUniversity = await University.findOne({ url: `/universities/${slug}` }).lean();
 
-  if (!university) {
+  if (!rawUniversity) {
     notFound();
   }
+
+  // Ensure plain object serialization
+  const university = JSON.parse(JSON.stringify(rawUniversity));
 
   return (
     <div className="min-h-screen bg-[#030B1A] selection:bg-blue-500/30">
