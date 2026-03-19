@@ -80,11 +80,11 @@ const Footer = () => {
                   15/382, Calicut Tower, <br /> Kozhikode Road, Wayanad, Kerala
                 </div>
               </div>
-              <a href="tel:+919876543210" className="flex items-center space-x-4 text-left hover:opacity-80 transition-opacity">
+              <a href="tel:+91924130060" className="flex items-center space-x-4 text-left hover:opacity-80 transition-opacity">
                 <div className="w-10 h-10 bg-[var(--surface)] border border-[var(--border)] rounded-xl flex items-center justify-center text-[var(--primary)] shrink-0">
                   <Phone className="h-5 w-5" />
                 </div>
-                <div className="text-xs lg:text-sm font-bold text-[var(--text-primary)] tracking-tight">+91 98765 43210</div>
+                <div className="text-xs lg:text-sm font-bold text-[var(--text-primary)] tracking-tight">+91 92413 0060</div>
               </a>
               <a href="mailto:info@edbelledusolutions.com" className="flex items-center space-x-4 text-left hover:opacity-80 transition-opacity">
                 <div className="w-10 h-10 bg-[var(--surface)] border border-[var(--border)] rounded-xl flex items-center justify-center text-[var(--primary)] shrink-0">

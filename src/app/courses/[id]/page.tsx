@@ -492,7 +492,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
                 </p>
                 <div className="space-y-2">
                   <a
-                    href="tel:+919876543210"
+                    href="tel:+91924130060"
                     className="w-full bg-white text-blue-600 hover:bg-gray-100 font-semibold py-2 px-3 rounded-lg transition-colors flex items-center justify-center text-sm"
                   >
                     <Phone className="mr-2 h-3 w-3" />

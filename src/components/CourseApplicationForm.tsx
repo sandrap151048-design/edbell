@@ -77,9 +77,9 @@ export default function CourseApplicationForm({ courseId, courseName, isOpen, on
   };
 
   return (
-    <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
-      <div className="bg-white rounded-3xl w-full max-w-md overflow-hidden shadow-2xl border border-gray-100 animate-zoom-in">
-        <div className={`p-6 text-white ${type === 'apply' ? 'bg-[#2563EB]' : 'bg-[#1D4ED8]'}`}>
+    <div className="fixed inset-0 z-[1000] flex items-start justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in overflow-y-auto">
+      <div className="relative bg-white rounded-3xl w-full max-w-md shadow-2xl border border-gray-100 animate-zoom-in my-4 flex flex-col">
+        <div className={`p-6 text-white rounded-t-3xl ${type === 'apply' ? 'bg-[#2563EB]' : 'bg-[#1D4ED8]'}`}>
           <div className="flex justify-between items-center mb-2">
             <h3 className="text-xl font-black uppercase tracking-tight">
               {type === 'apply' ? 'Enroll Now' : 'Course Enquiry'}
@@ -91,7 +91,7 @@ export default function CourseApplicationForm({ courseId, courseName, isOpen, on
           <p className="text-blue-100 text-xs font-medium uppercase tracking-widest">{courseName}</p>
         </div>
 
-        <div className="p-8">
+        <div className="p-8 overflow-y-auto max-h-[calc(90vh-130px)]">
           {success ? (
             <div className="text-center py-10 space-y-4">
               <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto animate-bounce">

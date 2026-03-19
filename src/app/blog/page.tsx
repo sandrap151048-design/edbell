@@ -29,21 +29,21 @@ export default function Center() {
     {
       name: "HEAD OFFICE - KERALA",
       location: "15/382, Calicut Tower, Kozhikode Road, Wayanad, Kerala, India",
-      phone: "+91 98765 43210",
+      phone: "+91 92413 0060",
       email: "info@edbelledusolutions.com",
       image: "https://images.unsplash.com/photo-1577412647305-991150c7d163?auto=format&fit=crop&q=80&w=800&h=600"
     },
     {
       name: "REGIONAL CENTRE - CALICUT",
       location: "Building 4, Cyberpark Road, Nellikode, Kozhikode, Kerala",
-      phone: "+91 98765 43211",
+      phone: "+91 92413 0060",
       email: "calicut@edbelledusolutions.com",
       image: "/calicut-centre.png"
     },
     {
       name: "COE CENTRE - KOCHI",
       location: "MG Road, Ravipuram, Kochi, Kerala",
-      phone: "+91 98765 43212",
+      phone: "+91 92413 0060",
       email: "kochi@edbelledusolutions.com",
       image: "/kochi-centre.png"
     }

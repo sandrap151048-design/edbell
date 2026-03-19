@@ -229,14 +229,14 @@ export default async function UniversityPage({ params }: UniversityPageProps) {
             <div className="space-y-12">
               <div className="flex items-center space-x-4">
                 <GraduationCap className="h-6 w-6 text-[var(--primary)]" />
-                <h3 className="text-3xl font-black text-[var(--text-heading)] uppercase tracking-tighter">Academic Matrix</h3>
+                <h3 className="text-3xl font-black text-[var(--text-heading)] uppercase tracking-tighter">Offered Programs</h3>
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 {university.programs.map((p: string, i: number) => (
-                  <div key={i} className="bg-[var(--bg-primary)] border border-[var(--border)] rounded-3xl p-6 text-center hover:border-[var(--primary)]/30 transition-all cursor-default group shadow-sm">
+                  <Link key={i} href="/contact" className="bg-[var(--bg-primary)] border border-[var(--border)] rounded-3xl p-6 text-center hover:border-[var(--primary)] hover:shadow-lg transition-all group shadow-sm">
                     <p className="text-lg font-black text-[var(--text-heading)] group-hover:text-[var(--primary)] transition-colors uppercase">{p}</p>
-                    <span className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest block mt-2">Certified</span>
-                  </div>
+                    <span className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest block mt-2 group-hover:text-[var(--primary)]">Inquire Now</span>
+                  </Link>
                 ))}
               </div>
             </div>
@@ -245,17 +245,17 @@ export default async function UniversityPage({ params }: UniversityPageProps) {
             <div className="space-y-12">
               <div className="flex items-center space-x-4">
                 <TrendingUp className="h-6 w-6 text-[var(--primary)]" />
-                <h3 className="text-3xl font-black text-[var(--text-heading)] uppercase tracking-tighter">Budgetary Protocol</h3>
+                <h3 className="text-3xl font-black text-[var(--text-heading)] uppercase tracking-tighter">Fee Structure</h3>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 {Object.entries(university.feeStructure).map(([k, v]) => (
-                  <div key={k} className="bg-[var(--surface)]/20 border border-[var(--border)] rounded-[40px] p-10 flex items-center justify-between shadow-sm">
+                  <Link key={k} href="/contact" className="bg-[var(--surface)]/20 border border-[var(--border)] rounded-[40px] p-10 flex items-center justify-between shadow-sm hover:border-[var(--primary)]/50 transition-all group">
                     <div>
-                      <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest mb-2">{k} Deployment</p>
+                      <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest mb-2">{k} Program</p>
                       <p className="text-3xl font-black text-[var(--primary)]">{v as string}</p>
                     </div>
-                    <Zap className="h-8 w-8 text-[var(--bg-primary)] opacity-40" />
-                  </div>
+                    <Zap className="h-8 w-8 text-[var(--bg-primary)] opacity-40 group-hover:text-[var(--primary)] group-hover:opacity-100 transition-all" />
+                  </Link>
                 ))}
               </div>
             </div>
@@ -281,7 +281,7 @@ export default async function UniversityPage({ params }: UniversityPageProps) {
               <div className="space-y-4 pt-6">
                 <p className="text-[10px] font-black text-[var(--primary)] uppercase tracking-[0.4em] mb-4">Direct Terminal</p>
                 <div className="flex flex-col gap-3">
-                  <a href="tel:+919876543210" className="flex items-center justify-center space-x-3 py-4 bg-[var(--surface)] border border-[var(--border)] rounded-2xl text-[10px] font-black text-[var(--text-heading)] hover:bg-[var(--primary)] hover:text-white transition-all">
+                  <a href="tel:+91924130060" className="flex items-center justify-center space-x-3 py-4 bg-[var(--surface)] border border-[var(--border)] rounded-xl text-[10px] font-black text-[var(--text-heading)] hover:bg-[var(--primary)] hover:text-white transition-all">
                     <Phone className="h-4 w-4" />
                     <span>Call Advisor</span>
                   </a>

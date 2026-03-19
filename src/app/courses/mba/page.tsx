@@ -1,212 +1,27 @@
-import { NextRequest, NextResponse } from 'next/server';
-import connectDB from '@/lib/mongodb';
-import Course from '@/models/Course';
-import University from '@/models/University';
-import { writeFileSync, existsSync, mkdirSync, unlinkSync } from 'fs';
-import { join } from 'path';
-
-// GET - Fetch all courses
-export async function GET() {
-  try {
-    const conn = await connectDB();
-    if (!conn) {
-      return NextResponse.json({ success: true, courses: [], message: 'Database not configured' });
-    }
-    const courses = await Course.find({}).populate('offeredByUniversities', 'name location url logo placeholderBg').sort({ createdAt: -1 });
-    return NextResponse.json({ success: true, courses });
-  } catch (error) {
-    console.error('Error fetching courses:', error);
-    return NextResponse.json({ success: true, courses: [], message: 'Database connection issue' });
-  }
-}
-
-// POST - Create new course
-export async function POST(request: NextRequest) {
-  try {
-    await connectDB();
-    
-    const body = await request.json();
-    console.log('Received course data:', body);
-    
-    // Validate required fields
-    if (!body.name || !body.description || !body.category || !body.duration) {
-      return NextResponse.json({ 
-        success: false, 
-        error: 'Missing required fields: name, description, category, and duration are required' 
-      }, { status: 400 });
-    }
-
-    // Auto-generate URL if not provided
-    if (!body.url) {
-      body.url = '/courses/' + body.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
-    }
-
-    // Clean up empty strings for optional fields
-    const optionalFields = ['fees', 'eligibility', 'curriculum', 'careerOpportunities', 'admissionProcess', 
-                           'examPattern', 'studyMaterials', 'facultySupport', 'placementAssistance', 
-                           'certificationDetails', 'prerequisites', 'learningOutcomes'];
-    
-    optionalFields.forEach(field => {
-      if (body[field] === '') {
-        delete body[field];
-      }
-    });
-
-    // Ensure description has minimum length
-    if (body.description.length < 10) {
-      return NextResponse.json({ 
-        success: false, 
-        error: 'Description must be at least 10 characters long' 
-      }, { status: 400 });
-    }
-    
-    // Create course in database
-    const course = new Course(body);
-    await course.save();
-    
-    // Explicitly populate for page generation
-    const populatedCourse = await Course.findById(course._id).populate('offeredByUniversities', 'name location url logo placeholderBg');
-    console.log('Course saved successfully:', course._id);
-
-    // Generate course page file
-    const pageCreated = await generateCoursePage(populatedCourse || course);
-
-    return NextResponse.json({ 
-      success: true, 
-      course,
-      pageCreated,
-      message: 'Course created successfully'
-    });
-  } catch (error: any) {
-    console.error('Error creating course:', error);
-    
-    if (error.code === 11000) {
-      return NextResponse.json({ success: false, error: 'Course URL already exists' }, { status: 400 });
-    }
-    
-    if (error.name === 'ValidationError') {
-      const validationErrors = Object.values(error.errors).map((err: any) => err.message);
-      return NextResponse.json({ 
-        success: false, 
-        error: `Validation failed: ${validationErrors.join(', ')}` 
-      }, { status: 400 });
-    }
-    
-    return NextResponse.json({ success: false, error: `Failed to create course: ${error.message}` }, { status: 500 });
-  }
-}
-
-// PUT - Update course
-export async function PUT(request: NextRequest) {
-  try {
-    await connectDB();
-    
-    const body = await request.json();
-    const { _id, ...updateData } = body;
-
-    const course = await Course.findByIdAndUpdate(_id, updateData, { new: true }).populate('offeredByUniversities', 'name location url logo placeholderBg');
-    if (!course) {
-      return NextResponse.json({ success: false, error: 'Course not found' }, { status: 404 });
-    }
-
-    // Update course page file
-    const pageUpdated = await generateCoursePage(course);
-
-    return NextResponse.json({ 
-      success: true, 
-      course,
-      pageUpdated,
-      message: 'Course updated successfully'
-    });
-  } catch (error: any) {
-    console.error('Error updating course:', error);
-    if (error.code === 11000) {
-      return NextResponse.json({ success: false, error: 'Course URL already exists' }, { status: 400 });
-    }
-    return NextResponse.json({ success: false, error: 'Failed to update course' }, { status: 500 });
-  }
-}
-
-// DELETE - Delete course
-export async function DELETE(request: NextRequest) {
-  try {
-    await connectDB();
-    
-    const { searchParams } = new URL(request.url);
-    const id = searchParams.get('id');
-
-    if (!id) {
-      return NextResponse.json({ success: false, error: 'Course ID is required' }, { status: 400 });
-    }
-
-    const course = await Course.findById(id);
-    if (!course) {
-      return NextResponse.json({ success: false, error: 'Course not found' }, { status: 404 });
-    }
-
-    // Delete course page file
-    const pageDeleted = await deleteCoursePage(course.url);
-
-    // Delete from database
-    await Course.findByIdAndDelete(id);
-
-    return NextResponse.json({ 
-      success: true, 
-      pageDeleted,
-      message: 'Course deleted successfully'
-    });
-  } catch (error) {
-    console.error('Error deleting course:', error);
-    return NextResponse.json({ success: false, error: 'Failed to delete course' }, { status: 500 });
-  }
-}
-
-// Helper function to generate course page
-async function generateCoursePage(course: any): Promise<boolean> {
-  try {
-    const courseSlug = course.url.replace('/courses/', '');
-    const coursesDir = join(process.cwd(), 'src', 'app', 'courses');
-    const courseDir = join(coursesDir, courseSlug);
-    
-    if (!existsSync(courseDir)) {
-      mkdirSync(courseDir, { recursive: true });
-    }
-
-    const escapedName = course.name.replace(/'/g, "\\'");
-    const escapedDesc = course.description.replace(/'/g, "\\'");
-    const escapedFees = (course.fees || 'Contact for details').replace(/'/g, "\\'");
-    const escapedElig = (course.eligibility || 'As per university norms').replace(/'/g, "\\'");
-    const escapedCurriculum = (course.curriculum || 'Comprehensive curriculum designed by industry experts').replace(/'/g, "\\'");
-    const escapedCareer = (course.careerOpportunities || 'Wide range of career opportunities in various sectors').replace(/'/g, "\\'");
-    const escapedAdmission = (course.admissionProcess || 'Simple online admission process with document verification').replace(/'/g, "\\'");
-    const escapedStudy = (course.studyMaterials || 'Digital study materials and online resources provided').replace(/'/g, "\\'");
-    const escapedFaculty = (course.facultySupport || 'Experienced faculty with industry expertise').replace(/'/g, "\\'");
-    const escapedOutcomes = (course.learningOutcomes || 'Comprehensive knowledge and practical skills in the field').replace(/'/g, "\\'");
-
-    const pageContent = `import { Metadata } from 'next';
+import { Metadata } from 'next';
 import Link from 'next/link';
 import { Clock, Users, Award, CheckCircle, ArrowLeft, Star, Building2, MapPin } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: '${escapedName} - Online Degree Program | EDBELL EDUSOLUTIONS',
-  description: '${escapedDesc}',
+  title: 'mba - Online Degree Program | EDBELL EDUSOLUTIONS',
+  description: 'awsdfgvbhjnm',
 };
 
 export default function CoursePage() {
   const course = {
-    name: "${escapedName}",
-    category: "${course.category}",
-    duration: "${course.duration}",
-    fees: "${escapedFees}",
-    eligibility: "${escapedElig}",
-    description: "${escapedDesc}",
-    curriculum: "${escapedCurriculum}",
-    careerOpportunities: "${escapedCareer}",
-    admissionProcess: "${escapedAdmission}",
-    studyMaterials: "${escapedStudy}",
-    facultySupport: "${escapedFaculty}",
-    learningOutcomes: "${escapedOutcomes}",
-    offeredByUniversities: ${JSON.stringify(course.offeredByUniversities || [])}
+    name: "mba",
+    category: "Postgraduate",
+    duration: "2",
+    fees: "1000000",
+    eligibility: "degree",
+    description: "awsdfgvbhjnm",
+    curriculum: "semester 1",
+    careerOpportunities: "business",
+    admissionProcess: "Simple online admission process with document verification",
+    studyMaterials: "Digital study materials and online resources provided",
+    facultySupport: "Experienced faculty with industry expertise",
+    learningOutcomes: "Comprehensive knowledge and practical skills in the field",
+    offeredByUniversities: [{"_id":"69b7a5e829f5bbf714e97a28","url":"/universities/symbiosis-management","location":"Pune, India","name":"Symbiosis (Management Specialists)"}]
   };
 
   return (
@@ -294,7 +109,7 @@ export default function CoursePage() {
                             <img src={uni.logo} alt={uni.name} className="max-w-full max-h-full object-contain" />
                           </div>
                         ) : (
-                          <div className={\`w-12 h-12 rounded-lg \${uni.placeholderBg || 'bg-gradient-to-br from-indigo-500 to-blue-600'} text-white flex items-center justify-center font-bold text-lg flex-shrink-0 shadow-lg border border-white/10\`}>
+                          <div className={`w-12 h-12 rounded-lg ${uni.placeholderBg || 'bg-gradient-to-br from-indigo-500 to-blue-600'} text-white flex items-center justify-center font-bold text-lg flex-shrink-0 shadow-lg border border-white/10`}>
                             {uni.name.charAt(0)}
                           </div>
                         )}
@@ -392,41 +207,4 @@ export default function CoursePage() {
       </section>
     </div>
   );
-}`;
-
-    const pageFilePath = join(courseDir, 'page.tsx');
-    writeFileSync(pageFilePath, pageContent, 'utf8');
-    
-    return true;
-  } catch (error) {
-    console.error('Error generating course page:', error);
-    return false;
-  }
-}
-
-// Helper function to delete course page
-async function deleteCoursePage(courseUrl: string): Promise<boolean> {
-  try {
-    const courseSlug = courseUrl.replace('/courses/', '');
-    const courseDir = join(process.cwd(), 'src', 'app', 'courses', courseSlug);
-    const pageFilePath = join(courseDir, 'page.tsx');
-    
-    if (existsSync(pageFilePath)) {
-      unlinkSync(pageFilePath);
-      try {
-        const fs = require('fs');
-        const files = fs.readdirSync(courseDir);
-        if (files.length === 0) {
-          fs.rmdirSync(courseDir);
-        }
-      } catch (e) {
-        // Directory not empty or other error, ignore
-      }
-      return true;
-    }
-    return false;
-  } catch (error) {
-    console.error('Error deleting course page:', error);
-    return false;
-  }
 }

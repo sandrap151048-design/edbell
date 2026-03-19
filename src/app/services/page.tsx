@@ -160,7 +160,19 @@ export default function Services() {
       const response = await fetch('/api/services');
       const data = await response.json();
       if (data.success && data.services.length > 0) {
-        setDisplayingServices(data.services);
+        // Merge static and dynamic services, prioritizing dynamic ones if serviceId matches
+        const combined = [...STATIC_SERVICES];
+        
+        data.services.forEach((dynService: Service) => {
+          const index = combined.findIndex(s => s.serviceId === dynService.serviceId);
+          if (index !== -1) {
+            combined[index] = dynService;
+          } else {
+            combined.push(dynService);
+          }
+        });
+        
+        setDisplayingServices(combined);
       }
     } catch (error) {
       console.error('Error fetching services:', error);

@@ -75,7 +75,11 @@ const CourseSchema = new mongoose.Schema({
   learningOutcomes: {
     type: String,
     trim: true
-  }
+  },
+  offeredByUniversities: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'University'
+  }]
 }, {
   timestamps: true
 });

@@ -67,6 +67,7 @@ interface Course {
   // Enhanced course details
   curriculum?: string;
   careerOpportunities?: string;
+  offeredByUniversities?: string[]; // IDs of universities
   createdAt?: string;
   updatedAt?: string;
 }
@@ -199,7 +200,8 @@ export default function AdminDashboard() {
     fees: '',
     eligibility: '',
     curriculum: '',
-    careerOpportunities: ''
+    careerOpportunities: '',
+    offeredByUniversities: []
   });
   const [universityForm, setUniversityForm] = useState<University>({
     name: '',
@@ -319,8 +321,6 @@ export default function AdminDashboard() {
     { id: 'applications', name: 'Course Applications', icon: <GraduationCap className="h-5 w-5" />, description: 'Track course applies & enquiries' },
     { id: 'subscribers', name: 'Newsletter Subscribers', icon: <Mail className="h-5 w-5" />, description: 'Manage newsletter subscriptions' },
     { id: 'hero-images', name: 'Hero Images', icon: <Award className="h-5 w-5" />, description: 'Manage hero section images' },
-    { id: 'blogs', name: 'Center Management', icon: <Building2 className="h-5 w-5" />, description: 'Create and manage study Center' },
-    { id: 'Center-manage', name: 'Center Page UI', icon: <FileText className="h-5 w-5" />, description: 'Manage Center Hero & UI' },
     { id: 'services', name: 'Service Management', icon: <Briefcase className="h-5 w-5" />, description: 'Manage website services' },
     { id: 'gallery', name: 'Gallery Management', icon: <Award className="h-5 w-5" />, description: 'Manage photo gallery' },
     { id: 'add-course', name: 'Add Course', icon: <BookOpen className="h-5 w-5" />, description: 'Create and manage courses' },
@@ -348,10 +348,6 @@ export default function AdminDashboard() {
           fetchCourses();
         } else if (activeSection === 'add-university') {
           fetchUniversities();
-        } else if (activeSection === 'blogs') {
-          fetchBlogs();
-        } else if (activeSection === 'gallery') {
-          fetchGalleryImages();
         } else if (activeSection === 'services') {
           fetchServices();
         } else if (activeSection === 'applications' || activeSection === 'my-courses') {
@@ -627,7 +623,8 @@ export default function AdminDashboard() {
       fees: '',
       eligibility: '',
       curriculum: '',
-      careerOpportunities: ''
+      careerOpportunities: '',
+      offeredByUniversities: []
     });
   };
 
@@ -1072,6 +1069,10 @@ export default function AdminDashboard() {
       setEditingCourse(null);
       resetCourseForm();
     }
+    // Ensure universities are loaded for the picker
+    if (universities.length === 0) {
+      fetchUniversities();
+    }
     setShowCourseModal(true);
   };
 
@@ -1129,6 +1130,14 @@ export default function AdminDashboard() {
 
   const createService = async () => {
     try {
+      if (!serviceForm.title.trim()) {
+        alert('❌ Service title is required');
+        return;
+      }
+      if (!serviceForm.description.trim()) {
+        alert('❌ Service description is required');
+        return;
+      }
       const response = await fetch('/api/services', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -1140,10 +1149,12 @@ export default function AdminDashboard() {
         setShowServiceModal(false);
         resetServiceForm();
         alert('✅ Service created successfully!');
+      } else {
+        alert(`❌ Error creating service: ${data.error}`);
       }
     } catch (error) {
       console.error('Error creating service:', error);
-      alert('❌ Error creating service');
+      alert('❌ Error creating service. Please try again.');
     }
   };
 
@@ -1201,73 +1212,6 @@ export default function AdminDashboard() {
     });
   };
 
-  const renderCENTERection = () => (
-    <div className="space-y-6">
-      <div className="bg-white rounded-3xl border border-gray-100 p-8 shadow-sm">
-        <div className="flex justify-between items-center mb-6">
-          <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-1">Center Page Management</h2>
-            <p className="text-gray-500 text-sm">Update the high-end hero section for Study Center</p>
-          </div>
-        </div>
-
-        <div className="space-y-4">
-          <label className="block text-xs font-black text-gray-400 uppercase tracking-widest">Hero Background Matrix</label>
-          <div className="flex items-center space-x-6">
-             <div className="w-48 h-32 rounded-2xl bg-gray-100 border-2 border-dashed border-gray-200 overflow-hidden relative group">
-                {CenterHeroPreview ? (
-                  <img src={CenterHeroPreview} className="w-full h-full object-cover" />
-                ) : (
-                  <div className="flex flex-col items-center justify-center h-full text-gray-400">
-                    <Building2 className="h-8 w-8 mb-2" />
-                    <span className="text-[10px] font-bold">NO_DATA</span>
-                  </div>
-                )}
-             </div>
-             <div className="flex-1 space-y-3">
-                <input 
-                  type="file" 
-                  accept="image/*"
-                  onChange={(e) => {
-                    const file = e.target.files?.[0];
-                    if (file) {
-                      setCenterHeroFile(file);
-                      setCenterHeroPreview(URL.createObjectURL(file));
-                    }
-                  }}
-                  className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-black file:bg-blue-50 file:text-blue-600 hover:file:bg-blue-100"
-                />
-                <button 
-                  onClick={() => alert("Image Upload Logic (Backend Integration Required)")}
-                  className="px-6 py-2 bg-blue-600 text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-blue-700 transition-all active:scale-95"
-                >
-                  Sync Hero Matrix
-                </button>
-             </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="bg-white rounded-3xl border border-gray-100 p-8 shadow-sm">
-        <h3 className="text-xl font-bold text-gray-900 mb-6">Support Modules</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {[
-            { title: "Mobile Phones", icon: <PhoneCall className="h-5 w-5" /> },
-            { title: "Spoken English", icon: <Languages className="h-5 w-5" /> },
-            { title: "Tuition Services", icon: <BookOpenCheck className="h-5 w-5" /> }
-          ].map((item, i) => (
-            <div key={i} className="p-6 bg-gray-50 rounded-2xl border border-gray-100 border-dashed hover:border-blue-500 transition-colors">
-              <div className="w-10 h-10 bg-white rounded-xl shadow-sm flex items-center justify-center text-blue-600 mb-4">
-                {item.icon}
-              </div>
-              <h4 className="text-sm font-black text-gray-900 uppercase tracking-tight">{item.title}</h4>
-              <p className="text-[10px] text-gray-500 mt-2 font-medium">Auto-synced with Center page matrix.</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
 
   const openServiceModal = (service?: Service) => {
     if (service) {
@@ -1287,13 +1231,22 @@ export default function AdminDashboard() {
           <h2 className="text-2xl font-bold text-gray-900 mb-1">Service Management</h2>
           <p className="text-gray-500 text-sm">Configure major service categories and their interactive features</p>
         </div>
-        <button
-          onClick={() => openServiceModal()}
-          className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl font-bold transition-all shadow-lg shadow-blue-500/20"
-        >
-          <Plus className="h-4 w-4" />
-          <span>Add Service Node</span>
-        </button>
+        <div className="flex items-center space-x-3">
+          <button
+            onClick={fetchServices}
+            className="p-2 bg-gray-100 hover:bg-gray-200 rounded-xl text-gray-600 transition-all"
+            title="Refresh Services"
+          >
+            <RefreshCw className={`h-5 w-5 ${loading ? 'animate-spin' : ''}`} />
+          </button>
+          <button
+            onClick={() => openServiceModal()}
+            className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl font-bold transition-all shadow-lg shadow-blue-500/20"
+          >
+            <Plus className="h-4 w-4" />
+            <span>Add Service Node</span>
+          </button>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -1309,16 +1262,18 @@ export default function AdminDashboard() {
                 <div className="w-10 h-10 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center text-white">
                   <Cpu className="h-5 w-5" />
                 </div>
-                <div className="flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="flex space-x-2">
                   <button 
                     onClick={() => openServiceModal(service)}
-                    className="p-1.5 bg-white/20 hover:bg-white/40 rounded-lg text-white transition-colors"
+                    className="p-2 bg-blue-500/10 hover:bg-blue-500/20 rounded-xl text-blue-500 transition-colors border border-blue-500/20"
+                    title="Edit Service"
                   >
                     <Edit className="h-4 w-4" />
                   </button>
                   <button 
                     onClick={() => deleteService(service._id!)}
-                    className="p-1.5 bg-red-500/20 hover:bg-red-500/40 rounded-lg text-white transition-colors"
+                    className="p-2 bg-red-500/10 hover:bg-red-500/20 rounded-xl text-red-500 transition-colors border border-red-500/20"
+                    title="Delete Service"
                   >
                     <Trash2 className="h-4 w-4" />
                   </button>
@@ -1443,7 +1398,7 @@ export default function AdminDashboard() {
               <h3 className="text-lg font-semibold text-white">Phone</h3>
             </div>
             <p className="text-blue-100 text-sm font-mono">
-              +91 98765 43210
+              +91 92413 0060
             </p>
             <p className="text-blue-200 text-xs mt-2">Direct Logic Support</p>
           </div>
@@ -4631,9 +4586,9 @@ export default function AdminDashboard() {
 
       {/* Course Modal */}
       {showCourseModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-2 sm:p-4">
-          <div className="bg-white rounded-lg shadow-xl w-full max-w-4xl max-h-[95vh] overflow-y-auto">
-            <div className="sticky top-0 bg-white p-4 sm:p-6 border-b border-gray-200 z-10">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999] flex items-start justify-center p-4 overflow-y-auto">
+          <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-4xl my-4 flex flex-col">
+            <div className="sticky top-0 bg-white p-4 sm:p-6 border-b border-gray-200 z-10 rounded-t-2xl">
               <div className="flex items-center justify-between">
                 <h3 className="text-lg sm:text-xl font-semibold text-gray-900">
                   {editingCourse ? 'Edit Course' : 'Add New Course'}
@@ -4650,7 +4605,7 @@ export default function AdminDashboard() {
                 </button>
               </div>
             </div>
-            <div className="p-4 sm:p-6 space-y-4 sm:space-y-6">
+            <div className="p-4 sm:p-6 space-y-4 sm:space-y-6 overflow-y-auto max-h-[calc(90vh-130px)]">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Course Name *</label>
@@ -4772,6 +4727,39 @@ export default function AdminDashboard() {
                       placeholder="e.g., Software Developer, Data Analyst, System Administrator, Web Developer, IT Consultant, Project Manager..."
                     />
                   </div>
+
+                  {/* University Selector */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      🏛️ Offered By Universities
+                    </label>
+                    <p className="text-xs text-gray-500 mb-3">Select which universities offer this course. Selected universities will appear on the public course page.</p>
+                    {universities.length === 0 ? (
+                      <div className="border border-dashed border-gray-300 rounded-lg p-4 text-center">
+                        <p className="text-sm text-gray-500">No universities in database yet.</p>
+                        <p className="text-xs text-gray-400 mt-1">Add universities first from the <strong>Add University</strong> section.</p>
+                      </div>
+                    ) : (
+                      <div className="mt-2">
+                        <select
+                          multiple
+                          value={courseForm.offeredByUniversities || []}
+                          onChange={(e) => {
+                            const selectedValues = Array.from(e.target.selectedOptions, option => option.value);
+                            setCourseForm({ ...courseForm, offeredByUniversities: selectedValues });
+                          }}
+                          className="w-full border border-gray-300 rounded-md px-3 py-2 h-48 focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-white shadow-sm font-medium"
+                        >
+                          {universities.map((uni) => (
+                            <option key={uni._id} value={uni._id!} className="p-2 hover:bg-gray-50 border-b border-gray-100 last:border-0">
+                              {uni.name} {uni.location ? `(${uni.location})` : ''}
+                            </option>
+                          ))}
+                        </select>
+                        <p className="text-xs text-gray-500 mt-2">Hold Ctrl (Windows) or Command (Mac) to select multiple universities.</p>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
@@ -4801,9 +4789,9 @@ export default function AdminDashboard() {
 
       {/* University Modal */}
       {showUniversityModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-2 sm:p-4">
-          <div className="bg-white rounded-lg shadow-xl w-full max-w-4xl max-h-[95vh] overflow-y-auto">
-            <div className="sticky top-0 bg-white p-4 sm:p-6 border-b border-gray-200 z-10">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999] flex items-start justify-center p-4 overflow-y-auto">
+          <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-4xl my-4 flex flex-col">
+            <div className="sticky top-0 bg-white p-4 sm:p-6 border-b border-gray-200 z-10 rounded-t-2xl">
               <div className="flex items-center justify-between">
                 <h3 className="text-lg sm:text-xl font-semibold text-gray-900">
                   {editingUniversity ? 'Edit University' : 'Add New University'}
@@ -4820,7 +4808,7 @@ export default function AdminDashboard() {
                 </button>
               </div>
             </div>
-            <div className="p-4 sm:p-6 space-y-4 sm:space-y-6">
+            <div className="p-4 sm:p-6 space-y-4 sm:space-y-6 overflow-y-auto max-h-[calc(90vh-130px)]">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">University Name *</label>
@@ -5047,9 +5035,9 @@ export default function AdminDashboard() {
 
       {/* Blog Modal */}
       {showBlogModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-2 sm:p-4">
-          <div className="bg-white rounded-lg shadow-xl w-full max-w-6xl max-h-[95vh] overflow-y-auto">
-            <div className="sticky top-0 bg-white p-4 sm:p-6 border-b border-gray-200 z-10">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999] flex items-start justify-center p-4 overflow-y-auto">
+          <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-6xl my-4 flex flex-col">
+            <div className="sticky top-0 bg-white p-4 sm:p-6 border-b border-gray-200 z-10 rounded-t-2xl">
               <div className="flex items-center justify-between">
                 <h3 className="text-lg sm:text-xl font-semibold text-gray-900">
                   {editingBlog ? 'Edit Blog Post' : 'Create New Blog Post'}
@@ -5066,7 +5054,7 @@ export default function AdminDashboard() {
                 </button>
               </div>
             </div>
-            <div className="p-4 sm:p-6 space-y-4 sm:space-y-6">
+            <div className="p-4 sm:p-6 space-y-4 sm:space-y-6 overflow-y-auto max-h-[calc(90vh-130px)]">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                 <div className="lg:col-span-2">
                   <label className="block text-sm font-medium text-gray-700 mb-1">Title *</label>
@@ -5244,9 +5232,9 @@ export default function AdminDashboard() {
 
       {/* Gallery Modal */}
       {showGalleryModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-2 sm:p-4">
-          <div className="bg-white rounded-lg shadow-xl w-full max-w-4xl max-h-[95vh] overflow-y-auto">
-            <div className="sticky top-0 bg-white p-4 sm:p-6 border-b border-gray-200 z-10">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999] flex items-start justify-center p-4 overflow-y-auto">
+          <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-4xl my-4 flex flex-col">
+            <div className="sticky top-0 bg-white p-4 sm:p-6 border-b border-gray-200 z-10 rounded-t-2xl">
               <div className="flex items-center justify-between">
                 <h3 className="text-lg sm:text-xl font-semibold text-gray-900">
                   {editingGalleryImage ? 'Edit Gallery Image' : 'Upload New Image'}
@@ -5264,8 +5252,7 @@ export default function AdminDashboard() {
                 </button>
               </div>
             </div>
-            <div className="p-4 sm:p-6 space-y-4 sm:space-y-6">
-              {/* File Upload Section */}
+            <div className="p-4 sm:p-6 space-y-4 sm:space-y-6 overflow-y-auto max-h-[calc(90vh-130px)]">
               {!editingGalleryImage && (
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Select Image File *</label>
@@ -5553,9 +5540,10 @@ export default function AdminDashboard() {
           ></div>
         )}
 
-        {/* Sidebar - Fixed on all screen sizes */}
-        <div className={`${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-          } fixed lg:translate-x-0 transition-transform duration-300 ease-in-out z-50 w-64 bg-[#050B14]/80 backdrop-blur-xl shadow-2xl border-r border-white/5 flex flex-col h-screen`}>
+        {/* Sidebar */}
+        <div className={`${
+          sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+          } fixed lg:relative lg:translate-x-0 transition-transform duration-300 ease-in-out z-50 w-64 flex-shrink-0 bg-[#050B14]/80 backdrop-blur-xl shadow-2xl border-r border-white/5 flex flex-col h-screen lg:h-auto lg:min-h-screen`}>
           {/* Sidebar Header */}
           <div className="p-6 border-b border-white/5 bg-gradient-to-br from-blue-900/40 to-indigo-900/40">
             <div className="flex items-center justify-between">
@@ -5628,7 +5616,7 @@ export default function AdminDashboard() {
         </div>
 
         {/* Main Content Area - Add left margin to account for fixed sidebar */}
-        <div className="flex-1 flex flex-col min-w-0 lg:ml-64">
+        <div className="flex-1 flex flex-col min-w-0">
           {/* Top Header - Fixed at top */}
           <div className="bg-[#050B14]/80 backdrop-blur-xl border-b border-white/5 sticky top-0 z-30">
             <div className="px-6 py-4">
@@ -5673,7 +5661,6 @@ export default function AdminDashboard() {
             {activeSection === 'applications' && renderApplicationsSection()}
             {activeSection === 'subscribers' && renderSubscribersSection()}
             {activeSection === 'hero-images' && renderHeroImagesSection()}
-            {activeSection === 'Center-manage' && renderCENTERection()}
             {activeSection === 'services' && renderServicesSection()}
             {activeSection === 'gallery' && renderGallerySection()}
             {activeSection === 'add-course' && renderAddCourseSection()}
@@ -5687,8 +5674,8 @@ export default function AdminDashboard() {
       
       {/* Service Modal */}
       {showServiceModal && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-[#030712]/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl w-full max-w-2xl shadow-2xl border border-gray-100 overflow-hidden">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999] flex items-start justify-center p-4 overflow-y-auto">
+          <div className="relative bg-white rounded-3xl w-full max-w-2xl my-4 shadow-2xl border border-gray-100 flex flex-col">
             <div className="p-8 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
               <div>
                 <h3 className="text-2xl font-black text-gray-900 tracking-tight">
@@ -5732,6 +5719,22 @@ export default function AdminDashboard() {
                     <option value="UserCheck">UserCheck (Support)</option>
                     <option value="Sparkles">Sparkles (Special)</option>
                     <option value="Zap">Zap (Scholarship)</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-xs font-black text-gray-400 uppercase tracking-widest mb-2">Gradient Style</label>
+                  <select
+                    value={serviceForm.gradient}
+                    onChange={(e) => setServiceForm({...serviceForm, gradient: e.target.value})}
+                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all font-medium text-gray-900"
+                  >
+                    <option value="from-blue-600 to-indigo-600">Deep Blue</option>
+                    <option value="from-indigo-600 to-violet-600">Indigo Violet</option>
+                    <option value="from-violet-600 to-purple-600">Royal Purple</option>
+                    <option value="from-purple-600 to-fuchsia-600">Fuchsia Pulse</option>
+                    <option value="from-blue-500 to-cyan-500">Ocean Cyan</option>
+                    <option value="from-emerald-500 to-teal-500">Emerald Teal</option>
+                    <option value="from-orange-500 to-red-500">Sunset Orange</option>
                   </select>
                 </div>
               </div>

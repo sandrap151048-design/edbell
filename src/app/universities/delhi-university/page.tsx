@@ -119,7 +119,7 @@ export default function UniversityPage() {
               </div>
               <div className="space-y-4 pt-6">
                 <div className="flex flex-col gap-3">
-                  <a href="tel:+919876543210" className="flex items-center justify-center space-x-3 py-4 bg-[var(--surface)] border border-[var(--border)] rounded-2xl text-[10px] font-black text-[var(--text-heading)] hover:bg-[var(--primary)] hover:text-white transition-all">
+                  <a href="tel:+91924130060" className="flex items-center justify-center space-x-3 py-4 bg-[var(--surface)] border border-[var(--border)] rounded-2xl text-[10px] font-black text-[var(--text-heading)] hover:bg-[var(--primary)] hover:text-white transition-all">
                     <Phone className="h-4 w-4" />
                     <span>Call Advisor</span>
                   </a>

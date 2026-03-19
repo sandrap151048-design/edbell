@@ -266,9 +266,9 @@ export default function Gallery() {
 
       {/* Lightbox */}
       {selectedImage && (
-        <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4 sm:p-6 lg:p-10 animate-fade-in" onClick={() => setSelectedImage(null)}>
+        <div className="fixed inset-0 z-[1000] flex items-start justify-center p-4 sm:p-6 lg:p-10 animate-fade-in overflow-y-auto" onClick={() => setSelectedImage(null)}>
           <div className="absolute inset-0 bg-[var(--bg-primary)]/95 backdrop-blur-[40px]"></div>
-          <div className="relative max-w-5xl w-full bg-[var(--bg-secondary)] rounded-2xl sm:rounded-3xl border border-[var(--border)] overflow-hidden shadow-2xl flex flex-col lg:flex-row max-h-[90vh]" onClick={e => e.stopPropagation()}>
+          <div className="relative max-w-5xl w-full bg-[var(--bg-secondary)] rounded-2xl sm:rounded-3xl border border-[var(--border)] shadow-2xl flex flex-col lg:flex-row my-auto" onClick={e => e.stopPropagation()}>
             <div className="lg:w-2/3 h-[40vh] sm:h-[50vh] lg:h-[70vh] relative group">
               <img
                 src={selectedImage.src}

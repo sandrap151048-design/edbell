@@ -89,7 +89,7 @@ export default function UniversityPage() {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <a href="tel:+919876543210" className="bg-yellow-500 hover:bg-yellow-600 text-green-900 font-semibold py-3 px-6 rounded-lg transition-colors duration-200 text-center">
+                <a href="tel:+91924130060" className="bg-yellow-500 hover:bg-yellow-600 text-green-900 font-semibold py-3 px-6 rounded-lg transition-colors duration-200 text-center">
                   Apply Now
                 </a>
                 <a href="mailto:info@edbelledusolutions.com?subject=University Information Request&body=Hi, I would like more information about this university. Please contact me." className="bg-white/20 hover:bg-white/30 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 text-center">
@@ -209,7 +209,7 @@ export default function UniversityPage() {
             Take the next step in your educational journey with quality online programs.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="tel:+919876543210" className="bg-yellow-500 hover:bg-yellow-600 text-green-900 font-semibold py-3 px-6 rounded-lg transition-colors duration-200">
+            <a href="tel:+91924130060" className="bg-yellow-500 hover:bg-yellow-600 text-green-900 font-semibold py-3 px-6 rounded-lg transition-colors duration-200">
               Apply Now
             </a>
             <a href="mailto:info@edbelledusolutions.com?subject=University Information Request&body=Hi, I would like more information about this university. Please contact me." className="bg-white text-green-600 hover:bg-gray-100 font-semibold py-3 px-6 rounded-lg transition-colors duration-200">

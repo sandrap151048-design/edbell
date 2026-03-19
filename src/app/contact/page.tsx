@@ -88,12 +88,12 @@ export default function Contact() {
 
         <div className={`relative z-10 max-w-7xl mx-auto flex flex-col items-center text-center space-y-5 sm:space-y-6 ${mounted ? 'animate-fade-in-up' : 'opacity-0'}`}>
           <h1 className={`text-2xl sm:text-3xl lg:text-4xl font-black text-[var(--text-heading)] leading-[0.8] tracking-tighter uppercase not-italic font-serif ${mounted ? 'animate-fade-in-up animation-delay-100' : 'opacity-0'}`}>
-            Command <br />
-            <span className="text-transparent bg-gradient-to-r from-[var(--primary)] via-[var(--accent)] to-[var(--highlight)] bg-clip-text">Center</span>
+            Get in <br />
+            <span className="text-transparent bg-gradient-to-r from-[var(--primary)] via-[var(--accent)] to-[var(--highlight)] bg-clip-text">Touch</span>
           </h1>
 
           <p className={`text-sm sm:text-base lg:text-lg text-[var(--text-primary)] font-light max-w-xl mx-auto leading-relaxed ${mounted ? 'animate-fade-in-up animation-delay-200' : 'opacity-0'}`}>
-            Initialize a direct connection to our global deployment architects. We are on standby for your educational synchronization.
+            Have questions about our courses or services? Our team is here to help you navigate your educational journey. Reach out to us for expert guidance.
           </p>
         </div>
       </section>
@@ -103,17 +103,17 @@ export default function Contact() {
           {/* Left: Contact Info */}
           <div className="lg:col-span-5 space-y-8 sm:space-y-10 lg:sticky lg:top-28 animate-slide-right">
             <div className="space-y-3 sm:space-y-4">
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[var(--text-heading)] uppercase tracking-tighter leading-none">Global Nodes</h2>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[var(--text-heading)] uppercase tracking-tighter leading-none">Our Presence</h2>
               <p className="text-sm sm:text-base text-[var(--text-secondary)] font-light leading-relaxed">
-                Our coordination grid spans multiple domestic and international zones. Initialize contact via your preferred encryption protocol.
+                EdBell Education Solutions operates across multiple regions, providing world-class educational support to students domestically and internationally. Reach out to our nearest center for personalized assistance.
               </p>
             </div>
 
             <div className="grid grid-cols-1 gap-5 sm:gap-6">
               {[
-                { title: "Location_Prime", value: "Wayanad, Kerala", icon: <MapPin className="w-4 h-4 sm:w-5 sm:h-5" />, desc: "Central Operations Hub" },
-                { title: "Voice_Uplink", value: "+91 98765 43210", icon: <Phone className="w-4 h-4 sm:w-5 sm:h-5" />, desc: "Direct Logic Support" },
-                { title: "Data_Endpoint", value: "info@edbelledusolutions.com", icon: <Mail className="w-4 h-4 sm:w-5 sm:h-5" />, desc: "Secure Document Sync" }
+                { title: "Head_Office", value: "Wayanad, Kerala", icon: <MapPin className="w-4 h-4 sm:w-5 sm:h-5" />, desc: "Our Main Operations Hub" },
+                { title: "Direct_Line", value: "+91 92413 0060", icon: <Phone className="w-4 h-4 sm:w-5 sm:h-5" />, desc: "Talk to our experts" },
+                { title: "Email_Support", value: "info@edbelledusolutions.com", icon: <Mail className="w-4 h-4 sm:w-5 sm:h-5" />, desc: "Get a quick response" }
               ].map((item, i) => (
                 <div key={i} className="flex space-x-4 group">
                   <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[var(--surface)] border border-[var(--border)] flex items-center justify-center text-[var(--primary)] group-hover:bg-[var(--primary)] group-hover:text-white transition-all shadow-xl flex-shrink-0">
@@ -137,7 +137,7 @@ export default function Contact() {
               <form onSubmit={handleSubmit} className="relative z-10 space-y-5 sm:space-y-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
                   <div className="space-y-2">
-                    <label className="text-[8px] sm:text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest ml-3">USER_IDENTITY</label>
+                    <label className="text-[8px] sm:text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest ml-3">Full Name</label>
                     <input
                       type="text" name="name" required value={formData.name} onChange={handleChange}
                       placeholder="John Doe"
@@ -145,7 +145,7 @@ export default function Contact() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[8px] sm:text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest ml-3">EMAIL_SIGNAL</label>
+                    <label className="text-[8px] sm:text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest ml-3">Email Address</label>
                     <input
                       type="email" name="email" required value={formData.email} onChange={handleChange}
                       placeholder="john@example.com"
@@ -156,7 +156,7 @@ export default function Contact() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
                   <div className="space-y-2">
-                    <label className="text-[8px] sm:text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest ml-3">VOICE_NODE</label>
+                    <label className="text-[8px] sm:text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest ml-3">Phone Number</label>
                     <input
                       type="tel" name="phone" required value={formData.phone} onChange={handleChange}
                       placeholder="+91 00000 00000"
@@ -164,7 +164,7 @@ export default function Contact() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[8px] sm:text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest ml-3">PROTOCOL_INTEREST</label>
+                    <label className="text-[8px] sm:text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest ml-3">Service of Interest</label>
                     <select
                       name="serviceInterest" value={formData.serviceInterest} onChange={handleChange}
                       className="w-full bg-white border border-gray-200 rounded-xl sm:rounded-2xl py-3 sm:py-4 px-5 sm:px-6 text-sm sm:text-base text-black focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all font-bold appearance-none cursor-pointer"
@@ -178,10 +178,10 @@ export default function Contact() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-[8px] sm:text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest ml-3">DATA_PAYLOAD</label>
+                  <label className="text-[8px] sm:text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest ml-3">Your Message</label>
                   <textarea
                     name="message" required value={formData.message} onChange={handleChange}
-                    placeholder="Briefly describe your academic synchronization requirements..."
+                    placeholder="Tell us how we can help you with your educational journey..."
                     rows={4}
                     className="w-full bg-white border border-gray-200 rounded-xl sm:rounded-2xl py-3 sm:py-5 px-5 sm:px-6 text-sm sm:text-base text-black focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all font-bold placeholder:text-gray-400 resize-none"
                   ></textarea>
@@ -198,10 +198,10 @@ export default function Contact() {
                 </button>
 
                 {submitStatus === 'success' && (
-                  <p className="text-emerald-500 text-xs sm:text-sm font-bold text-center animate-bounce">✅ SIGNAL_STRENGTH_MAX: Payload Delivered Successfully.</p>
+                  <p className="text-emerald-500 text-xs sm:text-sm font-bold text-center animate-bounce">✅ Message sent successfully! We will get back to you soon.</p>
                 )}
                 {submitStatus === 'error' && (
-                  <p className="text-red-500 text-xs sm:text-sm font-bold text-center">❌ LINK_FAILURE: Unable to establish connection. Retry later.</p>
+                  <p className="text-red-500 text-xs sm:text-sm font-bold text-center">❌ Failed to send message. Please try again later.</p>
                 )}
               </form>
             </div>

@@ -172,8 +172,7 @@ export default function Contact() {
             <div className="bg-white rounded-2xl p-8 text-center shadow-lg">
               <Phone className="h-12 w-12 text-blue-600 mx-auto mb-4" />
               <h3 className="text-xl font-semibold text-gray-900 mb-2">Phone Numbers</h3>
-              <p className="text-gray-600">+91 98765 43210</p>
-              <p className="text-gray-600">+91 87654 32109</p>
+              <p className="text-gray-600">+91 92413 0060</p>
             </div>
             
             <div className="bg-white rounded-2xl p-8 text-center shadow-lg">

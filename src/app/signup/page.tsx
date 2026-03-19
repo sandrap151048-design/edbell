@@ -203,7 +203,7 @@ export default function Signup() {
                       value={formData.phone}
                       onChange={handleInputChange}
                       className="block w-full pl-12 pr-4 py-3 bg-[#030712]/50 border border-white/[0.05] rounded-xl text-slate-100 placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-blue-500/50 transition-all text-sm"
-                      placeholder="+91 98765 43210"
+                      placeholder="+91 92413 0060"
                     />
                   </div>
                 </div>

@@ -210,7 +210,7 @@ export default function CoursePage() {
             Take the first step towards your career goals with our comprehensive online program.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="tel:+919876543210" className="bg-yellow-500 hover:bg-yellow-600 text-blue-900 font-semibold py-3 px-6 rounded-lg transition-colors duration-200">
+            <a href="tel:+91924130060" className="bg-yellow-500 hover:bg-yellow-600 text-blue-900 font-semibold py-3 px-6 rounded-lg transition-colors duration-200">
               Enroll Now
             </a>
             <a href="mailto:info@edbelledusolutions.com?subject=Free Consultation Request&body=Hi, I would like a free consultation. Please contact me." className="bg-white text-blue-600 hover:bg-gray-100 font-semibold py-3 px-6 rounded-lg transition-colors duration-200">
