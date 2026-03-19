@@ -214,7 +214,7 @@ export default function Home() {
                 className="group px-6 sm:px-8 py-3 sm:py-4 bg-[var(--surface)] border border-[var(--border)] rounded-xl sm:rounded-2xl text-[var(--text-heading)] font-black text-sm sm:text-base hover:bg-[var(--surface-alt)] transition-all transform hover:-translate-y-1 flex items-center justify-center space-x-2"
               >
                 <Play className="h-4 w-4 fill-current text-[var(--primary)]" />
-                <span>Initialize</span>
+                <span>Contact Us</span>
               </Link>
             </div>
           </div>
