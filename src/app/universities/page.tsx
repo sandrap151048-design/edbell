@@ -120,7 +120,7 @@ export default function Universities() {
         {/* Background Animation */}
         <div className="absolute inset-0 z-0 overflow-hidden">
           <img
-            src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&q=60&w=1200"
+            src="/about-campus.jpg"
             alt="University Background"
             className="w-full h-full object-cover opacity-35 scale-105 filter contrast-110 brightness-90 will-change-auto"
             loading="lazy"

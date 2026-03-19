@@ -90,7 +90,7 @@ export default function CoursesClient() {
         {/* Dynamic Backdrop */}
         <div className="absolute inset-0 z-0">
           <img
-            src="https://images.unsplash.com/photo-1513258496099-48168024adb0?auto=format&fit=crop&q=80"
+            src="/campus-modern.jpg" 
             alt="Courses Background"
             className="w-full h-full object-cover opacity-20 filter contrast-125 brightness-50"
           />

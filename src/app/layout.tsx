@@ -73,7 +73,7 @@ export const metadata: Metadata = {
     description: 'Leading provider of UGC-approved online degree programs, career counseling, study abroad services, and test preparations in Kerala, India.',
     images: [
       {
-        url: '/og-image.jpg',
+        url: '/edbell-logo.jpg?v=1.1',
         width: 1200,
         height: 630,
         alt: 'EDBELL EDUSOLUTIONS - Online Education Services',
@@ -85,7 +85,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'EDBELL EDUSOLUTIONS LLP - Online Education & Career Services',
     description: 'Leading provider of UGC-approved online degree programs, career counseling, study abroad services, and test preparations in Kerala, India.',
-    images: ['/og-image.jpg'],
+    images: ['/edbell-logo.jpg?v=1.1'],
     creator: '@edbelledusolutions',
   },
   alternates: {
@@ -123,8 +123,8 @@ export default function RootLayout({
         <meta name="msapplication-tap-highlight" content="no" />
         <meta name="HandheldFriendly" content="true" />
         <meta name="MobileOptimized" content="width" />
-        <link rel="icon" type="image/jpeg" href="/edbell-logo.jpg" />
-        <link rel="apple-touch-icon" href="/edbell-logo.jpg" />
+        <link rel="icon" type="image/jpeg" href="/edbell-logo.jpg?v=1.1" />
+        <link rel="apple-touch-icon" href="/edbell-logo.jpg?v=1.1" />
         <link rel="manifest" href="/manifest.json" />
       </head>
       <body className={inter.className}>

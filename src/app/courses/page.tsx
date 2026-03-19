@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     url: 'https://edbelledusolutions.com/courses',
     images: [
       {
-        url: '/og-courses-image.jpg',
+        url: '/edbell-logo.jpg?v=1.1',
         width: 1200,
         height: 630,
         alt: 'Online Degree Courses - EDBELL EDUSOLUTIONS',
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Online Degree Courses | UGC Approved Programs',
     description: 'Explore UGC-approved online degree courses from top universities.',
-    images: ['/og-courses-image.jpg'],
+    images: ['/edbell-logo.jpg?v=1.1'],
   },
   alternates: {
     canonical: 'https://edbelledusolutions.com/courses',
