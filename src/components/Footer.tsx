@@ -86,11 +86,11 @@ const Footer = () => {
                 </div>
                 <div className="text-xs lg:text-sm font-bold text-[var(--text-primary)] tracking-tight">+91 92413 0060</div>
               </a>
-              <a href="mailto:info@edbelledusolutions.com" className="flex items-center space-x-4 text-left hover:opacity-80 transition-opacity">
+              <a href="mailto:edbelledu@gmail.com" className="flex items-center space-x-4 text-left hover:opacity-80 transition-opacity">
                 <div className="w-10 h-10 bg-[var(--surface)] border border-[var(--border)] rounded-xl flex items-center justify-center text-[var(--primary)] shrink-0">
                   <Mail className="h-5 w-5" />
                 </div>
-                <div className="text-xs lg:text-sm font-bold text-[var(--text-primary)] tracking-tight uppercase truncate">info@edbelledusolutions.com</div>
+                <div className="text-xs lg:text-sm font-bold text-[var(--text-primary)] tracking-tight uppercase truncate">edbelledu@gmail.com</div>
               </a>
             </div>
           </div>

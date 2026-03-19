@@ -113,7 +113,7 @@ export default function Contact() {
               {[
                 { title: "Head_Office", value: "Wayanad, Kerala", icon: <MapPin className="w-4 h-4 sm:w-5 sm:h-5" />, desc: "Our Main Operations Hub" },
                 { title: "Direct_Line", value: "+91 92413 0060", icon: <Phone className="w-4 h-4 sm:w-5 sm:h-5" />, desc: "Talk to our experts" },
-                { title: "Email_Support", value: "info@edbelledusolutions.com", icon: <Mail className="w-4 h-4 sm:w-5 sm:h-5" />, desc: "Get a quick response" }
+                { title: "Email_Support", value: "edbelledu@gmail.com", icon: <Mail className="w-4 h-4 sm:w-5 sm:h-5" />, desc: "Get a quick response" }
               ].map((item, i) => (
                 <div key={i} className="flex space-x-4 group">
                   <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-[var(--surface)] border border-[var(--border)] flex items-center justify-center text-[var(--primary)] group-hover:bg-[var(--primary)] group-hover:text-white transition-all shadow-xl flex-shrink-0">

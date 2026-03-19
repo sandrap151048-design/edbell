@@ -30,7 +30,7 @@ export default function Center() {
       name: "CORPORATE HEAD OFFICE",
       location: "15/382, Calicut Tower, Kozhikode Road, Wayanad, Kerala, India",
       phone: "+91 924130060",
-      email: "info@edbelledusolutions.com",
+      email: "edbelledu@gmail.com",
       image: "/zakaria-cm.jpg",
       manager: {
         name: "Zakaria CM",
@@ -41,7 +41,7 @@ export default function Center() {
       name: "CALICUT REGIONAL HUB",
       location: "Building 4, Cyberpark Road, Nellikode, Kozhikode, Kerala",
       phone: "+91 924130060",
-      email: "calicut@edbelledusolutions.com",
+      email: "edbelledu@gmail.com",
       image: "/rashid-director.jpg",
       manager: {
         name: "Rashid",
@@ -52,7 +52,7 @@ export default function Center() {
       name: "KOCHI ACADEMIC CENTRE",
       location: "MG Road, Ravipuram, Kochi, Kerala",
       phone: "+91 924130060",
-      email: "kochi@edbelledusolutions.com",
+      email: "edbelledu@gmail.com",
       image: "/kochi-director.jpg",
       manager: {
         name: "Abdu Raheem",
