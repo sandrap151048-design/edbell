@@ -27,7 +27,7 @@ export default function Center() {
 
   const Center = [
     {
-      name: "HEAD OFFICE - KERALA",
+      name: "CORPORATE HEAD OFFICE",
       location: "15/382, Calicut Tower, Kozhikode Road, Wayanad, Kerala, India",
       phone: "+91 924130060",
       email: "info@edbelledusolutions.com",
@@ -38,7 +38,7 @@ export default function Center() {
       }
     },
     {
-      name: "REGIONAL CENTRE - CALICUT",
+      name: "CALICUT REGIONAL HUB",
       location: "Building 4, Cyberpark Road, Nellikode, Kozhikode, Kerala",
       phone: "+91 924130060",
       email: "calicut@edbelledusolutions.com",
@@ -49,13 +49,13 @@ export default function Center() {
       }
     },
     {
-      name: "COE CENTRE - KOCHI",
+      name: "KOCHI ACADEMIC CENTRE",
       location: "MG Road, Ravipuram, Kochi, Kerala",
       phone: "+91 924130060",
       email: "kochi@edbelledusolutions.com",
       image: "/kochi-director.jpg",
       manager: {
-        name: "Rashid",
+        name: "Abdu Raheem",
         position: "Director"
       }
     }
@@ -147,7 +147,7 @@ export default function Center() {
                 
                 <div className="space-y-4 px-2">
                   <div className="space-y-1">
-                    <p className="text-[9px] font-black text-[var(--primary)] uppercase tracking-widest">NODE_00{i+1}</p>
+                    <p className="text-[9px] font-black text-[var(--primary)] uppercase tracking-widest">{i === 0 ? 'Administration' : i === 1 ? 'Operations' : 'Academic COE'}</p>
                     <h3 className="text-lg lg:text-xl font-black text-[var(--text-heading)] uppercase tracking-tighter">{centre.name}</h3>
                   </div>
                   
