@@ -39,7 +39,10 @@ import {
   Building2,
   PhoneCall,
   Languages,
-  BookOpenCheck
+  BookOpenCheck,
+  Clock,
+  Building,
+  Star
 } from 'lucide-react';
 
 interface Contact {
@@ -2532,114 +2535,98 @@ export default function AdminDashboard() {
           </div>
         </div>
         <div className="p-6">
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-white/5">
-              <thead className="bg-white/[0.02]">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Course</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Duration</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">University</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="bg-transparent divide-y divide-white/5">
-                {courses.length === 0 ? (
-                  <tr>
-                    <td colSpan={6} className="px-6 py-12 text-center">
-                      <BookOpen className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                      <h3 className="text-lg font-medium text-white mb-2">No courses found</h3>
-                      <p className="text-slate-400 mb-4 text-sm font-mono tracking-tighter">Initialize database or add curriculum manually</p>
-                      <div className="flex justify-center space-x-3">
-                        <button
-                          onClick={() => openCourseModal()}
-                          className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm transition-colors"
-                        >
-                          Add Your First Course
-                        </button>
-                        <button
-                          onClick={seedSampleData}
-                          disabled={isSeeding}
-                          className="bg-blue-600/20 hover:bg-blue-600 text-blue-400 hover:text-white px-4 py-2 rounded-lg text-sm transition-colors border border-blue-500/30"
-                        >
-                          {isSeeding ? 'Loading...' : 'Add Sample Data'}
-                        </button>
+          <div className="w-full">
+            {courses.length === 0 ? (
+              <div className="text-center py-12">
+                <BookOpen className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-white mb-2">No courses found</h3>
+                <p className="text-slate-400 mb-4 text-sm font-mono tracking-tighter">Initialize database or add curriculum manually</p>
+                <div className="flex justify-center space-x-3">
+                  <button
+                    onClick={() => openCourseModal()}
+                    className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm transition-colors"
+                  >
+                    Add Your First Course
+                  </button>
+                  <button
+                    onClick={seedSampleData}
+                    disabled={isSeeding}
+                    className="bg-blue-600/20 hover:bg-blue-600 text-blue-400 hover:text-white px-4 py-2 rounded-lg text-sm transition-colors border border-blue-500/30"
+                  >
+                    {isSeeding ? 'Loading...' : 'Add Sample Data'}
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-6">
+                {courses.map((course, index) => (
+                  <div key={course._id || index} className="group relative h-full bg-[#050B14] border border-white/5 rounded-[32px] p-6 sm:p-8 hover:border-blue-500/40 transition-all duration-500 flex flex-col overflow-hidden shadow-sm hover:shadow-xl">
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                    <div className="relative z-10 flex items-start justify-between mb-8">
+                      <div className="w-14 h-14 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center text-slate-300 group-hover:bg-blue-600 group-hover:text-white group-hover:rotate-3 transition-all duration-500 shadow-xl">
+                        <BookOpen className="h-6 w-6" />
                       </div>
-                    </td>
-                  </tr>
-                ) : (
-                  courses.map((course, index) => (
-                    <tr key={course._id || index} className="hover:bg-white/[0.02]">
-                      <td className="px-6 py-4">
-                        <div className="flex items-center">
-                          <div className="flex-shrink-0 h-8 w-8">
-                            <div className="h-8 w-8 bg-purple-900/20 rounded-lg flex items-center justify-center">
-                              <BookOpen className="h-4 w-4 text-purple-400" />
-                            </div>
-                          </div>
-                          <div className="ml-4 min-w-0 flex-1">
-                            <div className="text-sm font-bold text-slate-100 truncate">{course.name}</div>
-                            <div className="text-[10px] text-blue-400 font-mono truncate">{course.url}</div>
-                          </div>
+                      <span className={`text-[10px] font-black px-3 py-1.5 rounded-full border tracking-[0.2em] uppercase backdrop-blur-xl ${course.category === 'Undergraduate' ? 'bg-blue-500/10 text-blue-400 border-blue-500/20' : course.category === 'Postgraduate' ? 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20' : 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20'}`}>
+                        {course.category}
+                      </span>
+                    </div>
+
+                    <div className="relative z-10 flex-1">
+                      <h4 className="text-xl sm:text-2xl font-black text-white mb-3 tracking-tighter group-hover:text-blue-400 transition-colors uppercase leading-tight line-clamp-2">
+                        {course.name}
+                      </h4>
+                      <p className="text-slate-400 font-light text-sm leading-relaxed mb-6 line-clamp-3">
+                        {course.description}
+                      </p>
+                    </div>
+
+                    <div className="relative z-10 space-y-4 pt-6 border-t border-white/5">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-3 opacity-80">
+                          <Clock className="h-4 w-4 text-blue-400" />
+                          <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Duration</span>
                         </div>
-                      </td>
-                      <td className="px-6 py-4">
-                        <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full whitespace-nowrap ${course.category === 'Undergraduate' ? 'bg-blue-900/40 text-blue-200 border border-blue-500/30' :
-                          course.category === 'Postgraduate' ? 'bg-green-900/40 text-green-200 border border-green-500/30' :
-                            'bg-yellow-900/40 text-yellow-200 border border-yellow-500/30'
-                          }`}>
-                          {course.category}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 text-sm text-slate-300 font-mono whitespace-nowrap">
-                        {course.duration}
-                      </td>
-                      <td className="px-6 py-4">
-                        {course.offeredByUniversities && course.offeredByUniversities.length > 0 ? (
-                          <div className="flex items-center space-x-2">
-                             <Building2 className="h-3 w-3 text-[var(--primary)]" />
-                             <span className="text-[10px] font-black text-slate-100 uppercase tracking-widest">{course.offeredByUniversities[0].name}</span>
-                          </div>
-                        ) : (
-                          <span className="text-[10px] text-slate-500 italic">Not Linked</span>
-                        )}
-                      </td>
-                      <td className="px-6 py-4">
-                        <div className="text-sm text-slate-400 line-clamp-2 italic">"{course.description}"</div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex space-x-2">
-                          <button
-                            onClick={() => openCourseModal(course)}
-                            className="bg-blue-600/10 hover:bg-blue-600 text-blue-400 hover:text-white px-3 py-1 rounded text-xs transition-colors flex items-center space-x-1 border border-blue-500/30"
-                          >
-                            <Edit className="h-3 w-3" />
-                            <span>Edit</span>
-                          </button>
-                          <button
-                            onClick={() => deleteCourse(course._id!)}
-                            className="bg-red-600/10 hover:bg-red-600 text-red-400 hover:text-white px-3 py-1 rounded text-xs transition-colors flex items-center space-x-1 border border-red-600/30"
-                          >
-                            <Trash2 className="h-3 w-3" />
-                            <span>Delete</span>
-                          </button>
-                          {course.url && (
-                            <Link
-                              href={course.url}
-                              target="_blank"
-                              className="bg-white/5 hover:bg-white/10 text-slate-300 px-3 py-1 rounded text-xs transition-colors border border-white/5"
-                            >
-                              View
-                            </Link>
-                          )}
+                        <span className="text-sm font-bold text-slate-200">{course.duration}</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-3 opacity-80">
+                          <Award className="h-4 w-4 text-blue-400" />
+                          <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Investment</span>
                         </div>
-                      </td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
+                        <span className="text-sm font-bold text-blue-400">{course.fees || 'TBA'}</span>
+                      </div>
+                      {course.offeredByUniversities && course.offeredByUniversities.length > 0 && (
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-3 opacity-80">
+                            <GraduationCap className="h-4 w-4 text-blue-400" />
+                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">University</span>
+                          </div>
+                          <span className="text-xs font-bold text-slate-200 line-clamp-1 text-right max-w-[150px]">{course.offeredByUniversities[0].name}</span>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="relative z-10 mt-6 pt-6 border-t border-white/5 flex space-x-3 mt-auto">
+                      <button
+                        onClick={() => openCourseModal(course)}
+                        className="flex-1 bg-blue-600/10 hover:bg-blue-600 text-blue-400 hover:text-white py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center space-x-2 border border-blue-500/30 uppercase tracking-widest"
+                      >
+                        <Edit className="h-4 w-4" />
+                        <span>Edit</span>
+                      </button>
+                      <button
+                        onClick={() => deleteCourse(course._id)}
+                        className="flex-1 bg-red-600/10 hover:bg-red-600 text-red-400 hover:text-white py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center space-x-2 border border-red-600/30 uppercase tracking-widest"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                        <span>Delete</span>
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -2671,103 +2658,102 @@ export default function AdminDashboard() {
           </div>
         </div>
         <div className="p-6">
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-white/5">
-              <thead className="bg-white/[0.02]">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">University</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Accreditation</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Established</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="bg-transparent divide-y divide-white/5">
-                {universities.length === 0 ? (
-                  <tr>
-                    <td colSpan={5} className="px-6 py-12 text-center">
-                      <GraduationCap className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                      <h3 className="text-lg font-medium text-white mb-2">No universities found</h3>
-                      <p className="text-slate-400 mb-4 text-sm font-mono tracking-tighter">Initialize database or add universities manually</p>
-                      <div className="flex justify-center space-x-3">
+          <div className="w-full">
+            {universities.length === 0 ? (
+              <div className="text-center py-12">
+                <GraduationCap className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-white mb-2">No universities found</h3>
+                <p className="text-slate-400 mb-4 text-sm font-mono tracking-tighter">Initialize database or add universities manually</p>
+                <div className="flex justify-center space-x-3">
+                  <button
+                    onClick={() => openUniversityModal()}
+                    className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm transition-colors"
+                  >
+                    Add Your First University
+                  </button>
+                  <button
+                    onClick={seedSampleData}
+                    disabled={isSeeding}
+                    className="bg-blue-600/20 hover:bg-blue-600 text-blue-400 hover:text-white px-4 py-2 rounded-lg text-sm transition-colors border border-blue-500/30"
+                  >
+                    {isSeeding ? 'Loading...' : 'Add Sample Data'}
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-6">
+                {universities.map((university, index) => (
+                  <div
+                    key={university._id || index}
+                    className="group relative h-full bg-[#050B14] border border-white/5 rounded-[32px] overflow-hidden hover:border-green-500/40 transition-all duration-500 flex flex-col shadow-sm hover:shadow-xl p-6 sm:p-8"
+                  >
+                    <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-green-500 via-emerald-400 to-teal-500 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-700" />
+                    
+                    <div className="relative z-10 flex flex-col h-full">
+                      <div className="flex items-start justify-between mb-8">
+                        <div className="w-14 h-14 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center text-slate-300 group-hover:scale-110 group-hover:bg-green-600 group-hover:text-white transition-all duration-500">
+                          <Building className="w-6 h-6" />
+                        </div>
+                        <div className="text-right flex flex-col items-end">
+                          <div className="inline-flex items-center bg-green-500/10 text-green-400 px-3 py-1 rounded-full text-[10px] font-black tracking-widest mb-2 uppercase border border-green-500/10">
+                            {university.accreditation}
+                          </div>
+                          <div className="flex items-center justify-end text-yellow-500">
+                            <Star className="w-3.5 h-3.5 fill-current mr-1" />
+                            <span className="text-sm font-bold text-slate-200">{university.rating || '4.5'}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 group-hover:text-green-400 transition-colors tracking-tight uppercase italic line-clamp-2">{university.name}</h3>
+                      
+                      <div className="flex items-center text-slate-400 text-xs mb-4 space-x-3">
+                        <div className="flex items-center">
+                          <MapPin className="w-4 h-4 mr-1.5 text-green-400/70" />
+                          <span className="truncate max-w-[120px]">{university.location || 'India'}</span>
+                        </div>
+                        <div className="flex items-center">
+                          <Calendar className="w-4 h-4 mr-1.5 text-green-400/70" />
+                          <span>Est. {university.established}</span>
+                        </div>
+                      </div>
+                      
+                      <p className="text-slate-400 text-sm font-light leading-relaxed mb-6 flex-grow line-clamp-3">
+                        {university.description}
+                      </p>
+                      
+                      <div className="grid grid-cols-2 gap-3 mb-6">
+                        <div className="bg-white/5 rounded-xl p-3 border border-white/5">
+                          <div className="text-sm font-bold text-white">{university.totalStudents || university.studentsCount || '5K+'}</div>
+                          <div className="text-[9px] text-slate-400 font-black uppercase tracking-wider">Students</div>
+                        </div>
+                        <div className="bg-white/5 rounded-xl p-3 border border-white/5">
+                          <div className="text-sm font-bold text-white">{university.coursesOffered || '50+'}</div>
+                          <div className="text-[9px] text-slate-400 font-black uppercase tracking-wider">Courses</div>
+                        </div>
+                      </div>
+
+                      <div className="relative z-10 flex space-x-3 mt-auto pt-4 border-t border-white/5">
                         <button
-                          onClick={() => openUniversityModal()}
-                          className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm transition-colors"
+                          onClick={() => openUniversityModal(university)}
+                          className="flex-1 bg-green-600/10 hover:bg-green-600 text-green-400 hover:text-white py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center space-x-2 border border-green-500/30 uppercase tracking-widest"
                         >
-                          Add Your First University
+                          <Edit className="h-4 w-4" />
+                          <span>Edit</span>
                         </button>
                         <button
-                          onClick={seedSampleData}
-                          disabled={isSeeding}
-                          className="bg-blue-600/20 hover:bg-blue-600 text-blue-400 hover:text-white px-4 py-2 rounded-lg text-sm transition-colors border border-blue-500/30"
+                          onClick={() => deleteUniversity(university._id)}
+                          className="flex-1 bg-red-600/10 hover:bg-red-600 text-red-400 hover:text-white py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center space-x-2 border border-red-600/30 uppercase tracking-widest"
                         >
-                          {isSeeding ? 'Loading...' : 'Add Sample Data'}
+                          <Trash2 className="h-4 w-4" />
+                          <span>Delete</span>
                         </button>
                       </div>
-                    </td>
-                  </tr>
-                ) : (
-                  universities.map((university, index) => (
-                    <tr key={university._id || index} className="hover:bg-white/[0.02]">
-                      <td className="px-6 py-4">
-                        <div className="flex items-center">
-                          <div className="flex-shrink-0 h-8 w-8">
-                            <div className="h-8 w-8 bg-green-900/20 rounded-lg flex items-center justify-center">
-                              <GraduationCap className="h-4 w-4 text-green-400" />
-                            </div>
-                          </div>
-                          <div className="ml-4 min-w-0 flex-1">
-                            <div className="text-sm font-bold text-slate-100 truncate">{university.name}</div>
-                            <div className="text-[10px] text-emerald-400 font-mono truncate">{university.url}</div>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4">
-                        <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full whitespace-nowrap ${university.accreditation === 'NAAC A++' ? 'bg-green-900/40 text-green-200 border border-green-500/30' :
-                          university.accreditation === 'NAAC A+' ? 'bg-blue-900/40 text-blue-200 border border-blue-500/30' :
-                            'bg-yellow-900/40 text-yellow-200 border border-yellow-500/30'
-                          }`}>
-                          {university.accreditation}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 text-sm text-slate-300 font-mono whitespace-nowrap">
-                        {university.established}
-                      </td>
-                      <td className="px-6 py-4">
-                        <div className="text-sm text-slate-400 line-clamp-2 italic">"{university.description}"</div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex space-x-2">
-                          <button
-                            onClick={() => openUniversityModal(university)}
-                            className="bg-blue-600/10 hover:bg-blue-600 text-blue-400 hover:text-white px-3 py-1 rounded text-xs transition-colors flex items-center space-x-1 border border-blue-500/30"
-                          >
-                            <Edit className="h-3 w-3" />
-                            <span>Edit</span>
-                          </button>
-                          <button
-                            onClick={() => deleteUniversity(university._id!)}
-                            className="bg-red-600/10 hover:bg-red-600 text-red-400 hover:text-white px-3 py-1 rounded text-xs transition-colors flex items-center space-x-1 border border-red-600/30"
-                          >
-                            <Trash2 className="h-3 w-3" />
-                            <span>Delete</span>
-                          </button>
-                          {university.url && (
-                            <Link
-                              href={university.url}
-                              target="_blank"
-                              className="bg-white/5 hover:bg-white/10 text-slate-300 px-3 py-1 rounded text-xs transition-colors border border-white/5"
-                            >
-                              View
-                            </Link>
-                          )}
-                        </div>
-                      </td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -4375,7 +4361,7 @@ export default function AdminDashboard() {
       {/* Course Modal */}
       {showCourseModal && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999] flex items-start justify-center p-4 overflow-y-auto">
-          <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-4xl my-4 flex flex-col">
+          <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-7xl my-4 flex flex-col">
             <div className="sticky top-0 bg-white p-4 sm:p-6 border-b border-gray-200 z-10 rounded-t-2xl">
               <div className="flex items-center justify-between">
                 <h3 className="text-lg sm:text-xl font-semibold text-gray-900">
@@ -4393,7 +4379,8 @@ export default function AdminDashboard() {
                 </button>
               </div>
             </div>
-            <div className="p-4 sm:p-6 space-y-4 sm:space-y-6 overflow-y-auto max-h-[calc(90vh-130px)]">
+            <div className="p-4 sm:p-6 flex flex-col lg:flex-row gap-8 overflow-y-auto max-h-[calc(90vh-130px)]">
+  <div className="flex-1 space-y-4 sm:space-y-6">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Course Name *</label>
@@ -4550,8 +4537,68 @@ export default function AdminDashboard() {
                   </div>
                 </div>
               </div>
+              </div>
+  {/* Live Preview Pane */}
+  <div className="w-full lg:w-[450px] flex-shrink-0">
+    <div className="sticky top-0">
+      <h4 className="text-md font-semibold text-gray-900 mb-4 flex items-center">
+        <Eye className="h-5 w-5 mr-2 text-purple-600" /> Live Card Preview
+      </h4>
+      <div className="group relative w-full h-full bg-[#050B14] border border-white/5 rounded-[32px] p-6 sm:p-8 hover:border-blue-500/40 transition-all duration-500 flex flex-col overflow-hidden shadow-2xl">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+        <div className="relative z-10 flex items-start justify-between mb-8">
+          <div className="w-14 h-14 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center text-slate-300 group-hover:bg-blue-600 group-hover:text-white group-hover:rotate-3 transition-all duration-500 shadow-xl">
+            <BookOpen className="h-6 w-6" />
+          </div>
+          <span className={`text-[10px] font-black px-3 py-1.5 rounded-full border tracking-[0.2em] uppercase backdrop-blur-xl ${courseForm.category === 'Undergraduate' ? 'bg-blue-500/10 text-blue-400 border-blue-500/20' : courseForm.category === 'Postgraduate' ? 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20' : 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20'}`}>
+            {courseForm.category || 'Category'}
+          </span>
+        </div>
+
+        <div className="relative z-10 flex-1">
+          <h4 className="text-xl sm:text-2xl font-black text-white mb-3 tracking-tighter group-hover:text-blue-400 transition-colors uppercase leading-tight line-clamp-2">
+            {courseForm.name || 'Course Name'}
+          </h4>
+          <p className="text-slate-400 font-light text-sm leading-relaxed mb-6 line-clamp-3 min-h-[4.2rem]">
+            {courseForm.description || 'Add a description to see it appear here...'}
+          </p>
+        </div>
+
+        <div className="relative z-10 space-y-4 pt-6 mt-auto border-t border-white/5">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3 opacity-80">
+              <Clock className="h-4 w-4 text-blue-400" />
+              <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Duration</span>
             </div>
-            <div className="p-6 border-t flex justify-end space-x-3">
+            <span className="text-sm font-bold text-slate-200">{courseForm.duration || '--'}</span>
+          </div>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3 opacity-80">
+              <Award className="h-4 w-4 text-blue-400" />
+              <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Investment</span>
+            </div>
+            <span className="text-sm font-bold text-blue-400">{courseForm.fees || 'TBA'}</span>
+          </div>
+          {courseForm.offeredByUniversities && courseForm.offeredByUniversities.length > 0 && (
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-3 opacity-80">
+                <GraduationCap className="h-4 w-4 text-blue-400" />
+                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">University</span>
+              </div>
+              <span className="text-xs font-bold text-slate-200 line-clamp-1 text-right max-w-[150px]">
+                {typeof courseForm.offeredByUniversities[0] === 'string'
+                  ? universities.find(u => u._id === courseForm.offeredByUniversities[0])?.name || 'Loading...'
+                  : (courseForm.offeredByUniversities[0] as any).name || 'Loading...'}
+              </span>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div className="p-6 border-t flex justify-end space-x-3">
               <button
                 onClick={() => {
                   setShowCourseModal(false);

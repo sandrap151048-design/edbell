@@ -11,8 +11,8 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [formData, setFormData] = useState({
-    email: '',
-    password: ''
+    email: 'admin12@gmail.com',
+    password: '123456'
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -111,9 +111,10 @@ export default function Login() {
                     name="email"
                     type="email"
                     required
+                    readOnly
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="block w-full pl-12 pr-4 py-3.5 bg-[#030712]/50 border border-white/[0.05] rounded-xl !text-slate-100 placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-blue-500/50 transition-all text-sm"
+                    className="block w-full pl-12 pr-4 py-3.5 bg-[#030712]/50 border border-white/[0.05] rounded-xl !text-slate-100 placeholder-slate-600 focus:outline-none transition-all text-sm cursor-not-allowed opacity-80"
                     placeholder="name@company.com"
                   />
                 </div>
@@ -135,9 +136,10 @@ export default function Login() {
                     name="password"
                     type={showPassword ? 'text' : 'password'}
                     required
+                    readOnly
                     value={formData.password}
                     onChange={handleInputChange}
-                    className="block w-full pl-12 pr-12 py-3.5 bg-[#030712]/50 border border-white/[0.05] rounded-xl !text-slate-100 placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-blue-500/50 transition-all text-sm"
+                    className="block w-full pl-12 pr-12 py-3.5 bg-[#030712]/50 border border-white/[0.05] rounded-xl !text-slate-100 placeholder-slate-600 focus:outline-none transition-all text-sm cursor-not-allowed opacity-80"
                     placeholder="••••••••"
                   />
                   <div className="absolute inset-y-0 right-0 pr-4 flex items-center">
