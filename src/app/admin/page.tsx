@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import {
+  Search,
   Mail,
   Phone,
   MapPin,
@@ -170,7 +171,11 @@ export default function AdminDashboard() {
   const router = useRouter();
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [courses, setCourses] = useState<Course[]>([]);
+  const [courseSearch, setCourseSearch] = useState('');
+  const [courseFilter, setCourseFilter] = useState('All');
   const [universities, setUniversities] = useState<University[]>([]);
+  const [uniSearch, setUniSearch] = useState('');
+  const [uniFilter, setUniFilter] = useState('All');
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
   const [services, setServices] = useState<Service[]>([]);
@@ -2540,105 +2545,160 @@ export default function AdminDashboard() {
         </div>
         <div className="p-6">
           <div className="w-full">
-            {courses.length === 0 ? (
-              <div className="text-center py-12">
-                <BookOpen className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-white mb-2">No courses found</h3>
-                <p className="text-slate-400 mb-4 text-sm font-mono tracking-tighter">Initialize database or add curriculum manually</p>
-                <div className="flex justify-center space-x-3">
-                  <button
-                    onClick={() => openCourseModal()}
-                    className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm transition-colors"
-                  >
-                    Add Your First Course
-                  </button>
-                  <button
-                    onClick={seedSampleData}
-                    disabled={isSeeding}
-                    className="bg-blue-600/20 hover:bg-blue-600 text-blue-400 hover:text-white px-4 py-2 rounded-lg text-sm transition-colors border border-blue-500/30"
-                  >
-                    {isSeeding ? 'Loading...' : 'Add Sample Data'}
-                  </button>
-                </div>
+            <div className="flex flex-col md:flex-row gap-4 mb-8">
+              <div className="flex-1 relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
+                <input
+                  type="text"
+                  placeholder="Search courses by name or description..."
+                  value={courseSearch}
+                  onChange={(e) => setCourseSearch(e.target.value)}
+                  className="w-full bg-white/5 border border-white/10 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500/50 transition-colors placeholder:text-slate-600"
+                />
               </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {courses.map((course, index) => (
-                  <div key={course._id || index} className="group relative h-full bg-[#050B14] border border-white/5 rounded-2xl p-4 sm:p-5 hover:border-blue-500/40 transition-all duration-500 flex flex-col overflow-hidden shadow-sm hover:shadow-xl">
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="flex items-center space-x-3 bg-white/5 border border-white/10 rounded-xl px-4 py-1.5">
+                <Filter className="h-4 w-4 text-slate-500" />
+                <select
+                  value={courseFilter}
+                  onChange={(e) => setCourseFilter(e.target.value)}
+                  className="bg-transparent border-none py-1.5 focus:outline-none text-sm text-slate-300 font-bold uppercase tracking-widest cursor-pointer"
+                >
+                  <option value="All" className="bg-[#050B14]">All Categories</option>
+                  <option value="Undergraduate" className="bg-[#050B14]">Undergraduate</option>
+                  <option value="Postgraduate" className="bg-[#050B14]">Postgraduate</option>
+                  <option value="Specialized" className="bg-[#050B14]">Specialized</option>
+                </select>
+              </div>
+            </div>
 
-                    <div className="relative z-10 flex items-start justify-between mb-4">
-                      <div className="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center text-slate-300 group-hover:bg-blue-600 group-hover:text-white group-hover:rotate-3 transition-all duration-500 shadow-xl">
-                        <BookOpen className="h-5 w-5" />
-                      </div>
-                      <span className={`text-[10px] font-black px-3 py-1.5 rounded-full border tracking-[0.2em] uppercase backdrop-blur-xl ${course.category === 'Undergraduate' ? 'bg-blue-500/10 text-blue-400 border-blue-500/20' : course.category === 'Postgraduate' ? 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20' : 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20'}`}>
-                        {course.category}
-                      </span>
-                    </div>
+            {(() => {
+              const filtered = courses.filter(course => {
+                const matchesSearch = course.name.toLowerCase().includes(courseSearch.toLowerCase()) || 
+                                    course.description.toLowerCase().includes(courseSearch.toLowerCase());
+                const matchesFilter = courseFilter === 'All' || course.category === courseFilter;
+                return matchesSearch && matchesFilter;
+              });
 
-                    <div className="relative z-10 flex-1">
-                      <h4 className="text-base sm:text-lg font-black text-white mb-2 tracking-tighter group-hover:text-blue-400 transition-colors uppercase leading-tight line-clamp-2">
-                        {course.name}
-                      </h4>
-                      <p className="text-slate-400 font-light text-xs leading-relaxed mb-4 line-clamp-3">
-                        {course.description}
-                      </p>
-                    </div>
-
-                    <div className="relative z-10 space-y-3 pt-4 border-t border-white/5">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-3 opacity-80">
-                          <Clock className="h-3 w-3 text-blue-400" />
-                          <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Duration</span>
-                        </div>
-                        <span className="text-xs font-bold text-slate-200">{course.duration}</span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-3 opacity-80">
-                          <Award className="h-3 w-3 text-blue-400" />
-                          <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Investment</span>
-                        </div>
-                        <span className="text-xs font-bold text-blue-400">{course.fees || 'TBA'}</span>
-                      </div>
-                      {course.offeredByUniversities && course.offeredByUniversities.length > 0 && (
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center space-x-3 opacity-80">
-                            <GraduationCap className="h-3 w-3 text-blue-400" />
-                            <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">University</span>
-                          </div>
-                          <span className="text-[10px] font-bold text-slate-200 line-clamp-1 text-right max-w-[120px]">{course.offeredByUniversities![0].name}</span>
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="relative z-10 mt-4 pt-4 border-t border-white/5 flex space-x-2 mt-auto">
-                      <Link
-                        href={course.url || '#'}
-                        target="_blank"
-                        className="flex-1 bg-white/5 hover:bg-white/10 text-white py-2 rounded-lg text-[10px] font-bold transition-all flex items-center justify-center space-x-1 border border-white/10 uppercase tracking-widest"
-                      >
-                        <Eye className="h-3 w-3" />
-                        <span>View</span>
-                      </Link>
+              if (courses.length === 0) {
+                return (
+                  <div className="text-center py-12">
+                    <BookOpen className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                    <h3 className="text-lg font-medium text-white mb-2">No courses found</h3>
+                    <p className="text-slate-400 mb-4 text-sm font-mono tracking-tighter">Initialize database or add curriculum manually</p>
+                    <div className="flex justify-center space-x-3">
                       <button
-                        onClick={() => openCourseModal(course)}
-                        className="flex-1 bg-blue-600/10 hover:bg-blue-600 text-blue-400 hover:text-white py-2 rounded-lg text-[10px] font-bold transition-all flex items-center justify-center space-x-1 border border-blue-500/30 uppercase tracking-widest"
+                        onClick={() => openCourseModal()}
+                        className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm transition-colors"
                       >
-                        <Edit className="h-3 w-3" />
-                        <span>Edit</span>
+                        Add Your First Course
                       </button>
                       <button
-                        onClick={() => deleteCourse(course._id!)}
-                        className="flex-1 bg-red-600/10 hover:bg-red-600 text-red-400 hover:text-white py-2 rounded-lg text-[10px] font-bold transition-all flex items-center justify-center space-x-1 border border-red-600/30 uppercase tracking-widest"
+                        onClick={seedSampleData}
+                        disabled={isSeeding}
+                        className="bg-blue-600/20 hover:bg-blue-600 text-blue-400 hover:text-white px-4 py-2 rounded-lg text-sm transition-colors border border-blue-500/30"
                       >
-                        <Trash2 className="h-3 w-3" />
-                        <span>Delete</span>
+                        {isSeeding ? 'Loading...' : 'Add Sample Data'}
                       </button>
                     </div>
                   </div>
-                ))}
-              </div>
-            )}
+                );
+              }
+
+              if (filtered.length === 0) {
+                return (
+                  <div className="text-center py-12 bg-white/5 rounded-2xl border border-dashed border-white/10">
+                    <Search className="h-12 w-12 text-gray-600 mx-auto mb-4" />
+                    <h3 className="text-lg font-medium text-white mb-2">No matches found</h3>
+                    <p className="text-slate-400 text-sm">Try adjusting your search or filters</p>
+                    <button 
+                      onClick={() => { setCourseSearch(''); setCourseFilter('All'); }}
+                      className="mt-4 text-purple-400 hover:text-white text-xs font-bold uppercase tracking-widest transition-colors"
+                    >
+                      Clear All Filters
+                    </button>
+                  </div>
+                );
+              }
+
+              return (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                  {filtered.map((course, index) => (
+                    <div key={course._id || index} className="group relative h-full bg-[#050B14] border border-white/5 rounded-2xl p-4 sm:p-5 hover:border-blue-500/40 transition-all duration-500 flex flex-col overflow-hidden shadow-sm hover:shadow-xl">
+                      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                      <div className="relative z-10 flex items-start justify-between mb-4">
+                        <div className="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center text-slate-300 group-hover:bg-blue-600 group-hover:text-white group-hover:rotate-3 transition-all duration-500 shadow-xl">
+                          <BookOpen className="h-5 w-5" />
+                        </div>
+                        <span className={`text-[10px] font-black px-3 py-1.5 rounded-full border tracking-[0.2em] uppercase backdrop-blur-xl ${course.category === 'Undergraduate' ? 'bg-blue-500/10 text-blue-400 border-blue-500/20' : course.category === 'Postgraduate' ? 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20' : 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20'}`}>
+                          {course.category}
+                        </span>
+                      </div>
+
+                      <div className="relative z-10 flex-1">
+                        <h4 className="text-base sm:text-lg font-black text-white mb-2 tracking-tighter group-hover:text-blue-400 transition-colors uppercase leading-tight line-clamp-2">
+                          {course.name}
+                        </h4>
+                        <p className="text-slate-400 font-light text-xs leading-relaxed mb-4 line-clamp-3">
+                          {course.description}
+                        </p>
+                      </div>
+
+                      <div className="relative z-10 space-y-3 pt-4 border-t border-white/5">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-3 opacity-80">
+                            <Clock className="h-3 w-3 text-blue-400" />
+                            <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Duration</span>
+                          </div>
+                          <span className="text-xs font-bold text-slate-200">{course.duration}</span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-3 opacity-80">
+                            <Award className="h-3 w-3 text-blue-400" />
+                            <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Investment</span>
+                          </div>
+                          <span className="text-xs font-bold text-blue-400">{course.fees || 'TBA'}</span>
+                        </div>
+                        {course.offeredByUniversities && course.offeredByUniversities.length > 0 && (
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center space-x-3 opacity-80">
+                              <GraduationCap className="h-3 w-3 text-blue-400" />
+                              <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">University</span>
+                            </div>
+                            <span className="text-[10px] font-bold text-slate-200 line-clamp-1 text-right max-w-[120px]">{course.offeredByUniversities![0].name}</span>
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="relative z-10 mt-4 pt-4 border-t border-white/5 flex space-x-2 mt-auto">
+                        <Link
+                          href={course.url || '#'}
+                          target="_blank"
+                          className="flex-1 bg-white/5 hover:bg-white/10 text-white py-2 rounded-lg text-[10px] font-bold transition-all flex items-center justify-center space-x-1 border border-white/10 uppercase tracking-widest"
+                        >
+                          <Eye className="h-3 w-3" />
+                          <span>View</span>
+                        </Link>
+                        <button
+                          onClick={() => openCourseModal(course)}
+                          className="flex-1 bg-blue-600/10 hover:bg-blue-600 text-blue-400 hover:text-white py-2 rounded-lg text-[10px] font-bold transition-all flex items-center justify-center space-x-1 border border-blue-500/30 uppercase tracking-widest"
+                        >
+                          <Edit className="h-3 w-3" />
+                          <span>Edit</span>
+                        </button>
+                        <button
+                          onClick={() => deleteCourse(course._id!)}
+                          className="flex-1 bg-red-600/10 hover:bg-red-600 text-red-400 hover:text-white py-2 rounded-lg text-[10px] font-bold transition-all flex items-center justify-center space-x-1 border border-red-600/30 uppercase tracking-widest"
+                        >
+                          <Trash2 className="h-3 w-3" />
+                          <span>Delete</span>
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              );
+            })()}
           </div>
         </div>
       </div>
@@ -2671,109 +2731,165 @@ export default function AdminDashboard() {
         </div>
         <div className="p-6">
           <div className="w-full">
-            {universities.length === 0 ? (
-              <div className="text-center py-12">
-                <GraduationCap className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-white mb-2">No universities found</h3>
-                <p className="text-slate-400 mb-4 text-sm font-mono tracking-tighter">Initialize database or add universities manually</p>
-                <div className="flex justify-center space-x-3">
-                  <button
-                    onClick={() => openUniversityModal()}
-                    className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm transition-colors"
-                  >
-                    Add Your First University
-                  </button>
-                  <button
-                    onClick={seedSampleData}
-                    disabled={isSeeding}
-                    className="bg-blue-600/20 hover:bg-blue-600 text-blue-400 hover:text-white px-4 py-2 rounded-lg text-sm transition-colors border border-blue-500/30"
-                  >
-                    {isSeeding ? 'Loading...' : 'Add Sample Data'}
-                  </button>
-                </div>
+            <div className="flex flex-col md:flex-row gap-4 mb-8">
+              <div className="flex-1 relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
+                <input
+                  type="text"
+                  placeholder="Search universities by name or location..."
+                  value={uniSearch}
+                  onChange={(e) => setUniSearch(e.target.value)}
+                  className="w-full bg-white/5 border border-white/10 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white focus:outline-none focus:border-green-500/50 transition-colors placeholder:text-slate-600"
+                />
               </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {universities.map((university, index) => (
-                  <div
-                    key={university._id || index}
-                    className="group relative h-full bg-[#050B14] border border-white/5 rounded-2xl overflow-hidden hover:border-green-500/40 transition-all duration-500 flex flex-col shadow-sm hover:shadow-xl p-4 sm:p-5"
-                  >
-                    <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-green-500 via-emerald-400 to-teal-500 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-700" />
-                    
-                    <div className="relative z-10 flex flex-col h-full">
-                      <div className="flex items-start justify-between mb-4">
-                        <div className="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center text-slate-300 group-hover:scale-110 group-hover:bg-green-600 group-hover:text-white transition-all duration-500">
-                          <Building className="w-5 h-5" />
-                        </div>
-                        <div className="text-right flex flex-col items-end">
-                          <div className="inline-flex items-center bg-green-500/10 text-green-400 px-2 py-0.5 rounded-full text-[9px] font-black tracking-widest mb-1 uppercase border border-green-500/10">
-                            {university.accreditation}
-                          </div>
-                          <div className="flex items-center justify-end text-yellow-500">
-                            <Star className="w-3 h-3 fill-current mr-1" />
-                            <span className="text-xs font-bold text-slate-200">{university.rating || '4.5'}</span>
-                          </div>
-                        </div>
-                      </div>
+              <div className="flex items-center space-x-3 bg-white/5 border border-white/10 rounded-xl px-4 py-1.5">
+                <Filter className="h-4 w-4 text-slate-500" />
+                <select
+                  value={uniFilter}
+                  onChange={(e) => setUniFilter(e.target.value)}
+                  className="bg-transparent border-none py-1.5 focus:outline-none text-sm text-slate-300 font-bold uppercase tracking-widest cursor-pointer"
+                >
+                  <option value="All" className="bg-[#050B14]">All Accreditations</option>
+                  <option value="NAAC A++" className="bg-[#050B14]">NAAC A++</option>
+                  <option value="NAAC A+" className="bg-[#050B14]">NAAC A+</option>
+                  <option value="UGC" className="bg-[#050B14]">UGC</option>
+                  <option value="AICTE" className="bg-[#050B14]">AICTE</option>
+                </select>
+              </div>
+            </div>
 
-                      <h3 className="text-base sm:text-lg font-bold text-white mb-2 group-hover:text-green-400 transition-colors tracking-tight uppercase italic line-clamp-2">{university.name}</h3>
-                      
-                      <div className="flex items-center text-slate-400 text-[10px] mb-3 space-x-2">
-                        <div className="flex items-center">
-                          <MapPin className="w-3 h-3 mr-1 text-green-400/70" />
-                          <span className="truncate max-w-[100px]">{university.location || 'India'}</span>
-                        </div>
-                        <div className="flex items-center">
-                          <Calendar className="w-3 h-3 mr-1 text-green-400/70" />
-                          <span>Est. {university.established}</span>
-                        </div>
-                      </div>
-                      
-                      <p className="text-slate-400 text-xs font-light leading-relaxed mb-4 flex-grow line-clamp-3">
-                        {university.description}
-                      </p>
-                      
-                      <div className="grid grid-cols-2 gap-2 mb-4">
-                        <div className="bg-white/5 rounded-lg p-2 border border-white/5">
-                          <div className="text-xs font-bold text-white">{university.totalStudents || university.studentsCount || '5K+'}</div>
-                          <div className="text-[8px] text-slate-400 font-black uppercase tracking-wider">Students</div>
-                        </div>
-                        <div className="bg-white/5 rounded-lg p-2 border border-white/5">
-                          <div className="text-xs font-bold text-white">{university.coursesOffered || '50+'}</div>
-                          <div className="text-[8px] text-slate-400 font-black uppercase tracking-wider">Courses</div>
-                        </div>
-                      </div>
+            {(() => {
+              const filtered = universities.filter(uni => {
+                const matchesSearch = uni.name.toLowerCase().includes(uniSearch.toLowerCase()) || 
+                                    (uni.location && uni.location.toLowerCase().includes(uniSearch.toLowerCase()));
+                const matchesFilter = uniFilter === 'All' || uni.accreditation === uniFilter;
+                return matchesSearch && matchesFilter;
+              });
 
-                      <div className="relative z-10 flex space-x-2 mt-auto pt-3 border-t border-white/5">
-                        <Link
-                          href={university.url || '#'}
-                          target="_blank"
-                          className="flex-1 bg-white/5 hover:bg-white/10 text-white py-2 rounded-lg text-[10px] font-bold transition-all flex items-center justify-center space-x-1 border border-white/10 uppercase tracking-widest"
-                        >
-                          <Eye className="h-3 w-3" />
-                          <span>View</span>
-                        </Link>
-                        <button
-                          onClick={() => openUniversityModal(university)}
-                          className="flex-1 bg-green-600/10 hover:bg-green-600 text-green-400 hover:text-white py-2 rounded-lg text-[10px] font-bold transition-all flex items-center justify-center space-x-1 border border-green-500/30 uppercase tracking-widest"
-                        >
-                          <Edit className="h-3 w-3" />
-                          <span>Edit</span>
-                        </button>
-                        <button
-                          onClick={() => deleteUniversity(university._id!)}
-                          className="flex-1 bg-red-600/10 hover:bg-red-600 text-red-400 hover:text-white py-2 rounded-lg text-[10px] font-bold transition-all flex items-center justify-center space-x-1 border border-red-600/30 uppercase tracking-widest"
-                        >
-                          <Trash2 className="h-3 w-3" />
-                          <span>Delete</span>
-                        </button>
-                      </div>
+              if (universities.length === 0) {
+                return (
+                  <div className="text-center py-12">
+                    <GraduationCap className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                    <h3 className="text-lg font-medium text-white mb-2">No universities found</h3>
+                    <p className="text-slate-400 mb-4 text-sm font-mono tracking-tighter">Initialize database or add universities manually</p>
+                    <div className="flex justify-center space-x-3">
+                      <button
+                        onClick={() => openUniversityModal()}
+                        className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm transition-colors"
+                      >
+                        Add Your First University
+                      </button>
+                      <button
+                        onClick={seedSampleData}
+                        disabled={isSeeding}
+                        className="bg-blue-600/20 hover:bg-blue-600 text-blue-400 hover:text-white px-4 py-2 rounded-lg text-sm transition-colors border border-blue-500/30"
+                      >
+                        {isSeeding ? 'Loading...' : 'Add Sample Data'}
+                      </button>
                     </div>
                   </div>
-                ))}
-              </div>
-            )}
+                );
+              }
+
+              if (filtered.length === 0) {
+                return (
+                  <div className="text-center py-12 bg-white/5 rounded-2xl border border-dashed border-white/10">
+                    <Search className="h-12 w-12 text-gray-600 mx-auto mb-4" />
+                    <h3 className="text-lg font-medium text-white mb-2">No matches found</h3>
+                    <p className="text-slate-400 text-sm">Try adjusting your search or filters</p>
+                    <button 
+                      onClick={() => { setUniSearch(''); setUniFilter('All'); }}
+                      className="mt-4 text-green-400 hover:text-white text-xs font-bold uppercase tracking-widest transition-colors"
+                    >
+                      Clear All Filters
+                    </button>
+                  </div>
+                );
+              }
+
+              return (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                  {filtered.map((university, index) => (
+                    <div
+                      key={university._id || index}
+                      className="group relative h-full bg-[#050B14] border border-white/5 rounded-2xl overflow-hidden hover:border-green-500/40 transition-all duration-500 flex flex-col shadow-sm hover:shadow-xl p-4 sm:p-5"
+                    >
+                      <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-green-500 via-emerald-400 to-teal-500 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-700" />
+                      
+                      <div className="relative z-10 flex flex-col h-full">
+                        <div className="flex items-start justify-between mb-4">
+                          <div className="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center text-slate-300 group-hover:scale-110 group-hover:bg-green-600 group-hover:text-white transition-all duration-500">
+                            <Building className="w-5 h-5" />
+                          </div>
+                          <div className="text-right flex flex-col items-end">
+                            <div className="inline-flex items-center bg-green-500/10 text-green-400 px-2 py-0.5 rounded-full text-[9px] font-black tracking-widest mb-1 uppercase border border-green-500/10">
+                              {university.accreditation}
+                            </div>
+                            <div className="flex items-center justify-end text-yellow-500">
+                              <Star className="w-3 h-3 fill-current mr-1" />
+                              <span className="text-xs font-bold text-slate-200">{university.rating || '4.5'}</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <h3 className="text-base sm:text-lg font-bold text-white mb-2 group-hover:text-green-400 transition-colors tracking-tight uppercase italic line-clamp-2">{university.name}</h3>
+                        
+                        <div className="flex items-center text-slate-400 text-[10px] mb-3 space-x-2">
+                          <div className="flex items-center">
+                            <MapPin className="w-3 h-3 mr-1 text-green-400/70" />
+                            <span className="truncate max-w-[100px]">{university.location || 'India'}</span>
+                          </div>
+                          <div className="flex items-center">
+                            <Calendar className="w-3 h-3 mr-1 text-green-400/70" />
+                            <span>Est. {university.established}</span>
+                          </div>
+                        </div>
+
+                        <p className="text-slate-400 text-xs font-light leading-relaxed mb-4 flex-grow line-clamp-3">
+                          {university.description}
+                        </p>
+
+                        <div className="grid grid-cols-2 gap-2 mb-4">
+                          <div className="bg-white/5 rounded-lg p-2 border border-white/5">
+                            <div className="text-xs font-bold text-white">{university.totalStudents || university.studentsCount || '5K+'}</div>
+                            <div className="text-[8px] text-slate-400 font-black uppercase tracking-wider">Students</div>
+                          </div>
+                          <div className="bg-white/5 rounded-lg p-2 border border-white/5">
+                            <div className="text-xs font-bold text-white">{university.coursesOffered || '50+'}</div>
+                            <div className="text-[8px] text-slate-400 font-black uppercase tracking-wider">Courses</div>
+                          </div>
+                        </div>
+
+                        <div className="relative z-10 flex space-x-2 mt-auto pt-3 border-t border-white/5">
+                          <Link
+                            href={university.url || '#'}
+                            target="_blank"
+                            className="flex-1 bg-white/5 hover:bg-white/10 text-white py-2 rounded-lg text-[10px] font-bold transition-all flex items-center justify-center space-x-1 border border-white/10 uppercase tracking-widest"
+                          >
+                            <Eye className="h-3 w-3" />
+                            <span>View</span>
+                          </Link>
+                          <button
+                            onClick={() => openUniversityModal(university)}
+                            className="flex-1 bg-green-600/10 hover:bg-green-600 text-green-400 hover:text-white py-2 rounded-lg text-[10px] font-bold transition-all flex items-center justify-center space-x-1 border border-green-500/30 uppercase tracking-widest"
+                          >
+                            <Edit className="h-3 w-3" />
+                            <span>Edit</span>
+                          </button>
+                          <button
+                            onClick={() => deleteUniversity(university._id!)}
+                            className="flex-1 bg-red-600/10 hover:bg-red-600 text-red-400 hover:text-white py-2 rounded-lg text-[10px] font-bold transition-all flex items-center justify-center space-x-1 border border-red-600/30 uppercase tracking-widest"
+                          >
+                            <Trash2 className="h-3 w-3" />
+                            <span>Delete</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              );
+            })()}
           </div>
         </div>
       </div>
