@@ -109,6 +109,8 @@ interface University {
   feeStructure?: string;
   createdAt?: string;
   updatedAt?: string;
+  rating?: string;
+  studentsCount?: string;
 }
 
 interface Blog {
@@ -2602,7 +2604,7 @@ export default function AdminDashboard() {
                             <GraduationCap className="h-4 w-4 text-blue-400" />
                             <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">University</span>
                           </div>
-                          <span className="text-xs font-bold text-slate-200 line-clamp-1 text-right max-w-[150px]">{course.offeredByUniversities[0].name}</span>
+                          <span className="text-xs font-bold text-slate-200 line-clamp-1 text-right max-w-[150px]">{course.offeredByUniversities![0].name}</span>
                         </div>
                       )}
                     </div>
@@ -2616,7 +2618,7 @@ export default function AdminDashboard() {
                         <span>Edit</span>
                       </button>
                       <button
-                        onClick={() => deleteCourse(course._id)}
+                        onClick={() => deleteCourse(course._id!)}
                         className="flex-1 bg-red-600/10 hover:bg-red-600 text-red-400 hover:text-white py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center space-x-2 border border-red-600/30 uppercase tracking-widest"
                       >
                         <Trash2 className="h-4 w-4" />
@@ -2742,7 +2744,7 @@ export default function AdminDashboard() {
                           <span>Edit</span>
                         </button>
                         <button
-                          onClick={() => deleteUniversity(university._id)}
+                          onClick={() => deleteUniversity(university._id!)}
                           className="flex-1 bg-red-600/10 hover:bg-red-600 text-red-400 hover:text-white py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center space-x-2 border border-red-600/30 uppercase tracking-widest"
                         >
                           <Trash2 className="h-4 w-4" />
@@ -4587,9 +4589,9 @@ export default function AdminDashboard() {
                 <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">University</span>
               </div>
               <span className="text-xs font-bold text-slate-200 line-clamp-1 text-right max-w-[150px]">
-                {typeof courseForm.offeredByUniversities[0] === 'string'
-                  ? universities.find(u => u._id === courseForm.offeredByUniversities[0])?.name || 'Loading...'
-                  : (courseForm.offeredByUniversities[0] as any).name || 'Loading...'}
+                {typeof courseForm.offeredByUniversities![0] === 'string'
+                  ? universities.find(u => u._id === courseForm.offeredByUniversities![0])?.name || 'Loading...'
+                  : (courseForm.offeredByUniversities![0] as any).name || 'Loading...'}
               </span>
             </div>
           )}
