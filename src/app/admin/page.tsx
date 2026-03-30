@@ -348,12 +348,14 @@ export default function AdminDashboard() {
         } else if (activeSection === 'subscribers') {
           fetchAnalyticsData(); // This fetches subscriptions
           fetchContacts(); // Also fetch contacts for cross-reference
-        } else if (activeSection === 'add-course') {
+        } else if (activeSection === 'courses') {
           fetchCourses();
-        } else if (activeSection === 'add-university') {
+        } else if (activeSection === 'universities') {
           fetchUniversities();
         } else if (activeSection === 'services') {
           fetchServices();
+        } else if (activeSection === 'gallery') {
+          fetchGalleryImages();
         } else if (activeSection === 'applications') {
           fetchCourseApplications();
         } else if (activeSection === 'analytics') {
@@ -2560,14 +2562,14 @@ export default function AdminDashboard() {
                 </div>
               </div>
             ) : (
-              <div className="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {courses.map((course, index) => (
-                  <div key={course._id || index} className="group relative h-full bg-[#050B14] border border-white/5 rounded-[32px] p-6 sm:p-8 hover:border-blue-500/40 transition-all duration-500 flex flex-col overflow-hidden shadow-sm hover:shadow-xl">
+                  <div key={course._id || index} className="group relative h-full bg-[#050B14] border border-white/5 rounded-2xl p-4 sm:p-5 hover:border-blue-500/40 transition-all duration-500 flex flex-col overflow-hidden shadow-sm hover:shadow-xl">
                     <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
-                    <div className="relative z-10 flex items-start justify-between mb-8">
-                      <div className="w-14 h-14 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center text-slate-300 group-hover:bg-blue-600 group-hover:text-white group-hover:rotate-3 transition-all duration-500 shadow-xl">
-                        <BookOpen className="h-6 w-6" />
+                    <div className="relative z-10 flex items-start justify-between mb-4">
+                      <div className="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center text-slate-300 group-hover:bg-blue-600 group-hover:text-white group-hover:rotate-3 transition-all duration-500 shadow-xl">
+                        <BookOpen className="h-5 w-5" />
                       </div>
                       <span className={`text-[10px] font-black px-3 py-1.5 rounded-full border tracking-[0.2em] uppercase backdrop-blur-xl ${course.category === 'Undergraduate' ? 'bg-blue-500/10 text-blue-400 border-blue-500/20' : course.category === 'Postgraduate' ? 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20' : 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20'}`}>
                         {course.category}
@@ -2575,53 +2577,53 @@ export default function AdminDashboard() {
                     </div>
 
                     <div className="relative z-10 flex-1">
-                      <h4 className="text-xl sm:text-2xl font-black text-white mb-3 tracking-tighter group-hover:text-blue-400 transition-colors uppercase leading-tight line-clamp-2">
+                      <h4 className="text-base sm:text-lg font-black text-white mb-2 tracking-tighter group-hover:text-blue-400 transition-colors uppercase leading-tight line-clamp-2">
                         {course.name}
                       </h4>
-                      <p className="text-slate-400 font-light text-sm leading-relaxed mb-6 line-clamp-3">
+                      <p className="text-slate-400 font-light text-xs leading-relaxed mb-4 line-clamp-3">
                         {course.description}
                       </p>
                     </div>
 
-                    <div className="relative z-10 space-y-4 pt-6 border-t border-white/5">
+                    <div className="relative z-10 space-y-3 pt-4 border-t border-white/5">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-3 opacity-80">
-                          <Clock className="h-4 w-4 text-blue-400" />
-                          <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Duration</span>
+                          <Clock className="h-3 w-3 text-blue-400" />
+                          <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Duration</span>
                         </div>
-                        <span className="text-sm font-bold text-slate-200">{course.duration}</span>
+                        <span className="text-xs font-bold text-slate-200">{course.duration}</span>
                       </div>
                       <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-3 opacity-80">
-                          <Award className="h-4 w-4 text-blue-400" />
-                          <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Investment</span>
+                          <Award className="h-3 w-3 text-blue-400" />
+                          <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Investment</span>
                         </div>
-                        <span className="text-sm font-bold text-blue-400">{course.fees || 'TBA'}</span>
+                        <span className="text-xs font-bold text-blue-400">{course.fees || 'TBA'}</span>
                       </div>
                       {course.offeredByUniversities && course.offeredByUniversities.length > 0 && (
                         <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-3 opacity-80">
-                            <GraduationCap className="h-4 w-4 text-blue-400" />
-                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">University</span>
+                            <GraduationCap className="h-3 w-3 text-blue-400" />
+                            <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">University</span>
                           </div>
-                          <span className="text-xs font-bold text-slate-200 line-clamp-1 text-right max-w-[150px]">{course.offeredByUniversities![0].name}</span>
+                          <span className="text-[10px] font-bold text-slate-200 line-clamp-1 text-right max-w-[120px]">{course.offeredByUniversities![0].name}</span>
                         </div>
                       )}
                     </div>
 
-                    <div className="relative z-10 mt-6 pt-6 border-t border-white/5 flex space-x-3 mt-auto">
+                    <div className="relative z-10 mt-4 pt-4 border-t border-white/5 flex space-x-2 mt-auto">
                       <button
                         onClick={() => openCourseModal(course)}
-                        className="flex-1 bg-blue-600/10 hover:bg-blue-600 text-blue-400 hover:text-white py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center space-x-2 border border-blue-500/30 uppercase tracking-widest"
+                        className="flex-1 bg-blue-600/10 hover:bg-blue-600 text-blue-400 hover:text-white py-2 rounded-lg text-[10px] font-bold transition-all flex items-center justify-center space-x-1 border border-blue-500/30 uppercase tracking-widest"
                       >
-                        <Edit className="h-4 w-4" />
+                        <Edit className="h-3 w-3" />
                         <span>Edit</span>
                       </button>
                       <button
                         onClick={() => deleteCourse(course._id!)}
-                        className="flex-1 bg-red-600/10 hover:bg-red-600 text-red-400 hover:text-white py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center space-x-2 border border-red-600/30 uppercase tracking-widest"
+                        className="flex-1 bg-red-600/10 hover:bg-red-600 text-red-400 hover:text-white py-2 rounded-lg text-[10px] font-bold transition-all flex items-center justify-center space-x-1 border border-red-600/30 uppercase tracking-widest"
                       >
-                        <Trash2 className="h-4 w-4" />
+                        <Trash2 className="h-3 w-3" />
                         <span>Delete</span>
                       </button>
                     </div>
@@ -2683,71 +2685,71 @@ export default function AdminDashboard() {
                 </div>
               </div>
             ) : (
-              <div className="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {universities.map((university, index) => (
                   <div
                     key={university._id || index}
-                    className="group relative h-full bg-[#050B14] border border-white/5 rounded-[32px] overflow-hidden hover:border-green-500/40 transition-all duration-500 flex flex-col shadow-sm hover:shadow-xl p-6 sm:p-8"
+                    className="group relative h-full bg-[#050B14] border border-white/5 rounded-2xl overflow-hidden hover:border-green-500/40 transition-all duration-500 flex flex-col shadow-sm hover:shadow-xl p-4 sm:p-5"
                   >
                     <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-green-500 via-emerald-400 to-teal-500 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-700" />
                     
                     <div className="relative z-10 flex flex-col h-full">
-                      <div className="flex items-start justify-between mb-8">
-                        <div className="w-14 h-14 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center text-slate-300 group-hover:scale-110 group-hover:bg-green-600 group-hover:text-white transition-all duration-500">
-                          <Building className="w-6 h-6" />
+                      <div className="flex items-start justify-between mb-4">
+                        <div className="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center text-slate-300 group-hover:scale-110 group-hover:bg-green-600 group-hover:text-white transition-all duration-500">
+                          <Building className="w-5 h-5" />
                         </div>
                         <div className="text-right flex flex-col items-end">
-                          <div className="inline-flex items-center bg-green-500/10 text-green-400 px-3 py-1 rounded-full text-[10px] font-black tracking-widest mb-2 uppercase border border-green-500/10">
+                          <div className="inline-flex items-center bg-green-500/10 text-green-400 px-2 py-0.5 rounded-full text-[9px] font-black tracking-widest mb-1 uppercase border border-green-500/10">
                             {university.accreditation}
                           </div>
                           <div className="flex items-center justify-end text-yellow-500">
-                            <Star className="w-3.5 h-3.5 fill-current mr-1" />
-                            <span className="text-sm font-bold text-slate-200">{university.rating || '4.5'}</span>
+                            <Star className="w-3 h-3 fill-current mr-1" />
+                            <span className="text-xs font-bold text-slate-200">{university.rating || '4.5'}</span>
                           </div>
                         </div>
                       </div>
 
-                      <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 group-hover:text-green-400 transition-colors tracking-tight uppercase italic line-clamp-2">{university.name}</h3>
+                      <h3 className="text-base sm:text-lg font-bold text-white mb-2 group-hover:text-green-400 transition-colors tracking-tight uppercase italic line-clamp-2">{university.name}</h3>
                       
-                      <div className="flex items-center text-slate-400 text-xs mb-4 space-x-3">
+                      <div className="flex items-center text-slate-400 text-[10px] mb-3 space-x-2">
                         <div className="flex items-center">
-                          <MapPin className="w-4 h-4 mr-1.5 text-green-400/70" />
-                          <span className="truncate max-w-[120px]">{university.location || 'India'}</span>
+                          <MapPin className="w-3 h-3 mr-1 text-green-400/70" />
+                          <span className="truncate max-w-[100px]">{university.location || 'India'}</span>
                         </div>
                         <div className="flex items-center">
-                          <Calendar className="w-4 h-4 mr-1.5 text-green-400/70" />
+                          <Calendar className="w-3 h-3 mr-1 text-green-400/70" />
                           <span>Est. {university.established}</span>
                         </div>
                       </div>
                       
-                      <p className="text-slate-400 text-sm font-light leading-relaxed mb-6 flex-grow line-clamp-3">
+                      <p className="text-slate-400 text-xs font-light leading-relaxed mb-4 flex-grow line-clamp-3">
                         {university.description}
                       </p>
                       
-                      <div className="grid grid-cols-2 gap-3 mb-6">
-                        <div className="bg-white/5 rounded-xl p-3 border border-white/5">
-                          <div className="text-sm font-bold text-white">{university.totalStudents || university.studentsCount || '5K+'}</div>
-                          <div className="text-[9px] text-slate-400 font-black uppercase tracking-wider">Students</div>
+                      <div className="grid grid-cols-2 gap-2 mb-4">
+                        <div className="bg-white/5 rounded-lg p-2 border border-white/5">
+                          <div className="text-xs font-bold text-white">{university.totalStudents || university.studentsCount || '5K+'}</div>
+                          <div className="text-[8px] text-slate-400 font-black uppercase tracking-wider">Students</div>
                         </div>
-                        <div className="bg-white/5 rounded-xl p-3 border border-white/5">
-                          <div className="text-sm font-bold text-white">{university.coursesOffered || '50+'}</div>
-                          <div className="text-[9px] text-slate-400 font-black uppercase tracking-wider">Courses</div>
+                        <div className="bg-white/5 rounded-lg p-2 border border-white/5">
+                          <div className="text-xs font-bold text-white">{university.coursesOffered || '50+'}</div>
+                          <div className="text-[8px] text-slate-400 font-black uppercase tracking-wider">Courses</div>
                         </div>
                       </div>
 
-                      <div className="relative z-10 flex space-x-3 mt-auto pt-4 border-t border-white/5">
+                      <div className="relative z-10 flex space-x-2 mt-auto pt-3 border-t border-white/5">
                         <button
                           onClick={() => openUniversityModal(university)}
-                          className="flex-1 bg-green-600/10 hover:bg-green-600 text-green-400 hover:text-white py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center space-x-2 border border-green-500/30 uppercase tracking-widest"
+                          className="flex-1 bg-green-600/10 hover:bg-green-600 text-green-400 hover:text-white py-2 rounded-lg text-[10px] font-bold transition-all flex items-center justify-center space-x-1 border border-green-500/30 uppercase tracking-widest"
                         >
-                          <Edit className="h-4 w-4" />
+                          <Edit className="h-3 w-3" />
                           <span>Edit</span>
                         </button>
                         <button
                           onClick={() => deleteUniversity(university._id!)}
-                          className="flex-1 bg-red-600/10 hover:bg-red-600 text-red-400 hover:text-white py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center space-x-2 border border-red-600/30 uppercase tracking-widest"
+                          className="flex-1 bg-red-600/10 hover:bg-red-600 text-red-400 hover:text-white py-2 rounded-lg text-[10px] font-bold transition-all flex items-center justify-center space-x-1 border border-red-600/30 uppercase tracking-widest"
                         >
-                          <Trash2 className="h-4 w-4" />
+                          <Trash2 className="h-3 w-3" />
                           <span>Delete</span>
                         </button>
                       </div>
