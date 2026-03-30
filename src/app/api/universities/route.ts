@@ -30,9 +30,27 @@ export async function POST(request: NextRequest) {
       }, { status: 400 });
     }
 
+    // Connect to database
+    const conn = await connectDB();
+    if (!conn) {
+      return NextResponse.json({ 
+        success: false, 
+        error: 'Database connection failed. Please try again later.' 
+      }, { status: 503 });
+    }
+
+    // Auto-generate URL if not provided
     if (!body.url) {
       body.url = '/universities/' + body.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
     }
+
+    // Ensure unique URL
+    let finalUrl = body.url;
+    const existingUni = await University.findOne({ url: finalUrl });
+    if (existingUni) {
+      finalUrl = `${body.url}-${Math.random().toString(36).substring(2, 7)}`;
+    }
+    body.url = finalUrl;
 
     const optionalFields = ['location', 'website'];
     optionalFields.forEach(field => {
@@ -48,14 +66,7 @@ export async function POST(request: NextRequest) {
       }, { status: 400 });
     }
     
-    const conn = await connectDB();
-    if (!conn) {
-      return NextResponse.json({ 
-        success: false, 
-        error: 'Database connection failed. Please try again later.' 
-      }, { status: 503 });
-    }
-    
+    // Create university in database
     const university = new University(body);
     await university.save();
     console.log('University saved successfully:', university._id);

@@ -31,10 +31,27 @@ export async function POST(request: NextRequest) {
       }, { status: 400 });
     }
 
+    // Connect to database
+    const conn = await connectDB();
+    if (!conn) {
+      return NextResponse.json({ 
+        success: false, 
+        error: 'Database connection failed. Please try again later.' 
+      }, { status: 503 });
+    }
+
     // Auto-generate URL if not provided
     if (!body.url) {
       body.url = '/courses/' + body.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
     }
+
+    // Ensure unique URL
+    let finalUrl = body.url;
+    const existingCourse = await Course.findOne({ url: finalUrl });
+    if (existingCourse) {
+      finalUrl = `${body.url}-${Math.random().toString(36).substring(2, 7)}`;
+    }
+    body.url = finalUrl;
 
     // Clean up empty strings for optional fields
     const optionalFields = ['fees', 'eligibility', 'curriculum', 'careerOpportunities', 'admissionProcess', 
@@ -53,15 +70,6 @@ export async function POST(request: NextRequest) {
         success: false, 
         error: 'Description must be at least 10 characters long' 
       }, { status: 400 });
-    }
-    
-    // Connect to database
-    const conn = await connectDB();
-    if (!conn) {
-      return NextResponse.json({ 
-        success: false, 
-        error: 'Database connection failed. Please try again later.' 
-      }, { status: 503 });
     }
     
     // Create course in database
