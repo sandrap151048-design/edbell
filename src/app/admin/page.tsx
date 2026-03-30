@@ -103,10 +103,8 @@ interface University {
   campusSize?: string;
   totalStudents?: string;
   facultyCount?: string;
-  coursesOffered?: string;
   specializations?: string;
   facilities?: string;
-  admissionProcess?: string;
   feeStructure?: string;
   createdAt?: string;
   updatedAt?: string;
@@ -225,10 +223,8 @@ export default function AdminDashboard() {
     campusSize: '',
     totalStudents: '',
     facultyCount: '',
-    coursesOffered: '',
     specializations: '',
     facilities: '',
-    admissionProcess: '',
     feeStructure: ''
   });
   const [blogForm, setBlogForm] = useState<Blog>({
@@ -454,7 +450,7 @@ export default function AdminDashboard() {
         if (selectedContact?._id === id) {
           setSelectedContact({ ...selectedContact, status: newStatus });
         }
-        alert('✅ Contact status updated successfully!');
+        alert('âœ… Contact status updated successfully!');
       }
     } catch (error) {
       console.error('Error updating contact status:', error);
@@ -475,7 +471,7 @@ export default function AdminDashboard() {
         if (selectedContact?._id === id) {
           setSelectedContact(null);
         }
-        alert('✅ Contact enquiry deleted successfully!');
+        alert('âœ… Contact enquiry deleted successfully!');
       }
     } catch (error) {
       console.error('Error deleting contact enquiry:', error);
@@ -596,15 +592,15 @@ export default function AdminDashboard() {
     try {
       // Validate required fields on frontend
       if (!courseForm.name.trim()) {
-        alert('❌ Course name is required');
+        alert('âŒ Course name is required');
         return;
       }
       if (!courseForm.description.trim() || courseForm.description.length < 10) {
-        alert('❌ Description is required and must be at least 10 characters long');
+        alert('âŒ Description is required and must be at least 10 characters long');
         return;
       }
       if (!courseForm.duration.trim()) {
-        alert('❌ Duration is required');
+        alert('âŒ Duration is required');
         return;
       }
 
@@ -616,7 +612,7 @@ export default function AdminDashboard() {
       const data = await response.json();
 
       if (!response.ok) {
-        alert(`❌ Error creating course: ${data.error || 'Server error'}`);
+        alert(`âŒ Error creating course: ${data.error || 'Server error'}`);
         return;
       }
 
@@ -624,13 +620,13 @@ export default function AdminDashboard() {
         setCourses([...courses, data.course]);
         setShowCourseModal(false);
         resetCourseForm();
-        alert('✅ Course created successfully!');
+        alert('âœ… Course created successfully!');
       } else {
-        alert(`❌ Error creating course: ${data.error}`);
+        alert(`âŒ Error creating course: ${data.error}`);
       }
     } catch (error) {
       console.error('Error creating course:', error);
-      alert('❌ Error creating course. Please check your internet connection and try again.');
+      alert('âŒ Error creating course. Please check your internet connection and try again.');
     }
   };
 
@@ -638,15 +634,15 @@ export default function AdminDashboard() {
     try {
       // Validate required fields on frontend
       if (!courseForm.name.trim()) {
-        alert('❌ Course name is required');
+        alert('âŒ Course name is required');
         return;
       }
       if (!courseForm.description.trim() || courseForm.description.length < 10) {
-        alert('❌ Description is required and must be at least 10 characters long');
+        alert('âŒ Description is required and must be at least 10 characters long');
         return;
       }
       if (!courseForm.duration.trim()) {
-        alert('❌ Duration is required');
+        alert('âŒ Duration is required');
         return;
       }
 
@@ -658,7 +654,7 @@ export default function AdminDashboard() {
       const data = await response.json();
 
       if (!response.ok) {
-        alert(`❌ Error updating course: ${data.error || 'Server error'}`);
+        alert(`âŒ Error updating course: ${data.error || 'Server error'}`);
         return;
       }
 
@@ -667,13 +663,13 @@ export default function AdminDashboard() {
         setShowCourseModal(false);
         setEditingCourse(null);
         resetCourseForm();
-        alert('✅ Course updated successfully!');
+        alert('âœ… Course updated successfully!');
       } else {
-        alert(`❌ Error updating course: ${data.error}`);
+        alert(`âŒ Error updating course: ${data.error}`);
       }
     } catch (error) {
       console.error('Error updating course:', error);
-      alert('❌ Error updating course. Please check your internet connection and try again.');
+      alert('âŒ Error updating course. Please check your internet connection and try again.');
     }
   };
 
@@ -687,7 +683,7 @@ export default function AdminDashboard() {
       const data = await response.json();
       if (data.success) {
         setCourses(courses.filter(c => c._id !== id));
-        alert('✅ Course deleted successfully!');
+        alert('âœ… Course deleted successfully!');
       }
     } catch (error) {
       console.error('Error deleting course:', error);
@@ -727,19 +723,19 @@ export default function AdminDashboard() {
     try {
       // Validate required fields on frontend
       if (!universityForm.name.trim()) {
-        alert('❌ University name is required');
+        alert('âŒ University name is required');
         return;
       }
       if (!universityForm.description.trim() || universityForm.description.length < 10) {
-        alert('❌ Description is required and must be at least 10 characters long');
+        alert('âŒ Description is required and must be at least 10 characters long');
         return;
       }
       if (!universityForm.accreditation.trim()) {
-        alert('❌ Accreditation is required');
+        alert('âŒ Accreditation is required');
         return;
       }
       if (!universityForm.established.trim()) {
-        alert('❌ Established year is required');
+        alert('âŒ Established year is required');
         return;
       }
 
@@ -751,7 +747,7 @@ export default function AdminDashboard() {
       const data = await response.json();
 
       if (!response.ok) {
-        alert(`❌ Error creating university: ${data.error || 'Server error'}`);
+        alert(`âŒ Error creating university: ${data.error || 'Server error'}`);
         return;
       }
 
@@ -759,13 +755,13 @@ export default function AdminDashboard() {
         setUniversities([...universities, data.university]);
         setShowUniversityModal(false);
         resetUniversityForm();
-        alert('✅ University created successfully!');
+        alert('âœ… University created successfully!');
       } else {
-        alert(`❌ Error creating university: ${data.error}`);
+        alert(`âŒ Error creating university: ${data.error}`);
       }
     } catch (error) {
       console.error('Error creating university:', error);
-      alert('❌ Error creating university. Please check your internet connection and try again.');
+      alert('âŒ Error creating university. Please check your internet connection and try again.');
     }
   };
 
@@ -773,19 +769,19 @@ export default function AdminDashboard() {
     try {
       // Validate required fields on frontend
       if (!universityForm.name.trim()) {
-        alert('❌ University name is required');
+        alert('âŒ University name is required');
         return;
       }
       if (!universityForm.description.trim() || universityForm.description.length < 10) {
-        alert('❌ Description is required and must be at least 10 characters long');
+        alert('âŒ Description is required and must be at least 10 characters long');
         return;
       }
       if (!universityForm.accreditation.trim()) {
-        alert('❌ Accreditation is required');
+        alert('âŒ Accreditation is required');
         return;
       }
       if (!universityForm.established.trim()) {
-        alert('❌ Established year is required');
+        alert('âŒ Established year is required');
         return;
       }
 
@@ -797,7 +793,7 @@ export default function AdminDashboard() {
       const data = await response.json();
 
       if (!response.ok) {
-        alert(`❌ Error updating university: ${data.error || 'Server error'}`);
+        alert(`âŒ Error updating university: ${data.error || 'Server error'}`);
         return;
       }
 
@@ -806,13 +802,13 @@ export default function AdminDashboard() {
         setShowUniversityModal(false);
         setEditingUniversity(null);
         resetUniversityForm();
-        alert('✅ University updated successfully!');
+        alert('âœ… University updated successfully!');
       } else {
-        alert(`❌ Error updating university: ${data.error}`);
+        alert(`âŒ Error updating university: ${data.error}`);
       }
     } catch (error) {
       console.error('Error updating university:', error);
-      alert('❌ Error updating university. Please check your internet connection and try again.');
+      alert('âŒ Error updating university. Please check your internet connection and try again.');
     }
   };
 
@@ -826,7 +822,7 @@ export default function AdminDashboard() {
       const data = await response.json();
       if (data.success) {
         setUniversities(universities.filter(u => u._id !== id));
-        alert('✅ University deleted successfully!');
+        alert('âœ… University deleted successfully!');
       }
     } catch (error) {
       console.error('Error deleting university:', error);
@@ -847,10 +843,8 @@ export default function AdminDashboard() {
       campusSize: '',
       totalStudents: '',
       facultyCount: '',
-      coursesOffered: '',
       specializations: '',
       facilities: '',
-      admissionProcess: '',
       feeStructure: ''
     });
   };
@@ -872,23 +866,23 @@ export default function AdminDashboard() {
     try {
       // Validate required fields on frontend
       if (!blogForm.title.trim()) {
-        alert('❌ Blog title is required');
+        alert('âŒ Blog title is required');
         return;
       }
       if (!blogForm.excerpt.trim() || blogForm.excerpt.length < 20) {
-        alert('❌ Excerpt is required and must be at least 20 characters long');
+        alert('âŒ Excerpt is required and must be at least 20 characters long');
         return;
       }
       if (!blogForm.content.trim() || blogForm.content.length < 100) {
-        alert('❌ Content is required and must be at least 100 characters long');
+        alert('âŒ Content is required and must be at least 100 characters long');
         return;
       }
       if (!blogForm.author.trim()) {
-        alert('❌ Author name is required');
+        alert('âŒ Author name is required');
         return;
       }
       if (!blogForm.readTime.trim()) {
-        alert('❌ Read time is required');
+        alert('âŒ Read time is required');
         return;
       }
 
@@ -903,13 +897,13 @@ export default function AdminDashboard() {
         setBlogs([...blogs, data.blog]);
         setShowBlogModal(false);
         resetBlogForm();
-        alert('✅ Blog post created successfully!');
+        alert('âœ… Blog post created successfully!');
       } else {
-        alert(`❌ Error creating blog: ${data.error}`);
+        alert(`âŒ Error creating blog: ${data.error}`);
       }
     } catch (error) {
       console.error('Error creating blog:', error);
-      alert('❌ Error creating blog. Please check your internet connection and try again.');
+      alert('âŒ Error creating blog. Please check your internet connection and try again.');
     }
   };
 
@@ -917,23 +911,23 @@ export default function AdminDashboard() {
     try {
       // Validate required fields on frontend
       if (!blogForm.title.trim()) {
-        alert('❌ Blog title is required');
+        alert('âŒ Blog title is required');
         return;
       }
       if (!blogForm.excerpt.trim() || blogForm.excerpt.length < 20) {
-        alert('❌ Excerpt is required and must be at least 20 characters long');
+        alert('âŒ Excerpt is required and must be at least 20 characters long');
         return;
       }
       if (!blogForm.content.trim() || blogForm.content.length < 100) {
-        alert('❌ Content is required and must be at least 100 characters long');
+        alert('âŒ Content is required and must be at least 100 characters long');
         return;
       }
       if (!blogForm.author.trim()) {
-        alert('❌ Author name is required');
+        alert('âŒ Author name is required');
         return;
       }
       if (!blogForm.readTime.trim()) {
-        alert('❌ Read time is required');
+        alert('âŒ Read time is required');
         return;
       }
 
@@ -949,13 +943,13 @@ export default function AdminDashboard() {
         setShowBlogModal(false);
         setEditingBlog(null);
         resetBlogForm();
-        alert('✅ Blog post updated successfully!');
+        alert('âœ… Blog post updated successfully!');
       } else {
-        alert(`❌ Error updating blog: ${data.error}`);
+        alert(`âŒ Error updating blog: ${data.error}`);
       }
     } catch (error) {
       console.error('Error updating blog:', error);
-      alert('❌ Error updating blog. Please check your internet connection and try again.');
+      alert('âŒ Error updating blog. Please check your internet connection and try again.');
     }
   };
 
@@ -1023,17 +1017,17 @@ export default function AdminDashboard() {
   const createGalleryImage = async () => {
     try {
       if (!selectedFile) {
-        alert('❌ Please select an image file');
+        alert('âŒ Please select an image file');
         return;
       }
 
       // Validate required fields
       if (!galleryForm.title.trim()) {
-        alert('❌ Image title is required');
+        alert('âŒ Image title is required');
         return;
       }
       if (!galleryForm.description.trim() || galleryForm.description.length < 10) {
-        alert('❌ Description is required and must be at least 10 characters long');
+        alert('âŒ Description is required and must be at least 10 characters long');
         return;
       }
 
@@ -1060,24 +1054,24 @@ export default function AdminDashboard() {
         setShowGalleryModal(false);
         resetGalleryForm();
         setSelectedFile(null);
-        alert('✅ Image uploaded successfully!');
+        alert('âœ… Image uploaded successfully!');
       } else {
-        alert(`❌ Error uploading image: ${data.error}`);
+        alert(`âŒ Error uploading image: ${data.error}`);
       }
     } catch (error) {
       console.error('Error uploading image:', error);
-      alert('❌ Error uploading image. Please check your internet connection and try again.');
+      alert('âŒ Error uploading image. Please check your internet connection and try again.');
     }
   };
 
   const updateGalleryImage = async () => {
     try {
       if (!galleryForm.title.trim()) {
-        alert('❌ Image title is required');
+        alert('âŒ Image title is required');
         return;
       }
       if (!galleryForm.description.trim() || galleryForm.description.length < 10) {
-        alert('❌ Description is required and must be at least 10 characters long');
+        alert('âŒ Description is required and must be at least 10 characters long');
         return;
       }
 
@@ -1093,13 +1087,13 @@ export default function AdminDashboard() {
         setShowGalleryModal(false);
         setEditingGalleryImage(null);
         resetGalleryForm();
-        alert('✅ Image updated successfully!');
+        alert('âœ… Image updated successfully!');
       } else {
-        alert(`❌ Error updating image: ${data.error}`);
+        alert(`âŒ Error updating image: ${data.error}`);
       }
     } catch (error) {
       console.error('Error updating image:', error);
-      alert('❌ Error updating image. Please check your internet connection and try again.');
+      alert('âŒ Error updating image. Please check your internet connection and try again.');
     }
   };
 
@@ -1227,11 +1221,11 @@ export default function AdminDashboard() {
   const createService = async () => {
     try {
       if (!serviceForm.title.trim()) {
-        alert('❌ Service title is required');
+        alert('âŒ Service title is required');
         return;
       }
       if (!serviceForm.description.trim()) {
-        alert('❌ Service description is required');
+        alert('âŒ Service description is required');
         return;
       }
       const response = await fetch('/api/services', {
@@ -1244,13 +1238,13 @@ export default function AdminDashboard() {
         setServices([...services, data.service]);
         setShowServiceModal(false);
         resetServiceForm();
-        alert('✅ Service created successfully!');
+        alert('âœ… Service created successfully!');
       } else {
-        alert(`❌ Error creating service: ${data.error}`);
+        alert(`âŒ Error creating service: ${data.error}`);
       }
     } catch (error) {
       console.error('Error creating service:', error);
-      alert('❌ Error creating service. Please try again.');
+      alert('âŒ Error creating service. Please try again.');
     }
   };
 
@@ -1267,11 +1261,11 @@ export default function AdminDashboard() {
         setShowServiceModal(false);
         setEditingService(null);
         resetServiceForm();
-        alert('✅ Service updated successfully!');
+        alert('âœ… Service updated successfully!');
       }
     } catch (error) {
       console.error('Error updating service:', error);
-      alert('❌ Error updating service');
+      alert('âŒ Error updating service');
     }
   };
 
@@ -1282,7 +1276,7 @@ export default function AdminDashboard() {
       const data = await response.json();
       if (data.success) {
         setServices(services.filter(s => s._id !== id));
-        alert('✅ Service deleted successfully!');
+        alert('âœ… Service deleted successfully!');
       }
     } catch (error) {
       console.error('Error deleting service:', error);
@@ -1500,7 +1494,7 @@ export default function AdminDashboard() {
                         </span>
                       </div>
                       <p className="text-sm text-slate-400 mb-1">{contact.subject}</p>
-                      <p className="text-xs text-slate-500">{contact.email} • {formatDate(contact.createdAt)}</p>
+                      <p className="text-xs text-slate-500">{contact.email} â€¢ {formatDate(contact.createdAt)}</p>
                     </div>
                     <Eye className="h-4 w-4 text-slate-600" />
                   </div>
@@ -1817,7 +1811,7 @@ export default function AdminDashboard() {
                                   setCourseApplications(courseApplications.map(a => 
                                     a._id === selectedContact._id ? { ...a, status: newStatus } : a
                                   ) as any);
-                                  alert('✅ Status updated successfully');
+                                  alert('âœ… Status updated successfully');
                                 }
                               } catch (err) {
                                 console.error('Error updating status:', err);
@@ -1842,7 +1836,7 @@ export default function AdminDashboard() {
                              if (response.ok) {
                                setCourseApplications(courseApplications.filter(a => a._id !== selectedContact._id));
                                setSelectedContact(null);
-                               alert('✅ Deleted successfully');
+                               alert('âœ… Deleted successfully');
                              }
                            } catch (err) {
                              console.error('Error deleting application:', err);
@@ -1976,7 +1970,7 @@ export default function AdminDashboard() {
                 onClick={() => {
                   const newsletterUrl = `${window.location.origin}/#newsletter`;
                   navigator.clipboard.writeText(newsletterUrl);
-                  alert('✅ Newsletter signup link copied to clipboard');
+                  alert('âœ… Newsletter signup link copied to clipboard');
                 }}
                 className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors"
               >
@@ -2849,14 +2843,10 @@ export default function AdminDashboard() {
                           {university.description}
                         </p>
 
-                        <div className="grid grid-cols-2 gap-2 mb-4">
+                        <div className="grid grid-cols-1 gap-2 mb-4">
                           <div className="bg-white/5 rounded-lg p-2 border border-white/5">
                             <div className="text-xs font-bold text-white">{university.totalStudents || university.studentsCount || '5K+'}</div>
                             <div className="text-[8px] text-slate-400 font-black uppercase tracking-wider">Students</div>
-                          </div>
-                          <div className="bg-white/5 rounded-lg p-2 border border-white/5">
-                            <div className="text-xs font-bold text-white">{university.coursesOffered || '50+'}</div>
-                            <div className="text-[8px] text-slate-400 font-black uppercase tracking-wider">Courses</div>
                           </div>
                         </div>
 
@@ -3489,7 +3479,7 @@ export default function AdminDashboard() {
       const data = await response.json();
 
       if (response.ok) {
-        setUploadMessage('✓ Home hero image uploaded successfully! Refresh the home page to see changes.');
+        setUploadMessage('âœ“ Home hero image uploaded successfully! Refresh the home page to see changes.');
         setHeroImageFile(null);
         setHeroImagePreview('');
         const fileInput = document.getElementById('hero-image-input') as HTMLInputElement;
@@ -3526,7 +3516,7 @@ export default function AdminDashboard() {
       const data = await response.json();
 
       if (response.ok) {
-        setAboutUploadMessage('✓ About hero image uploaded successfully! Refresh the about page to see changes.');
+        setAboutUploadMessage('âœ“ About hero image uploaded successfully! Refresh the about page to see changes.');
         setAboutHeroFile(null);
         setAboutHeroPreview('');
         const fileInput = document.getElementById('about-hero-input') as HTMLInputElement;
@@ -3575,7 +3565,7 @@ export default function AdminDashboard() {
       const data = await response.json();
 
       if (response.ok) {
-        setCampusUploadMessage('✓ Campus image uploaded successfully! Refresh the home page to see changes.');
+        setCampusUploadMessage('âœ“ Campus image uploaded successfully! Refresh the home page to see changes.');
         setCampusImageFile(null);
         setCampusImagePreview('');
         const fileInput = document.getElementById('campus-image-input') as HTMLInputElement;
@@ -3626,16 +3616,16 @@ export default function AdminDashboard() {
       const data = await response.json();
 
       if (response.ok) {
-        setServicesUploadMessage('✓ Services image uploaded successfully! Refresh the services page to see changes.');
+        setServicesUploadMessage('âœ“ Services image uploaded successfully! Refresh the services page to see changes.');
         setServicesImageFile(null);
         setServicesImagePreview('');
         const fileInput = document.getElementById('services-image-input') as HTMLInputElement;
         if (fileInput) fileInput.value = '';
       } else {
-        setServicesUploadMessage(`✗ Upload failed: ${data.error || 'Unknown error'}`);
+        setServicesUploadMessage(`âœ— Upload failed: ${data.error || 'Unknown error'}`);
       }
     } catch (error) {
-      setServicesUploadMessage('✗ Upload failed. Please try again.');
+      setServicesUploadMessage('âœ— Upload failed. Please try again.');
       console.error('Services image upload error:', error);
     } finally {
       setUploadingServices(false);
@@ -3677,16 +3667,16 @@ export default function AdminDashboard() {
       const data = await response.json();
 
       if (response.ok) {
-        setGalleryHeroUploadMessage('✓ Gallery hero image uploaded successfully! Refresh the gallery page to see changes.');
+        setGalleryHeroUploadMessage('âœ“ Gallery hero image uploaded successfully! Refresh the gallery page to see changes.');
         setGalleryHeroFile(null);
         setGalleryHeroPreview('');
         const fileInput = document.getElementById('gallery-hero-input') as HTMLInputElement;
         if (fileInput) fileInput.value = '';
       } else {
-        setGalleryHeroUploadMessage(`✗ Upload failed: ${data.error || 'Unknown error'}`);
+        setGalleryHeroUploadMessage(`âœ— Upload failed: ${data.error || 'Unknown error'}`);
       }
     } catch (error) {
-      setGalleryHeroUploadMessage('✗ Upload failed. Please try again.');
+      setGalleryHeroUploadMessage('âœ— Upload failed. Please try again.');
       console.error('Gallery hero upload error:', error);
     } finally {
       setUploadingGalleryHero(false);
@@ -3770,7 +3760,7 @@ export default function AdminDashboard() {
                 </button>
 
                 {uploadMessage && (
-                  <div className={`p-3 rounded-lg text-sm ${uploadMessage.includes('✓')
+                  <div className={`p-3 rounded-lg text-sm ${uploadMessage.includes('âœ“')
                     ? 'bg-green-100 text-green-800'
                     : 'bg-red-100 text-red-800'
                     }`}>
@@ -3850,7 +3840,7 @@ export default function AdminDashboard() {
                 </button>
 
                 {aboutUploadMessage && (
-                  <div className={`p-3 rounded-lg text-sm ${aboutUploadMessage.includes('✓')
+                  <div className={`p-3 rounded-lg text-sm ${aboutUploadMessage.includes('âœ“')
                     ? 'bg-green-100 text-green-800'
                     : 'bg-red-100 text-red-800'
                     }`}>
@@ -3930,7 +3920,7 @@ export default function AdminDashboard() {
                 </button>
 
                 {campusUploadMessage && (
-                  <div className={`p-3 rounded-lg text-sm ${campusUploadMessage.includes('✓')
+                  <div className={`p-3 rounded-lg text-sm ${campusUploadMessage.includes('âœ“')
                     ? 'bg-green-100 text-green-800'
                     : 'bg-red-100 text-red-800'
                     }`}>
@@ -4010,7 +4000,7 @@ export default function AdminDashboard() {
                 </button>
 
                 {servicesUploadMessage && (
-                  <div className={`p-3 rounded-lg text-sm ${servicesUploadMessage.includes('✓')
+                  <div className={`p-3 rounded-lg text-sm ${servicesUploadMessage.includes('âœ“')
                     ? 'bg-green-100 text-green-800'
                     : 'bg-red-100 text-red-800'
                     }`}>
@@ -4090,7 +4080,7 @@ export default function AdminDashboard() {
                 </button>
 
                 {galleryHeroUploadMessage && (
-                  <div className={`p-3 rounded-lg text-sm ${galleryHeroUploadMessage.includes('✓')
+                  <div className={`p-3 rounded-lg text-sm ${galleryHeroUploadMessage.includes('âœ“')
                     ? 'bg-green-100 text-green-800'
                     : 'bg-red-100 text-red-800'
                     }`}>
@@ -4208,7 +4198,7 @@ export default function AdminDashboard() {
 
                   {/* Upload Message */}
                   {uploadMessage && (
-                    <div className={`p-3 rounded-lg text-sm ${uploadMessage.includes('✓')
+                    <div className={`p-3 rounded-lg text-sm ${uploadMessage.includes('âœ“')
                       ? 'bg-green-100 text-green-800'
                       : 'bg-red-100 text-red-800'
                       }`}>
@@ -4586,7 +4576,7 @@ export default function AdminDashboard() {
                     value={courseForm.fees}
                     onChange={(e) => setCourseForm({ ...courseForm, fees: e.target.value })}
                     className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                    placeholder="e.g., ₹50,000 per year or ₹25,000 total"
+                    placeholder="e.g., â‚¹50,000 per year or â‚¹25,000 total"
                   />
                 </div>
                 <div>
@@ -4642,7 +4632,7 @@ export default function AdminDashboard() {
                   {/* University Selector */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      🏛️ Offered By Universities
+                      ðŸ›ï¸ Offered By Universities
                     </label>
                     <p className="text-xs text-gray-500 mb-3">Select which universities offer this course. Selected universities will appear on the public course page.</p>
                     {universities.length === 0 ? (
@@ -4924,16 +4914,7 @@ export default function AdminDashboard() {
                   </div>
                 </div>
 
-                <div className="mt-6">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Courses Offered</label>
-                  <textarea
-                    value={universityForm.coursesOffered}
-                    onChange={(e) => setUniversityForm({ ...universityForm, coursesOffered: e.target.value })}
-                    rows={3}
-                    className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                    placeholder="e.g., Undergraduate: BA, B.Com, BBA, B.Sc, B.Tech. Postgraduate: MA, M.Com, MBA, M.Sc, M.Tech. Doctoral: Ph.D programs in various disciplines..."
-                  />
-                </div>
+
 
                 <div className="mt-6">
                   <label className="block text-sm font-medium text-gray-700 mb-1">Specializations</label>
@@ -4957,16 +4938,7 @@ export default function AdminDashboard() {
                   />
                 </div>
 
-                <div className="mt-6">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Admission Process</label>
-                  <textarea
-                    value={universityForm.admissionProcess}
-                    onChange={(e) => setUniversityForm({ ...universityForm, admissionProcess: e.target.value })}
-                    rows={3}
-                    className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                    placeholder="e.g., Online application, Document verification, Entrance examination, Merit-based selection, Counseling process, Final admission..."
-                  />
-                </div>
+
 
                 <div className="mt-6">
                   <label className="block text-sm font-medium text-gray-700 mb-1">Fee Structure</label>
@@ -4975,7 +4947,7 @@ export default function AdminDashboard() {
                     onChange={(e) => setUniversityForm({ ...universityForm, feeStructure: e.target.value })}
                     rows={3}
                     className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                    placeholder="e.g., Undergraduate: ₹15,000-25,000 per year. Postgraduate: ₹20,000-35,000 per year. Flexible payment options available..."
+                    placeholder="e.g., Undergraduate: â‚¹15,000-25,000 per year. Postgraduate: â‚¹20,000-35,000 per year. Flexible payment options available..."
                   />
                 </div>
               </div>
