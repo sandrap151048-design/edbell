@@ -39,6 +39,12 @@ export async function POST(request: NextRequest) {
       }, { status: 503 });
     }
 
+    // Ensure unique name
+    const existingName = await University.findOne({ name: body.name });
+    if (existingName) {
+      return NextResponse.json({ success: false, error: 'University with this name already exists' }, { status: 400 });
+    }
+
     // Auto-generate URL if not provided
     if (!body.url) {
       body.url = '/universities/' + body.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');

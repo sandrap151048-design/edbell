@@ -4,6 +4,7 @@ const UniversitySchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, 'University name is required'],
+    unique: true,
     trim: true
   },
   url: {

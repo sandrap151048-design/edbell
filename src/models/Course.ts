@@ -4,6 +4,7 @@ const CourseSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, 'Course name is required'],
+    unique: true,
     trim: true
   },
   url: {
