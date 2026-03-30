@@ -2612,6 +2612,14 @@ export default function AdminDashboard() {
                     </div>
 
                     <div className="relative z-10 mt-4 pt-4 border-t border-white/5 flex space-x-2 mt-auto">
+                      <Link
+                        href={course.url || '#'}
+                        target="_blank"
+                        className="flex-1 bg-white/5 hover:bg-white/10 text-white py-2 rounded-lg text-[10px] font-bold transition-all flex items-center justify-center space-x-1 border border-white/10 uppercase tracking-widest"
+                      >
+                        <Eye className="h-3 w-3" />
+                        <span>View</span>
+                      </Link>
                       <button
                         onClick={() => openCourseModal(course)}
                         className="flex-1 bg-blue-600/10 hover:bg-blue-600 text-blue-400 hover:text-white py-2 rounded-lg text-[10px] font-bold transition-all flex items-center justify-center space-x-1 border border-blue-500/30 uppercase tracking-widest"
@@ -2738,6 +2746,14 @@ export default function AdminDashboard() {
                       </div>
 
                       <div className="relative z-10 flex space-x-2 mt-auto pt-3 border-t border-white/5">
+                        <Link
+                          href={university.url || '#'}
+                          target="_blank"
+                          className="flex-1 bg-white/5 hover:bg-white/10 text-white py-2 rounded-lg text-[10px] font-bold transition-all flex items-center justify-center space-x-1 border border-white/10 uppercase tracking-widest"
+                        >
+                          <Eye className="h-3 w-3" />
+                          <span>View</span>
+                        </Link>
                         <button
                           onClick={() => openUniversityModal(university)}
                           className="flex-1 bg-green-600/10 hover:bg-green-600 text-green-400 hover:text-white py-2 rounded-lg text-[10px] font-bold transition-all flex items-center justify-center space-x-1 border border-green-500/30 uppercase tracking-widest"
